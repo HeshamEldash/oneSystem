@@ -40,13 +40,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
    # project apps
-    'financial',
-    'analytics',
-    'appointments',
-    'medicines',
-    'records',
     'users',
-    'website',
+
 ]
 
 MIDDLEWARE = [
@@ -89,7 +84,7 @@ WSGI_APPLICATION = 'oneSystem_core.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'NAME': BASE_DIR / 'oneSysDb.sqlite3',
     }
 }
 
@@ -137,3 +132,4 @@ STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+AUTH_USER_MODEL = 'users.MyUser'
