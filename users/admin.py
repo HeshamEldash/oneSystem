@@ -5,7 +5,7 @@ from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from django.contrib.auth.forms import ReadOnlyPasswordHashField
 from django.core.exceptions import ValidationError
 
-from .models import MyUser, Patient, Provider, Staff, TelephoneNumber, Address
+from .models import Account, Patient, Provider, Staff, TelephoneNumber, Address
 
 
 class UserCreationForm(forms.ModelForm):
@@ -15,7 +15,7 @@ class UserCreationForm(forms.ModelForm):
     password2 = forms.CharField(label='Password confirmation', widget=forms.PasswordInput)
 
     class Meta:
-        model = MyUser
+        model = Account
         fields = ('email',)
 
     def clean_password2(self):
@@ -43,15 +43,22 @@ class UserChangeForm(forms.ModelForm):
     password = ReadOnlyPasswordHashField()
 
     class Meta:
-        model = MyUser
-        fields = ('email', 'password', 'is_active', 'is_admin')
+        model = Account
+        fields = ('email', 'is_active', 'is_admin')
 
 
-class UserAdmin(BaseUserAdmin):
+class PatientInline(admin.StackedInline):
+    model = Patient
+class StaffInline(admin.StackedInline):
+    model = Staff
+class AccountInline(admin.StackedInline):
+    model = Account
+
+
+class AccountAdmin(BaseUserAdmin):
     # The forms to add and change user instances
     form = UserChangeForm
     add_form = UserCreationForm
-
     # The fields to be used in displaying the User model.
     # These override the definitions on the base UserAdmin
     # that reference specific fields on auth.User.
@@ -61,8 +68,8 @@ class UserAdmin(BaseUserAdmin):
         (None, {'fields': ('email', 'password')}),
         ('Permissions', {'fields': ('is_admin',)}),
     )
-    # add_fieldsets is not a standard ModelAdmin attribute. UserAdmin
-    # overrides get_fieldsets to use this attribute when creating a user.
+    # # add_fieldsets is not a standard ModelAdmin attribute. UserAdmin
+    # # overrides get_fieldsets to use this attribute when creating a user.
     add_fieldsets = (
         (None, {
             'classes': ('wide',),
@@ -76,6 +83,7 @@ class UserAdmin(BaseUserAdmin):
 
 
 class TelephoneNumberInline(admin.StackedInline):
+    """ adds the telephone number inline to the patient and provider"""
     model = TelephoneNumber
     extra = 1
     fields = ("telephone_number",)
@@ -83,25 +91,30 @@ class TelephoneNumberInline(admin.StackedInline):
 
 
 class AddressInline(admin.StackedInline):
+    """ adds the address inline to the patient, staff and provider"""
+
     model = Address
     fields = ("unit_number", "first_line", "second_line", "city", "governrate")
     extra= 1
 
 
+#
+# class PatientAdmin (admin.ModelAdmin):
+#     inlines = [TelephoneNumberInline, AddressInline, AccountInline]
+#
+# class ProviderAdmin (admin.ModelAdmin):
+#     inlines = [TelephoneNumberInline, AddressInline]
+#
+# class StaffAdmin (admin.ModelAdmin):
+#     inlines = [TelephoneNumberInline, AddressInline, AccountInline]
 
-class PatientAdmin (admin.ModelAdmin):
-    inlines = [TelephoneNumberInline, AddressInline]
-
-
-
-class ProviderAdmin (admin.ModelAdmin):
-    inlines = [TelephoneNumberInline, AddressInline]
 
 # Now register the new UserAdmin...
-admin.site.register(MyUser, UserAdmin)
-admin.site.register(Patient, PatientAdmin)
+admin.site.register(Account)
+admin.site.register(Patient)
 admin.site.register(Staff)
-admin.site.register(Provider,ProviderAdmin)
+# # admin.site.register(UserProfile, UserProfileAdmin)
+# admin.site.register(Provider,ProviderAdmin)
 admin.site.register(TelephoneNumber)
 admin.site.register(Address)
 
