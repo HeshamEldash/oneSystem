@@ -1,3 +1,4 @@
+
 from django.db import models
 from django.contrib.auth.models import (PermissionsMixin)
 from django.contrib.auth.base_user import AbstractBaseUser, BaseUserManager
@@ -41,7 +42,7 @@ class AccountManager(BaseUserManager):
 
 class Account(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField(_("email"), max_length=200, unique=True)
-    date_joined = models.DateTimeField(_("date joined"), default=timezone.now)
+    date_joined = models.DateTimeField(_("date joined"), auto_now_add=True)
     is_active = models.BooleanField(_("active"), default=True)
     is_admin = models.BooleanField(_("staff status"), default=False)
 
@@ -71,12 +72,17 @@ class Account(AbstractBaseUser, PermissionsMixin):
     def __str__(self):
         return self.email
 
-
-class Patient(models.Model):
+class BaseProfile(models.Model):
     title = models.CharField(_("title"), max_length=20, unique=False, null=True)
     first_name = models.CharField(_("first name"), max_length=100, unique=False, null=False)
     middle_names = models.CharField(_("middle names"), max_length=100, unique=False, blank=True, default="")
     last_name = models.CharField(_("last name"), max_length=100, unique=False, null=False)
+
+    class Meta: 
+        abstract = True
+
+class Patient(BaseProfile, models.Model):
+
     date_of_birth = models.DateField(_("date of birth"), null=False, unique=False)
     account = models.OneToOneField(Account, on_delete=models.CASCADE, null=True)
 
@@ -88,7 +94,7 @@ class Patient(models.Model):
         return f"{self.first_name} {self.middle_names} {self.last_name}"
 
 
-class Staff(models.Model):
+class Staff(BaseProfile, models.Model):
     DOCTOR = "DR"
     NURSE = "NR"
     MANAGER = "MG"
@@ -103,13 +109,11 @@ class Staff(models.Model):
         (ADMIN, _('Admin')),
     )
 
-    title = models.CharField(_("title"), max_length=20, unique=False, blank=True, default="")
-    first_name = models.CharField(_("first name"), max_length=100, unique=False, null=False)
-    middle_names = models.CharField(_("middle names"), max_length=100, unique=False, null=True, default="")
-    last_name = models.CharField(_("last name"), max_length=100, unique=False, null=False)
+
     professional_number = models.CharField(_("professional number"), max_length=100, unique=True, blank=True, default="")
     staff_role = models.CharField(_("user role"), max_length=2, choices=ROLE_CHOICES)
     account = models.OneToOneField(Account, on_delete=models.PROTECT)
+
 
     class Meta:
         verbose_name = _("staff")
@@ -120,10 +124,11 @@ class Staff(models.Model):
 
 
 class Provider(models.Model):
+    owner = models.OneToOneField(Account, on_delete=models.CASCADE)
     name = models.CharField(_("name"), max_length=100, unique=False, null=False)
-    date_created = models.DateTimeField(_("date created"), default=timezone.now)
+    date_created = models.DateTimeField(_("date created"), auto_now_add=True)
     staff = models.ManyToManyField(Staff)
-    patient = models.ManyToManyField(Patient)
+    patients = models.ManyToManyField(Patient, through="Registration")
 
     class Meta:
         verbose_name = _("health care provider")
@@ -131,6 +136,22 @@ class Provider(models.Model):
 
     def __str__(self):
         return self.name
+
+
+# class Employment(models.Model):
+#     provider= models.ForeignKey(Provider, on_delete=models.DO_NOTHING)
+#     staff = models.ForeignKey(Staff, on_delete=models.DO_NOTHING)
+#     date_employed = models.DateField(auto_now_add=True)
+#     date_employment_end = models.DateField(null=True)
+#     salary = models.DecimalField(max_digits=6,decimal_places=2, null=True)
+
+class Registration(models.Model):
+    patinet = models.ForeignKey(Patient, on_delete=models.DO_NOTHING)
+    provider= models.ForeignKey(Provider, on_delete=models.DO_NOTHING)
+    date_registered = models.DateField(auto_now_add=True)
+    date_registration_end =models.DateField(null=True)
+
+
 
 
 class Address(models.Model):
@@ -151,9 +172,10 @@ class Address(models.Model):
 class TelephoneNumber(models.Model):
     telephone_number = models.CharField(_("telephone number"), max_length=100, unique=False, null=False)
 
-    provider = models.ForeignKey(Provider, on_delete=models.CASCADE, null=True)
-    staff = models.ForeignKey(Staff, on_delete=models.CASCADE, null=True)
-    patient = models.ForeignKey(Patient, on_delete=models.CASCADE, null=True)
+    owner_provider = models.ForeignKey("Provider", on_delete=models.CASCADE, null=True)
+    owner_staff = models.ForeignKey("Staff",related_name="phone_nums", on_delete=models.CASCADE, null=True)
+    owner_patient = models.ForeignKey("Patient", related_name="phone_nums" , on_delete=models.CASCADE, null=True)
 
+    
     def __str__(self):
         return self.telephone_number
