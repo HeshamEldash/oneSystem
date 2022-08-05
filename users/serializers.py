@@ -1,4 +1,3 @@
-from django.forms import CharField, ChoiceField
 from rest_framework import serializers
 from . import utils
 from .models import *
@@ -19,7 +18,7 @@ class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
 
 class TelephoneNumberSerializer(serializers.ModelSerializer):
     
-    telephone_number = serializers.CharField(max_length=30)
+    # telephone_number = serializers.CharField(max_length=30)
     class Meta:
         model = TelephoneNumber
         fields = ["telephone_number"]
@@ -42,11 +41,16 @@ class PatientProfileSerializer(serializers.Serializer):
     account = serializers.PrimaryKeyRelatedField(read_only=True)
 
     telephone_numbers = TelephoneNumberSerializer(source='phone_nums',many=True)
-    address = AddressSerializer(source="address_set", many=True)
+    address = AddressSerializer(many=False)
 
     def create(self, validated_data):
         return utils.create_patient_profile(**validated_data)
-        
+
+    def update(self, instance, validated_data):
+        return utils.update_patient_profile(instance=instance, **validated_data)
+         
+
+
 class PatientAccountSerializer(serializers.Serializer):
 
     id = serializers.CharField(read_only = True)
@@ -92,28 +96,29 @@ class StaffAccountSerializer(serializers.Serializer):
 
 class ProviderSerializer(serializers.Serializer):
     id = serializers.CharField(read_only = True)
-    owner = serializers.PrimaryKeyRelatedField(read_only=True)
+    name = serializers.CharField(max_length=200)
+    owner = serializers.SlugRelatedField(slug_field="email", read_only=True)
     date_created = serializers.DateTimeField(read_only=True)
-    
+
+    staff = StaffSerializer(many=True, read_only=True)
+    patients = PatientProfileSerializer(many=True, read_only=True)
+
+    address = AddressSerializer(source="address_set", many=True)
+    telephone_numbers = TelephoneNumberSerializer(source='phone_nums',many=True)
 
 
+    def create(self, validated_data):
+        current_user_email =None 
+        request = self.context.get("request")
+        if request and hasattr(request, "user"):
+            current_user=request.user
+            if hasattr(current_user, "email"):
+                current_user_email = current_user.email
+        return utils.create_update_provider(current_user_email, **validated_data)
 
+class RegistrationSerializer(serializers.ModelSerializer):
 
-
-# class PatientSerializer(serializers.ModelSerializer):
-#     telephone_numbers = TelephoneNumberSerializer(source='phone_nums',many=True)
-#     # patient_phone = serializers.CharField()
-#     class Meta:
-#         model = Patient
-#         fields = "__all__"
-
-
-#     def create(self, validated_data):
-#         return create_patient_profile(**validated_data)
-
-#     def update(self, instance, validated_data):
-#         instance.title= validated_data.get("title", instance.title)
-#         instance.first_name= validated_data.get("first_name", instance.first_name)
-#         instance.middle_names= validated_data.get("middle_names", instance.middle_names)
-#         instance.last_name = validated_data.get("last_name", instance.last_name)
-#         instance.date_of_birth= validated_data.get("date_of_birth", instance.date_of_birth)
+    class Meta:
+        model = Registration
+        fields= "__all__"
+        depth = 1

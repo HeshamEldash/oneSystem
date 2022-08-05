@@ -61,19 +61,42 @@ def patient(request,):
 # view patient 
 # update patient 
 # 
-class PatinetDetailView(generics.GenericAPIView, mixins.RetrieveModelMixin):
+class PatinetProfileDetailView(generics.GenericAPIView,  mixins.RetrieveModelMixin,
+                                mixins.CreateModelMixin, mixins.UpdateModelMixin):
     queryset=Patient.objects.all()
     serializer_class = PatientProfileSerializer
-    lookup_field= "pk"
-
-    def get(self,request, *args, **kwargs):
+ 
+    def get(self, request, *args, **kwargs):
         return self.retrieve(request, *args,**kwargs)
+
+    def post(self, request, *args, **kwargs):
+        return self.create(request, *args, **kwargs)
+
+    def put(self, request, *args, **kwargs):
+        return self.update(request, *args, **kwargs)
+
+class PatientAccountDetialView(generics.GenericAPIView, 
+                                mixins.RetrieveModelMixin,
+                                mixins.CreateModelMixin):
+    
+    queryset = Account.objects.all()
+    serializer_class = PatientAccountSerializer
+
+    def get(self, request, *args, **kwargs):
+        return self.retrieve(request, *args,**kwargs)
+
+    def post(self, request, *args, **kwargs):
+        return self.create(request, *args, **kwargs)
+
+class StaffDetailView():
+    pass
+
 
 class PatientTestView(generics.GenericAPIView, mixins.RetrieveModelMixin, 
     mixins.ListModelMixin, mixins.CreateModelMixin
                  ):
-    queryset= Account.objects.all()
-    serializer_class = StaffAccountSerializer
+    queryset= Registration.objects.all()
+    serializer_class = RegistrationSerializer
 
     lookup_field= "pk"
     # lookup_url_kwarg = "pk"

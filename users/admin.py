@@ -114,7 +114,7 @@ admin.site.register(Account)
 admin.site.register(Patient)
 admin.site.register(Staff)
 # # admin.site.register(UserProfile, UserProfileAdmin)
-# admin.site.register(Provider,ProviderAdmin)
+admin.site.register(Provider)
 admin.site.register(TelephoneNumber)
 admin.site.register(Address)
 

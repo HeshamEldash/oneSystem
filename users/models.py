@@ -109,11 +109,9 @@ class Staff(BaseProfile, models.Model):
         (ADMIN, _('Admin')),
     )
 
-
     professional_number = models.CharField(_("professional number"), max_length=100, unique=True, blank=True, default="")
     staff_role = models.CharField(_("user role"), max_length=2, choices=ROLE_CHOICES)
     account = models.OneToOneField(Account, on_delete=models.PROTECT)
-
 
     class Meta:
         verbose_name = _("staff")
@@ -129,6 +127,7 @@ class Provider(models.Model):
     date_created = models.DateTimeField(_("date created"), auto_now_add=True)
     staff = models.ManyToManyField(Staff)
     patients = models.ManyToManyField(Patient, through="Registration")
+
 
     class Meta:
         verbose_name = _("health care provider")
@@ -147,11 +146,9 @@ class Provider(models.Model):
 
 class Registration(models.Model):
     patinet = models.ForeignKey(Patient, on_delete=models.DO_NOTHING)
-    provider= models.ForeignKey(Provider, on_delete=models.DO_NOTHING)
+    provider = models.ForeignKey(Provider, on_delete=models.DO_NOTHING)
     date_registered = models.DateField(auto_now_add=True)
     date_registration_end =models.DateField(null=True)
-
-
 
 
 class Address(models.Model):
@@ -162,8 +159,8 @@ class Address(models.Model):
     governorate = models.CharField(_("governorate"), max_length=200, unique=False, blank=True, default="")
 
     provider = models.ForeignKey(Provider, on_delete=models.CASCADE, null=True)
-    staff = models.ForeignKey(Staff, on_delete=models.CASCADE, null=True)
-    patient = models.ForeignKey(Patient, on_delete=models.CASCADE, null=True)
+    staff = models.OneToOneField(Staff, on_delete=models.CASCADE, null=True)
+    patient = models.OneToOneField(Patient, on_delete=models.CASCADE, null=True)
 
     def __str__(self):
         return f"{self.unit_number} {self.first_line} {self.city} {self.governorate}"
@@ -172,10 +169,9 @@ class Address(models.Model):
 class TelephoneNumber(models.Model):
     telephone_number = models.CharField(_("telephone number"), max_length=100, unique=False, null=False)
 
-    owner_provider = models.ForeignKey("Provider", on_delete=models.CASCADE, null=True)
+    owner_provider = models.ForeignKey("Provider",related_name="phone_nums", on_delete=models.CASCADE, null=True)
     owner_staff = models.ForeignKey("Staff",related_name="phone_nums", on_delete=models.CASCADE, null=True)
     owner_patient = models.ForeignKey("Patient", related_name="phone_nums" , on_delete=models.CASCADE, null=True)
-
     
     def __str__(self):
         return self.telephone_number

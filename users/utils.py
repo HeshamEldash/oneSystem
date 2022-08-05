@@ -1,6 +1,7 @@
+from audioop import add
 from .models import Account, Patient, Staff, TelephoneNumber, Address, Provider
 from django.core.exceptions import ObjectDoesNotExist
-
+from django.conf import settings 
 #Final
 def create_staff(email, password, **kwargs):
     """
@@ -47,11 +48,61 @@ def create_patient_profile(**kwargs):
             )
 
     if address:
-        for ad in address:
-            Address.objects.create(patient=patient, **ad)
+        Address.objects.create(patient=patient, **address)
 
     patient.save()
     return patient
+
+# Final
+def update_patient_profile(instance, **kwargs):
+    """
+    Updates the profile of the patient 
+    will create new phone numbers if needed 
+    Will update the patient address if changed
+    """
+
+    phone_nums= kwargs.pop("phone_nums")
+    address = kwargs.pop("address")
+    instance.first_name = kwargs.get('first_name', instance.first_name)
+    instance.middle_names = kwargs.get('middle_names', instance.middle_names)
+    instance.last_name = kwargs.get('last_name', instance.last_name)
+    instance.date_of_birth = kwargs.get('date_of_birth', instance.date_of_birth)
+  
+    # This code will do 3 things:
+    # 1) Gets all previous instance (patient) numbers 
+    # 2) Loops through the incoming numbers, will either get it or 
+    #     if not in the DB will create it then adds to a list called new_nums
+    # 3) Compares the old & the new lists, if the number is in the old and not the new
+    #     it gets deleted
+    old_nums = instance.phone_nums.all()
+    new_nums = []
+    for num in phone_nums:
+        try:
+            obj = TelephoneNumber.objects.get(
+                owner_patient = instance, 
+                telephone_number = num["telephone_number"]
+            )
+        except:
+            obj = TelephoneNumber.objects.create(
+                owner_patient = instance, 
+                telephone_number = num["telephone_number"]
+            )
+        new_nums.append(obj)
+
+    for num_obj in old_nums:
+        if num_obj not in new_nums:
+            num_obj.delete() 
+
+    # to update the address
+    instance.address.unit_number = address["unit_number"]
+    instance.address.first_line = address["first_line"]
+    instance.address.second_line = address["second_line"]
+    instance.address.city = address["city"]
+    instance.address.governorate = address["governorate"]
+
+    instance.address.save()
+    instance.save()
+    return instance
 
 #Final
 def create_patient_account(email, password, **kwargs):
@@ -73,17 +124,17 @@ def create_patient_account(email, password, **kwargs):
 
     return patient_account
 
-
+#To finalise will need to confirm email is being 
+#passed from the request user 
+#also needs to deicde what happens with the update
 def create_update_provider(email, **kwargs):
+    """
+    Takes the email from the request user and finds that account. 
+    It then creates a Provider profile and assigns it to that account. 
+    """
     name = kwargs.get("name")
-
-    telephone_num = kwargs.get("telephone_number")
-
-    unit_number = kwargs.get("unit_number")
-    first_line = kwargs.get("first_line")
-    second_line = kwargs.get("second_line")
-    city = kwargs.get("city")
-    governorate = kwargs.get("governorate")
+    telephone_nums = kwargs.pop("phone_nums")
+    address = kwargs.pop("address_set")
 
     try:
         owner = Account.objects.get(email=email)
@@ -95,10 +146,17 @@ def create_update_provider(email, **kwargs):
     except ObjectDoesNotExist:
         provider = Provider.objects.create(name=name, owner=owner)
 
-    TelephoneNumber.objects.create(telephone_number=telephone_num, provider=provider)
-    Address.objects.create(unit_number=unit_number, first_line=first_line, second_line=second_line, city=city,
-                           governorate=governorate, provider=provider)
+
+    if telephone_nums:
+        for num in telephone_nums:
+            TelephoneNumber.objects.create(telephone_number=num, provider=provider)
+    if address:  
+        for ad in address:   
+            Address.objects.create(provider=provider, **ad)
 
     provider.save()
 
     return provider
+
+def create_registration():
+    pass 
