@@ -22,6 +22,48 @@ def create_staff(email, password, **kwargs):
     TelephoneNumber.objects.create(telephone_number=telephone_num, owner_staff=staff)
 
     return staff_account
+#FInal
+def update_staff(instance, **kwargs ):
+    """
+    Updates the staff profile. 
+    Used with StaffSerializer 
+    Desgined to be accessed by a user to update a profile 
+    """
+    phone_nums= kwargs.pop("phone_nums")
+    instance.first_name = kwargs.get('first_name', instance.first_name)
+    instance.middle_names = kwargs.get('middle_names', instance.middle_names)
+    instance.last_name = kwargs.get('last_name', instance.last_name)
+    instance.staff_role = kwargs.get('staff_role', instance.staff_role)
+    instance.professional_number = kwargs.get('professional_number', instance.professional_number)
+
+    # This code will do 3 things:
+    # 1) Gets all previous instance (staff) numbers 
+    # 2) Loops through the incoming numbers, will either get it or 
+    #     if not in the DB will create it then adds to a list called new_nums
+    # 3) Compares the old & the new lists, if the number is in the old and not the new
+    #     it gets deleted
+    old_nums = instance.phone_nums.all()
+    new_nums = []
+    for num in phone_nums:
+        try:
+            obj = TelephoneNumber.objects.get(
+                owner_staff = instance, 
+                telephone_number = num["telephone_number"]
+            )
+        except:
+            obj = TelephoneNumber.objects.create(
+                owner_staff = instance, 
+                telephone_number = num["telephone_number"]
+            )
+        new_nums.append(obj)
+
+    
+    for num_obj in old_nums:
+        if num_obj not in new_nums:
+            num_obj.delete() 
+
+    instance.save()
+    return instance
 
 #Final
 def create_patient_profile(**kwargs):

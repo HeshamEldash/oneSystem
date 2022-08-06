@@ -50,7 +50,6 @@ class PatientProfileSerializer(serializers.Serializer):
         return utils.update_patient_profile(instance=instance, **validated_data)
          
 
-
 class PatientAccountSerializer(serializers.Serializer):
 
     id = serializers.CharField(read_only = True)
@@ -83,6 +82,11 @@ class StaffSerializer(serializers.Serializer):
     staff_role = serializers.ChoiceField(ROLE_CHOICES)
     professional_number = serializers.CharField()
     telephone_numbers = TelephoneNumberSerializer(source='phone_nums',many=True)
+
+    
+    def update(self, instance, validated_data):
+        utils.update_staff(instance, **validated_data)    
+        return instance            
 
 class StaffAccountSerializer(serializers.Serializer):
     id = serializers.CharField(read_only = True)

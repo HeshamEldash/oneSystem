@@ -7,7 +7,10 @@ app_name = 'users'
 urlpatterns = [
 
     path("patient-profile-detail/<int:pk>/", PatinetProfileDetailView.as_view(), name= "patient_profile"),
-    path("patient-account-detail/<int:pk>/", PatientAccountDetialView.as_view(), name= "patient_account"),
+    path("patient-account-detail/<int:pk>/", PatientAccountDetailView.as_view(), name= "patient_account"),
+    path("staff-profile-detail/<int:pk>/", StaffProfileDetailView.as_view(), name= "staff_profile"),
+    
+    path("staff-account-detail/<int:pk>/", StaffDetailView.as_view(), name= "staff_account"),
 
 
     path("test_patient/<int:pk>/", PatientTestView.as_view(), name= "listPatient"),

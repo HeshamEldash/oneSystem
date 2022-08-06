@@ -75,9 +75,8 @@ class PatinetProfileDetailView(generics.GenericAPIView,  mixins.RetrieveModelMix
     def put(self, request, *args, **kwargs):
         return self.update(request, *args, **kwargs)
 
-class PatientAccountDetialView(generics.GenericAPIView, 
-                                mixins.RetrieveModelMixin,
-                                mixins.CreateModelMixin):
+class PatientAccountDetailView(generics.GenericAPIView,mixins.UpdateModelMixin, 
+                            mixins.RetrieveModelMixin,mixins.CreateModelMixin):
     
     queryset = Account.objects.all()
     serializer_class = PatientAccountSerializer
@@ -88,15 +87,57 @@ class PatientAccountDetialView(generics.GenericAPIView,
     def post(self, request, *args, **kwargs):
         return self.create(request, *args, **kwargs)
 
-class StaffDetailView():
-    pass
+class PatinetProfileDetailView(generics.GenericAPIView,  mixins.RetrieveModelMixin,
+                                mixins.CreateModelMixin, mixins.UpdateModelMixin):
+    queryset=Patient.objects.all()
+    serializer_class = PatientProfileSerializer
+ 
+    def get(self, request, *args, **kwargs):
+        return self.retrieve(request, *args,**kwargs)
+
+    def post(self, request, *args, **kwargs):
+        return self.create(request, *args, **kwargs)
+
+    def put(self, request, *args, **kwargs):
+        return self.update(request, *args, **kwargs)
+
+class StaffProfileDetailView(generics.GenericAPIView,  mixins.RetrieveModelMixin,
+                        mixins.CreateModelMixin, mixins.UpdateModelMixin):
+
+    queryset = Staff.objects.all()
+    serializer_class = StaffSerializer
+
+    def get(self, request, *args, **kwargs):
+        return self.retrieve(request, *args,**kwargs)
+
+    def post(self, request, *args, **kwargs):
+        return self.create(request, *args, **kwargs)
+
+    def put(self, request, *args, **kwargs):
+        return self.update(request, *args, **kwargs)
+
+
+class StaffDetailView(generics.GenericAPIView,  mixins.RetrieveModelMixin,
+                        mixins.CreateModelMixin, mixins.UpdateModelMixin):
+
+    queryset = Account.objects.exclude(staff = None)
+    serializer_class = StaffAccountSerializer
+
+    def get(self, request, *args, **kwargs):
+        return self.retrieve(request, *args,**kwargs)
+
+    def post(self, request, *args, **kwargs):
+        return self.create(request, *args, **kwargs)
+
+    def put(self, request, *args, **kwargs):
+        return self.update(request, *args, **kwargs)
 
 
 class PatientTestView(generics.GenericAPIView, mixins.RetrieveModelMixin, 
     mixins.ListModelMixin, mixins.CreateModelMixin
                  ):
-    queryset= Registration.objects.all()
-    serializer_class = RegistrationSerializer
+    queryset= Account.objects.exclude(staff = None)
+    serializer_class = StaffAccountSerializer
 
     lookup_field= "pk"
     # lookup_url_kwarg = "pk"
