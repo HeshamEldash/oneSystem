@@ -16,6 +16,34 @@ class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
         token["staff_role"] = user.staff_role
         return token
 
+class ChangePasswordSerializer(serializers.ModelSerializer):
+    password = serializers.CharField(write_only=True, required=True)
+    password2 = serializers.CharField(write_only=True, required=True)
+    old_password = serializers.CharField(write_only=True, required=True)
+
+    class Meta:
+        model = Account
+        fields = ('old_password', 'password', 'password2')
+
+    def validate(self, attrs):
+        if attrs['password'] != attrs['password2']:
+            raise serializers.ValidationError({"password": "Password fields didn't match."})
+
+        return attrs
+
+    def validate_old_password(self, value):
+        user = self.context['request'].user
+        if not user.check_password(value):
+            raise serializers.ValidationError({"old_password": "Old password is not correct"})
+        return value
+
+    def update(self, instance, validated_data):
+
+        instance.set_password(validated_data['password'])
+        instance.save()
+
+        return instance
+
 class TelephoneNumberSerializer(serializers.ModelSerializer):
     
     # telephone_number = serializers.CharField(max_length=30)
@@ -49,7 +77,6 @@ class PatientProfileSerializer(serializers.Serializer):
     def update(self, instance, validated_data):
         return utils.update_patient_profile(instance=instance, **validated_data)
          
-
 class PatientAccountSerializer(serializers.Serializer):
 
     id = serializers.CharField(read_only = True)
@@ -83,7 +110,7 @@ class StaffSerializer(serializers.Serializer):
     professional_number = serializers.CharField()
     telephone_numbers = TelephoneNumberSerializer(source='phone_nums',many=True)
 
-    
+
     def update(self, instance, validated_data):
         utils.update_staff(instance, **validated_data)    
         return instance            
@@ -120,9 +147,33 @@ class ProviderSerializer(serializers.Serializer):
                 current_user_email = current_user.email
         return utils.create_update_provider(current_user_email, **validated_data)
 
-class RegistrationSerializer(serializers.ModelSerializer):
+    def delete(self, instance):
+        instance.delete()
+        
+    def update(self, instance, validated_data):
+        return instance
 
+class RegistrationSerializer(serializers.ModelSerializer):
+    """
+    This serializer has a method to create a registration 
+    another method that sets the state of the registration to inactive 
+    """
     class Meta:
         model = Registration
         fields= "__all__"
-        depth = 1
+        extra_kwargs = {'date_registered': {'read_only': True},
+        'is_active': {'default': True}
+        , 'date_registration_end': {'required': False, "allow_null":True}}
+   
+    def create(self, validated_data):
+        return utils.create_registration( **validated_data)
+
+    def update(self, instance, validated_data):
+        self.Meta.extra_kwargs = {
+        'date_registered': {'read_only': True},
+        'patient': {'read_only': True},
+        'provider': {'read_only': True},
+        'is_active': {'default': True}, 
+        'date_registration_end': {'required': False, "allow_null":True}
+        }
+        return utils.end_registration(instance)

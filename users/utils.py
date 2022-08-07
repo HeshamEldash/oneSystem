@@ -1,7 +1,7 @@
-from audioop import add
-from .models import Account, Patient, Staff, TelephoneNumber, Address, Provider
+from .models import Account, Patient, Registration, Staff, TelephoneNumber, Address, Provider
 from django.core.exceptions import ObjectDoesNotExist
-from django.conf import settings 
+from django.utils import timezone 
+
 #Final
 def create_staff(email, password, **kwargs):
     """
@@ -200,5 +200,33 @@ def create_update_provider(email, **kwargs):
 
     return provider
 
-def create_registration():
-    pass 
+#Final
+def create_registration(**kwargs):
+    """
+    creates a new registration using a patient & a provider 
+    instances
+    Sets the date-time to now
+    """
+    patient = kwargs.get("patient")
+    provider = kwargs.get("provider") 
+    new_registration = Registration.objects.get_or_create(
+        patient=patient, 
+        provider=provider
+        )
+    return new_registration[0]
+
+#Final
+def end_registration(instance):
+    """
+    Sets the registration active state to false 
+    sets the end date to date-time now 
+    """
+    if instance.is_active == False:
+        return instance
+
+    is_active = False 
+    instance.is_active = is_active
+    instance.date_registration_end = timezone.now()
+
+    instance.save()
+    return instance 

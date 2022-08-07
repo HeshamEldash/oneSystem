@@ -39,7 +39,6 @@ class AccountManager(BaseUserManager):
         user.save(using=self._db)
         return user
 
-
 class Account(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField(_("email"), max_length=200, unique=True)
     date_joined = models.DateTimeField(_("date joined"), auto_now_add=True)
@@ -145,10 +144,11 @@ class Provider(models.Model):
 #     salary = models.DecimalField(max_digits=6,decimal_places=2, null=True)
 
 class Registration(models.Model):
-    patinet = models.ForeignKey(Patient, on_delete=models.DO_NOTHING)
+    patient = models.ForeignKey(Patient, on_delete=models.DO_NOTHING)
     provider = models.ForeignKey(Provider, on_delete=models.DO_NOTHING)
-    date_registered = models.DateField(auto_now_add=True)
-    date_registration_end =models.DateField(null=True)
+    date_registered = models.DateTimeField(auto_now_add=True)
+    is_active = models.BooleanField(default=True)
+    date_registration_end =models.DateTimeField(null=True)
 
 
 class Address(models.Model):
