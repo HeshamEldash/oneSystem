@@ -1,0 +1,54 @@
+{
+  "select_language": "اختار اللغة",
+  "hello_welcome_to_react": "مرحبًا بك في رد الفعل",
+  "this_is_an_example": "هذا مثال",
+  "hello": "من فضلك ادخل الاسم",
+  
+  "register": "اشترك الآن",
+  "Register": "اشترك الآن",
+
+  "please_enter_name": "Please enter your name",
+  "first_name": "الاسم الاول",
+
+  "enter_your_first_name" : "ادخل الاسم الاول",
+  "middle_names": "الاسماء",
+
+  "enter_your_middle_names":"ادخل الاسم الثاني",
+  
+  "last_name":"الاسم الاخير",
+  "enter_your_last_name" : "ادخل الاسم الاخير ",
+  
+  "professional_number": "الرقم المهني",
+  "enter_your_professional_number": "ادخل الرقم المهني",
+  
+  "staff_role": "الدور الوظيفي", 
+  "doctor": "دكتور",
+  "nurse": "تمريض",
+  "manager": "مدير",
+  "practitioner": "مهني",
+  "admin": "اداري",
+  
+
+  "telephone_number": "رقم الهاتف",
+  "enter_your_telephone_number": "ادخل رقم الهاتف",
+
+  "email": "البريد الالكتروني",
+  "enter_your_email": "ادخل البريد الالكتروني",
+
+  "password": "كلمة السر",
+  "enter_password": "ادخل كلمة السر",
+
+  "confirm_password": "تأكيد كلمة السر",
+  "renter_your_password": "اعد ادخال كلمة السر",
+  "already_have_an_account_?":"عندك حساب؟",
+  "login":"تسجيل دخول",
+
+  "required_error": "هذه الخانة مطلوبة.",
+  "email_error": "صيغة البريد الإلكتروني غير صحيحة",
+  "stronger_password_message": "يجب أن تتألف كلمة المرور من 8 أحرف على الأقل",
+  "password_match_error":"كلمة المرور يجب ان تتطابق",
+
+  "invalid_email_or_password": "اسم المستخدم أو كلمة المرور غير صحيحة",
+  "dont_have_an_account": "ليس لديك حساب؟"
+
+}

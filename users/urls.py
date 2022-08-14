@@ -7,11 +7,18 @@ app_name = 'users'
 urlpatterns = [
 
     # path('change_password/<int:pk>/', ChangePasswordView.as_view(), name='auth_change_password')
+        
+    path("account-status/", AccountStatusView.as_view(), name= "account_status"),
+    path("account-create/", CreateAccountView.as_view(), name= "account_create"),
 
     path("patient-profile-detail/<int:pk>/", PatinetProfileDetailView.as_view(), name= "patient_profile"),
     path("patient-account-detail/<int:pk>/", PatientAccountDetailView.as_view(), name= "patient_account"),
+
+    
     path("staff-profile-detail/<int:pk>/", StaffProfileDetailView.as_view(), name= "staff_profile"),
     path("staff-account-detail/<int:pk>/", StaffDetailView.as_view(), name= "staff_account"),
+    path("staff-create/", StaffCreateView.as_view(), name= "create_staff_account"),
+
     path("staff-list/<int:pk>/", StaffListView.as_view(), name= "staff_list"),
     
     path("registration/<int:provider_pk>/<int:patient_pk>/",RegistrationDetailView.as_view(), name= "registration_detail"),
@@ -19,7 +26,10 @@ urlpatterns = [
     
     path("provider/<int:pk>/", ProviderSerializer.as_view(), name = "provider"),
     
-    path("testing/<int:pk>/", TestView.as_view(), name= "tetsing"),
+    path("employment-provider-list/<int:pk>/",EmploymentListView.as_view(), name= "emplyment-list"),
+    path("employment-staff-list/<str:email>/",EmploymentListView.as_view(), name= "emplyment-list"),
+    
+    path("testing/<str:e>/", TestView.as_view(), name= "tetsing"),
     path('token/', MyTokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
 ]

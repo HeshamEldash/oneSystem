@@ -1,3 +1,5 @@
+
+from dataclasses import fields
 from rest_framework import serializers
 from . import utils
 from .models import *
@@ -12,9 +14,24 @@ class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
         token = super().get_token(user)
         token["is_staff"] = user.is_staff
         token["email"] = user.email
-        token["professional_number"] = user.professional_number
-        token["staff_role"] = user.staff_role
+        token["professional_number"] = user.staff.professional_number
+        token["staff_role"] = user.staff.staff_role
         return token
+
+class AccountStatusSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Account
+        fields= ["email"]
+
+class AccountSerializer(serializers.ModelSerializer):
+    email =serializers.EmailField()
+    password = serializers.CharField(write_only=True, style={'input_type': 'password'})
+    is_active = serializers.BooleanField(read_only=True)
+    
+    class Meta:
+        model = Account
+        fields= ["email", "password", "is_active"]
 
 class ChangePasswordSerializer(serializers.ModelSerializer):
     password = serializers.CharField(write_only=True, required=True)
@@ -152,6 +169,7 @@ class ProviderSerializer(serializers.Serializer):
         
     def update(self, instance, validated_data):
         return instance
+        
 
 class RegistrationSerializer(serializers.ModelSerializer):
     """
@@ -177,3 +195,16 @@ class RegistrationSerializer(serializers.ModelSerializer):
         'date_registration_end': {'required': False, "allow_null":True}
         }
         return utils.end_registration(instance)
+
+class EmploymentSerializer(serializers.ModelSerializer):
+    # provider = serializers.SlugRelatedField(
+    #     many=False,
+    #     queryset = Provider.objects.all(),
+    #     read_only=False,
+    #     slug_field='name'
+    #  )
+    provider = ProviderSerializer(many=False)
+
+    class Meta: 
+        model= Employment
+        fields = "__all__"

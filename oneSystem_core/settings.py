@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     #3rd party:
+     "corsheaders",
     'rest_framework',
     'rest_framework_simplejwt',
 
@@ -93,7 +94,7 @@ MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     # for serving react
     # "whitenoise.middleware.WhiteNoiseMiddleware",
-
+    "corsheaders.middleware.CorsMiddleware",
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -178,3 +179,5 @@ STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 AUTH_USER_MODEL = 'users.Account'
+
+CORS_ALLOW_ALL_ORIGINS = True

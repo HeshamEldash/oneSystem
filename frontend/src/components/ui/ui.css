@@ -1,0 +1,22 @@
+.main-navbar{
+    position: fixed;
+    top:87px;
+    overflow: hidden;
+    overflow-wrap: break-word;
+    width: 100%;
+    height: 70px;
+    box-shadow: 0 1px 5px rgb(189, 189, 189);
+    background-color: rgb(151, 180, 203);
+}
+.main-sidebar{
+    position: absolute;
+    display: flex;
+    height: 100vh;
+    width: 4.5rem;
+    background-color: var(--nav-sry--bg-color);
+    left: 0;
+    padding: 5px;
+    color: var(--nav-color);
+    justify-content: center;
+    align-items: center;
+}

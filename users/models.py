@@ -136,12 +136,12 @@ class Provider(models.Model):
         return self.name
 
 
-# class Employment(models.Model):
-#     provider= models.ForeignKey(Provider, on_delete=models.DO_NOTHING)
-#     staff = models.ForeignKey(Staff, on_delete=models.DO_NOTHING)
-#     date_employed = models.DateField(auto_now_add=True)
-#     date_employment_end = models.DateField(null=True)
-#     salary = models.DecimalField(max_digits=6,decimal_places=2, null=True)
+class Employment(models.Model):
+    provider= models.ForeignKey(Provider, on_delete=models.DO_NOTHING)
+    staff = models.ForeignKey(Staff, on_delete=models.DO_NOTHING)
+    date_employed = models.DateField(auto_now_add=True)
+    date_employment_end = models.DateField(null=True)
+    salary = models.DecimalField(max_digits=6,decimal_places=2, null=True)
 
 class Registration(models.Model):
     patient = models.ForeignKey(Patient, on_delete=models.DO_NOTHING)
