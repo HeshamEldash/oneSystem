@@ -230,3 +230,6 @@ def end_registration(instance):
 
     instance.save()
     return instance 
+
+
+    

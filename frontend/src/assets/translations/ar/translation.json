@@ -49,6 +49,8 @@
   "password_match_error":"كلمة المرور يجب ان تتطابق",
 
   "invalid_email_or_password": "اسم المستخدم أو كلمة المرور غير صحيحة",
-  "dont_have_an_account": "ليس لديك حساب؟"
-
+  "dont_have_an_account": "ليس لديك حساب؟",
+  
+  "go_to_profile": "اختار هذا الحساب"
+  
 }

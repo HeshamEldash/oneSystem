@@ -203,6 +203,52 @@ class EmploymentListView(generics.GenericAPIView,
     def post(self, request, *args, **kwargs):
         return self.create(request, *args, **kwargs)
     
+class LoginToProviderEventViewList(generics.GenericAPIView, mixins.CreateModelMixin, 
+                mixins.ListModelMixin, mixins.RetrieveModelMixin):
+
+    serializer_class = LoginToProviderEventSerializer
+    def get_queryset(self):
+        staff_pk = self.kwargs.get("staff_pk")
+        provider_pk = self.kwargs.get("provider_pk")
+
+
+        logins = LoginToProviderEvent.objects.filter(
+            staff=staff_pk, provider=provider_pk)
+        return logins            
+    def get_object(self):
+        queryset = self.get_queryset()
+        obj = queryset.latest("start_time")
+        return obj
+
+    def get(self,request, *args, **kwargs):
+        return self.list(request, *args,**kwargs)
+
+    def post(self, request, *args, **kwargs):
+        return self.create(request, *args, **kwargs)
+
+class LoginToProviderEventView(generics.GenericAPIView,
+              mixins.RetrieveModelMixin,mixins.UpdateModelMixin):
+
+    serializer_class = LoginToProviderEventSerializer
+    def get_queryset(self):
+        staff_pk = self.kwargs.get("staff_pk")
+        provider_pk = self.kwargs.get("provider_pk")
+
+
+        logins = LoginToProviderEvent.objects.filter(
+            staff=staff_pk, provider=provider_pk)
+        return logins            
+
+    def get_object(self):
+        queryset = self.get_queryset()
+        obj = queryset.latest("start_time")
+        return obj
+
+    def get(self,request, *args, **kwargs):
+        return self.retrieve(request, *args,**kwargs)
+
+    def put(self, request, *args, **kwargs):
+        return self.update(request, *args, **kwargs)
 
 
 class TestView(generics.GenericAPIView, mixins.RetrieveModelMixin, 

@@ -181,3 +181,5 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 AUTH_USER_MODEL = 'users.Account'
 
 CORS_ALLOW_ALL_ORIGINS = True
+
+DATETIME_FORMAT= '%m/%d/%Y %H:%M:%S'

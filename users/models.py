@@ -175,3 +175,15 @@ class TelephoneNumber(models.Model):
     
     def __str__(self):
         return self.telephone_number
+
+
+
+# User events
+class LoginToProviderEvent(models.Model):
+    staff = models.ForeignKey(Staff, on_delete=models.DO_NOTHING)
+    provider = models.ForeignKey(Provider, on_delete=models.DO_NOTHING)
+    start_time = models.DateTimeField(auto_now_add=True)
+    end_time = models.DateTimeField(null=True, blank=True)
+
+    class Meta:
+        ordering = ['start_time']

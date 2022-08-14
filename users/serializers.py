@@ -5,6 +5,7 @@ from . import utils
 from .models import *
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from django.utils.translation import gettext_lazy as _
+from django.utils import timezone 
 
 
 
@@ -208,3 +209,24 @@ class EmploymentSerializer(serializers.ModelSerializer):
     class Meta: 
         model= Employment
         fields = "__all__"
+
+class LoginToProviderEventSerializer(serializers.ModelSerializer):
+
+    class Meta: 
+        model= LoginToProviderEvent
+        fields = "__all__"   
+        extra_kwargs = {
+        'staff': {'read_only': False},
+        'provider': {'read_only': False},    
+        'start_time': {'read_only': True},
+        'end_time': {'required': False, "allow_null":True}
+        }
+   
+    def update(self, instance, validated_data):
+        # self.Meta.extra_kwargs = {
+        # 'staff': {'read_only': True},
+        # 'provider': {'read_only': True}
+        # }
+        instance.end_time = timezone.now()
+        instance.save()
+        return instance
