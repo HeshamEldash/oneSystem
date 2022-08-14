@@ -15,6 +15,9 @@ import { useContext } from "react";
 import ProtectedUserRoutes from "./components/ProtectedUserRoutes"
 import ProviderHome from "./pages/provider/ProviderHome.jsx";
 import PatientRegistration from "./pages/provider/PatientRegsitrations"
+import ProviderProfileUpdate from "./pages/provider/ProviderProfileUpdate.jsx";
+import Address from "./components/Address.jsx";
+import AddressUpdate from "./components/ui/AddressUpdate.jsx";
 function App() {
   const { t, i18n } = useTranslation();
 
@@ -23,12 +26,15 @@ function App() {
       <RegistrationProvider>
       <AuthProvider>
       <Header />
+      {/* <Address/> */}
       <Routes>
         <Route element={<ProtectedUserRoutes/>} >
              <Route element={<StaffDashboard/>} path="/staff-dashboard" />
               <Route element={<ProviderHome/>} path="/provider-home" />
               <Route element={<PatientRegistration/>} path="/provider-patient-registration" />
-
+              <Route element={<ProviderProfileUpdate/>} path="/provider-profile-update" />
+              <Route element={<AddressUpdate/>} path="/address-update" />
+              
         </Route>
         <Route element={<Home />} path="/" />
         <Route element={<Reg />} path="/reg" />

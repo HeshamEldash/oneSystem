@@ -250,12 +250,27 @@ class LoginToProviderEventView(generics.GenericAPIView,
     def put(self, request, *args, **kwargs):
         return self.update(request, *args, **kwargs)
 
+class AddressDetailView(generics.GenericAPIView,mixins.UpdateModelMixin,mixins.DestroyModelMixin,
+    mixins.RetrieveModelMixin, mixins.CreateModelMixin,):
+    queryset = Address.objects.all()
+    serializer_class = AddressSerializer
 
+    def get(self,request, *args, **kwargs):
+        return self.retrieve(request, *args,**kwargs)
+
+    def post(self, request, *args, **kwargs):
+        return self.create(request, *args, **kwargs)
+
+    def put(self, request, *args, **kwargs):
+        return self.update(request, *args, **kwargs)
+    def delete(self, request, *args, **kwargs):
+        return self.destroy(request, *args, **kwargs)
+    
 class TestView(generics.GenericAPIView, mixins.RetrieveModelMixin, 
     mixins.ListModelMixin, mixins.CreateModelMixin, mixins.UpdateModelMixin
                  ):
-    # queryset= Employment.objects.all()
-    serializer_class = EmploymentSerializer
+    queryset= Address.objects.all()
+    serializer_class = AddressSerializer
 
     lookup_field= "email"
     lookup_url_kwarg = "email"
@@ -264,16 +279,16 @@ class TestView(generics.GenericAPIView, mixins.RetrieveModelMixin,
     # def get_queryset(self):
     
     #     return super().get_queryset()
-    def get_queryset(self):
-        email = self.kwargs.get("email")
-        if email:
-            staffAccount = Account.objects.get(email=email)
-            print (staffAccount.staff)
-            queryset = Employment.objects.filter(staff=staffAccount.staff)
-            return queryset
-        else: 
-            pk = self.kwargs.get("pk")
-            return Employment.objects.filter(provider=pk)    
+    # def get_queryset(self):
+    #     email = self.kwargs.get("email")
+    #     if email:
+    #         staffAccount = Account.objects.get(email=email)
+    #         print (staffAccount.staff)
+    #         queryset = Employment.objects.filter(staff=staffAccount.staff)
+    #         return queryset
+    #     else: 
+    #         pk = self.kwargs.get("pk")
+    #         return Employment.objects.filter(provider=pk)    
 
     def get(self,request, *args, **kwargs):
         return self.list(request, *args,**kwargs)

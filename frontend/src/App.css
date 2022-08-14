@@ -1,8 +1,11 @@
 :root{
   --main-bg-color: rgb(250, 250, 250);
+  --light-shadow-bg: rgb(234, 246, 253);
   --sry-btn-bg-color: rgb(225, 0, 120);
+  --sry-btn-bg-color-hover: rgb(173, 0, 92);
   --nav-sry--bg-color: rgb(10 34 51); 
   --nav-color:rgb(61 176 247);
+
 }
 * {
     /* background-color: var(--main-bg-color); */
@@ -16,3 +19,33 @@
     font-family: 'Roboto', sans-serif;
   }
 
+.secondry-button{
+  text-decoration: none;
+  background-color:var(  --sry-btn-bg-color) ;
+  padding: 10px;
+  color: white;
+  border: none;
+  min-width: 70px;
+  cursor: pointer;
+  vertical-align: middle;
+  text-align: center;
+  border-radius: 4px;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+}
+.secondry-button:hover{
+  background-color:var(--sry-btn-bg-color-hover) ;
+}
+.primary-container{
+  display: flex;
+  flex-direction: column;
+  max-height: 30vh;
+  border:solid 1px var(--nav-color);
+  padding: 20px 20px;
+  border-radius: 3px;
+}
+.profile-container{
+  margin:auto;
+  max-width: 50vw;
+  min-height: 40vh;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+}

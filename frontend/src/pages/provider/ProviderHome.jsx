@@ -35,8 +35,12 @@ useEffect(()=>{
   return (
     <>
       <Navbar>
-      <Link to="/provider-patient-registration" style={{"display": "block"}}>
+      <Link to="/provider-patient-registration" style={{"display": "inline-block"}}>
       {t("register-a-patient")}
+      </Link>
+      <br/>
+      <Link to="/provider-profile-update"  style={{"display": "inline-block"}}>
+      {t("update-profile")}
       </Link>
       </Navbar>
       <SideBar />

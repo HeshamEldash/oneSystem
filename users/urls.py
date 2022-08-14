@@ -21,6 +21,8 @@ urlpatterns = [
 
     path("staff-list/<int:pk>/", StaffListView.as_view(), name= "staff_list"),
     
+    path("address-detail/<int:pk>/", AddressDetailView.as_view(), name="address_detail"),
+
     path("registration/<int:provider_pk>/<int:patient_pk>/",RegistrationDetailView.as_view(), name= "registration_detail"),
     path("registration-list/<int:provider_pk>/",RegistrationListView.as_view(), name= "registration_list"),
     
@@ -31,6 +33,10 @@ urlpatterns = [
     
     path("staff-login/<int:provider_pk>/<int:staff_pk>/", LoginToProviderEventView.as_view(), name="staff_logins"),
     path("staff-logins-list/<int:provider_pk>/<int:staff_pk>/", LoginToProviderEventViewList.as_view(), name="staff_logins"),
+    
+
+   
+   
     path("testing/<str:e>/", TestView.as_view(), name= "tetsing"),
     path('token/', MyTokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),

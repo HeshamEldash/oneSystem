@@ -73,8 +73,9 @@ class AddressSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Address
-        fields = ["unit_number", "first_line",
-        "second_line", "city", "governorate"
+        fields = ["id","unit_number", "first_line",
+        "second_line", "city", "governorate", "provider",
+        "staff", "patient", "owner"
         ]
 
 class PatientProfileSerializer(serializers.Serializer):
@@ -127,8 +128,7 @@ class StaffSerializer(serializers.Serializer):
     staff_role = serializers.ChoiceField(ROLE_CHOICES)
     professional_number = serializers.CharField()
     telephone_numbers = TelephoneNumberSerializer(source='phone_nums',many=True)
-
-
+   
     def update(self, instance, validated_data):
         utils.update_staff(instance, **validated_data)    
         return instance            
@@ -149,8 +149,8 @@ class ProviderSerializer(serializers.Serializer):
     owner = serializers.SlugRelatedField(slug_field="email", read_only=True)
     date_created = serializers.DateTimeField(read_only=True)
 
-    staff = StaffSerializer(many=True, read_only=True)
-    patients = PatientProfileSerializer(many=True, read_only=True)
+    # staff = StaffSerializer(many=True, read_only=True)
+    # patients = PatientProfileSerializer(many=True, read_only=True)
 
     address = AddressSerializer(source="address_set", many=True)
     telephone_numbers = TelephoneNumberSerializer(source='phone_nums',many=True)

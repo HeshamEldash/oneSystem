@@ -162,6 +162,16 @@ class Address(models.Model):
     staff = models.OneToOneField(Staff, on_delete=models.CASCADE, null=True)
     patient = models.OneToOneField(Patient, on_delete=models.CASCADE, null=True)
 
+    @property
+    def owner(self):
+        if self.provider_id is not None:
+            return self.provider.id
+        if self.staff_id is not None:
+            return self.staff.id
+        if self.patient_id is not None:
+            return self.patient.id
+        else:
+            return None
     def __str__(self):
         return f"{self.unit_number} {self.first_line} {self.city} {self.governorate}"
 
