@@ -1,23 +1,24 @@
 .registration-page{
     display: flex;
    flex-direction: column; 
-   height: 100vh;
+    max-width: 70rem;
    margin-bottom: 200px;
+   margin-inline: auto;
    align-items: center;
    justify-content: center;
 } 
-@media only screen and (min-width: 600px) {
+@media only screen and (min-width: 700px) {
 
     .registration-page{
         display: flex;
         flex-direction: row;
-        height: 100vh;
+
         margin-bottom: 200px;
     }
     .form-sidebar{
         display: flex;
         position: absolute;
-        height: 100vh;
+
         flex-basis: 40%;
         align-items: center;
         justify-content: center;
@@ -36,7 +37,7 @@
         width: 50%;
         margin: auto;
         padding: 20px;
-        height: 90vh;
+        /* height: 90vh; */
         align-items: center;
         justify-content: center;
         border-inline-start: solid 1px rgba(151, 147, 147, 0.599);
@@ -67,8 +68,6 @@
     flex-direction: column;
     justify-content: space-around;
     width: clamp(300px, 30vw, 40vw);
-
-
 }
 
 .input-base{
@@ -88,7 +87,7 @@
     margin: auto;
     margin-top: 30px;
     margin-bottom: 20px;
-    height: 40px;
+    min-height: 40px;
     border: 0;
     border-radius: 7px;
     width: 80%;

@@ -15,7 +15,7 @@ function Header() {
         this is a header
         {!!user && <h1>{user.email}</h1>}
       <LanguageSelect/>
-      <Link to="/register" style={{"display": "block"}}>
+      <Link to="/registration-choice" style={{"display": "block"}}>
       {t("Register")}
       </Link>
       

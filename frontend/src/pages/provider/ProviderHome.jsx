@@ -4,7 +4,7 @@ import { useTranslation } from "react-i18next";
 import Navbar from "../../components/ui/Navbar";
 import SideBar from "../../components/ui/SideBar";
 import "./provider.css";
-
+import { Outlet } from "react-router-dom"
 const APIENDPOINT = "http://127.0.0.1:8000/";
 
 function ProviderHome() {
@@ -35,15 +35,16 @@ useEffect(()=>{
   return (
     <>
       <Navbar>
-      <Link to="/provider-patient-registration" style={{"display": "inline-block"}}>
+      <Link to="/provider/patient-registration" style={{"display": "inline-block"}}>
       {t("register-a-patient")}
       </Link>
       <br/>
-      <Link to="/provider-profile-update"  style={{"display": "inline-block"}}>
+      <Link to="/provider/profile-update"  style={{"display": "inline-block"}}>
       {t("update-profile")}
       </Link>
       </Navbar>
       <SideBar />
+      {<Outlet />?<Outlet />:null}
       <div className="provider-home-main">
       This si the provider home
         {registeredPatients?.map((patient)=>{

@@ -169,33 +169,38 @@ def create_patient_account(email, password, **kwargs):
 #To finalise will need to confirm email is being 
 #passed from the request user 
 #also needs to deicde what happens with the update
-def create_update_provider(email, **kwargs):
+def create_update_provider(**kwargs):
     """
     Takes the email from the request user and finds that account. 
     It then creates a Provider profile and assigns it to that account. 
     """
+    print(kwargs)
+    id = kwargs.get("owner")
     name = kwargs.get("name")
-    telephone_nums = kwargs.pop("phone_nums")
+    telephone_num = kwargs.pop("telephonenumber_set")
     address = kwargs.pop("address_set")
 
+    
     try:
-        owner = Account.objects.get(email=email)
+        owner = Account.objects.get(email=id)
     except ObjectDoesNotExist:
         raise ObjectDoesNotExist
+    
+
 
     try:
         provider = Provider.objects.get(name=name)
     except ObjectDoesNotExist:
         provider = Provider.objects.create(name=name, owner=owner)
+        
 
 
-    if telephone_nums:
-        for num in telephone_nums:
-            TelephoneNumber.objects.create(telephone_number=num, provider=provider)
+    if telephone_num:
+        TelephoneNumber.objects.create( owner_provider=provider,**telephone_num)
     if address:  
-        for ad in address:   
-            Address.objects.create(provider=provider, **ad)
-
+        address.pop("provider")
+        Address.objects.create(provider=provider, **address)
+    
     provider.save()
 
     return provider

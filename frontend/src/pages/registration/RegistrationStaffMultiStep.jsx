@@ -12,7 +12,7 @@ import { useOutletContext } from "react-router-dom";
 
 const APIENDPOINT = "http://127.0.0.1:8000/";
 
-function RegisterationPage() {
+function RegistrationStaffMultiStep() {
   
   const navigate = useNavigate();
   const { t } = useTranslation();
@@ -43,7 +43,7 @@ function RegisterationPage() {
 
     if (res.ok) {
       loginUser(values);
-      navigate("/staff-dashboard")
+      navigate("/register/provider")
     }
     actions.resetForm();
   };
@@ -249,7 +249,7 @@ function RegisterationPage() {
             className="form-button"
             disabled={isSubmitting}
             type="submit"
-            value={t("register")}
+            value={t("next")}
           />
         </form>
 
@@ -266,4 +266,4 @@ function RegisterationPage() {
   );
 }
 
-export default RegisterationPage;
+export default RegistrationStaffMultiStep;

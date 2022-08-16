@@ -27,7 +27,7 @@ const getLogin = async ()=>{
 
     <span>{props.providerName}</span>
     <span>{login?.start_time}</span>
-    <Link onClick={()=>{createLogin(1,1)}} className="item-link" to="/provider-home" style={{"display": "block"}}>
+    <Link onClick={()=>{createLogin(1,1)}} className="item-link" to="/provider" style={{"display": "block"}}>
         {t("go_to_profile")}
       </Link>
     

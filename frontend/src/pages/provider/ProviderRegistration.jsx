@@ -1,19 +1,19 @@
 import React, { useState, useContext } from "react";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
 import { useTranslation } from "react-i18next";
-import { Link, Navigate, useLocation } from "react-router-dom";
-import { updateAddress } from "../../utils/api_calls/addressApis";
+import { createProvider } from "./providerApi";
+import AuthContext from "../../context/AuthContext";
 
-
-function AddressUpdate(props) {
+function ProviderRegistration() {
   const { t } = useTranslation();
-  const {state} = useLocation()
-
-    const onSubmit = (values, actions)=>{
-        updateAddress(1, values)
-         actions.resetForm();
-
-    }
+  const { loginUse , user } = useContext(AuthContext);
+  const navigate= useNavigate()
+  const onSubmit = (values, actions)=>{
+    createProvider(values, user.user_id)
+    actions.resetForm();
+    navigate("/provider")
+  }
   const {
     values,
     errors,
@@ -24,19 +24,41 @@ function AddressUpdate(props) {
     handleSubmit,
   } = useFormik({
     initialValues: {
-      unit_number: state?.unit_number,
-      first_line: state?.first_line,
-      second_line: state?.second_line,
-      city: state?.city,
-      governorate: state?.governorate,
+      name:"",
+      address: {
+        unit_number: "",
+        first_line: "",
+        second_line: "",
+        city: "",
+        governorate: "",
+      },
+      telephone_numbers: {
+        telephone_number: ""
+      },
     },
     onSubmit,
   });
 
   return (
-    <div>
-    <form className="user-form" type="submit" onSubmit={handleSubmit}>
-    <label> {t("unit_number")}</label>
+    <section>
+      <form className="user-form" type="submit" onSubmit={handleSubmit}>
+        <label> {t("provider-name")}</label>
+
+        <input
+          type="text"
+          name="name"
+          placeholder={t("enter_your_clinic_name")}
+          className={
+            errors.name && touched.name
+              ? "input-error form-fields"
+              : "form-fields"
+          }
+          value={values.name}
+          onChange={handleChange}
+          onBlur={handleBlur}
+        />
+
+        <label> {t("unit_number")}</label>
         <input
           className={
             errors.unit_number && touched.unit_number
@@ -47,14 +69,10 @@ function AddressUpdate(props) {
           onChange={handleChange}
           onBlur={handleBlur}
           type="text"
-          name="unit_number"
+          name="address.unit_number"
           placeholder={t("unit_number")}
         />
-        {/* {errors.email && touched.email && (
-          <p className="error">{errors.email}</p>
-        )} */}
-
-        <label> {t("first_line")}</label>
+         <label> {t("first_line")}</label>
         <input
           className={
             errors.first_line && touched.first_line
@@ -65,7 +83,7 @@ function AddressUpdate(props) {
           onChange={handleChange}
           onBlur={handleBlur}
           type="text"first_line
-          name="first_line"
+          name="address.first_line"
           placeholder={t("first_line")}
         />
         {/* {errors.email && touched.email && (
@@ -83,7 +101,7 @@ function AddressUpdate(props) {
           onChange={handleChange}
           onBlur={handleBlur}
           type="text"
-          name="second_line"
+          name="address.second_line"
           placeholder={t("second_line")}
         />
         {/* {errors.email && touched.email && (
@@ -101,7 +119,7 @@ function AddressUpdate(props) {
           onChange={handleChange}
           onBlur={handleBlur}
           type="text"
-          name="city"
+          name="address.city"
           placeholder={t("city")}
         />
         {/* {errors.email && touched.email && (
@@ -119,23 +137,36 @@ function AddressUpdate(props) {
           onChange={handleChange}
           onBlur={handleBlur}
           type="text"
-          name="governorate"
+          name="address.governorate"
           placeholder={t("governorate")}
         />
         {/* {errors.email && touched.email && (
           <p className="error">{errors.email}</p>
         )} */}
 
+        <label> {t("telephone_number")}</label>
+        <input
+          className={
+            errors.governorate && touched.governorate
+              ? "input-error form-fields"
+              : "form-fields"
+          }
+          value={values.governorate}
+          onChange={handleChange}
+          onBlur={handleBlur}
+          type="text"
+          name="telephone_numbers.telephone_number"
+          placeholder={t("telephone_number")}
+        />
         <input
           className="form-button"
           disabled={isSubmitting}
           type="submit"
           value={t("submit")}
         />
-    </form>
-      
-    </div>
-  )
+      </form>
+    </section>
+  );
 }
 
-export default AddressUpdate
+export default ProviderRegistration;

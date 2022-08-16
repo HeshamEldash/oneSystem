@@ -13,10 +13,6 @@ class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
     @classmethod
     def get_token(cls, user):
         token = super().get_token(user)
-        token["is_staff"] = user.is_staff
-        token["email"] = user.email
-        token["professional_number"] = user.staff.professional_number
-        token["staff_role"] = user.staff.staff_role
         return token
 
 class AccountStatusSerializer(serializers.ModelSerializer):
@@ -64,7 +60,7 @@ class ChangePasswordSerializer(serializers.ModelSerializer):
 
 class TelephoneNumberSerializer(serializers.ModelSerializer):
     
-    # telephone_number = serializers.CharField(max_length=30)
+    telephone_number = serializers.CharField(max_length=30)
     class Meta:
         model = TelephoneNumber
         fields = ["telephone_number"]
@@ -143,33 +139,39 @@ class StaffAccountSerializer(serializers.Serializer):
     def create(self, validated_data):
         return utils.create_staff(**validated_data)
 
-class ProviderSerializer(serializers.Serializer):
+class ProviderDetailSerializer(serializers.Serializer):
     id = serializers.CharField(read_only = True)
     name = serializers.CharField(max_length=200)
-    owner = serializers.SlugRelatedField(slug_field="email", read_only=True)
+    owner = serializers.SlugRelatedField(slug_field="pk", queryset = Account.objects.all())
     date_created = serializers.DateTimeField(read_only=True)
 
-    # staff = StaffSerializer(many=True, read_only=True)
-    # patients = PatientProfileSerializer(many=True, read_only=True)
-
-    address = AddressSerializer(source="address_set", many=True)
-    telephone_numbers = TelephoneNumberSerializer(source='phone_nums',many=True)
-
-
-    def create(self, validated_data):
-        current_user_email =None 
-        request = self.context.get("request")
-        if request and hasattr(request, "user"):
-            current_user=request.user
-            if hasattr(current_user, "email"):
-                current_user_email = current_user.email
-        return utils.create_update_provider(current_user_email, **validated_data)
+    address = AddressSerializer(source="address_set", many=True, read_only=True)
+    telephone_numbers = TelephoneNumberSerializer(source='phone_nums',many=True, read_only=True)
 
     def delete(self, instance):
         instance.delete()
         
     def update(self, instance, validated_data):
+
+        instance.name = validated_data.get('name', instance.name)
+        instance.owner = validated_data.get('owner', instance.owner )
+        instance.save()
+
         return instance
+
+class ProviderCreateSerializer(serializers.Serializer):
+    name = serializers.CharField(max_length=200)
+    owner = serializers.PrimaryKeyRelatedField( queryset = Account.objects.all())
+
+    address = AddressSerializer(source="address_set", many=False, required=False)
+    telephone = TelephoneNumberSerializer(source="telephonenumber_set", many=False, required=False)
+
+
+    def create(self, validated_data):
+        print("DjbasjfbjabsfjbajsdbfjabgbigDjbasjfbjabsfjbajsdbfjabgbigDjbasjfbjabsfjbajsdbfjabgbigDjbasjfbjabsfjbajsdbfjabgbigDjbasjfbjabsfjbajsdbfjabgbigDjbasjfbjabsfjbajsdbfjabgbigDjbasjfbjabsfjbajsdbfjabgbigDjbasjfbjabsfjbajsdbfjabgbig")
+        return utils.create_update_provider(**validated_data)
+
+
         
 
 class RegistrationSerializer(serializers.ModelSerializer):
@@ -204,7 +206,7 @@ class EmploymentSerializer(serializers.ModelSerializer):
     #     read_only=False,
     #     slug_field='name'
     #  )
-    provider = ProviderSerializer(many=False)
+    provider = ProviderCreateSerializer(many=False)
 
     class Meta: 
         model= Employment

@@ -110,7 +110,7 @@ class Staff(BaseProfile, models.Model):
 
     professional_number = models.CharField(_("professional number"), max_length=100, unique=True, blank=True, default="")
     staff_role = models.CharField(_("user role"), max_length=2, choices=ROLE_CHOICES)
-    account = models.OneToOneField(Account, on_delete=models.PROTECT)
+    account = models.OneToOneField(Account, on_delete=models.CASCADE)
 
     class Meta:
         verbose_name = _("staff")

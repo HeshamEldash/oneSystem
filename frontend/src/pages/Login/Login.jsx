@@ -53,7 +53,7 @@ function Login() {
 
   return (
     <>
-    {user && <Navigate to="/"/>}
+    {user ? navigate("/staff-dashboard"):
 
     <div className="login-page">
     <div className="form-sidebar">
@@ -126,7 +126,7 @@ function Login() {
     </div>
     </div>
         
-
+    }
   </>
   );
 }

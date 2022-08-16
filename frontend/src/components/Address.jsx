@@ -28,13 +28,13 @@ export function Address(props) {
         className="secondry-button"
         value={t("update")}
         onClick={()=>{
-          navigate("/address-update", { state: { 
-            id: address.id, 
-            unit_number: address.unit_number, 
-            first_line: address.first_line, 
-            second_line: address.second_line, 
-            city: address.city, 
-            governorate: address.governorate
+          navigate("/provider/address-update", { state: { 
+            id: address?.id, 
+            unit_number: address?.unit_number, 
+            first_line: address?.first_line, 
+            second_line: address?.second_line, 
+            city: address?.city, 
+            governorate: address?.governorate
           }} )
         }}
       />

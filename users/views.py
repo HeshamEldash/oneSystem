@@ -160,29 +160,30 @@ class RegistrationDetailView(generics.GenericAPIView, mixins.RetrieveModelMixin,
     def put(self, request, *args, **kwargs):
         return self.update(request, *args, **kwargs)
 
-class ProviderSerializer(generics.GenericAPIView, mixins.RetrieveModelMixin,
-                mixins.DestroyModelMixin, mixins.UpdateModelMixin):
+
+class ProviderDetailView(generics.GenericAPIView, mixins.RetrieveModelMixin,
+mixins.DestroyModelMixin, mixins.UpdateModelMixin):
     
     queryset = Provider.objects.all()
-    serializer_class = ProviderSerializer
-
-    # lookup_field = "pk"
-    # def get_object(self):
-
-    #     pass
-
+    serializer_class = ProviderDetailSerializer
+    
     def get(self,request, *args, **kwargs):
         return self.retrieve(request, *args,**kwargs)
+
+    def delete(self, *args, **kwargs):
+        return self.destroy(*args, **kwargs)
+
+    def put(self, *args, **kwargs):
+        return self.update(*args, **kwargs)
+
+
+class ProviderCreateView (generics.GenericAPIView,mixins.CreateModelMixin):
+    queryset = Provider.objects.all()
+    serializer_class = ProviderCreateSerializer
 
     def post(self, request, *args, **kwargs):
         return self.create(request, *args, **kwargs)
     
-    def put(self, request, *args, **kwargs):
-        return self.update(request, *args, **kwargs)
-
-    def delete(self, request, *args, **kwargs):
-        return self.destroy(request, *args, **kwargs)
-
 class EmploymentListView(generics.GenericAPIView, 
     mixins.ListModelMixin, mixins.CreateModelMixin):
     serializer_class = EmploymentSerializer

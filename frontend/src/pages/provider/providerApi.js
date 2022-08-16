@@ -18,4 +18,33 @@ let getProfile = async (provider_id) => {
   };
 
 
-export {getProfile}  
+  const createProvider = async(data,user_id)=>{
+
+      const response = await fetch(`${APIENDPOINT}/users/provider/`,{
+        method: "POST",
+        headers:{
+        "Content-type": "application/json",
+        },
+        body: JSON.stringify(
+          {
+            name:data.name,
+            owner:user_id,
+            address: {
+              unit_number: data.address.unit_number,
+              first_line: data.address.first_line,
+              second_line: data.address.second_line,
+              city: data.address.city,
+              governorate: data.address.governorate,
+            },
+            telephone: {
+              telephone_number: data.telephone_numbers.telephone_number
+            },
+          }
+        )
+      }
+     
+      )
+  }
+
+
+export {getProfile,createProvider}  

@@ -26,7 +26,8 @@ urlpatterns = [
     path("registration/<int:provider_pk>/<int:patient_pk>/",RegistrationDetailView.as_view(), name= "registration_detail"),
     path("registration-list/<int:provider_pk>/",RegistrationListView.as_view(), name= "registration_list"),
     
-    path("provider/<int:pk>/", ProviderSerializer.as_view(), name = "provider"),
+    path("provider/", ProviderCreateView.as_view(), name = "provider"),
+    path("provider/<int:pk>/", ProviderDetailView.as_view(), name = "provider_detail"),
     
     path("employment-provider-list/<int:pk>/",EmploymentListView.as_view(), name= "emplyment-list"),
     path("employment-staff-list/<str:email>/",EmploymentListView.as_view(), name= "emplyment-list"),
