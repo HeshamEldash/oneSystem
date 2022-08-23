@@ -279,6 +279,10 @@ class LoginToProviderEventViewList(generics.GenericAPIView, mixins.CreateModelMi
         return self.list(request, *args,**kwargs)
 
     def post(self, request, *args, **kwargs):
+        """ensures that the previous login is ended when a new one is created"""
+        last_login = self.get_object()
+        last_login.end_time=timezone.now()
+        last_login.save()
         return self.create(request, *args, **kwargs)
 
 class LoginToProviderEventView(generics.GenericAPIView,

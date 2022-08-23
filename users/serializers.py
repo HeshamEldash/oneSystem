@@ -169,7 +169,6 @@ class ProviderCreateSerializer(serializers.Serializer):
 
 
     def create(self, validated_data):
-        print("DjbasjfbjabsfjbajsdbfjabgbigDjbasjfbjabsfjbajsdbfjabgbigDjbasjfbjabsfjbajsdbfjabgbigDjbasjfbjabsfjbajsdbfjabgbigDjbasjfbjabsfjbajsdbfjabgbigDjbasjfbjabsfjbajsdbfjabgbigDjbasjfbjabsfjbajsdbfjabgbigDjbasjfbjabsfjbajsdbfjabgbig")
         return utils.create_update_provider(**validated_data)
 
 
@@ -233,7 +232,7 @@ class EmploymentWriteSerializer(serializers.ModelSerializer):
     def update(self, instance, validated_data):
         self.Meta.extra_kwargs = {
         'date_employed': {'read_only': True},
-        'staff': {'read_only': True},
+        'staff': {'read_only': True, "required":False},
         'provider': {'read_only': True},
         'is_active': {'default': True}, 
         'date_employment_end': {'required': False, "allow_null":True}

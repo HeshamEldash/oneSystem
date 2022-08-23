@@ -38,22 +38,7 @@ useEffect(()=>{
 
   return (
     <>
-      <Navbar>
-      <NavLink className="navlink_item" to={`/provider/${id}/patient-registration`}>
-      {t("register_a_patient")}
-      </NavLink>
-      <br/>
 
-      <NavLink className="navlink_item" to={`/provider/${id}/profile-update`} >
-      {t("update_profile")}
-      </NavLink>
-
-      <NavLink className="navlink_item" to= {`/provider/${id}/register-staff`}>
-      {t("register_staff")}
-      </NavLink>
-
-      </Navbar>
-      <SideBar />
       {<Outlet />?<Outlet />:null}
       <div className="provider-home-main">
       This si the provider home

@@ -20,6 +20,7 @@ import RegistrationChoice from "./pages/registration/RegistrationChoice.jsx";
 import RegistrationStaffMultiStep from "./pages/registration/RegistrationStaffMultiStep.jsx";
 import Sidebar from "./components/ui/SideBar.jsx";
 import ProviderStartEmployment from "./pages/provider/ProviderStartEmployment.jsx";
+import ProviderManageStaff from "./pages/provider/ProviderManageStaff.jsx";
 function App() {
   const { t, i18n } = useTranslation();
 
@@ -37,6 +38,8 @@ function App() {
                 <Route element={<PatientRegistration/>} path="patient-registration"/>
                 <Route element={<AddressUpdate/>} path="address-update" />
                 <Route element={<ProviderStartEmployment/>} path="register-staff" />
+                <Route element={<ProviderManageStaff/>} path="manage-staff" />
+
              </Route>
              
               

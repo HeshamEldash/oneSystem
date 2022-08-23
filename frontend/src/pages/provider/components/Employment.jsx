@@ -1,0 +1,160 @@
+import React, { useState, useEffect } from "react";
+import { getLogins } from "../../../utils/api_calls/getLogins";
+import { getStaffProfile } from "../../staff/staffApi";
+import { useParams } from "react-router-dom";
+import Table from "@mui/material/Table";
+import TableHead from "@mui/material/TableHead";
+import TableRow from "@mui/material/TableRow";
+import TableCell from "@mui/material/TableCell";
+import TableBody from "@mui/material/TableBody";
+import { TableContainer } from "@mui/material";
+import TablePagination from "@mui/material/TablePagination";
+import Paper from "@mui/material/Paper";
+import { endEmployment } from "../providerApi";
+
+function Employment(props) {
+  const [staff, setStaff] = useState({});
+  const [logins, setLogins] = useState([]);
+  const { id } = useParams();
+  const [showLogins, setShowLogins] = useState(false);
+  const [page, setPage] = React.useState(0);
+  const [rowsPerPage, setRowsPerPage] = React.useState(10);
+
+  const handleChangePage = (event, newPage) => {
+    setPage(newPage);
+  };
+  const handleChangeRowsPerPage = (event) => {
+    setRowsPerPage(+event.target.value);
+    setPage(0);
+  };
+
+  const columns = [
+    { id: "day", label: "day", minWidth: 170 },
+    { id: "login", label: "login", minWidth: 170 },
+    {
+      id: "logout",
+      label: "logout",
+      minWidth: 100,
+
+      format: (value) => value.toLocaleString("en-US"),
+    },
+  ];
+  const endApiEmployment = ()=>{
+    endEmployment(props.employmentId)
+  }
+  const getApiData = async () => {
+    const data = await getStaffProfile(props.staffId);
+    setStaff(data);
+    const loginData = await getLogins(props.staffId, id);
+    setLogins(loginData);
+    console.log(loginData);
+  };
+
+  useEffect(() => {
+    getApiData();
+  }, []);
+
+  return (
+    <div className="primary-container   ">
+      <table>
+        <tr>
+          <td>staff_name</td>
+          <td> {props.staff}</td>
+        </tr>
+        <tr>
+          <td>staff_role</td>
+          <td> {staff?.staff_role}</td>
+        </tr>
+        <tr>
+          <td>date_employed</td>
+          <td> {props.dateEmployed}</td>
+        </tr>
+        <tr>
+          <td>salary</td>
+          <td> {props.salary}</td>
+        </tr>
+        <tr>
+          <td>last_login</td>
+          <td> {props.lastLogin}</td>
+        </tr>
+        <tr>
+          <td>last_logout</td>
+          <td> {props.lastLogout}</td>
+        </tr>
+      </table>
+
+      <input
+        className="secondry-button"
+        type="button"
+        value={showLogins ? "hide_login_details" : "view_login_details"}
+        onClick={() => {
+          setShowLogins((prev) => !prev);
+        }}
+      />
+      <input className="secondry-button" type="button" value={"edit"} />
+      <input className="secondry-button" type="button" value={"remove"}
+      onClick={endApiEmployment()}
+       />
+
+      {showLogins && (
+        <Paper sx={{ width: "100%", overflow: "hidden" }}>
+          <TableContainer sx={{ maxHeight: 440 }}>
+            <Table stickyHeader aria-label="sticky table">
+              <TableHead>
+                <TableRow>
+                  {columns.map((column) => (
+                    <TableCell
+                      key={column.id}
+                      align={column.align}
+                      style={{ minWidth: column.minWidth }}
+                    >
+                      {column.label}
+                    </TableCell>
+                  ))}
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {logins
+                  .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+
+                  .map((login) => {
+                    return (
+                      <TableRow
+                        hover
+                        role="checkbox"
+                        tabIndex={-1}
+                        key={login.id}
+                      >
+                        <TableCell>{login.id}</TableCell>
+                        <TableCell>{login.start_time}</TableCell>
+                        <TableCell>{login.end_time}</TableCell>
+                        {/* {columns.map((column) => {
+                        
+                      return (
+                        <TableCell key={column.id} align={column.align}>
+                        {login.start_time}
+                        </TableCell>
+                      ); */}
+                        {/* })} */}
+                      </TableRow>
+                    );
+                  })}
+              </TableBody>
+            </Table>
+          </TableContainer>
+          <TablePagination
+            rowsPerPageOptions={[10, 25, 100]}
+            component="div"
+            count={logins.length}
+            rowsPerPage={rowsPerPage}
+            page={page}
+            onPageChange={handleChangePage}
+            onRowsPerPageChange={handleChangeRowsPerPage}
+          />
+        </Paper>
+      )}
+    </div>
+  );
+}
+
+export default Employment;
