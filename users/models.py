@@ -149,12 +149,24 @@ class Employment(models.Model):
     salary = models.DecimalField(max_digits=6,decimal_places=2, null=True)
     is_active = models.BooleanField(default=True)
 
+    class Meta:
+            constraints = [
+            models.UniqueConstraint(fields=['provider', 'staff', "is_active"],
+                                    name='unique_employment')
+        ]
+
 class Registration(models.Model):
     patient = models.ForeignKey(Patient, on_delete=models.DO_NOTHING)
     provider = models.ForeignKey(Provider, on_delete=models.DO_NOTHING)
     date_registered = models.DateTimeField(auto_now_add=True)
     is_active = models.BooleanField(default=True)
     date_registration_end =models.DateTimeField(null=True)
+
+    class Meta:
+        constraints = [
+        models.UniqueConstraint(fields=['provider', 'patient', "is_active"],
+                                name='unique_registration')
+    ]
 
 
 class Address(models.Model):

@@ -64,6 +64,8 @@ const createEmployment = async (staff_email, provider_id) => {
         };
       }
       if (response.status === 500) {
+        // need to add already registered message
+        
         throw Error("This_staff_doesn't_exists,_plese_register_first");
       } else if (!response.ok) {
         throw Error("An_error_has_occured");
