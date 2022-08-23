@@ -1,5 +1,6 @@
 import React, { useState, useContext, useEffect } from "react";
 import { useFormik } from "formik";
+import { BrowserRouter as Router, Route, Routes,NavLink, Link , useParams} from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { getProfile } from "./providerApi";
 import { providerProfileSchema } from "./providerProfileSchema";
@@ -8,13 +9,14 @@ import {Address} from "../../components/Address";
 const APIENDPOINT = "http://127.0.0.1:8000/";
 
 function ProviderProfileUpdate() {
+  const { id } = useParams();
   const { t } = useTranslation();
   const [updating, setUpdating] = useState(false);
   const [profile, setProfile] = useState({});
 const [ addresses, setAddresses] = useState([])
 
   const retreiveProfile = async () => {
-    const profile = await getProfile(1);
+    const profile = await getProfile(id);
     setProfile(profile);
     setAddresses(profile.address);
   };

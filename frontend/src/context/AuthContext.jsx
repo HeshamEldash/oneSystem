@@ -39,7 +39,6 @@ export const AuthProvider = ({ children }) => {
     });
 
     if (response.status === 200) {
-      // console.log(response)
       let data = await response.json();
       let decoded = jwt_decode(data.access);
       setAuthTokens(data);
@@ -54,6 +53,8 @@ export const AuthProvider = ({ children }) => {
     setUser(null);
     setAuthTokens(null);
     localStorage.removeItem("authTokens");
+    localStorage.removeItem("provider");
+
     navigate("/");
   };
   const contextData = {

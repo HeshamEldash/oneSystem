@@ -119,6 +119,11 @@ class Staff(BaseProfile, models.Model):
     def __str__(self):
         return f"{self.first_name} {self.last_name}"
 
+    @property
+    def full_name(self): 
+        return f"{self.first_name} {self.last_name}"
+
+
 
 class Provider(models.Model):
     owner = models.OneToOneField(Account, on_delete=models.CASCADE)
@@ -142,6 +147,7 @@ class Employment(models.Model):
     date_employed = models.DateField(auto_now_add=True)
     date_employment_end = models.DateField(null=True)
     salary = models.DecimalField(max_digits=6,decimal_places=2, null=True)
+    is_active = models.BooleanField(default=True)
 
 class Registration(models.Model):
     patient = models.ForeignKey(Patient, on_delete=models.DO_NOTHING)

@@ -167,6 +167,13 @@ mixins.DestroyModelMixin, mixins.UpdateModelMixin):
     queryset = Provider.objects.all()
     serializer_class = ProviderDetailSerializer
     
+    # def get_object(self):
+    #     qs = self.queryset
+    #     owner_pk = self.kwargs.get("pk")
+    #     obj = qs.get(owner__pk =owner_pk )
+    #     return obj
+
+
     def get(self,request, *args, **kwargs):
         return self.retrieve(request, *args,**kwargs)
 
@@ -183,27 +190,75 @@ class ProviderCreateView (generics.GenericAPIView,mixins.CreateModelMixin):
 
     def post(self, request, *args, **kwargs):
         return self.create(request, *args, **kwargs)
+
+class EmploymentDetailView(generics.GenericAPIView, 
+        mixins.RetrieveModelMixin,mixins.UpdateModelMixin):
+    queryset = Employment.objects.all()
+
+    def get_serializer_class(self):
+        if self.request.method in ["POST", "PUT"]:
+            return EmploymentWriteSerializer 
+        return EmploymentReadSerializer
+
+
+    def get(self,request, *args, **kwargs):
+        return self.retrieve(request, *args,**kwargs)
+
     
-class EmploymentListView(generics.GenericAPIView, 
-    mixins.ListModelMixin, mixins.CreateModelMixin):
-    serializer_class = EmploymentSerializer
+    def put(self, request, *args, **kwargs):
+        return self.update(request, *args, **kwargs)
+
+
+class EmploymentProviderListView(generics.GenericAPIView, 
+    mixins.ListModelMixin, mixins.CreateModelMixin, mixins.UpdateModelMixin): 
+    queryset = Employment.objects.all()
+
+    def get_serializer_class(self):
+        if self.request.method in ["POST", "PUT"]:
+            return EmploymentWriteSerializer 
+        return EmploymentReadSerializer
+
     def get_queryset(self):
-        email = self.kwargs.get("email")
-        if email:
-            staffAccount = Account.objects.get(email=email)
-            print (staffAccount.staff)
-            queryset = Employment.objects.filter(staff=staffAccount.staff)
+        pk = self.kwargs.get("pk")
+        if pk:
+            provider = Provider.objects.get(id=pk)
+            queryset = Employment.objects.filter(provider=provider, is_active=True)
             return queryset
-        else: 
-            pk = self.kwargs.get("pk")
-            return Employment.objects.filter(provider=pk) 
+
+    def get(self,request, *args, **kwargs):
+
+        return self.list(request, *args,**kwargs)
+    
+    def post(self, request, *args, **kwargs):
+        return self.create(request, *args, **kwargs) 
+
+
+
+
+class EmploymentStaffListView(generics.GenericAPIView, 
+    mixins.ListModelMixin, mixins.CreateModelMixin,mixins.UpdateModelMixin):
+    queryset = Employment.objects.all()
+
+    def get_serializer_class(self):
+        if self.request.method == "POST":
+            return EmploymentWriteSerializer 
+        return EmploymentReadSerializer
+    
+    def get_queryset(self):
+        pk = self.kwargs.get("pk")
+        if pk:
+            staffAccount = Account.objects.get(id=pk)
+            queryset = Employment.objects.filter(staff=staffAccount.staff, is_active=True)
+            return queryset
 
     def get(self,request, *args, **kwargs):
         return self.list(request, *args,**kwargs)
 
     def post(self, request, *args, **kwargs):
         return self.create(request, *args, **kwargs)
+
     
+
 class LoginToProviderEventViewList(generics.GenericAPIView, mixins.CreateModelMixin, 
                 mixins.ListModelMixin, mixins.RetrieveModelMixin):
 
@@ -211,11 +266,10 @@ class LoginToProviderEventViewList(generics.GenericAPIView, mixins.CreateModelMi
     def get_queryset(self):
         staff_pk = self.kwargs.get("staff_pk")
         provider_pk = self.kwargs.get("provider_pk")
-
-
         logins = LoginToProviderEvent.objects.filter(
             staff=staff_pk, provider=provider_pk)
-        return logins            
+        return logins    
+
     def get_object(self):
         queryset = self.get_queryset()
         obj = queryset.latest("start_time")
@@ -234,8 +288,6 @@ class LoginToProviderEventView(generics.GenericAPIView,
     def get_queryset(self):
         staff_pk = self.kwargs.get("staff_pk")
         provider_pk = self.kwargs.get("provider_pk")
-
-
         logins = LoginToProviderEvent.objects.filter(
             staff=staff_pk, provider=provider_pk)
         return logins            

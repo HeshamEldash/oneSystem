@@ -13,6 +13,7 @@ function ProviderRegistration() {
     createProvider(values, user.user_id)
     actions.resetForm();
     navigate("/provider")
+    //add the local storage 
   }
   const {
     values,

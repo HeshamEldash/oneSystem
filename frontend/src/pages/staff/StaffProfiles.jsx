@@ -4,21 +4,25 @@ import StaffProfileItem from "./StaffProfileItem";
 import {getLogins, createLogin, endLogin } from "../../utils/api_calls/getLogins"
 const APIENDPOINT = "http://127.0.0.1:8000";
 function StaffProfiles() {
-  const { user } = useContext(AuthContext);
+  const { user, authTokens } = useContext(AuthContext);
   const [profiles, setProfiles] = useState([]);
   
   const getDetails = async () => {
     const response = await fetch(
-      `${APIENDPOINT}/users/employment-staff-list/${user.email}`,
+      `${APIENDPOINT}/users/employment-staff-list/${user.user_id}`,
       {
         method: "GET",
         headers: {
           "Content-type": "application/json",
+          Authorization: "Bearer " + String(authTokens.access)
         },
       }
     );
+    if (response.ok){
     const data = await response.json();
     setProfiles(data);
+
+    }
   };
   
 
@@ -34,8 +38,8 @@ function StaffProfiles() {
         <StaffProfileItem
           key={profile?.id}
           staff ={profile?.staff}
-          provider_id={profile?.provider?.id}
-          providerName={profile?.provider?.name}
+          staffId ={profile?.staff_id}
+          providerID={profile?.provider_id}
           provider={profile?.provider}
     
         />

@@ -51,6 +51,26 @@
   "invalid_email_or_password": "اسم المستخدم أو كلمة المرور غير صحيحة",
   "dont_have_an_account": "ليس لديك حساب؟",
   
-  "go_to_profile": "اختار هذا الحساب"
+  "go_to_profile": "اختار هذا الحساب",
+  "next" : "التالي",
+  "logout":"تسجيل خروج",
+  "register_a_patient":"تسجيل مريض",
+  "update_profile":"تعديل معلومات المركز ",
+  "register_staff":"تسجيل موظف",
+  "telephone_numbers":"ارقام التليفونات",
+  "address":"العنوان",
+  "date_create":"تاريخ التسجيل",
+  "owner":"المالك",
+  "name":"اسم المركز",
+  "profile_information":"معلومات المركز",
+  "update":"حفظ المعلومات",
+  "staff-email":"البريد الاليكتروني للموظف",
+  "enter_staff_email":"ادخل البريد الاليكتروني المسجل مسبقا",
+  "r":"",
+  "f":"",
+  "v":"",
+  "d":"",
+  "a":""
+
   
 }

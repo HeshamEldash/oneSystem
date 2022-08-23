@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { BrowserRouter as Router, Route, Routes, Link } from "react-router-dom";
+import { BrowserRouter as Router, Route, Routes,NavLink, Link , useParams} from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import Navbar from "../../components/ui/Navbar";
 import SideBar from "../../components/ui/SideBar";
@@ -9,12 +9,12 @@ const APIENDPOINT = "http://127.0.0.1:8000/";
 
 function ProviderHome() {
     const { t,i18n } = useTranslation();
-
+    const { id } = useParams();
   const [registeredPatients, setRegisteredPatients] = useState([]);
   const [employedStaff, setEmployedStaff] = useState([])
 
   const getAllStaff = async ()=>{
-    const response = await fetch(`${APIENDPOINT}users/staff-list/1/`, {
+    const response = await fetch(`${APIENDPOINT}users/staff-list/${id}/`, {
         method: "GET",
         headers: {
             "Content-type": "application/json",
@@ -28,20 +28,30 @@ function ProviderHome() {
 
   } 
 
+const setLocalStorage = ()=>{
+
+}  
 useEffect(()=>{
     getAllStaff()
+    // localStorage.setItem("provider", JSON.stringify(data))
 },[])
 
   return (
     <>
       <Navbar>
-      <Link to="/provider/patient-registration" style={{"display": "inline-block"}}>
-      {t("register-a-patient")}
-      </Link>
+      <NavLink className="navlink_item" to={`/provider/${id}/patient-registration`}>
+      {t("register_a_patient")}
+      </NavLink>
       <br/>
-      <Link to="/provider/profile-update"  style={{"display": "inline-block"}}>
-      {t("update-profile")}
-      </Link>
+
+      <NavLink className="navlink_item" to={`/provider/${id}/profile-update`} >
+      {t("update_profile")}
+      </NavLink>
+
+      <NavLink className="navlink_item" to= {`/provider/${id}/register-staff`}>
+      {t("register_staff")}
+      </NavLink>
+
       </Navbar>
       <SideBar />
       {<Outlet />?<Outlet />:null}

@@ -1,5 +1,6 @@
 
 from dataclasses import fields
+import email
 from rest_framework import serializers
 from . import utils
 from .models import *
@@ -199,19 +200,47 @@ class RegistrationSerializer(serializers.ModelSerializer):
         }
         return utils.end_registration(instance)
 
-class EmploymentSerializer(serializers.ModelSerializer):
-    # provider = serializers.SlugRelatedField(
-    #     many=False,
-    #     queryset = Provider.objects.all(),
-    #     read_only=False,
-    #     slug_field='name'
-    #  )
-    provider = ProviderCreateSerializer(many=False)
+class EmploymentReadSerializer(serializers.ModelSerializer):
+    provider = serializers.SlugRelatedField(slug_field= "name", read_only=True, many=False)
+    staff = serializers.SlugRelatedField(slug_field= "full_name", read_only=True, many=False)
+    provider_id = serializers.IntegerField( read_only=True)
+    staff_id = serializers.IntegerField( read_only=True)
 
     class Meta: 
         model= Employment
         fields = "__all__"
 
+
+
+class EmploymentWriteSerializer(serializers.ModelSerializer):
+    staff = serializers.EmailField()
+    class Meta: 
+        model= Employment
+        fields = ["staff", "provider"]
+        extra_kwargs = {'date_employed': {'read_only': True},
+        'is_active': {'default': True}
+        , 'date_registration_end': {'required': False, "allow_null":True}}
+
+    def create(self, validated_data):
+        staff_email = validated_data.get("staff")
+        staff= Staff.objects.get(account__email=staff_email)
+        # provider= Provider.objects.get(validated_data.get("provider"))
+        provider= validated_data.get("provider")
+        
+        return Employment.objects.create(staff=staff, provider=provider)
+
+
+    def update(self, instance, validated_data):
+        self.Meta.extra_kwargs = {
+        'date_employed': {'read_only': True},
+        'staff': {'read_only': True},
+        'provider': {'read_only': True},
+        'is_active': {'default': True}, 
+        'date_employment_end': {'required': False, "allow_null":True}
+        }
+        return utils.end_registration(instance)
+
+    
 class LoginToProviderEventSerializer(serializers.ModelSerializer):
 
     class Meta: 

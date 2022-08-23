@@ -1,28 +1,29 @@
-import React, { useState, useContext } from "react";
-import AuthContext from "../../context/AuthContext";
-import { Link } from "react-router-dom";
+import React from "react";
+import { Link, Navigate, useParams } from "react-router-dom";
 import { useFormik } from "formik";
-import { registrationSchema } from "./RegistrationSchema";
 import { useTranslation } from "react-i18next";
-import "./registration.css";
+
 import Select from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
 import { useNavigate } from "react-router-dom";
-import { useOutletContext } from "react-router-dom";
+import { createEmployment } from "./providerApi";
 import { ToastContainer, toast } from "react-toastify";
+import { ProviderRegisterStaffSchema } from "./formSchemas/ProviderRegisterStaffSchema";
 
 const APIENDPOINT = "http://127.0.0.1:8000/";
 
-function RegisterationPage() {
+function ProviderRegisterStaff() {
   const notify = (msg) =>
     toast(t(msg), {
       toastId: "customId",
       className: "black-background",
       bodyClassName: "grow-font-size",
     });
+  const { id } = useParams();
+
   const navigate = useNavigate();
   const { t } = useTranslation();
-  let { loginUser } = useContext(AuthContext);
+
   let onSubmit = async (values, actions) => {
     let res = await fetch(`${APIENDPOINT}users/staff-create/`, {
       method: "POST",
@@ -56,13 +57,13 @@ function RegisterationPage() {
         }
       })
       .catch((err) => {
-        notify(err.msg);
+        notify(err.message);
         return { msg: err.message };
       });
 
     if (res.ok) {
-      loginUser(values);
-      navigate("/staff-dashboard");
+      const response = await createEmployment(values.email, id);
+      notify(response.msg);
     }
     actions.resetForm();
   };
@@ -87,28 +88,27 @@ function RegisterationPage() {
       password: "",
       confirmPassword: "",
     },
-    validationSchema: registrationSchema,
+    validationSchema: ProviderRegisterStaffSchema,
     onSubmit,
   });
 
   return (
-    <div className="registration-page">
-      <ToastContainer
-        position="bottom-center"
-        autoClose={5000}
-        hideProgressBar
-        newestOnTop={false}
-        closeOnClick
-        rtl
-        pauseOnFocusLoss
-        draggable={false}
-        pauseOnHover
-        style={{ width: "100%" }}
-      />
-      <div className="form-sidebar">
-        <span className="form-header"> {t("Register")}</span>
-      </div>
-      <div className="user-form-container">
+    <div className="">
+
+      <div className="">
+        <ToastContainer
+          position="bottom-center"
+          autoClose={5000}
+          hideProgressBar
+          newestOnTop={false}
+          closeOnClick
+          rtl
+          pauseOnFocusLoss
+          draggable={false}
+          pauseOnHover
+          style={{ width: "100%" }}
+        />
+
         <form className="user-form" type="submit" onSubmit={handleSubmit}>
           <label> {t("first_name")}</label>
 
@@ -276,21 +276,12 @@ function RegisterationPage() {
             className="form-button"
             disabled={isSubmitting}
             type="submit"
-            value={t("register")}
+            value={t("register_and_start_employment")}
           />
         </form>
-
-        <span className="form-text">
-          {t("already_have_an_account_?")}
-
-          <Link to="/login" className="form-link">
-            {" "}
-            {t("login")}{" "}
-          </Link>
-        </span>
       </div>
     </div>
   );
 }
 
-export default RegisterationPage;
+export default ProviderRegisterStaff;

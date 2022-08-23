@@ -7,13 +7,15 @@ import { getLogins, createLogin,getLastLogin } from "../../utils/api_calls/getLo
 function StaffProfileItem(props) {
 const[login, setLogin]= useState({})
 
+
 const { t,i18n } = useTranslation();
 // const formattedTime = DateTime
 // .fromFormat(props.lastLogin, "yyyy-MM-dd HH:mm:ss")
 // .toFormat('MM/dd/yyyy h:mm a');
 
 const getLogin = async ()=>{
-    const log= await getLastLogin(props.staff,props.provider_id )
+  
+    const log= await getLastLogin(props.staffId,props.providerID )
     setLogin(log)
   }
 
@@ -25,9 +27,13 @@ const getLogin = async ()=>{
   return (
     <div className='staff-profile-item'>
 
-    <span>{props.providerName}</span>
+    <span>{props.provider}</span>
     <span>{login?.start_time}</span>
-    <Link onClick={()=>{createLogin(1,1)}} className="item-link" to="/provider" style={{"display": "block"}}>
+    <Link onClick={()=>{
+      localStorage.setItem("provider", JSON.stringify(props.providerID))
+      createLogin(props.staffId,props.providerID)
+      
+      }} className="item-link" to={`/provider/${props.providerID}`} style={{"display": "block"}}>
         {t("go_to_profile")}
       </Link>
     

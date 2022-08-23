@@ -198,7 +198,7 @@ def create_update_provider(**kwargs):
     if telephone_num:
         TelephoneNumber.objects.create( owner_provider=provider,**telephone_num)
     if address:  
-        address.pop("provider")
+        print(address)
         Address.objects.create(provider=provider, **address)
     
     provider.save()

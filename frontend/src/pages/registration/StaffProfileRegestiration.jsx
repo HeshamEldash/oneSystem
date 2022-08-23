@@ -4,6 +4,7 @@ import { useFormik } from "formik";
 import { useTranslation } from "react-i18next";
 import "./registration.css"
 
+// still need to complete the onsubmit
 function StaffProfileRegestiration() {
     const { t } = useTranslation();
     const onSubmit = ()=>{

@@ -22,7 +22,7 @@ function Header() {
       <Link to="/login" style={{"display": "block"}}>
       {t("login")}
       </Link>
-      <div onClick={logoutUser} className="header-content">Logout</div>
+      <div onClick={logoutUser} className="header-content">    {t("logout")}</div>
 
     </div>
   )

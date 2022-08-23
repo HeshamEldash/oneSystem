@@ -29,8 +29,11 @@ urlpatterns = [
     path("provider/", ProviderCreateView.as_view(), name = "provider"),
     path("provider/<int:pk>/", ProviderDetailView.as_view(), name = "provider_detail"),
     
-    path("employment-provider-list/<int:pk>/",EmploymentListView.as_view(), name= "emplyment-list"),
-    path("employment-staff-list/<str:email>/",EmploymentListView.as_view(), name= "emplyment-list"),
+
+    path("employment-detail/<int:pk>/",EmploymentDetailView.as_view(), name= "emplyment-detail"),
+    path("employment-create/",EmploymentProviderListView.as_view(), name= "emplyment-provider-list"),
+    path("employment-provider-list/<int:pk>/",EmploymentProviderListView.as_view(), name= "emplyment-provider-list"),
+    path("employment-staff-list/<int:pk>/",EmploymentStaffListView.as_view(), name= "emplyment-staff-list"),
     
     path("staff-login/<int:provider_pk>/<int:staff_pk>/", LoginToProviderEventView.as_view(), name="staff_logins"),
     path("staff-logins-list/<int:provider_pk>/<int:staff_pk>/", LoginToProviderEventViewList.as_view(), name="staff_logins"),

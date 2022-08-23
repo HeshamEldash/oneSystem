@@ -29,7 +29,6 @@ function Login() {
     if (loginSuccessful) {
       navigate("/staff-dashboard");
     } else {
-      console.log("else");
       notify();
     }
   };

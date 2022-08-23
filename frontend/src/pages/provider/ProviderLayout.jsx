@@ -4,12 +4,11 @@ import Navbar from '../../components/ui/Navbar'
 import SideBar from '../../components/ui/SideBar'
 function ProviderLayout() {
   return (
-    <>
-        <Navbar/>
+    <div className='page-container'>
       <SideBar/>
+      <Navbar/>
       <Outlet/>
-
-    </>
+    </div>
   )
 }
 
