@@ -55,12 +55,12 @@ function ProviderRegisterStaff() {
         } else if (!response.ok) {
           throw Error("An_error_has_occured");
         }
+        else return response
       })
       .catch((err) => {
         notify(err.message);
         return { msg: err.message };
       });
-
     if (res.ok) {
       const response = await createEmployment(values.email, id);
       notify(response.msg);

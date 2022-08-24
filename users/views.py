@@ -192,11 +192,11 @@ class ProviderCreateView (generics.GenericAPIView,mixins.CreateModelMixin):
         return self.create(request, *args, **kwargs)
 
 class EmploymentDetailView(generics.GenericAPIView, 
-        mixins.RetrieveModelMixin,mixins.UpdateModelMixin):
+        mixins.RetrieveModelMixin,mixins.UpdateModelMixin, mixins.DestroyModelMixin):
     queryset = Employment.objects.all()
 
     def get_serializer_class(self):
-        if self.request.method in ["POST", "PUT"]:
+        if self.request.method in ["POST", "PUT","PATCH"]:
             return EmploymentWriteSerializer 
         return EmploymentReadSerializer
 
@@ -207,6 +207,10 @@ class EmploymentDetailView(generics.GenericAPIView,
     
     def put(self, request, *args, **kwargs):
         return self.update(request, *args, **kwargs)
+    
+    def patch(self, request, *args, **kwargs):
+        return self.partial_update(request, *args, **kwargs)
+ 
 
 
 class EmploymentProviderListView(generics.GenericAPIView, 

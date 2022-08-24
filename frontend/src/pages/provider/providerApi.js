@@ -46,14 +46,13 @@ const createProvider = async (data, user_id) => {
 
 const endEmployment = async (employmentId) => {
   const response = await fetch(`${APIENDPOINT}/users/employment-detail/${employmentId}/`, {
-    method: "PUT",
+    method: "PATCH",
     headers: {
       "Content-type": "application/json",
       Authorization: "Bearer " + String(token.access),
     },
     body: JSON.stringify({
-      staff: "staff_email@g.com",
-      provider: 1,
+      is_active: false
     }),
   });
 };

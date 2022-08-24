@@ -1,6 +1,7 @@
 
 from dataclasses import fields
 import email
+from email.message import EmailMessage
 from rest_framework import serializers
 from . import utils
 from .models import *
@@ -125,7 +126,8 @@ class StaffSerializer(serializers.Serializer):
     staff_role = serializers.ChoiceField(ROLE_CHOICES)
     professional_number = serializers.CharField()
     telephone_numbers = TelephoneNumberSerializer(source='phone_nums',many=True)
-   
+    staff_email = serializers.EmailField(source="account" ,read_only=True)
+
     def update(self, instance, validated_data):
         utils.update_staff(instance, **validated_data)    
         return instance            
@@ -223,21 +225,17 @@ class EmploymentWriteSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
         staff_email = validated_data.get("staff")
         staff= Staff.objects.get(account__email=staff_email)
-        # provider= Provider.objects.get(validated_data.get("provider"))
         provider= validated_data.get("provider")
-        
         return Employment.objects.create(staff=staff, provider=provider)
 
 
     def update(self, instance, validated_data):
-        self.Meta.extra_kwargs = {
-        'date_employed': {'read_only': True},
-        'staff': {'read_only': True, "required":False},
-        'provider': {'read_only': True},
-        'is_active': {'default': True}, 
-        'date_employment_end': {'required': False, "allow_null":True}
-        }
-        return utils.end_registration(instance)
+        method = self.context["request"].method
+        if method == "PATCH":
+            return utils.end_employment(instance)
+        return utils.update_employment(instance, validated_data)
+
+    
 
     
 class LoginToProviderEventSerializer(serializers.ModelSerializer):

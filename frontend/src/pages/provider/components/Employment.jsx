@@ -41,13 +41,13 @@ function Employment(props) {
   ];
   const endApiEmployment = ()=>{
     endEmployment(props.employmentId)
+    props.onDelete()
   }
   const getApiData = async () => {
     const data = await getStaffProfile(props.staffId);
     setStaff(data);
     const loginData = await getLogins(props.staffId, id);
     setLogins(loginData);
-    console.log(loginData);
   };
 
   useEffect(() => {
@@ -57,6 +57,11 @@ function Employment(props) {
   return (
     <div className="primary-container   ">
       <table>
+      <tbody>
+      <tr>
+          <td>staff_email</td>
+          <td> {staff?.staff_email}</td>
+        </tr>
         <tr>
           <td>staff_name</td>
           <td> {props.staff}</td>
@@ -74,13 +79,10 @@ function Employment(props) {
           <td> {props.salary}</td>
         </tr>
         <tr>
-          <td>last_login</td>
-          <td> {props.lastLogin}</td>
+          <td>active</td>
+          <td> {props.isActive}</td>
         </tr>
-        <tr>
-          <td>last_logout</td>
-          <td> {props.lastLogout}</td>
-        </tr>
+        </tbody>
       </table>
 
       <input
@@ -93,7 +95,7 @@ function Employment(props) {
       />
       <input className="secondry-button" type="button" value={"edit"} />
       <input className="secondry-button" type="button" value={"remove"}
-      onClick={endApiEmployment()}
+      onClick={()=>endApiEmployment()}
        />
 
       {showLogins && (

@@ -1,5 +1,6 @@
 
 from django.db import models
+from django.db.models import Q
 from django.contrib.auth.models import (PermissionsMixin)
 from django.contrib.auth.base_user import AbstractBaseUser, BaseUserManager
 from django.utils import timezone
@@ -151,7 +152,7 @@ class Employment(models.Model):
 
     class Meta:
             constraints = [
-            models.UniqueConstraint(fields=['provider', 'staff', "is_active"],
+            models.UniqueConstraint(fields=['provider', 'staff'],condition=Q(is_active=True),
                                     name='unique_employment')
         ]
 
@@ -164,7 +165,7 @@ class Registration(models.Model):
 
     class Meta:
         constraints = [
-        models.UniqueConstraint(fields=['provider', 'patient', "is_active"],
+        models.UniqueConstraint(fields=['provider', 'patient'],condition=Q(is_active=True),
                                 name='unique_registration')
     ]
 

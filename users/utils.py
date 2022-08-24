@@ -236,5 +236,23 @@ def end_registration(instance):
     instance.save()
     return instance 
 
+def end_employment(instance):
+    """sets the employment is_active to false and the end date to now"""
+    if instance.is_active == False:
+        return instance
+
+    instance.is_active = False
+    instance.date_employment_end = timezone.now().date()
+    instance.save()
+    return instance 
+
+def update_employment(instance, **kwargs):
+
+   
+    instance.salary = kwargs.get("salary")
+
+    instance.save()
+    return instance 
+
 
     
