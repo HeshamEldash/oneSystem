@@ -14,6 +14,8 @@ function ProviderManageStaff() {
   useEffect(() => {
     getEmployments();
   }, []);
+
+
   return (
     <div>
       {listOfEmployments?.map((employment) => {

@@ -27,16 +27,16 @@ function App() {
   return (
     <div className="App {i18n.language === 'en' ? 'english': 'arabic'}">
       <AuthProvider>
-      <Header />
 
+      <Header />
       <Routes>
         <Route element={<ProtectedUserRoutes/>} >
              <Route element={<StaffDashboard/>} path="/staff-dashboard" />
              <Route element={<ProviderLayout/>} path="/provider/:id">
                 <Route index element={<ProviderHome/>} />
                 <Route element={<ProviderProfileUpdate/>} path="profile-update" />
-                <Route element={<PatientRegistration/>} path="patient-registration"/>
                 <Route element={<AddressUpdate/>} path="address-update" />
+                <Route element={<PatientRegistration/>} path="patient-registration"/>
                 <Route element={<ProviderStartEmployment/>} path="register-staff" />
                 <Route element={<ProviderManageStaff/>} path="manage-staff" />
 

@@ -1,3 +1,4 @@
+from urllib import request
 from .models import Account, Patient, TelephoneNumber
 from .serializers import *
 from rest_framework_simplejwt.views import TokenObtainPairView
@@ -311,6 +312,23 @@ class LoginToProviderEventView(generics.GenericAPIView,
     def put(self, request, *args, **kwargs):
         return self.update(request, *args, **kwargs)
 
+class AddressListView(generics.GenericAPIView,mixins.ListModelMixin,
+     mixins.CreateModelMixin):
+    queryset = Address.objects.all()
+    serializer_class = AddressSerializer
+
+    def get_queryset(self):
+        owner = self.kwargs.get("owner_pk")
+        qs = Address.objects.filter(provider=owner)
+        return qs
+
+    def get(self,request, *args, **kwargs):
+        return self.list(request, *args,**kwargs)
+
+    def post(self, request, *args, **kwargs):
+        return self.create(request, *args, **kwargs)
+
+    
 class AddressDetailView(generics.GenericAPIView,mixins.UpdateModelMixin,mixins.DestroyModelMixin,
     mixins.RetrieveModelMixin, mixins.CreateModelMixin,):
     queryset = Address.objects.all()

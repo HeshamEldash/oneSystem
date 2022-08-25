@@ -39,7 +39,6 @@ useEffect(()=>{
   return (
     <>
 
-      {<Outlet />?<Outlet />:null}
       <div className="provider-home-main">
       This si the provider home
         {registeredPatients?.map((patient)=>{
@@ -47,14 +46,14 @@ useEffect(()=>{
         })}
         {employedStaff?.map((staff)=>{
             return <div>
-                <p1>{staff.id}</p1>
-                <p1>{staff.first_name}</p1>
-                <p1>{staff.middle_names}</p1>
-                <p1>{staff.last_name}</p1>
-                <p1>{staff.staff_role}</p1>
-                <p1>{staff.professional_number}</p1>
+                <p>{staff.id}</p>
+                <p>{staff.first_name}</p>
+                <p>{staff.middle_names}</p>
+                <p>{staff.last_name}</p>
+                <p>{staff.staff_role}</p>
+                <p>{staff.professional_number}</p>
                 {staff?.telephone_numbers.map((num)=>{
-                    return <p1>{num}</p1>
+                    return <p>{num}</p>
                 })}
 
 

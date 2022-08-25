@@ -6,6 +6,7 @@ import "./staff.css"
 import { BrowserRouter as Router, Route, Routes, Link,NavLink, useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import AuthContext from '../../context/AuthContext'
+import StaffProfileItem from './StaffProfileItem'
 
 const APIENDPOINT = "http://127.0.0.1:8000";
 
@@ -25,9 +26,9 @@ function StaffDashboard() {
       )
 
       if (response.ok) {
-        const data = response.json()
+        const data =await response.json()
         setOwnedProvider(data)
-    }
+      }
   }
 
   useEffect(()=>{
@@ -36,21 +37,28 @@ function StaffDashboard() {
 
   return (
     <div className='staff-dashboard-main'>
-      <Navbar>
-        <NavLink to=""/>
-      </Navbar>
-      <SideBar/>
-     <div className='staff-dashboard-inner'>
-      <StaffProfiles/>
-      </div>
+    <Navbar/> 
+    
 
-      {!ownedProvider && 
+      {ownedProvider?
+      <div className='primary-container'>
+        <h3>owned_clinic</h3>
+        <StaffProfileItem
+          providerID={ownedProvider?.id}
+          provider={ownedProvider?.name}
+        />
+        </div> 
+      :
       <div className='staff-dashboard-inner'>
       <input type="button"  onClick={()=>{navigate("/register/provider")}} className="item-link" />
         {t("register_a_provider")}
  
       </div>
       }
+
+      <div className='staff-dashboard-inner'>
+      <StaffProfiles/>
+      </div>
     </div>
   )
 }

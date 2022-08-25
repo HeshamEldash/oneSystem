@@ -75,6 +75,7 @@ class AddressSerializer(serializers.ModelSerializer):
         "second_line", "city", "governorate", "provider",
         "staff", "patient", "owner"
         ]
+        
 
 class PatientProfileSerializer(serializers.Serializer):
     id = serializers.CharField(read_only=True)
@@ -145,6 +146,7 @@ class StaffAccountSerializer(serializers.Serializer):
 class ProviderDetailSerializer(serializers.Serializer):
     id = serializers.CharField(read_only = True)
     name = serializers.CharField(max_length=200)
+    owner_email =serializers.CharField(source="owner")
     owner = serializers.SlugRelatedField(slug_field="pk", queryset = Account.objects.all())
     date_created = serializers.DateTimeField(read_only=True)
 

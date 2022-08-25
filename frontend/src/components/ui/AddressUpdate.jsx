@@ -1,19 +1,24 @@
 import React, { useState, useContext } from "react";
 import { useFormik } from "formik";
 import { useTranslation } from "react-i18next";
-import { Link, Navigate, useLocation } from "react-router-dom";
-import { updateAddress } from "../../utils/api_calls/addressApis";
+import { Link, Navigate, useLocation, useParams} from "react-router-dom";
+import { createAddress, updateAddress } from "../../utils/api_calls/addressApis";
 
 
-function AddressUpdate(props) {
+function AddressUpdate({address}) {
   const { t } = useTranslation();
-  const {state} = useLocation()
 
+  const{id} = useParams()
     const onSubmit = (values, actions)=>{
-        updateAddress(1, values)
-         actions.resetForm();
+        if (!!address){
+          updateAddress(address.id, values)
+           actions.resetForm(); 
+        }else{
+          createAddress(id , values)
+        }
 
     }
+
   const {
     values,
     errors,
@@ -24,11 +29,11 @@ function AddressUpdate(props) {
     handleSubmit,
   } = useFormik({
     initialValues: {
-      unit_number: state?.unit_number,
-      first_line: state?.first_line,
-      second_line: state?.second_line,
-      city: state?.city,
-      governorate: state?.governorate,
+      unit_number: address?.unit_number || "",
+      first_line: address?.first_line || "",
+      second_line: address?.second_line || "",
+      city: address?.city || "",
+      governorate: address?.governorate || "",
     },
     onSubmit,
   });

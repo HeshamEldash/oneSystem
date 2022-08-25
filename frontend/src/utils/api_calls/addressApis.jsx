@@ -1,48 +1,72 @@
 const APIENDPOINT = "http://127.0.0.1:8000";
 
+const token = JSON.parse(localStorage.getItem("authTokens"));
+
+const createAddress = async (provider_id, values) => {
+  const response = await fetch(
+    `${APIENDPOINT}/users/address-list/${provider_id}/`,
+    {
+      method: "post",
+      headers: {
+        "Content-type": "application/json",
+        Authorization: "Bearer " + String(token.access),
+      },
+      body: JSON.stringify({
+        unit_number: values.unit_number,
+        first_line: values.first_line,
+        second_line: values.second_line,
+        city: values.city,
+        governorate: values.governorate,
+        provider: provider_id,
+      }),
+    }
+  );
+};
 
 const updateAddress = async (address_id, values) => {
-    console.log(values)
-    const response = await fetch(
-      `${APIENDPOINT}/users/address-detail/${address_id}/`,
-      {
-        method: "PUT",
-        headers: {
-          "Content-type": "application/json",
-        },
-        body:JSON.stringify({
-            unit_number:values.unit_number,
-            first_line:values.first_line,
-            second_line:values.second_line,
-            city:values.city,
-            governorate:values.governorate,
-        })
-      }
-    );
-  };
+  const response = await fetch(
+    `${APIENDPOINT}/users/address-detail/${address_id}/`,
+    {
+      method: "PUT",
+      headers: {
+        "Content-type": "application/json",
+        Authorization: "Bearer " + String(token.access),
+      },
+      body: JSON.stringify({
+        unit_number: values.unit_number,
+        first_line: values.first_line,
+        second_line: values.second_line,
+        city: values.city,
+        governorate: values.governorate,
+      }),
+    }
+  );
+};
 
-  const deleteAddress = async (address_id) => {
-    const response = await fetch(
-      `${APIENDPOINT}/users/address-detail/${address_id}/`,
-      {
-        method: "DELETE",
-        headers: {
-          "Content-type": "application/json",
-        },
-      }
-    );
-  };
+const deleteAddress = async (address_id) => {
+  const response = await fetch(
+    `${APIENDPOINT}/users/address-detail/${address_id}/`,
+    {
+      method: "DELETE",
+      headers: {
+        "Content-type": "application/json",
+        Authorization: "Bearer " + String(token.access),
+      },
+    }
+  );
+};
 
-  const getAddress = async (address_id) => {
-    const response = await fetch(
-      `${APIENDPOINT}/users/address-detail/${address_id}/`,
-      {
-        method: "DELETE",
-        headers: {
-          "Content-type": "application/json",
-        },
-      }
-    );
-  };
+const getAddress = async (address_id) => {
+  const response = await fetch(
+    `${APIENDPOINT}/users/address-detail/${address_id}/`,
+    {
+      method: "DELETE",
+      headers: {
+        "Content-type": "application/json",
+        Authorization: "Bearer " + String(token.access),
+      },
+    }
+  );
+};
 
-export {updateAddress, deleteAddress }
+export { createAddress, updateAddress, deleteAddress };

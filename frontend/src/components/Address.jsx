@@ -23,7 +23,7 @@ export function Address(props) {
       <span>{address?.city}</span>
       <span>{address?.governorate}</span>
 
-      <input
+      {/* <input
         type="button"
         className="secondry-button"
         value={t("update")}
@@ -37,7 +37,9 @@ export function Address(props) {
             governorate: address?.governorate
           }} )
         }}
-      />
+      /> */}
+
+      {props.children}
 
     <DeleteIcon 
        color="error" 

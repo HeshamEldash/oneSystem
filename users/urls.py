@@ -11,6 +11,8 @@ urlpatterns = [
     path("account-status/", AccountStatusView.as_view(), name= "account_status"),
     path("account-create/", CreateAccountView.as_view(), name= "account_create"),
 
+
+
     path("patient-profile-detail/<int:pk>/", PatinetProfileDetailView.as_view(), name= "patient_profile"),
     path("patient-account-detail/<int:pk>/", PatientAccountDetailView.as_view(), name= "patient_account"),
 
@@ -21,6 +23,7 @@ urlpatterns = [
 
     path("staff-list/<int:pk>/", StaffListView.as_view(), name= "staff_list"),
     
+    path("address-list/<int:owner_pk>/", AddressListView.as_view()),
     path("address-detail/<int:pk>/", AddressDetailView.as_view(), name="address_detail"),
 
     path("registration/<int:provider_pk>/<int:patient_pk>/",RegistrationDetailView.as_view(), name= "registration_detail"),
