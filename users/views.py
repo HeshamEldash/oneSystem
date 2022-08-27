@@ -45,6 +45,15 @@ class CreateAccountView(generics.GenericAPIView, mixins.CreateModelMixin):
             return self.create(request, *args, **kwargs)
 
 
+class PatinetProfileCreateView(generics.GenericAPIView,  mixins.RetrieveModelMixin,
+                                mixins.CreateModelMixin, mixins.UpdateModelMixin):
+    queryset=Patient.objects.all()
+    serializer_class = PatientProfileSerializer
+ 
+    def post(self, request, *args, **kwargs):
+        return self.create(request, *args, **kwargs)
+
+
 class PatinetProfileDetailView(generics.GenericAPIView,  mixins.RetrieveModelMixin,
                                 mixins.CreateModelMixin, mixins.UpdateModelMixin):
     queryset=Patient.objects.all()
@@ -67,6 +76,16 @@ class PatientAccountDetailView(generics.GenericAPIView,mixins.UpdateModelMixin,
 
     def get(self, request, *args, **kwargs):
         return self.retrieve(request, *args,**kwargs)
+
+    def post(self, request, *args, **kwargs):
+        return self.create(request, *args, **kwargs)
+
+class PatientAccountCreateView(generics.GenericAPIView,mixins.UpdateModelMixin, 
+                            mixins.RetrieveModelMixin,mixins.CreateModelMixin):
+    
+    queryset = Account.objects.all()
+    serializer_class = PatientAccountSerializer
+
 
     def post(self, request, *args, **kwargs):
         return self.create(request, *args, **kwargs)
@@ -370,6 +389,7 @@ class TestView(generics.GenericAPIView, mixins.RetrieveModelMixin,
     #         return Employment.objects.filter(provider=pk)    
 
     def get(self,request, *args, **kwargs):
+        print(request.GET.get("e"))
         return self.list(request, *args,**kwargs)
 
     def post(self, request, *args, **kwargs):

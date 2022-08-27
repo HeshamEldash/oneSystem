@@ -7,9 +7,10 @@
     overflow-wrap: break-word;
     width: 100%;
     min-height: 3rem;
+    max-height: 3rem;
     background-color: rgb(151, 180, 203);
     justify-content: space-evenly;
-    align-items: center;
+    align-items: normal;
     /* padding-block: 1rem; */
 }
 .main-sidebar{

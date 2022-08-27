@@ -10,7 +10,7 @@ import { createEmployment } from "./providerApi";
 import { ToastContainer, toast } from "react-toastify";
 import { ProviderRegisterStaffSchema } from "./formSchemas/ProviderRegisterStaffSchema";
 
-const APIENDPOINT = "http://127.0.0.1:8000/";
+import APIENDPOINT from "../../utils/api_calls/apiEndpoint";
 
 function ProviderRegisterStaff() {
   const notify = (msg) =>

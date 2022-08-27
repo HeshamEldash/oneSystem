@@ -8,7 +8,9 @@ import { useNavigate } from "react-router-dom";
 import AuthContext from "../../context/AuthContext";
 import { accountFormSchema } from "./AccountFormSchema";
 
-const APIENDPOINT = "http://127.0.0.1:8000/";
+import APIENDPOINT from "../../utils/api_calls/apiEndpoint";
+
+
 function AccountRegistration() {
   const { t } = useTranslation();
   const navigate = useNavigate();

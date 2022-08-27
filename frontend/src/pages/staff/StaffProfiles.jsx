@@ -2,7 +2,11 @@ import React, { useContext, useEffect, useState } from "react";
 import AuthContext from "../../context/AuthContext";
 import StaffProfileItem from "./StaffProfileItem";
 import {getLogins, createLogin, endLogin } from "../../utils/api_calls/getLogins"
-const APIENDPOINT = "http://127.0.0.1:8000";
+
+
+import APIENDPOINT from "../../utils/api_calls/apiEndpoint";
+
+
 function StaffProfiles() {
   const { user, authTokens } = useContext(AuthContext);
   const [profiles, setProfiles] = useState([]);

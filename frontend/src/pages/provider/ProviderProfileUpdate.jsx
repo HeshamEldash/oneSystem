@@ -8,18 +8,16 @@ import {
   Link,
   useParams,
 } from "react-router-dom";
+import Box from "@mui/material/Box";
+
 import { useTranslation } from "react-i18next";
 import { getProfile } from "./providerApi";
 import { providerProfileSchema } from "./providerProfileSchema";
 import { Address } from "../../components/Address";
 import AddressUpdate from "../../components/ui/AddressUpdate";
 
-import Box from "@mui/material/Box";
-import Button from "@mui/material/Button";
-import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
-
-const APIENDPOINT = "http://127.0.0.1:8000/";
+import APIENDPOINT from "../../utils/api_calls/apiEndpoint";
 
 function ProviderProfileUpdate() {
   const { id } = useParams();
@@ -27,15 +25,14 @@ function ProviderProfileUpdate() {
   const [updating, setUpdating] = useState(false);
   const [profile, setProfile] = useState({});
   const [addresses, setAddresses] = useState([]);
-  const [addAddress, setAddAddress] = useState(false);
-  const [updatingAddress , setUpdatingAddress ] = useState({})
+  const [updatingAddress, setUpdatingAddress] = useState({});
 
   const [open, setOpen] = React.useState(false);
 
   const handleOpen = (address) => {
-    setUpdatingAddress(address)
-    setOpen(true)};
-
+    setUpdatingAddress(address);
+    setOpen(true);
+  };
 
   const handleClose = () => setOpen(false);
 
@@ -56,7 +53,7 @@ function ProviderProfileUpdate() {
     transform: "translate(-50%, -50%)",
     width: 400,
     bgcolor: "background.paper",
-    border: "2px solid #000",
+    border: "1px solid #000",
     boxShadow: 24,
     p: 4,
   };
@@ -129,53 +126,57 @@ function ProviderProfileUpdate() {
             />
           </div>
           <div className="primary-container">
-          
+            <h4>{t("telephone_numbers")}</h4>
+            {profile?.telephone_numbers?.map((num) => {
+
+              <h4>num</h4>;
+              
+            })}
+          </div>
+
+
+          <div className="primary-container">
             <h4>{t("address")}</h4>
             <input
               type="button"
               value="add_address"
               onClick={() => {
-                setAddAddress((prev) => !prev);
+                handleOpen()
               }}
             />
-            {addAddress && <AddressUpdate />}
-            
+
             {addresses.map((address) => {
               return (
                 <>
-                  <Address key={address.id} address={address} >
-                  <input
-                  
-                    type="button"
-                    className="secondry-button"
-                    value={t("update")}
-                    onClick={()=>handleOpen(address)}
-                  />
+                  <Address key={address.id} address={address}>
+                    <input
+                      type="button"
+                      className="secondry-button"
+                      value={t("update")}
+                      onClick={() => handleOpen(address)}
+                    />
                   </Address>
                 </>
-              )
+              );
             })}
 
-            <Modal  
-           
-                    open={open}
-                    onClose={handleClose}
-                    aria-labelledby="modal-modal-title"
-                    aria-describedby="modal-modal-description"
-                  >
-                     <AddressUpdate address={updatingAddress} />
+            <Modal
+              open={open}
+              onClose={handleClose}
+              aria-labelledby="modal-modal-title"
+              aria-describedby="modal-modal-description"
+            >
+              <Box sx={style}>
+                <AddressUpdate
+                  address={updatingAddress}
+                  closeModal={() => handleClose()}
+                />
+              </Box>
+            </Modal>
 
-                
-                  </Modal>
           </div>
 
-          <div className="primary-container">
-            <h4>{t("telephone_numbers")}</h4>
-            {/* {profile?.telephone_numbers?.map((num) => {
 
-              <h4>num</h4>;
-            })} */}
-          </div>
         </>
       )}
     </>

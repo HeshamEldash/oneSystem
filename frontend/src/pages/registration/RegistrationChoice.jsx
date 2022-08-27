@@ -20,6 +20,10 @@ const {user} = useContext(AuthContext)
       <Link to="/registration/staff" style={{"display": "block"}}>
       {t("Register as individual")}
       </Link>
+
+      <Link to="/register/patient" style={{"display": "block"}}>
+      {t("Register as a patient")}
+      </Link>
     </div>
     }
     </>

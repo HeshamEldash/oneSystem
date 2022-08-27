@@ -13,6 +13,7 @@ urlpatterns = [
 
 
 
+    path("patient-profile-create/", PatinetProfileCreateView.as_view(), name= "patient_profile_create"),
     path("patient-profile-detail/<int:pk>/", PatinetProfileDetailView.as_view(), name= "patient_profile"),
     path("patient-account-detail/<int:pk>/", PatientAccountDetailView.as_view(), name= "patient_account"),
 
@@ -28,6 +29,7 @@ urlpatterns = [
 
     path("registration/<int:provider_pk>/<int:patient_pk>/",RegistrationDetailView.as_view(), name= "registration_detail"),
     path("registration-list/<int:provider_pk>/",RegistrationListView.as_view(), name= "registration_list"),
+    path("patient-create/",PatientAccountCreateView.as_view(), name= "patient_create"),
     
     path("provider/", ProviderCreateView.as_view(), name = "provider"),
     path("provider/<int:pk>/", ProviderDetailView.as_view(), name = "provider_detail"),

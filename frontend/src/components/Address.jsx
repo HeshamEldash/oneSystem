@@ -5,7 +5,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 
 import "./components.css";
 import { deleteAddress } from "../utils/api_calls/addressApis";
-
+import APIENDPOINT from "../utils/api_calls/apiEndpoint";
 export function Address(props) {
   const { t } = useTranslation();
   const navigate = useNavigate();

@@ -11,14 +11,17 @@
 }
 
 .navlink_item{
-    background-color: rgb(255, 255, 255);
+    display: flex;
+    background-color: inherit;
     text-decoration: none;
-    padding: 0.7rem;
-    max-width: 6rem;
+    color: rgba(255, 255, 255, 0.950);
+    max-width: 6.5rem;
     cursor: pointer;
+    align-items: center;
+
 }
 .navlink_item:hover{
-    background-color: rgb(144, 114, 114);
+    background-color: rgb(96, 110, 133);
 
 }
 .navlink_item:active{

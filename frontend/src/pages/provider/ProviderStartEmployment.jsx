@@ -13,7 +13,7 @@ function ProviderStartEmployment() {
     const { t } = useTranslation();
 
   return (
-    <div className='page-component-main'>
+    <div className='page-component-main--grid'>
 
         <div className='inpage-container' onClick={()=>{setAlreadyReg(prev=>!prev)
         setNewReg(false)

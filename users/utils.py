@@ -1,7 +1,7 @@
 from .models import Account, Patient, Registration, Staff, TelephoneNumber, Address, Provider
 from django.core.exceptions import ObjectDoesNotExist
 from django.utils import timezone 
-
+from django.shortcuts import get_object_or_404
 #Final
 def create_staff(email, password, **kwargs):
     """
@@ -75,7 +75,9 @@ def create_patient_profile(**kwargs):
     Also this ensures that the patient profile doesn't get duplicated.
     """
     phone_nums= kwargs.pop("phone_nums")
-    address = kwargs.pop("address_set")
+    address = kwargs.pop("address")
+    
+
     try:
         patient = Patient.objects.get(**kwargs)
 
@@ -206,6 +208,14 @@ def create_update_provider(**kwargs):
     return provider
 
 #Final
+
+def create_patient_and_registration(provider_id,**kwargs):
+    patient = create_patient_profile(**kwargs)
+    provider = get_object_or_404(Provider, pk=provider_id)
+
+    create_registration(patient=patient, provider=provider)
+    return patient
+
 def create_registration(**kwargs):
     """
     creates a new registration using a patient & a provider 
@@ -218,6 +228,7 @@ def create_registration(**kwargs):
         patient=patient, 
         provider=provider
         )
+    print(new_registration)
     return new_registration[0]
 
 #Final

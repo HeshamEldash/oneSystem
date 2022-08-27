@@ -8,7 +8,7 @@ import { useTranslation } from "react-i18next";
 import AuthContext from '../../context/AuthContext'
 import StaffProfileItem from './StaffProfileItem'
 
-const APIENDPOINT = "http://127.0.0.1:8000";
+import APIENDPOINT from '../../utils/api_calls/apiEndpoint'
 
 function StaffDashboard() {
   const { t,i18n } = useTranslation();

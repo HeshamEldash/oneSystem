@@ -5,7 +5,8 @@ import Navbar from "../../components/ui/Navbar";
 import SideBar from "../../components/ui/SideBar";
 import "./provider.css";
 import { Outlet } from "react-router-dom"
-const APIENDPOINT = "http://127.0.0.1:8000/";
+import APIENDPOINT from "../../utils/api_calls/apiEndpoint";
+
 
 function ProviderHome() {
     const { t,i18n } = useTranslation();
@@ -14,7 +15,7 @@ function ProviderHome() {
   const [employedStaff, setEmployedStaff] = useState([])
 
   const getAllStaff = async ()=>{
-    const response = await fetch(`${APIENDPOINT}users/staff-list/${id}/`, {
+    const response = await fetch(`${APIENDPOINT}/users/staff-list/${id}/`, {
         method: "GET",
         headers: {
             "Content-type": "application/json",

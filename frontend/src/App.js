@@ -10,7 +10,6 @@ import  { AuthProvider } from "./context/AuthContext.jsx";
 import StaffDashboard from "./pages/staff/StaffDashboard.jsx";
 import ProtectedUserRoutes from "./components/ProtectedUserRoutes"
 import ProviderHome from "./pages/provider/ProviderHome.jsx";
-import PatientRegistration from "./pages/provider/PatientRegsitrations"
 import ProviderProfileUpdate from "./pages/provider/ProviderProfileUpdate.jsx";
 import AddressUpdate from "./components/ui/AddressUpdate.jsx";
 import ProviderLayout from "./pages/provider/ProviderLayout.jsx";
@@ -21,6 +20,9 @@ import RegistrationStaffMultiStep from "./pages/registration/RegistrationStaffMu
 import Sidebar from "./components/ui/SideBar.jsx";
 import ProviderStartEmployment from "./pages/provider/ProviderStartEmployment.jsx";
 import ProviderManageStaff from "./pages/provider/ProviderManageStaff.jsx";
+import PatientRegistration from "./pages/patients/PatientRegistration.jsx";
+import PatientProviderRegistration from "./pages/patients/PatientProviderRegistration.jsx";
+import ProviderPatientRegistration from "./pages/provider/ProviderPatientRegistration.jsx.jsx";
 function App() {
   const { t, i18n } = useTranslation();
 
@@ -36,7 +38,7 @@ function App() {
                 <Route index element={<ProviderHome/>} />
                 <Route element={<ProviderProfileUpdate/>} path="profile-update" />
                 <Route element={<AddressUpdate/>} path="address-update" />
-                <Route element={<PatientRegistration/>} path="patient-registration"/>
+                <Route element={<ProviderPatientRegistration/>} path="patient-registration"/>
                 <Route element={<ProviderStartEmployment/>} path="register-staff" />
                 <Route element={<ProviderManageStaff/>} path="manage-staff" />
 
@@ -54,6 +56,8 @@ function App() {
         <Route element={<RegistrationLayout/> }  path="/register">
           <Route element={<RegistrationStaffMultiStep />} path="staff" />
           <Route element={<ProviderRegistration/> } path="provider"/>
+          <Route element={<PatientRegistration/>} path="patient"/>
+
         </Route>
         
         <Route element={<h1>404</h1>} path="*" />

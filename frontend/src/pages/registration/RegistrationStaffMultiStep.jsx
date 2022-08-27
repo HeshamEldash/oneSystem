@@ -10,7 +10,7 @@ import MenuItem from '@mui/material/MenuItem';
 import { useNavigate } from "react-router-dom";
 import { useOutletContext } from "react-router-dom";
 
-const APIENDPOINT = "http://127.0.0.1:8000/";
+import APIENDPOINT from "../../utils/api_calls/apiEndpoint";
 
 function RegistrationStaffMultiStep() {
   

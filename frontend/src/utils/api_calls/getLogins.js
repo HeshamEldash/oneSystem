@@ -1,6 +1,4 @@
-
-const APIENDPOINT = "http://127.0.0.1:8000";
-
+import APIENDPOINT from "./apiEndpoint";
 
 const getLastLogin = async (staff_id, provider_id) => {
     const response = await fetch(

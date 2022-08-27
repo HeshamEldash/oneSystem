@@ -1,7 +1,4 @@
-// import react, {useContext} from "react"
-// import AuthContext from "../../context/AuthContext";
-const APIENDPOINT = "http://127.0.0.1:8000";
-
+import APIENDPOINT from "../../utils/api_calls/apiEndpoint";
 const token = JSON.parse(localStorage.getItem("authTokens"));
 
 // const { user, authTokens } = useContext(AuthContext);
@@ -77,7 +74,7 @@ const getAllEmployments = async (provider_id)=>{
  
 }
 const createEmployment = async (staff_email, provider_id) => {
-
+  console.log(token.access)
   const response = await fetch(`${APIENDPOINT}/users/employment-create/`, {
     method: "POST",
     headers: {
@@ -111,6 +108,19 @@ const createEmployment = async (staff_email, provider_id) => {
   return response;
 };
 
+const createRegistration = async (provider_id, patient)=>{
+  const response = await fetch(`${APIENDPOINT}/users/registration-list/${provider_id}/`, {
+    method: "POST",
+    headers: {
+      "Content-type": "application/json",
+      Authorization: "Bearer " + String(token.access),
+    },
+    body: JSON.stringify({
+      // staff: staff_email,
+      provider: provider_id,
+    }),
+  })
+}
 export { getProfile, createEmployment, createProvider, 
   getAllEmployments, endEmployment
 

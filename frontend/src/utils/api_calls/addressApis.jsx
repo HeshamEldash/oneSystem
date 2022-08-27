@@ -1,4 +1,4 @@
-const APIENDPOINT = "http://127.0.0.1:8000";
+import APIENDPOINT from "./apiEndpoint";
 
 const token = JSON.parse(localStorage.getItem("authTokens"));
 
@@ -24,6 +24,8 @@ const createAddress = async (provider_id, values) => {
 };
 
 const updateAddress = async (address_id, values) => {
+  console.log(values)
+  
   const response = await fetch(
     `${APIENDPOINT}/users/address-detail/${address_id}/`,
     {

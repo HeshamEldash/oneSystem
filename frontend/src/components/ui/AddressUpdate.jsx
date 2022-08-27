@@ -5,18 +5,19 @@ import { Link, Navigate, useLocation, useParams} from "react-router-dom";
 import { createAddress, updateAddress } from "../../utils/api_calls/addressApis";
 
 
-function AddressUpdate({address}) {
+function AddressUpdate({address, closeModal}) {
   const { t } = useTranslation();
 
   const{id} = useParams()
-    const onSubmit = (values, actions)=>{
-        if (!!address){
-          updateAddress(address.id, values)
-           actions.resetForm(); 
-        }else{
-          createAddress(id , values)
-        }
 
+    const onSubmit = (values, actions)=>{
+      if (!!address){
+        updateAddress(address.id, values)
+      }else{
+        createAddress(id , values)
+      }
+      !!closeModal && closeModal()
+      actions.resetForm(); 
     }
 
   const {

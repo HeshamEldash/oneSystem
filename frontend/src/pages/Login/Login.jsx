@@ -10,7 +10,8 @@ import "react-toastify/dist/ReactToastify.css";
 
 import "./login.css";
 
-const APIENDPOINT = "http://127.0.0.1:8000";
+import APIENDPOINT from "../../utils/api_calls/apiEndpoint";
+
 
 function Login() {
   const navigate = useNavigate();

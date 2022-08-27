@@ -90,6 +90,9 @@ class PatientProfileSerializer(serializers.Serializer):
     address = AddressSerializer(many=False)
 
     def create(self, validated_data):
+        if "provider" in self.initial_data:
+            provider_id = self.initial_data.pop("provider")
+            return utils.create_patient_and_registration(provider_id=provider_id, **validated_data)
         return utils.create_patient_profile(**validated_data)
 
     def update(self, instance, validated_data):
@@ -183,6 +186,11 @@ class RegistrationSerializer(serializers.ModelSerializer):
     This serializer has a method to create a registration 
     another method that sets the state of the registration to inactive 
     """
+    # provider = serializers.SlugRelatedField(slug_field= "name",  many=False)
+    provider_id = serializers.IntegerField(read_only=True)
+    provider_name= serializers.CharField(source="provider", read_only=True)
+    patient_name = serializers.CharField(source="patient", read_only=True)
+    patient_detial = PatientProfileSerializer(source="patient", read_only=True)
     class Meta:
         model = Registration
         fields= "__all__"

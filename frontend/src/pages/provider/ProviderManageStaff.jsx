@@ -2,6 +2,9 @@ import React, { useState, useEffect } from "react";
 import Employment from "./components/Employment";
 import { getAllEmployments } from "./providerApi";
 import { useParams } from "react-router-dom";
+import ProviderRegisterStaff from "./ProviderRegisterStaff";
+import ProviderEmploymentForm from "./ProviderEmploymentForm";
+import ProviderStartEmployment from "./ProviderStartEmployment";
 function ProviderManageStaff() {
   const [listOfEmployments, setListOfEmployments] = useState([]);
 
@@ -16,8 +19,9 @@ function ProviderManageStaff() {
   }, []);
 
 
-  return (
-    <div>
+  return (<>
+    <div className="primary-container">
+    <h3>all_staff</h3>
       {listOfEmployments?.map((employment) => {
         return (
           <Employment
@@ -33,7 +37,8 @@ function ProviderManageStaff() {
         );
       })}
     </div>
-  );
+    <ProviderStartEmployment/>
+    </> );
 }
 
 export default ProviderManageStaff;

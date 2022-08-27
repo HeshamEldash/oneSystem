@@ -1,6 +1,6 @@
 // staff-profile-detail/<int:pk>/
 
-const APIENDPOINT = "http://127.0.0.1:8000";
+import APIENDPOINT from "../../utils/api_calls/apiEndpoint";
 
 const token = JSON.parse(localStorage.getItem("authTokens"));
 
