@@ -67,6 +67,14 @@
 
 }
 
+.user-form--centered{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  width: clamp(300px, 40vw, 50vw);
+  margin: auto;
+}
+
 /* implicit grid the determines the size 
 set the gap peorpety 
 grid template columns: 1fraction 1/part

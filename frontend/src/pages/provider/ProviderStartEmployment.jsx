@@ -18,13 +18,13 @@ function ProviderStartEmployment() {
         <div className='inpage-container' onClick={()=>{setAlreadyReg(prev=>!prev)
         setNewReg(false)
         }}>
-            staff_already_registered
+            {t("staff_already_registered")}
         </div>
 
         <div className='inpage-container' onClick={()=>{setNewReg(prev=>!prev) 
         setAlreadyReg(false)
         }}>
-            Staff new to app
+            {t("staff_new_to_app")}
         </div>
         { alreadyReg &&
             <ProviderEmploymentForm/>   

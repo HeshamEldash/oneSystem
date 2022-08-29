@@ -66,11 +66,29 @@
   "update":"حفظ المعلومات",
   "staff-email":"البريد الاليكتروني للموظف",
   "enter_staff_email":"ادخل البريد الاليكتروني المسجل مسبقا",
-  "r":"",
-  "f":"",
-  "v":"",
-  "d":"",
-  "a":""
+  "unit_number":"رقم الوحدة",
+  "first_line":"الشارع",
+  "second_line":"المنطقة",
+  "city":"المدينة",
+  "governorate":"المحافظة",
+  "date_of_birth": "تاريخ الميلاد",
+  "manage_staff":"ادارة الموظفين",
+  "all_staff":"جميع الموظفين",
+  "staff_already_registered":"مسجل مسبقا",
+  "staff_new_to_app":"غير مسجل مسبقا",
+  "register_and_start_employment":"تسجيل",
+  "add_address":"اضافة عنوان",
+  "dwegwe":"",
+  "dgwegw":"",
+  "dewg":"",
+  "gewgd":"",
+  "wegd":"",
+  "dgwe":"",
+  "dgwegeeg":"g",
+  "gweggd":""
+
+
+
 
   
 }

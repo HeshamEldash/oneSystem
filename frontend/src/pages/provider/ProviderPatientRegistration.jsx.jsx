@@ -4,14 +4,13 @@ import { Link, Navigate, useParams } from "react-router-dom";
 
 import { useTranslation } from "react-i18next";
 import { useFormik } from "formik";
-import APIENDPOINT from '../../utils/api_calls/apiEndpoint';
+import APIENDPOINT from "../../utils/api_calls/apiEndpoint";
 import DatePicker from "react-datepicker";
-
 
 function ProviderPatientRegistration() {
   const { t } = useTranslation();
   const { id } = useParams();
-    const [startDate, setStartDate] = useState(new Date());
+  const [startDate, setStartDate] = useState(new Date());
 
   let onSubmit = async (values, actions) => {
     let res = await fetch(`${APIENDPOINT}/users/patient-profile-create/`, {
@@ -20,7 +19,7 @@ function ProviderPatientRegistration() {
         "Content-type": "application/json",
       },
       body: JSON.stringify({
-        provider:id,
+        provider: id,
         first_name: values.firstName,
         middle_names: values.middleNames,
         last_name: values.lastName,
@@ -36,19 +35,15 @@ function ProviderPatientRegistration() {
           second_line: values.second_line,
           city: values.city,
           governorate: values.governorate,
-      }
+        },
       }),
-    }).then((response)=>{
-        if (response.ok){
+    }).then((response) => {
+      if (response.ok) {
+      }
+    });
 
-        }
-    }
-
-    )
-     
     actions.resetForm();
   };
-
 
   const {
     values,
@@ -60,128 +55,117 @@ function ProviderPatientRegistration() {
     handleSubmit,
   } = useFormik({
     initialValues: {
-        firstName: "",
-        middleNames: "",
-        lastName: "",
-        telephoneNumber: "",
-        date_of_birth: "2019-10-10",
-        unit_number: "",
-        first_line: "",
-        second_line: "",
-        city: "",
-        governorate: "",
+      firstName: "",
+      middleNames: "",
+      lastName: "",
+      telephoneNumber: "",
+      date_of_birth: "2019-10-10",
+      unit_number: "",
+      first_line: "",
+      second_line: "",
+      city: "",
+      governorate: "",
     },
     onSubmit,
   });
 
   return (
     <>
-    <div>
-      This is the patient provider registration ss
-    </div>
-    <form className="user-form" type="submit" onSubmit={handleSubmit}>
-          
-        <label> {t("date_of_birth")}</label>
-        <DatePicker 
-        dateFormat="yyyy/MM/dd"
-        selected={startDate} onChange={(date:Date) => setStartDate(date)} />
-        
-       
-          <label> {t("first_name")}</label>
+      <form
+        className="user-form--centered"
+        type="submit"
+        onSubmit={handleSubmit}
+      >
+    
 
-          <input
-            type="text"
-            name="firstName"
-            placeholder={t("enter_your_first_name")}
-            className={
-              errors.firstName && touched.firstName
-                ? "input-error form-fields"
-                : "form-fields"
-            }
-            value={values.firstName}
-            onChange={handleChange}
-            onBlur={handleBlur}
-          />
-          {errors.firstName && touched.firstName && (
-            <p className="error">{errors.firstName}</p>
-          )}
+        <label> {t("first_name")}</label>
 
-          <label> {t("middle_names")}</label>
+        <input
+          type="text"
+          name="firstName"
+          placeholder={t("enter_your_first_name")}
+          className={
+            errors.firstName && touched.firstName
+              ? "input-error form-fields"
+              : "form-fields"
+          }
+          value={values.firstName}
+          onChange={handleChange}
+          onBlur={handleBlur}
+        />
+        {errors.firstName && touched.firstName && (
+          <p className="error">{errors.firstName}</p>
+        )}
 
-          <input
-            type="text"
-            name="middleNames"
-            placeholder={t("enter_your_middle_names")}
-            className={
-              errors.middleNames && touched.middleNames
-                ? "input-error form-fields"
-                : "form-fields"
-            }
-            value={values.middleNames}
-            onChange={handleChange}
-            onBlur={handleBlur}
-          />
+        <label> {t("middle_names")}</label>
 
-          {errors.middleNames && touched.middleNames && (
-            <p className="error">{errors.middleNames}</p>
-          )}
+        <input
+          type="text"
+          name="middleNames"
+          placeholder={t("enter_your_middle_names")}
+          className={
+            errors.middleNames && touched.middleNames
+              ? "input-error form-fields"
+              : "form-fields"
+          }
+          value={values.middleNames}
+          onChange={handleChange}
+          onBlur={handleBlur}
+        />
 
-          <label>{t("last_name")}</label>
-          <input
-            type="text"
-            name="lastName"
-            placeholder={t("enter_your_last_name")}
-            className={
-              errors.lastName && touched.lastName
-                ? "input-error form-fields"
-                : "form-fields"
-            }
-            value={values.lastName}
-            onChange={handleChange}
-            onBlur={handleBlur}
-          />
-          {/* {errors.lastName && touched.lastName && (
+        {errors.middleNames && touched.middleNames && (
+          <p className="error">{errors.middleNames}</p>
+        )}
+
+        <label>{t("last_name")}</label>
+        <input
+          type="text"
+          name="lastName"
+          placeholder={t("enter_your_last_name")}
+          className={
+            errors.lastName && touched.lastName
+              ? "input-error form-fields"
+              : "form-fields"
+          }
+          value={values.lastName}
+          onChange={handleChange}
+          onBlur={handleBlur}
+        />
+        {/* {errors.lastName && touched.lastName && (
             <p className="error">{errors.lastName}</p>
           )} */}
 
-          <label>{t("date_of_birth")}</label>
-          <input
-            type="text"
-            name="dateOfBirth"
-            placeholder={t("enter_your_last_name")}
-            className={
-              errors.lastName && touched.lastName
-                ? "input-error form-fields"
-                : "form-fields"
-            }
-            value={values.lastName}
-            onChange={handleChange}
-            onBlur={handleBlur}
-          />
-          {errors.lastName && touched.lastName && (
-            <p className="error">{errors.lastName}</p>
-          )}
+        <label>{t("date_of_birth")}</label>
 
- 
-          <label>{t("telephone_number")}</label>
-          <input
-            type="text"
-            name="telephoneNumber"
-            placeholder={t("enter_your_telephone_number")}
-            className={
-              errors.telephoneNumber && touched.telephoneNumber
-                ? "input-error form-fields"
-                : "form-fields"
-            }
-            value={values.telephoneNumber}
-            onChange={handleChange}
-            onBlur={handleBlur}
-          />
-          {/* {errors.telephoneNumber && touched.telephoneNumber && (
+        <DatePicker
+          className={
+            errors.firstName && touched.firstName
+              ? "input-error form-fields"
+              : "form-fields"
+          }
+          dateFormat="yyyy/MM/dd"
+          selected={startDate}
+          onChange={(date: Date) => setStartDate(date)}
+        />
+
+        <label>{t("telephone_number")}</label>
+        <input
+          type="text"
+          name="telephoneNumber"
+          placeholder={t("enter_your_telephone_number")}
+          className={
+            errors.telephoneNumber && touched.telephoneNumber
+              ? "input-error form-fields"
+              : "form-fields"
+          }
+          value={values.telephoneNumber}
+          onChange={handleChange}
+          onBlur={handleBlur}
+        />
+        {/* {errors.telephoneNumber && touched.telephoneNumber && (
             <p className="error">{errors.telephoneNumber}</p>
           )} */}
 
-        
         <h3>{t("address")}</h3>
         <label> {t("unit_number")}</label>
         <input
@@ -211,7 +195,8 @@ function ProviderPatientRegistration() {
           value={values.first_line}
           onChange={handleChange}
           onBlur={handleBlur}
-          type="text"first_line
+          type="text"
+          first_line
           name="first_line"
           placeholder={t("first_line")}
         />
@@ -272,16 +257,15 @@ function ProviderPatientRegistration() {
         {/* {errors.email && touched.email && (
           <p className="error">{errors.email}</p>
         )} */}
-          <input
-            className="form-button"
-            disabled={isSubmitting}
-            type="submit"
-            value={t("register_and_start_employment")}
-          />
-        </form>
-
+        <input
+          className="form-button"
+          disabled={isSubmitting}
+          type="submit"
+          value={t("register_and_start_employment")}
+        />
+      </form>
     </>
-  )
+  );
 }
 
-export default ProviderPatientRegistration
+export default ProviderPatientRegistration;

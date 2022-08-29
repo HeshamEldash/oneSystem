@@ -137,14 +137,16 @@ function ProviderProfileUpdate() {
 
           <div className="primary-container">
             <h4>{t("address")}</h4>
+            <div className="inner-container">
+
             <input
+              className="secondry-button"
               type="button"
-              value="add_address"
+              value={t("add_address")}
               onClick={() => {
                 handleOpen()
               }}
             />
-
             {addresses.map((address) => {
               return (
                 <>
@@ -159,7 +161,7 @@ function ProviderProfileUpdate() {
                 </>
               );
             })}
-
+            </div>
             <Modal
               open={open}
               onClose={handleClose}

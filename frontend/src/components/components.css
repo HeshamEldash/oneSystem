@@ -9,23 +9,9 @@
     border-radius: 4px;
     background-color:var( --light-shadow-bg) ;
 }
-
-.navlink_item{
-    display: flex;
-    background-color: inherit;
-    text-decoration: none;
-    color: rgba(255, 255, 255, 0.950);
-    max-width: 6.5rem;
-    cursor: pointer;
-    align-items: center;
-
+.react-datepicker__input-container {
+    position:static !important
 }
-.navlink_item:hover{
-    background-color: rgb(96, 110, 133);
 
-}
-.navlink_item:active{
-    text-decoration: none;
-    color: inherit;
 
-}
+
