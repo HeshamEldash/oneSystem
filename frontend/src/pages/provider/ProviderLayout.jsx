@@ -32,7 +32,7 @@ function ProviderLayout() {
         <NavLink className="" to={`/provider/${id}/patient-registration`}>
       {t("register_a_patient")}
       </NavLink>
-      <br/>
+      
         {/* <NavMenu
           buttonName={t("manage_profile")}
           menyItems={[

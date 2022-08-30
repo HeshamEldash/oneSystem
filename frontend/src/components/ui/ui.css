@@ -7,6 +7,7 @@
     max-height: 2.7rem;
     background-color: rgb(151, 180, 203);
     align-items: normal;
+    min-width: 270px;
 }
 .main-navbar__links{
     height: 100%;
@@ -15,11 +16,12 @@
 }
 .navigation-menu {
     margin-left: auto;
+    height: 2.7rem;
   }
 .navlink_item {
     display: flex;
     background-color: inherit;
-    max-width: 6.5rem;
+    /* max-width: 6.5rem; */
     cursor: pointer;
     align-items: center;
 }
@@ -39,6 +41,8 @@
 .navigation-menu ul {
     display: flex;
     padding: 0;
+    height: 100%;
+
   }
 
 .navigation-menu li {

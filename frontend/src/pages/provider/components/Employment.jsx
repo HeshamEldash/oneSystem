@@ -55,7 +55,7 @@ function Employment(props) {
   }, []);
 
   return (
-    <div className="primary-container   ">
+    <div className="inpage-container   ">
       <table>
       <tbody>
       <tr>
@@ -84,7 +84,7 @@ function Employment(props) {
         </tr>
         </tbody>
       </table>
-
+      <div className="inpage-container__footer">
       <input
         className="secondry-button"
         type="button"
@@ -97,6 +97,7 @@ function Employment(props) {
       <input className="secondry-button" type="button" value={"remove"}
       onClick={()=>endApiEmployment()}
        />
+       </div>
 
       {showLogins && (
         <Paper sx={{ width: "100%", overflow: "hidden" }}>
