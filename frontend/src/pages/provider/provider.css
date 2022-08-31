@@ -4,26 +4,7 @@
 }
 
 
-.inpage-container{
-    display: flex;
-    flex-direction: column;
 
-    border:solid 1px var(--nav-color);
-    padding: 20px 20px; 
-    min-height: 10rem;
-    margin-top: .6rem;
-    max-width: 1000px;
-    /* justify-content: center; */
-    /* align-items: center; */
-}
-.inpage-container__footer{
-    margin-top: 0.8rem;
-    display: flex;
-    justify-content: flex-end;
-    gap: 2rem;
-
-
-}
 .inner-container{
     display: flex;
     gap: 1rem;

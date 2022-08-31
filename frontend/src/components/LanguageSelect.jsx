@@ -13,7 +13,6 @@ import Button from '@mui/material/Button';
 const languageMap = {
   en: { label: "English", dir: "ltr", active: true },
   ar: { label: "العربية", dir: "rtl", active: false },
-  fr: { label: "Français", dir: "ltr", active: false }
 };
 
 const LanguageSelect = () => {

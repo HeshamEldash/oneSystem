@@ -9,9 +9,73 @@
     border-radius: 4px;
     background-color:var( --light-shadow-bg) ;
 }
+/* --google-blue-100: rgb(210, 227, 252);
+--google-blue-300: rgb(138, 180, 248);
+--google-blue-600: rgb(26, 115, 232); */
+
 .react-datepicker__input-container {
     position:static !important
 }
+.circle{
+    /* position: relative; */
+    display: flex;
+    border: 10px solid;
+    border-top-color: rgb(162, 219, 255);
+    border-left-color: rgb(73, 216, 235);
+    border-bottom-color:rgb(162, 219, 255);
+    border-right-color: rgb(73, 216, 235);
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    width: 100px;
+    height: 100px;
+}
+.circle__child{
+    position: absolute;
+    margin: auto;
+    color: rgb(61, 176, 247);
+    font-size: 2rem;
+    font-weight: 800;
+}
+.circle__background{
+    border: 4px solid white;
+    border-radius: 50%;
+    box-shadow: rgb(0 0 0 / 25%) 0px 2px 8px;;
+    
+}
+.daYIyU{
 
-
+ width:100px;    
+ height: 100px;    
+ animation: 0.25s ease 0s 1 normal none running fvdeWE;
+}
+.fMbHqz {
+    position: relative;
+    border-radius: 9999px;
+    border: 4px solid white;
+    box-shadow: rgb(0 0 0 / 25%) 0px 2px 8px;
+    width: 100%;
+    height: 100%;
+    background: white;
+}
+.fMbHqz > svg {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+}
+.fMbHqz, .donut-hole {
+    fill: white;
+}
+.fMbHqz, .donut-ring {
+    stroke: rgb(162, 219, 255);
+    fill: transparent;
+    stroke-width: 5;
+}
+.fMbHqz, .donut-segment {
+    transform-origin: center center;
+    stroke-dashoffset: 25;      
+    animation: 2s ease 0s 1 normal forwards running donut2;
+    fill: transparent;
+    stroke-width: 5;
+}
 

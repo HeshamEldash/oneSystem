@@ -1,12 +1,19 @@
 
+.header--small{
+    height: 1vh;
+    padding:    0px;
+}
 .header{
     border-bottom: solid 1px rgba(31, 22, 22, 0.3);
     height: 7vh;
     width: 100%;
-    padding: 20px;
+    padding: 15px;
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+    justify-content: right;
+    align-items: center;
+    gap:2rem;
+    text-decoration: none;
 }
 
 .logo{
@@ -20,5 +27,30 @@
     width: 100%;
     padding: 20px;
 }
+.header--small{
+    height: 1vh;
+    padding: 15px;
+}
+}
+.header-content{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color:#1976d2;
+    cursor: pointer;
+    text-decoration: none;
+    gap:3px
+  
+}
+.header-content > *{
+    
+    color:#1976d2;
+    cursor: pointer;
+    text-decoration: none;
 }
 
+.header-content:hover{
+    padding-block: 0.8em;
+    border-radius: 4px;
+    background-color: rgba(161, 191, 207, 0.345);
+}

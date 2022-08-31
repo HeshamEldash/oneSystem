@@ -42,7 +42,7 @@ function StaffDashboard() {
 
       {ownedProvider?
       <div className='primary-container'>
-        <h3>owned_clinic</h3>
+        <h3>{t("my_clinic")}</h3>
         <StaffProfileItem
           providerID={ownedProvider?.id}
           provider={ownedProvider?.name}

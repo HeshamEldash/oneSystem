@@ -17,7 +17,7 @@ function ProviderLayout() {
   const { id } = useParams();
   const navigate = useNavigate();
   return (
-    <div className="page-container">
+    <>
       {/* <SideBar/> */}
       <Navbar>
         {/* <NavMenu
@@ -63,9 +63,7 @@ function ProviderLayout() {
 
         ></NavMenu> */}
 
-        <NavLink className="" to={`/provider/${id}/register-staff`}>
-          {t("register_staff")}
-        </NavLink> 
+        
 
          <NavLink className="" to={`/provider/${id}/manage-staff`}>
           {t("manage_staff")}
@@ -74,7 +72,7 @@ function ProviderLayout() {
       </Navbar>
 
       <Outlet />
-    </div>
+    </>
   );
 }
 

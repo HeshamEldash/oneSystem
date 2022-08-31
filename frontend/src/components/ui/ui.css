@@ -5,7 +5,8 @@
     width: 100%;
     min-height: 2.7rem;
     max-height: 2.7rem;
-    background-color: rgb(151, 180, 203);
+    /* background-color: rgb(151, 180, 203); */
+    background-color: rgba(61, 176, 247, 0.718);
     align-items: normal;
     min-width: 270px;
 }

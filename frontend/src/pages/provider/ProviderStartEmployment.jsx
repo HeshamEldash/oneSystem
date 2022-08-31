@@ -13,26 +13,30 @@ function ProviderStartEmployment() {
     const { t } = useTranslation();
 
   return (
-    <div className='page-component-main--grid'>
-
-        <div className='inpage-container' onClick={()=>{setAlreadyReg(prev=>!prev)
+    <div className=' inpage-container page_component__inpage--spanAll'>
+        <h3>Add new staff</h3>
+        <div className='inpage-container--rowflex--nostyle'>
+        <div className='inpage-container inpage-container--centered ' onClick={()=>{setAlreadyReg(prev=>!prev)
         setNewReg(false)
         }}>
             {t("staff_already_registered")}
         </div>
 
-        <div className='inpage-container' onClick={()=>{setNewReg(prev=>!prev) 
+        <div className='inpage-container inpage-container--centered ' onClick={()=>{setNewReg(prev=>!prev) 
         setAlreadyReg(false)
         }}>
             {t("staff_new_to_app")}
         </div>
+        </div>
         { alreadyReg &&
-            <ProviderEmploymentForm/>   
+        <div className='page_component__inpage--span3 '>
+            <ProviderEmploymentForm/>  
+         </div> 
         }
         {newReg &&
-         
+            <div className='page_component__inpage--span3'>
             <ProviderRegisterStaff/>
-
+            </div>  
         }
 
     </div>

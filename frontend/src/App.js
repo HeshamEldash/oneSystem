@@ -3,6 +3,7 @@ import RegisterationPage from "./pages/registration/Registration.jsx";
 import { useTranslation } from "react-i18next";
 import Header from "./components/Header.jsx";
 import "./app.css";
+import "./utility.css"
 import Login from "./pages/Login/Login.jsx";
 import Home from "./pages/Home.jsx";
 

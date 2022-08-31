@@ -23,6 +23,7 @@
   text-decoration: none;
   background-color:var(  --sry-btn-bg-color) ;
   padding: 10px;
+  overflow-wrap:break-word;
   color: white;
   border: none;
   min-width: 70px;
@@ -59,10 +60,102 @@
 .page-component-main--grid{
   display: grid;
   grid-gap: 2rem;
-  grid-template-columns: repeat(auto-fit, minmax(200px,1fr));
-  padding-inline: 10rem;
-  padding-block: 10rem;
+  grid-template-columns: repeat(4, minmax(100px,1fr));
+
+  padding-inline: 4rem;
+  padding-block: 2rem;
+}
+
+.sp2{
+  display: flex;
+  justify-content: stretch;
+}
+.page_component__inpage--spanAll{
+  grid-column: 1/end;
+
+}
+.page_component__inpage--span3{
+
+  grid-column: span 3
+
+}
+.page_component__inpage--span1{
+  grid-column: span 1
+}
+
+.page_component__inpage--span2{
+  grid-column: span 2;
+
+}
+
+@media screen and (max-width :600px ) {
+
+  .page-component-main--grid{
+    display: grid;
+    grid-gap: 2rem;
+ 
+    grid-template-columns: repeat(auto-fill, minmax(100px,1fr));
+    
+    padding-inline: 2rem;
+    padding-block: 2rem;
+
+  } 
+  .page_component__inpage--span1{
+    grid-column: 1/end
+  }
+
+  .page_component__inpage--span2{
+    grid-column: 1/end;  
+    /* grid-column: 1/end;   */
+
+  }
+  
+}
+.inpage-container--rowflex--nostyle{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: space-between;
+}
+
+.inpage-container--rowflex{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  border:solid 1px var(--nav-color);
+  padding: 20px 20px; 
+  min-height: 10rem;
+  margin-top: .6rem;
+  max-width: 80ch;
+  min-width: 270px;
+  /* align-items: center; */
+}
+.inpage-container{
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  border:solid 1px var(--nav-color);
+  padding: 20px 20px; 
+  min-height: 10rem;
+  margin-top: .6rem;
+  max-width: 80ch;
   justify-content: center;
+  min-width: 270px;
+  /* align-items: center; */
+}
+.inpage-container--centered{
+  align-items: center;
+
+}
+
+.inpage-container__footer{
+  margin-top: 0.8rem;
+  display: flex;
+  justify-content: flex-end;
+  gap: 2rem;
+
+
 }
 
 .primary-container--small{

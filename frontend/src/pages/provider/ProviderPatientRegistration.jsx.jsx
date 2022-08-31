@@ -72,7 +72,7 @@ function ProviderPatientRegistration() {
   return (
     <>
       <form
-        className="user-form--centered"
+        className="user-form--centered form-padding"
         type="submit"
         onSubmit={handleSubmit}
       >
