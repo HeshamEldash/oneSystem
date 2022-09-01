@@ -24,6 +24,7 @@ import ProviderManageStaff from "./pages/provider/ProviderManageStaff.jsx";
 import PatientRegistration from "./pages/patients/PatientRegistration.jsx";
 import PatientProviderRegistration from "./pages/patients/PatientProviderRegistration.jsx";
 import ProviderPatientRegistration from "./pages/provider/ProviderPatientRegistration.jsx.jsx";
+import ProviderPatientSearch from "./pages/provider/ProviderPatientSearch.jsx";
 function App() {
   const { t, i18n } = useTranslation();
 
@@ -42,6 +43,8 @@ function App() {
                 <Route element={<ProviderPatientRegistration/>} path="patient-registration"/>
                 <Route element={<ProviderStartEmployment/>} path="register-staff" />
                 <Route element={<ProviderManageStaff/>} path="manage-staff" />
+                <Route index element={<ProviderPatientSearch/>} path="search-patient" />
+
 
              </Route>
              

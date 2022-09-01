@@ -69,6 +69,11 @@ function ProviderLayout() {
           {t("manage_staff")}
         </NavLink>
 
+        
+        <NavLink className="" to={`/provider/${id}/search-patient`}>
+          {t("search_patients")}
+        </NavLink>
+
       </Navbar>
 
       <Outlet />

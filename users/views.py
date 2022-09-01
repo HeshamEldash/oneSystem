@@ -363,7 +363,9 @@ class AddressDetailView(generics.GenericAPIView,mixins.UpdateModelMixin,mixins.D
         return self.update(request, *args, **kwargs)
     def delete(self, request, *args, **kwargs):
         return self.destroy(request, *args, **kwargs)
-    
+
+
+
 class TestView(generics.GenericAPIView, mixins.RetrieveModelMixin, 
     mixins.ListModelMixin, mixins.CreateModelMixin, mixins.UpdateModelMixin
                  ):
@@ -374,9 +376,10 @@ class TestView(generics.GenericAPIView, mixins.RetrieveModelMixin,
     lookup_url_kwarg = "email"
     # pagination_class = DEFAULT_PAGINATION_CLASS 
 
-    # def get_queryset(self):
-    
-    #     return super().get_queryset()
+    def get_queryset(self):
+        q=self.request.query_params.get("firstName")
+        print(q)
+        return super().get_queryset()
     # def get_queryset(self):
     #     email = self.kwargs.get("email")
     #     if email:
@@ -389,7 +392,6 @@ class TestView(generics.GenericAPIView, mixins.RetrieveModelMixin,
     #         return Employment.objects.filter(provider=pk)    
 
     def get(self,request, *args, **kwargs):
-        print(request.GET.get("e"))
         return self.list(request, *args,**kwargs)
 
     def post(self, request, *args, **kwargs):

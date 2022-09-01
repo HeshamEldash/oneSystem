@@ -28,7 +28,8 @@ const getLogin = async ()=>{
     <div className='staff-profile-item'>
 
     <span>{props.provider}</span>
-    <span>{login?.start_time}</span>
+    <span>{login && Date(login.start_time).toLocaleString() }</span>
+    
     <Link onClick={()=>{
       localStorage.setItem("provider", JSON.stringify(props.providerID))
       createLogin(props.staffId,props.providerID)
