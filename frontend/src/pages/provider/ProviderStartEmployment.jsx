@@ -13,7 +13,7 @@ function ProviderStartEmployment() {
     const { t } = useTranslation();
 
   return (
-    <div className=' inpage-container page_component__inpage--spanAll'>
+    <div className=' inpage-container page_component__inpage--span2'>
         <h3>Add new staff</h3>
         <div className='inpage-container--rowflex--nostyle'>
         <div className='inpage-container inpage-container--centered ' onClick={()=>{setAlreadyReg(prev=>!prev)

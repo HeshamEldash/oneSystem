@@ -1,3 +1,4 @@
+from cgitb import lookup
 from urllib import request
 from .models import Account, Patient, TelephoneNumber
 from .serializers import *
@@ -75,7 +76,8 @@ class PatientAccountDetailView(generics.GenericAPIView,mixins.UpdateModelMixin,
     serializer_class = PatientAccountSerializer
 
     def get(self, request, *args, **kwargs):
-        return self.retrieve(request, *args,**kwargs)
+        return self.retrieve(request, *args,**
+        kwargs)
 
     def post(self, request, *args, **kwargs):
         return self.create(request, *args, **kwargs)
@@ -202,7 +204,8 @@ mixins.DestroyModelMixin, mixins.UpdateModelMixin):
 
     def put(self, *args, **kwargs):
         return self.update(*args, **kwargs)
-
+    def patch(self, request, *args, **kwargs):
+        return self.partial_update(request, *args, **kwargs)
 
 class ProviderCreateView (generics.GenericAPIView,mixins.CreateModelMixin):
     queryset = Provider.objects.all()
@@ -331,6 +334,18 @@ class LoginToProviderEventView(generics.GenericAPIView,
     def put(self, request, *args, **kwargs):
         return self.update(request, *args, **kwargs)
 
+class TeleponeListView(generics.GenericAPIView,mixins.ListModelMixin,
+     mixins.CreateModelMixin):
+
+     
+ 
+    def get(self,request, *args, **kwargs):
+        return self.list(request, *args,**kwargs)
+
+    def post(self, request, *args, **kwargs):
+        return self.create(request, *args, **kwargs)
+
+
 class AddressListView(generics.GenericAPIView,mixins.ListModelMixin,
      mixins.CreateModelMixin):
     queryset = Address.objects.all()
@@ -364,22 +379,79 @@ class AddressDetailView(generics.GenericAPIView,mixins.UpdateModelMixin,mixins.D
     def delete(self, request, *args, **kwargs):
         return self.destroy(request, *args, **kwargs)
 
+class TelephoneDetailView(generics.GenericAPIView,mixins.UpdateModelMixin,mixins.DestroyModelMixin,
+    mixins.RetrieveModelMixin, mixins.CreateModelMixin,):
+    queryset = TelephoneNumber.objects.all()
+    serializer_class = TelephoneNumberSerializer
+
+    def get(self,request, *args, **kwargs):
+        return self.retrieve(request, *args,**kwargs)
+
+    def post(self, request, *args, **kwargs):
+        return self.create(request, *args, **kwargs)
+
+    def patch(self, request, *args, **kwargs):
+        return self.partial_update(request, *args, **kwargs)
+
+
+    def delete(self, request, *args, **kwargs):
+        return self.destroy(request, *args, **kwargs)
+
 
 
 class TestView(generics.GenericAPIView, mixins.RetrieveModelMixin, 
     mixins.ListModelMixin, mixins.CreateModelMixin, mixins.UpdateModelMixin
                  ):
-    queryset= Address.objects.all()
-    serializer_class = AddressSerializer
+    # queryset= Address.objects.all()
+    serializer_class = PatientProfileSerializer
 
     lookup_field= "email"
     lookup_url_kwarg = "email"
     # pagination_class = DEFAULT_PAGINATION_CLASS 
 
     def get_queryset(self):
-        q=self.request.query_params.get("firstName")
-        print(q)
-        return super().get_queryset()
+
+        q_params=self.request.query_params 
+        
+        lookups = Q()
+  
+        first_name = q_params.get("firstName", None)
+        if first_name:
+              q_obj = Q(first_name__icontains=first_name) 
+              lookups &=q_obj
+
+
+        middle_names = q_params.get("middleNames", None)
+        if middle_names:
+            q_obj = Q(middle_names__icontains=middle_names)
+            lookups &=q_obj
+
+        last_name = q_params.get("lastName", None)
+        if last_name:
+            q_obj = Q(last_name__icontains=last_name)
+            lookups &=q_obj
+            
+        date_of_birth = q_params.get("dateOfBirth", None)
+        if date_of_birth:
+            q_obj = Q(date_of_birth__exact=date_of_birth)
+            lookups |=q_obj
+            
+        email = q_params.get("email", None)
+        if email and email !="" :
+            q_obj = Q(account__email__exact=email)
+            lookups &=q_obj
+
+        telephone_number= q_params.get("telephoneNumber", None)
+        if telephone_number and telephone_number !="":
+            q_obj = Q(phone_nums__telephone_number__exact=telephone_number)
+            lookups &=q_obj
+        qs = Patient.objects.filter(lookups).distinct()
+
+        provider = q_params.get("provider", None)
+        if provider:
+             return qs.filter(provider__id=1)
+
+        return qs
     # def get_queryset(self):
     #     email = self.kwargs.get("email")
     #     if email:

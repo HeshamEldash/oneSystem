@@ -29,7 +29,7 @@ function PatientRegistration() {
 
     let onSubmit = async (values, actions) => {
        
-        console.log(values)
+  
         let res = await fetch(`${APIENDPOINT}/users/patient-create/`, {
           method: "POST",
           headers: {

@@ -1,4 +1,5 @@
 
+from asyncore import read
 from dataclasses import fields
 import email
 from email.message import EmailMessage
@@ -65,7 +66,9 @@ class TelephoneNumberSerializer(serializers.ModelSerializer):
     telephone_number = serializers.CharField(max_length=30)
     class Meta:
         model = TelephoneNumber
-        fields = ["telephone_number"]
+        fields = ["id", "telephone_number"]
+
+        
 
 class AddressSerializer(serializers.ModelSerializer):
 
@@ -85,7 +88,7 @@ class PatientProfileSerializer(serializers.Serializer):
     date_of_birth = serializers.DateField()
 
     account = serializers.PrimaryKeyRelatedField(read_only=True)
-
+    account_email = serializers.EmailField(source="account",read_only=True)
     telephone_numbers = TelephoneNumberSerializer(source='phone_nums',many=True)
     address = AddressSerializer(many=False)
 
@@ -163,8 +166,22 @@ class ProviderDetailSerializer(serializers.Serializer):
 
         instance.name = validated_data.get('name', instance.name)
         instance.owner = validated_data.get('owner', instance.owner )
-        instance.save()
+        numbers = self.initial_data.get("telephone_numbers", None)
+        t = TelephoneNumber.objects.filter(owner_provider = instance)
 
+        
+        number_set=[]
+        for num in numbers:
+            number_obj = TelephoneNumber.objects.update_or_create(owner_provider = instance, telephone_number=num["telephone_number"])[0]
+            number_set.append(number_obj)
+
+        # for i in instance.phone_nums.all():
+        #     if i not in number_set:
+        #         i.delete()
+
+
+        # # instance.phone_nums.set(number_set)
+        instance.save()
         return instance
 
 class ProviderCreateSerializer(serializers.Serializer):

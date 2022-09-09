@@ -6,6 +6,21 @@ from django.contrib.auth.base_user import AbstractBaseUser, BaseUserManager
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 from django.core.mail import send_mail
+# query comes in with p details
+# should search through the list of Ps 
+# Returns the Ps that match the details and registered
+# option to return the Ps that are not registered
+# 
+# P.objects.filter (first_name__icontains,).filter
+
+
+#
+# 2nd option
+# search through the registrations for a match
+# an option to search the full list 
+# Registrations.objects.filter(p = ())
+#  
+
 
 
 class AccountManager(BaseUserManager):
@@ -80,6 +95,14 @@ class BaseProfile(models.Model):
 
     class Meta: 
         abstract = True
+
+class PatientQuesrySet(models.QuerySet):
+    def is_registered(self):
+        return self.filter()
+    
+class PatientManager(models.Manager):
+    def search(self, query, user=None  ):
+        pass
 
 class Patient(BaseProfile, models.Model):
 

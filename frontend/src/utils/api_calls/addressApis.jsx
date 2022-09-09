@@ -24,8 +24,6 @@ const createAddress = async (provider_id, values) => {
 };
 
 const updateAddress = async (address_id, values) => {
-  console.log(values)
-  
   const response = await fetch(
     `${APIENDPOINT}/users/address-detail/${address_id}/`,
     {

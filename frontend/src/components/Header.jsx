@@ -22,18 +22,25 @@ function Header() {
         
         {!!user && <h1>{user.email}</h1>}
       <LanguageSelect/>
-      {user?
-      <>
-      <div onClick={logoutUser} className="header-content">    
-      <LogoutIcon color={'primary'}/>
-      {t("logout")}
+      <div className="header-content">
+      <NavLink className="header-coddntent" to="/record" style={{"display": "block"}}>
+      {t("record")}
+      </NavLink>
       </div>
 
+      {user?
+      <>
       <div className="header-content">
       <NavLink className="header-coddntent" to="/staff-dashboard" style={{"display": "block"}}>
       {t("staff_dashboard")}
       </NavLink>
       </div>
+      <div onClick={logoutUser} className="header-content">    
+      <LogoutIcon color={'primary'}/>
+      {t("logout")}
+      </div>
+
+
       </>
       
       :

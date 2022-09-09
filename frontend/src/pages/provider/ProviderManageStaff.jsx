@@ -26,7 +26,7 @@ function ProviderManageStaff() {
 
   return (
     <div className="page-component-main--grid">
-      <div className="page_component__inpage--span3">
+      <div className="page_component__inpage--span3 page_component__inpage--scroll_box">
         <h3>{t("all_staff")}</h3>
         {listOfEmployments ? (
           listOfEmployments?.map((employment) => {

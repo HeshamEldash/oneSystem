@@ -2,6 +2,30 @@ import APIENDPOINT from "../../utils/api_calls/apiEndpoint";
 const token = JSON.parse(localStorage.getItem("authTokens"));
 
 // const { user, authTokens } = useContext(AuthContext);
+
+const searchPatients = async (values, provider_id)=>{
+
+  
+  const params = new URLSearchParams(values)
+  provider_id && params.append("provider", provider_id)
+
+  const response = await fetch(
+    `${APIENDPOINT}/users/testing/?` + new URLSearchParams(params),
+    {
+      method: "GET",
+      headers: {
+        "Content-type": "application/json",
+        Authorization: "Bearer " + String(token.access),
+      },
+    }
+  )
+
+  if (response.ok){
+    return response.json()
+  }
+
+  
+}
 let getProfile = async (provider_id) => {
   let response = await fetch(`${APIENDPOINT}/users/provider/${provider_id}/`, {
     method: "GET",
@@ -121,7 +145,7 @@ const createRegistration = async (provider_id, patient)=>{
     }),
   })
 }
-export { getProfile, createEmployment, createProvider, 
+export { searchPatients, getProfile, createEmployment, createProvider, 
   getAllEmployments, endEmployment
 
 };

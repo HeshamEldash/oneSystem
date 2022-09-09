@@ -171,12 +171,14 @@ def create_patient_account(email, password, **kwargs):
 #To finalise will need to confirm email is being 
 #passed from the request user 
 #also needs to deicde what happens with the update
+# def update_provider(instance, **kwargs):
+
 def create_update_provider(**kwargs):
     """
     Takes the email from the request user and finds that account. 
     It then creates a Provider profile and assigns it to that account. 
     """
-    print(kwargs)
+    print (kwargs)
     id = kwargs.get("owner")
     name = kwargs.get("name")
     telephone_num = kwargs.pop("telephonenumber_set")

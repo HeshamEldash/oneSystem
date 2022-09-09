@@ -12,3 +12,23 @@
     margin-top: 20px;
      flex-wrap: wrap;
 }
+
+.search-form{
+    padding-top:5rem ; 
+    padding-inline: 8rem;
+}
+.search-form__inputs{
+    display: grid;
+    gap: 0.5rem;
+    grid-template-columns: repeat(auto-fit, minmax(100px,1fr));
+    /* grid-template-columns: repeat(4, minmax(100px,1fr)); */
+    padding: 1rem;
+    padding-bottom: 3rem;
+
+}
+.form-input--group{
+    grid-column: span 2;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}

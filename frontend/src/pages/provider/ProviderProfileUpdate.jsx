@@ -1,5 +1,10 @@
 import React, { useState, useContext, useEffect } from "react";
 import { useFormik } from "formik";
+import DeleteIcon from "@mui/icons-material/Delete";
+import {
+  deletePhoneNumber,
+  updatePhoneNumber,
+} from "../../utils/api_calls/telephoneApi";
 import {
   BrowserRouter as Router,
   Route,
@@ -20,15 +25,36 @@ import Modal from "@mui/material/Modal";
 import APIENDPOINT from "../../utils/api_calls/apiEndpoint";
 
 function ProviderProfileUpdate() {
+  const token = JSON.parse(localStorage.getItem("authTokens"));
+
   const { id } = useParams();
   const { t } = useTranslation();
   const [updating, setUpdating] = useState(false);
+  const [newPhone, setNewPhone] = useState("");
+  const [telephones, setTelephones] = useState([]);
   const [profile, setProfile] = useState({});
   const [addresses, setAddresses] = useState([]);
   const [updatingAddress, setUpdatingAddress] = useState({});
-
   const [open, setOpen] = React.useState(false);
 
+  const addPhone = async () => {
+    const response = await fetch(`${APIENDPOINT}/users/provider/${id}/`, {
+      method: "PATCH",
+      headers: {
+        "Content-type": "application/json",
+        Authorization: "Bearer " + String(token.access),
+      },
+      body: JSON.stringify({
+        telephone_numbers: [{ telephone_number: newPhone }],
+      }),
+    });
+
+    setTelephones((prev) => [...prev, { telephone_number: newPhone }]);
+  };
+  const handlePhoneChange = (event) => {
+    const num = event.target.value;
+    setNewPhone(num);
+  };
   const handleOpen = (address) => {
     setUpdatingAddress(address);
     setOpen(true);
@@ -40,10 +66,7 @@ function ProviderProfileUpdate() {
     const profile = await getProfile(id);
     setProfile(profile);
     setAddresses(profile.address);
-  };
-
-  const onSubmit = async (values, actions) => {
-    actions.resetForm();
+    setTelephones(profile.telephone_numbers);
   };
 
   const style = {
@@ -51,32 +74,12 @@ function ProviderProfileUpdate() {
     top: "50%",
     left: "50%",
     transform: "translate(-50%, -50%)",
-    width: 400,
+    maxWidth: 600,
     bgcolor: "background.paper",
     border: "1px solid #000",
     boxShadow: 24,
     p: 4,
   };
-
-  const {
-    values,
-    errors,
-    touched,
-    isSubmitting,
-    handleBlur,
-    handleChange,
-    handleSubmit,
-  } = useFormik({
-    initialValues: {
-      name: "",
-      owner: "",
-      date_created: "",
-      address: "",
-      telephone_numbers: "",
-    },
-    validationSchema: providerProfileSchema,
-    onSubmit,
-  });
 
   useEffect(() => {
     retreiveProfile();
@@ -84,72 +87,124 @@ function ProviderProfileUpdate() {
 
   return (
     <>
-      {updating ? (
-        <>
-          <form className="user-form" type="submit" onSubmit={handleSubmit}>
-            <label> {t("provider-name")}</label>
-
+      <>
+        <div className="inpage-container">
+          <h1> {t("profile_information")}</h1>
+          <h4>{t("name")}</h4>
+          {updating ? (
             <input
-              type="text"
-              name="name"
-              placeholder={t("enter_your_clinic_name")}
-              className={
-                errors.name && touched.name
-                  ? "input-error form-fields"
-                  : "form-fields"
-              }
-              value={values.name}
-              onChange={handleChange}
-              onBlur={handleBlur}
-            />
-          </form>
-        </>
-      ) : (
-        <>
-          <div className="primary-container">
-            <h1> {t("profile_information")}</h1>
-            <h4>{t("name")}</h4>
-            {profile?.name}
-            <h4>{t("owner")}</h4>
-            {profile?.owner_email}
-
-            <h4>{t("date_create")}</h4>
-            {profile?.date_created}
-
-            <input
-              type="button"
-              className="secondry-button"
-              value={t("update")}
-              onClick={() => {
-                setUpdating(true);
+              className="form-fields"
+              onChange={(e) => {
+                setProfile((prev) => {
+                  return { ...prev, name: e.target.value };
+                });
               }}
+              value={profile?.name}
             />
-          </div>
-          <div className="primary-container">
-            <h4>{t("telephone_numbers")}</h4>
-            {profile?.telephone_numbers?.map((num) => {
+          ) : (
+            profile?.name
+          )}
 
-              <h4>num</h4>;
-              
-            })}
-          </div>
+          <h4>{t("owner")}</h4>
+          {profile?.owner_email}
 
+          <h4>{t("date_create")}</h4>
+          {profile?.date_created}
 
-          <div className="primary-container">
-            <h4>{t("address")}</h4>
-            <div className="inner-container">
+          <h4>{t("telephone_numbers")}</h4>
+          {updating && (
+            <div>
+              <input
+                className="form-fields"
+                value={newPhone}
+                type="text"
+                onChange={handlePhoneChange}
+              />
+              <input
+                className="secondry-button"
+                onClick={() => {
+                  addPhone();
+                }}
+                type="button"
+                value={t("add_telephone_number")}
+              />
+            </div>
+          )}
 
+          {telephones?.map((num) => {
+            return (
+              <div key={num.id} style={{ padding: "0.4rem" }}>
+                {!updating ? (
+                  <> {num.telephone_number}</>
+                ) : (
+                  <>
+                    <input
+                      className="form-fields"
+                      value={num.telephone_number}
+                      type="text"
+                      onChange={(e) => {
+                        setTelephones((prev) => {
+                          return prev.filter((number) => {
+                            if (number === num) {
+                              console.log(number);
+                              number.telephone_number = e.target.value;
+                            }
+                            return telephones;
+                          });
+                        });
+                      }}
+                    />
+
+                    <input
+                      className="secondry-button"
+                      type="button"
+                      value={t("update")}
+                      onClick={() => {
+                        updatePhoneNumber(num.id, num.telephone_number);
+                      }}
+                    />
+                    <DeleteIcon
+                      onClick={() => {
+                        deletePhoneNumber(num.id);
+                        setTelephones((prev) => {
+                          return prev.filter((number, index) => {
+                            return number.id != num.id;
+                          });
+                        });
+                      }}
+                      color="error"
+                      style={{ cursor: "pointer", fontSize: "20" }}
+                    />
+                  </>
+                )}
+              </div>
+            );
+          })}
+
+          <input
+            type="button"
+            className="secondry-button"
+            value={updating ? t("save") : t("update")}
+            onClick={() => {
+              setUpdating((prev) => !prev);
+            }}
+          />
+        </div>
+
+        <div className="inpage-container">
+          <h4>{t("address")}</h4>
+          <div className="inner-container">
             <input
               className="secondry-button"
               type="button"
               value={t("add_address")}
               onClick={() => {
-                handleOpen()
+                handleOpen();
               }}
             />
             {addresses.map((address) => {
               return (
-                <>
+                <div key ={address.id}>
                   <Address key={address.id} address={address}>
                     <input
                       type="button"
@@ -158,29 +213,26 @@ function ProviderProfileUpdate() {
                       onClick={() => handleOpen(address)}
                     />
                   </Address>
-                </>
+                </div>
               );
             })}
-            </div>
-            <Modal
-              open={open}
-              onClose={handleClose}
-              aria-labelledby="modal-modal-title"
-              aria-describedby="modal-modal-description"
-            >
-              <Box sx={style}>
-                <AddressUpdate
-                  address={updatingAddress}
-                  closeModal={() => handleClose()}
-                />
-              </Box>
-            </Modal>
-
           </div>
 
-
-        </>
-      )}
+          <Modal
+            open={open}
+            onClose={handleClose}
+            aria-labelledby="modal-modal-title"
+            aria-describedby="modal-modal-description"
+          >
+            <Box sx={style}>
+              <AddressUpdate
+                address={updatingAddress}
+                closeModal={() => handleClose()}
+              />
+            </Box>
+          </Modal>
+        </div>
+      </>
     </>
   );
 }

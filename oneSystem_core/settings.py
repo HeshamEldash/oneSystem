@@ -27,7 +27,7 @@ SECRET_KEY = 'django-insecure-$5zzm64dup98a+%=m#!=ya*%%7(awvn(*vo!v!gh@w_3l&n+xj
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["127.0.0.1"]
 
 
 # Application definition
@@ -47,6 +47,7 @@ INSTALLED_APPS = [
 
    # project apps
     'users',
+    "records.apps.RecordsConfig",
 
 ]
 
@@ -180,6 +181,8 @@ STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 AUTH_USER_MODEL = 'users.Account'
 
+
+CORS_ALLOWED_ORIGINS = ["http://localhost:3000"]
 CORS_ALLOW_ALL_ORIGINS = True
 
 DATETIME_FORMAT= '%m/%d/%Y %H:%M:%S'

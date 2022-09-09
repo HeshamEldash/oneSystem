@@ -1,6 +1,6 @@
 import React,  { useState } from "react";
 import { useTranslation } from "react-i18next";
-
+import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
 import {
   Outlet,
   NavLink,
@@ -20,50 +20,16 @@ function ProviderLayout() {
     <>
       {/* <SideBar/> */}
       <Navbar>
-        {/* <NavMenu
-          buttonName={t("manage_patients")}
-          menyItems={[
-            {
-              name: t("register_staff"),
-              func: () => navigate("/provider/${id}/patient-registration"),
-            },
-          ]}
-        ></NavMenu> */}
+
         <NavLink className="" to={`/provider/${id}/patient-registration`}>
       {t("register_a_patient")}
       </NavLink>
-      
-        {/* <NavMenu
-          buttonName={t("manage_profile")}
-          menyItems={[
-            {
-              name: t("update_profile"),
-              func: () => navigate(`/provider/${id}/profile-update`),
-            },
-          ]}
-        ></NavMenu> */}
+  
 
         <NavLink className="" to={`/provider/${id}/profile-update`}>
           {t("update_profile")}
         </NavLink>
 
-        {/* <NavMenu
-          buttonName={t("manage_sta")}
-          menyItems={[
-            {
-              name: t("register_staff"),
-              func: () => navigate(`/provider/${id}/register-staff`),
-            },
-            {
-              name: t("manage_staff "),
-              func: () => navigate(`/provider/${id}/manage-staff`),
-            },
-          ]}
-
-
-        ></NavMenu> */}
-
-        
 
          <NavLink className="" to={`/provider/${id}/manage-staff`}>
           {t("manage_staff")}
@@ -71,7 +37,11 @@ function ProviderLayout() {
 
         
         <NavLink className="" to={`/provider/${id}/search-patient`}>
-          {t("search_patients")}
+          <div className="header-content">
+                < SearchOutlinedIcon/>
+               {t("search_patients")} 
+
+          </div>
         </NavLink>
 
       </Navbar>

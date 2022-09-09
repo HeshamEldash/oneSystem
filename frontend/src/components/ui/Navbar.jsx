@@ -31,8 +31,10 @@ function Navbar({ children }) {
           isNavExpanded ? "navigation-menu expanded" : "navigation-menu"
         }>
         <ul>
-          {children?.map((item)=>{
-            return <li className={
+          {children?.map((item, index)=>{
+            return <li 
+            key = {index}
+            className={
           isNavExpanded ? "navlink_item--expanded" : "navlink_item"
         }>
               {item}
