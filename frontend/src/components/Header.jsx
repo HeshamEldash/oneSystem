@@ -12,7 +12,6 @@ function Header() {
   const { t,i18n } = useTranslation();
   const {logoutUser, user}= useContext(AuthContext)
   const location = useLocation()
-  console.log(location)
 
   return (
     // <div className={i18n.language === 'en' ?  'header english': 'header arabic'} >

@@ -27,7 +27,9 @@ SECRET_KEY = 'django-insecure-$5zzm64dup98a+%=m#!=ya*%%7(awvn(*vo!v!gh@w_3l&n+xj
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["127.0.0.1"]
+# ALLOWED_HOSTS = ["127.0.0.1", "*"]
+
+ALLOWED_HOSTS=['*']
 
 
 # Application definition
@@ -41,7 +43,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     #3rd party:
-     "corsheaders",
+    "corsheaders",
     'rest_framework',
     'rest_framework_simplejwt',
 
@@ -60,7 +62,7 @@ REST_FRAMEWORK = {
 ...
 
 SIMPLE_JWT = {
-    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=500),
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=50000),
     'REFRESH_TOKEN_LIFETIME': timedelta(days=100),
     'ROTATE_REFRESH_TOKENS': False, #switch to tru in prod
     'BLACKLIST_AFTER_ROTATION': False, #switch to tru in prod

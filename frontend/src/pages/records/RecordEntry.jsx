@@ -1,6 +1,11 @@
 import React, { useState } from "react";
+import { createRecord } from "./apiCalls/recordsApiCalls";
+import { useRecordContext } from "./context/RecordContextHook";
+
 
 function RecordEntry(props) {
+  const { patient } = useRecordContext();
+
   const [recordEntry, setRecordEntry] = useState({
     history: "",
     examination: "",
@@ -8,7 +13,7 @@ function RecordEntry(props) {
     plan: "",
     is_public:true,
   });
-  
+
   const handleChange = (e) => {
     const name = e.target.name;
     const value = e.target.value;
@@ -81,6 +86,10 @@ function RecordEntry(props) {
           className="record_entry__button"
           type="button"
           value="save_localy"
+          onClick={()=>{
+            createRecord(patient.id)
+        
+          }}
         />
         <input
           className="record_entry__button"

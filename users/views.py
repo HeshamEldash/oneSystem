@@ -1,5 +1,3 @@
-from cgitb import lookup
-from urllib import request
 from .models import Account, Patient, TelephoneNumber
 from .serializers import *
 from rest_framework_simplejwt.views import TokenObtainPairView

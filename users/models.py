@@ -152,7 +152,7 @@ class Staff(BaseProfile, models.Model):
         verbose_name_plural = _("staff")
 
     def __str__(self):
-        return f"{self.first_name} {self.last_name}"
+        return f"{self.title} {self.first_name} {self.last_name}"
 
     @property
     def full_name(self): 

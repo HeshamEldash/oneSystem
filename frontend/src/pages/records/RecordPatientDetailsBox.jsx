@@ -6,9 +6,6 @@ function RecordPatientDetailsBox() {
 
   const { patient } = useRecordContext();
 
-  console.log(typeof(patient.telephone_numbers))
-  console.log(patient?.telephone_numbers?.length)
-
   function getAge(dateString) {
     var today = new Date();
     var birthDate = new Date(dateString);
@@ -43,25 +40,23 @@ function RecordPatientDetailsBox() {
       </div>
       <div className="details_box__component">
         <p className="details_box__titles">{t("telephone_number")}:</p>
-        {/* {patient?.telephone_numbers.length  &&
-          <p>{patient?.telephone_numbers[0].telephone_number}</p>
-        } */}
+    
 
         { patient?.telephone_numbers?.length > 0 && 
             <p>{patient?.telephone_numbers[0]?.telephone_number}</p>
         }
         
-     
+      
 
         
       </div>
       <div className="details_box__component">
         <p className="details_box__titles">{t("address")}:</p>
-        <p>
+ 
         <p>
           {patient?.address?.unit_number}, {patient?.address?.first_line}, {patient?.address?.second_line}, {patient?.address?.city}, {patient?.address?.governorate}
         </p>
-        </p>
+    
       </div>
     </div>
   );

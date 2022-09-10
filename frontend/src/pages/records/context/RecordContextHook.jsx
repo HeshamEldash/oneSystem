@@ -10,7 +10,7 @@ import {RecordContext} from "./RecordContext";
     if (contextData === undefined) {
       throw new Error("useUserContext was used outside of its Provider");
     }
-  
+    console.log(contextData)
     return contextData;
   };
 

@@ -5,8 +5,8 @@ function RecordDisplay(props) {
     <div className="record">
 
       <div className="record__header">
-        created by: Dr Hesham Eldash @ 08/08/2022 10:10
-        {props.header}
+        <span>created by: {props.author} @ {props.dateCreated} </span>        
+        <span>shared: {props.isPublic.toString()}</span>
       </div>
 
       <div className="record_body">
