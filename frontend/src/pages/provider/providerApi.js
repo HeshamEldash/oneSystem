@@ -3,11 +3,9 @@ const token = JSON.parse(localStorage.getItem("authTokens"));
 
 // const { user, authTokens } = useContext(AuthContext);
 
-const searchPatients = async (values, provider_id)=>{
-
-  
-  const params = new URLSearchParams(values)
-  provider_id && params.append("provider", provider_id)
+const searchPatients = async (values, provider_id) => {
+  const params = new URLSearchParams(values);
+  provider_id && params.append("provider", provider_id);
 
   const response = await fetch(
     `${APIENDPOINT}/users/testing/?` + new URLSearchParams(params),
@@ -18,14 +16,12 @@ const searchPatients = async (values, provider_id)=>{
         Authorization: "Bearer " + String(token.access),
       },
     }
-  )
+  );
 
-  if (response.ok){
-    return response.json()
+  if (response.ok) {
+    return response.json();
   }
-
-  
-}
+};
 let getProfile = async (provider_id) => {
   let response = await fetch(`${APIENDPOINT}/users/provider/${provider_id}/`, {
     method: "GET",
@@ -66,27 +62,32 @@ const createProvider = async (data, user_id) => {
 };
 
 const endEmployment = async (employmentId) => {
-  const response = await fetch(`${APIENDPOINT}/users/employment-detail/${employmentId}/`, {
-    method: "PATCH",
-    headers: {
-      "Content-type": "application/json",
-      Authorization: "Bearer " + String(token.access),
-    },
-    body: JSON.stringify({
-      is_active: false
-    }),
-  });
+  const response = await fetch(
+    `${APIENDPOINT}/users/employment-detail/${employmentId}/`,
+    {
+      method: "PATCH",
+      headers: {
+        "Content-type": "application/json",
+        Authorization: "Bearer " + String(token.access),
+      },
+      body: JSON.stringify({
+        is_active: false,
+      }),
+    }
+  );
 };
 
-const getAllEmployments = async (provider_id)=>{
-  const response = await fetch(`${APIENDPOINT}/users/employment-provider-list/${provider_id}`, {
-    method: "GET",
-    headers: {
-      "Content-type": "application/json",
-      Authorization: "Bearer " + String(token.access),
-    },
-
-  })
+const getAllEmployments = async (provider_id) => {
+  const response = await fetch(
+    `${APIENDPOINT}/users/employment-provider-list/${provider_id}`,
+    {
+      method: "GET",
+      headers: {
+        "Content-type": "application/json",
+        Authorization: "Bearer " + String(token.access),
+      },
+    }
+  );
 
   if (response.ok) {
     const data = response.json();
@@ -94,11 +95,9 @@ const getAllEmployments = async (provider_id)=>{
   } else {
     throw "An error has happened";
   }
-
- 
-}
+};
 const createEmployment = async (staff_email, provider_id) => {
-  console.log(token.access)
+  console.log(token.access);
   const response = await fetch(`${APIENDPOINT}/users/employment-create/`, {
     method: "POST",
     headers: {
@@ -132,20 +131,27 @@ const createEmployment = async (staff_email, provider_id) => {
   return response;
 };
 
-const createRegistration = async (provider_id, patient)=>{
-  const response = await fetch(`${APIENDPOINT}/users/registration-list/${provider_id}/`, {
-    method: "POST",
-    headers: {
-      "Content-type": "application/json",
-      Authorization: "Bearer " + String(token.access),
-    },
-    body: JSON.stringify({
-      // staff: staff_email,
-      provider: provider_id,
-    }),
-  })
-}
-export { searchPatients, getProfile, createEmployment, createProvider, 
-  getAllEmployments, endEmployment
-
+const createRegistration = async (provider_id, patient) => {
+  const response = await fetch(
+    `${APIENDPOINT}/users/registration-list/${provider_id}/`,
+    {
+      method: "POST",
+      headers: {
+        "Content-type": "application/json",
+        Authorization: "Bearer " + String(token.access),
+      },
+      body: JSON.stringify({
+        // staff: staff_email,
+        provider: provider_id,
+      }),
+    }
+  );
+};
+export {
+  searchPatients,
+  getProfile,
+  createEmployment,
+  createProvider,
+  getAllEmployments,
+  endEmployment,
 };

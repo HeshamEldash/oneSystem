@@ -105,9 +105,20 @@ class PatientManager(models.Manager):
         pass
 
 class Patient(BaseProfile, models.Model):
+    MALE = "MALE"
+    FEMALE = "FEMALE"
+
+
+
+    GENDER_CHOICES = (
+        (MALE, _('Male')),
+        (FEMALE, _('Female'))
+    )
+
 
     date_of_birth = models.DateField(_("date of birth"), null=False, unique=False)
     account = models.OneToOneField(Account, on_delete=models.CASCADE, null=True)
+    gender = models.CharField(_("gender"), max_length=6, choices=GENDER_CHOICES, default=MALE)
 
     class Meta:
         verbose_name = _("patient")

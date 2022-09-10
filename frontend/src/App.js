@@ -29,6 +29,7 @@ import ProviderPatientSearch from "./pages/provider/ProviderPatientSearch.jsx";
 import RecordDisplay from "./pages/records/RecordDisplay.jsx";
 import RecordEntry from "./pages/records/RecordEntry.jsx";
 import RecordLayout from "./pages/records/RecordLayout.jsx";
+import  { RecordContext, RecordContextProvider } from "./pages/records/context/RecordContext.jsx";
 function App() {
   const { t, i18n } = useTranslation();
 
@@ -48,8 +49,8 @@ function App() {
                 <Route element={<ProviderStartEmployment/>} path="register-staff" />
                 <Route element={<ProviderManageStaff/>} path="manage-staff" />
                 <Route index element={<ProviderPatientSearch/>} path="search-patient" />
-
-
+              
+               <Route element={<RecordLayout />} path="patient-record/:patient_id" />
              </Route>
              
               
@@ -59,14 +60,12 @@ function App() {
 
         <Route element={<RegistrationChoice/>} path="/registration-choice" />
         <Route element={<RegisterationPage />} path="/registration/staff" />
-        <Route element={<RecordLayout />} path="record" />
-
+      
 
         <Route element={<RegistrationLayout/> }  path="/register">
           <Route element={<RegistrationStaffMultiStep />} path="staff" />
           <Route element={<ProviderRegistration/> } path="provider"/>
           <Route element={<PatientRegistration/>} path="patient"/>
-
         </Route>
         
         <Route element={<h1>404</h1>} path="*" />

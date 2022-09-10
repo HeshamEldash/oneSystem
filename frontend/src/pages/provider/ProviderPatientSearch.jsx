@@ -4,7 +4,7 @@ import { initReactI18next, useTranslation } from "react-i18next";
 import APIENDPOINT from "../../utils/api_calls/apiEndpoint";
 import ResultsBox from "../../components/ResultsBox";
 import { searchPatients } from "./providerApi";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import TableCell, { tableCellClasses } from "@mui/material/TableCell";
 import TableRow from "@mui/material/TableRow";
 import { styled } from "@mui/material/styles";
@@ -19,7 +19,7 @@ function ProviderPatientSearch() {
   const [startDate, setStartDate] = useState(new Date());
   const [advancedSearch, setAdvancedSearch] = useState(false);
   const { id } = useParams();
-
+  const navigate = useNavigate()
   const { t } = useTranslation();
   const [patients, setPatients] = useState([]);
 
@@ -232,7 +232,7 @@ function ProviderPatientSearch() {
             <StyledTableRow
               key={patient.id}
               onDoubleClick={() => {
-                console.log(patient);
+                navigate(`/provider/${id}/patient-record/${patient.id}`)
               }}
             >
               <StyledTableCell>{patient.first_name}</StyledTableCell>
