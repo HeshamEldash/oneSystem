@@ -11,6 +11,7 @@ function RecordFeed(props) {
         return (
           <RecordDisplay
             key={record.id}
+            id={record.id}
             author={record.author_name}
             isPublic = {record.is_public}
             dateCreated={record.date_created}
@@ -20,7 +21,7 @@ function RecordFeed(props) {
             plan={record.managment_plan}
           />
         );
-      })}
+      }).reverse()}
     </div>
   );
 }

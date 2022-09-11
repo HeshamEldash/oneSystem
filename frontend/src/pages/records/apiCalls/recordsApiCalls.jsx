@@ -39,7 +39,8 @@ const getPatientProfile = async (patient_id) => {
     }
   };  
 
-  const createRecord = async (patient_id, data)=>{
+  const createRecord = async (patient_id, recordEntry)=>{
+    console.log(patient_id, recordEntry)
     let response = await fetch(`${APIENDPOINT}/records/patients-records/`, {
         method: "POST",
         headers: {
@@ -47,18 +48,46 @@ const getPatientProfile = async (patient_id) => {
           Authorization: "Bearer " + String(token.access),
         },
         body: JSON.stringify({
-            history:"test",
-            examination:"test",
-            diagnosis:"test",
-            managment_plan:"test",
-            is_public:false,
-            patient:patient_id,
-            // author:""
+            history:recordEntry.history,
+            examination:recordEntry.examination,
+            diagnosis:recordEntry.diagnosis,
+            managment_plan:recordEntry.plan,
+            is_public:recordEntry.is_public,
+            patient:parseInt(patient_id),
           })
       });
 
+
+      
+  }
+
+  
+  const updateRecord = async (record_id, recordEntry, is_public)=>{
+    let response = await fetch(`${APIENDPOINT}/records/patients-record/${record_id}/`, {
+        method: "PATCH",
+        headers: {
+          "Content-type": "application/json",
+          Authorization: "Bearer " + String(token.access),
+        },
+        body: JSON.stringify({
+            history:recordEntry.history,
+            examination:recordEntry.examination,
+            diagnosis:recordEntry.diagnosis,
+            managment_plan:recordEntry.plan,
+            is_public:is_public,
+          })
+      });
+
+
+      
   }
 
 
 
-export {getPatientProfile, getPatientRecords, createRecord}
+
+
+
+
+
+
+export {getPatientProfile, getPatientRecords, createRecord, updateRecord}

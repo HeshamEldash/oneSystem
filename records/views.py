@@ -26,6 +26,9 @@ class RecordListView(generics.GenericAPIView,
     def post(self, request, *args, **kwargs):
         return self.create(request, *args, **kwargs)
 
+
+
+
 class RecordView(generics.GenericAPIView,
                 mixins.RetrieveModelMixin, 
                 mixins.UpdateModelMixin):

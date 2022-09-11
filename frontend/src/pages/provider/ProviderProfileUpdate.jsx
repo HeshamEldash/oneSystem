@@ -35,7 +35,7 @@ function ProviderProfileUpdate() {
   const [profile, setProfile] = useState({});
   const [addresses, setAddresses] = useState([]);
   const [updatingAddress, setUpdatingAddress] = useState({});
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
 
   const addPhone = async () => {
     const response = await fetch(`${APIENDPOINT}/users/provider/${id}/`, {

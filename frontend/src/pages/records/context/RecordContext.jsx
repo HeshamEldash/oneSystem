@@ -19,7 +19,6 @@ function RecordContextProvider(props) {
   }
   const getRecordsData = async ()=>{
     const recordsData = await getPatientRecords(patient_id)
-    console.log(recordsData)
     setPatientRecords(recordsData)
   }
 
@@ -32,31 +31,7 @@ function RecordContextProvider(props) {
   const contextData = {
 
     patient:patientProfile,
-    records:patientRecords 
-    // patient: {
-    //   id: "7",
-    //   first_name: "هشام",
-    //   middle_names: "مدحت",
-    //   last_name: "سعيد",
-    //   date_of_birth: "1992-10-10",
-    //   account_email: "h@ehep.comew",
-    //   telephone_numbers: [
-    //     {
-    //       id: 164,
-    //       telephone_number: "01112345698",
-    //     },
-    //   ],
-    //   address: {
-    //     id: 47,
-    //     unit_number: "1",
-    //     first_line: "شارع النزهة",
-    //     second_line: "تارا كومباوند",
-    //     city: "الشيح زايد",
-    //     governorate: "جيزة",
-    //     patient: 7,
-    //     owner: 7,
-    //   },
-    // },
+    records:patientRecords
   };
 
 

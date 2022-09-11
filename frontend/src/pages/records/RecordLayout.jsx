@@ -8,15 +8,14 @@ import RecordFeed from "./RecordFeed";
 import data from "./example";
 import RecordPatientDetailsBox from "./RecordPatientDetailsBox";
 import RecordsClinicalTree from "./RecordsClinicalTree";
-import { RecordContextProvider} from "./context/RecordContext";
+import { RecordContextProvider } from "./context/RecordContext";
 import { useRecordContext } from "./context/RecordContextHook";
 
 export default function RecordLayout() {
   const { t } = useTranslation();
 
   const [showConsultationBox, setShowConsultationBox] = useState(true);
-  
-
+  const [newRecords, setNewRecords] = useState([]);
 
   return (
     <RecordContextProvider>
@@ -37,19 +36,28 @@ export default function RecordLayout() {
             </div>
           </div>
 
-          <RecordEntry showConsultationBox={showConsultationBox} />
+          <RecordEntry
+            showConsultationBox={showConsultationBox}
+            addRecord={setNewRecords}
+          />
 
           <RecordFeed>
-            {/* {data.map((record, index) => {
-              return <RecordDisplay key={index} history={record.history} />;
-            })} */}
+            {newRecords?.map((record, index) => {
+              return (
+                <RecordDisplay
+                  key={index}
+                  isPublic={record.is_public}
+                  dateCreated={record.date_created}
+                  history={record.history}
+                  examination={record.examination}
+                  diagnosis={record.diagnosis}
+                  plan={record.managment_plan}
+                />
+              );
+            }).reverse()}
           </RecordFeed>
-            
-
-
         </div>
       </div>
-
- </RecordContextProvider>
+    </RecordContextProvider>
   );
 }

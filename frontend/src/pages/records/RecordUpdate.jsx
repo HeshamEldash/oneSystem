@@ -1,43 +1,17 @@
 import React, { useState } from "react";
-import { createRecord } from "./apiCalls/recordsApiCalls";
+import { createRecord, updateRecord } from "./apiCalls/recordsApiCalls";
 import { useRecordContext } from "./context/RecordContextHook";
-import { useTranslation } from "react-i18next";
 
-function RecordEntry(props) {
+function RecordUpdate(props) {
   const { patient } = useRecordContext();
-  const { t } = useTranslation();
 
   const [recordEntry, setRecordEntry] = useState({
-    history: "",
-    examination: "",
-    diagnosis: "",
-    plan: "",
-    // is_public: true,
+    history: props.history,
+    examination: props.examination,
+    diagnosis: props.diagnosis,
+    plan: props.plan,
+    is_public: props.isPublic,
   });
-
-  const handleSubmit = (is_public) => {
-    if (
-      recordEntry.history === "" &&
-      recordEntry.examination === "" &&
-      recordEntry.diagnosis === "" &&
-      recordEntry.plan === ""
-    ) {
-      const confirm = window.confirm(
-        t("are_you_sure_you_want_to_save_an_empty_record")
-      );
-      if (confirm) {
-        createRecord(patient.id, recordEntry, is_public);
-        props.addRecord((prev) => {
-          return [...prev, {...recordEntry, is_public:is_public}];
-        });
-      }
-    } else {
-      createRecord(patient.id, recordEntry, is_public);
-      props.addRecord((prev) => {
-        return [...prev, {...recordEntry, is_public:is_public}];
-      });
-    }
-  };
 
   const handleChange = (e) => {
     const name = e.target.name;
@@ -62,10 +36,7 @@ function RecordEntry(props) {
   };
 
   return (
-    <div
-      className="record_entry"
-      style={{ display: props.showConsultationBox ? "flex" : "none" }}
-    >
+    <div className="record_entry" style={{ display: "flex" }}>
       <div className="record_entry__segment">
         <span className="record__entry_begining">Hx:</span>
         <textarea
@@ -97,7 +68,7 @@ function RecordEntry(props) {
         <span className="record__entry_begining">Mx:</span>
         <textarea
           className="record_entry__input"
-          value={recordEntry.managment}
+          value={recordEntry.plan}
           name="plan"
           onChange={handleChange}
         />
@@ -109,30 +80,22 @@ function RecordEntry(props) {
           type="button"
           value="save_localy"
           onClick={() => {
-            // setRecordEntry((prev) => {
-            //   return { ...prev, is_public: false };
-            // });
-            handleSubmit(false);
+            setRecordEntry((prev) => {
+              return { ...prev, is_public: false };
+            });
 
-            // createRecord(patient.id, recordEntry);
-            // props.addRecord((prev) => {
-            //   return [...prev, recordEntry];
-            // });
+            updateRecord(props.recordId, recordEntry);
+            props.closeModal();
           }}
         />
+
         <input
           className="record_entry__button"
           type="button"
           value="save_and_share"
           onClick={() => {
-
-            handleSubmit(true);
-
-
-            // createRecord(patient.id, recordEntry);
-            // props.addRecord((prev) => {
-            //   return [...prev, recordEntry];
-            // });
+            updateRecord(props.recordId, recordEntry);
+            props.closeModal();
           }}
         />
       </div>
@@ -140,4 +103,4 @@ function RecordEntry(props) {
   );
 }
 
-export default RecordEntry;
+export default RecordUpdate;

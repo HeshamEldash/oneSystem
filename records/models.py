@@ -1,9 +1,8 @@
 from pyexpat import model
 from django.db import models
 from django.utils.translation import gettext_lazy as _
-
 from users.models import Patient, Staff
-# Create your models here.
+
 
 class Record(models.Model):
     date_created= models.DateTimeField(auto_now_add=True)
@@ -35,10 +34,6 @@ class RecordUpdateEvent(models.Model):
     
 
 
-
-
-
-
 class Note(models.Model):
     date_created= models.DateTimeField(auto_now_add=True)
     author=models.ForeignKey(Staff, on_delete=models.DO_NOTHING)
@@ -65,3 +60,15 @@ class ViewedRecordEvenet(models.Model):
         duration = self.start_date - self.end_date 
 
         return duration
+
+
+class PastConditions(models.Model):
+    date_diagnosed = models.DateField(null=True, blank=True)
+    condition = models.CharField(max_length=600)
+    patient = models.ForeignKey(Patient, on_delete=models.CASCADE)
+    
+
+    def __str__(self):
+        return self.condition
+
+    

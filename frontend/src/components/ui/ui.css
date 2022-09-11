@@ -150,3 +150,52 @@
     justify-content: center;
     align-items: center;
 }
+
+
+
+/* CSS */
+.position{
+  position: absolute;
+  right: 11%;
+  bottom: 12%;
+}
+
+.discard_button {
+  background-color: #ec216f;
+  border-radius: 8px;
+  border-style: none;
+  box-sizing: border-box;
+  color: #FFFFFF;
+  cursor: pointer;
+  display: inline-block;
+  font-family: "Haas Grot Text R Web", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  height: 40px;
+  line-height: 20px;
+  list-style: none;
+  margin: 0;
+  outline: none;
+  padding: 10px 16px;
+  text-align: center;
+  text-decoration: none;
+  transition: color 100ms;
+  vertical-align: baseline;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+}
+
+.discard_button:hover,
+.discard_button:focus {
+  background-color: #F082AC;
+}
+
+@media screen and (max-width: 650px) {
+  .position{
+    display: none;
+  }
+  .discard_button{
+
+  }
+}
