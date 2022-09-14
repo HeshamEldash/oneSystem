@@ -30,6 +30,9 @@ import RecordDisplay from "./pages/records/RecordDisplay.jsx";
 import RecordEntry from "./pages/records/RecordEntry.jsx";
 import RecordLayout from "./pages/records/RecordLayout.jsx";
 import  { RecordContext, RecordContextProvider } from "./pages/records/context/RecordContext.jsx";
+import Icd from "./externalapis/icd-10/Icd.jsx";
+import RecordMain from "./pages/records/RecordMain.jsx";
+import RecordProfile from "./pages/records/admin/RecordProfile.jsx";
 function App() {
   const { t, i18n } = useTranslation();
 
@@ -38,6 +41,7 @@ function App() {
       <AuthProvider>
 
       <Header />
+      {/* <Icd/> */}
       <Routes>
         <Route element={<ProtectedUserRoutes/>} >
              <Route element={<StaffDashboard/>} path="/staff-dashboard" />
@@ -50,7 +54,12 @@ function App() {
                 <Route element={<ProviderManageStaff/>} path="manage-staff" />
                 <Route index element={<ProviderPatientSearch/>} path="search-patient" />
               
-               <Route element={<RecordLayout />} path="patient-record/:patient_id" />
+                   <Route element={<RecordLayout />} path="patient-record/:patient_id" >
+                      <Route index element={<RecordMain/>} />
+                      <Route element={<RecordProfile/>} path="profile"/>
+
+                    
+                   </Route>
              </Route>
              
               

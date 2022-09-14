@@ -1,6 +1,6 @@
-import React,  { useState } from "react";
+import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
-import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
+import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
 import {
   Outlet,
   NavLink,
@@ -11,39 +11,55 @@ import {
 import Navbar from "../../components/ui/Navbar";
 import NavMenu from "../../components/ui/NavMenu";
 import SideBar from "../../components/ui/SideBar";
+import Button from "@mui/material/Button";
+import Menu from "@mui/material/Menu";
+import MenuItem from "@mui/material/MenuItem";
+
 function ProviderLayout() {
-  const [isNavExpanded, setIsNavExpanded] = useState(false)
+  const [isNavExpanded, setIsNavExpanded] = useState(false);
   const { t, i18n } = useTranslation();
   const { id } = useParams();
   const navigate = useNavigate();
   return (
     <>
-      {/* <SideBar/> */}
       <Navbar>
+        <NavMenu
+          buttonName={t("patients")}
+          menuItems={[
+            {
+              name: t("register_a_patient"),
+              func: () => {
+                navigate("/provider/${id}/patient-registration");
+              },
+            },
+            {
+              name: t("search_patients"),
+
+              func: () => {
+                navigate("/provider/${id}/search-patient");
+              },
+            },
+          ]}
+        ></NavMenu>
 
         <NavLink className="" to={`/provider/${id}/patient-registration`}>
-      {t("register_a_patient")}
-      </NavLink>
-  
+          {t("register_a_patient")}
+        </NavLink>
 
         <NavLink className="" to={`/provider/${id}/profile-update`}>
           {t("update_profile")}
         </NavLink>
 
-
-         <NavLink className="" to={`/provider/${id}/manage-staff`}>
+        <NavLink className="" to={`/provider/${id}/manage-staff`}>
           {t("manage_staff")}
         </NavLink>
 
-        
         <NavLink className="" to={`/provider/${id}/search-patient`}>
-          <div className="header-content">
-                < SearchOutlinedIcon/>
-               {t("search_patients")} 
-
+          <div className="nav_content">
+            <SearchOutlinedIcon />
+            {t("search_patients")}
           </div>
         </NavLink>
-
       </Navbar>
 
       <Outlet />

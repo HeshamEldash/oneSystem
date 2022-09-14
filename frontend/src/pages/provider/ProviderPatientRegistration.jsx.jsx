@@ -1,6 +1,8 @@
 import React, { useState, useContext } from "react";
 
 import { Link, Navigate, useParams } from "react-router-dom";
+import MenuItem from "@mui/material/MenuItem";
+import Select from "@mui/material/Select";
 
 import { useTranslation } from "react-i18next";
 import { useFormik } from "formik";
@@ -23,6 +25,7 @@ function ProviderPatientRegistration() {
         first_name: values.firstName,
         middle_names: values.middleNames,
         last_name: values.lastName,
+        gender:values.gender,
         date_of_birth: "2019-10-10",
         telephone_numbers: [
           {
@@ -31,7 +34,7 @@ function ProviderPatientRegistration() {
         ],
         address: {
           unit_number: values.unit_number,
-          first_line: values.firstline,
+          first_line: values.first_line,
           second_line: values.second_line,
           city: values.city,
           governorate: values.governorate,
@@ -58,6 +61,7 @@ function ProviderPatientRegistration() {
       firstName: "",
       middleNames: "",
       lastName: "",
+      gender:"",
       telephoneNumber: "",
       date_of_birth: "2019-10-10",
       unit_number: "",
@@ -71,6 +75,9 @@ function ProviderPatientRegistration() {
 
   return (
     <>
+      <div className="page_header__container">
+          <h1 className="page_header__title">{t("register_a_patient")}</h1>
+      </div>
       <form
         className="user-form--centered form-padding"
         type="submit"
@@ -134,6 +141,18 @@ function ProviderPatientRegistration() {
         {/* {errors.lastName && touched.lastName && (
             <p className="error">{errors.lastName}</p>
           )} */}
+
+          <label>{t("gender")}</label>
+          <Select
+            value={values.gender}
+            name="gender"
+            onChange={handleChange}
+            displayEmpty
+            className="form-fields"
+          >
+            <MenuItem value={"MALE"}>{t("male")}</MenuItem>
+            <MenuItem value={"FEMALE"}>{t("female")}</MenuItem>
+          </Select>
 
         <label>{t("date_of_birth")}</label>
 
@@ -261,7 +280,7 @@ function ProviderPatientRegistration() {
           className="form-button"
           disabled={isSubmitting}
           type="submit"
-          value={t("register_and_start_employment")}
+          value={t("register_patient")}
         />
       </form>
     </>

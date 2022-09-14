@@ -199,3 +199,16 @@
 
   }
 }
+.entityPvPointer{
+  /* background-color: red; */
+  font-size: 1.8em;
+}
+ .nav_content{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* color: #1976d2; */
+  cursor: pointer;
+  text-decoration: none;
+  gap: 3px;
+ }

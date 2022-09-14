@@ -82,7 +82,6 @@
 
 }
 .page_component__inpage--span3{
-
   grid-column: span 3
 
 }
@@ -134,7 +133,7 @@
   padding: 20px 20px; 
   min-height: 10rem;
   margin-top: .6rem;
-  max-width: 80ch;
+  max-width: 160ch;
   min-width: 270px;
   /* align-items: center; */
 }
@@ -199,3 +198,13 @@ auto-fit and auto-fill
 
 
 */
+.page_header__container{
+  display: block;
+  padding-block: 2rem;
+}
+.page_header__title{
+  text-align: center;
+  margin: auto;
+
+  
+}

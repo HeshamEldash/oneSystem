@@ -10,6 +10,8 @@ import RecordPatientDetailsBox from "./RecordPatientDetailsBox";
 import RecordsClinicalTree from "./RecordsClinicalTree";
 import { RecordContextProvider } from "./context/RecordContext";
 import { useRecordContext } from "./context/RecordContextHook";
+import RecordActionBar from "./RecordActionBar";
+import { Outlet } from "react-router";
 
 export default function RecordLayout() {
   const { t } = useTranslation();
@@ -25,37 +27,18 @@ export default function RecordLayout() {
         <RecordPatientDetailsBox />
 
         <div className="content">
-          <div className="action_bar">
-            <div
-              className="action_bar__element"
-              onClick={() => {
-                setShowConsultationBox((prev) => !prev);
-              }}
-            >
-              {t("consultation")}
-            </div>
-          </div>
+          <RecordActionBar
+            items={[
+              {
+                name: t("consultation"),
+                func: () => setShowConsultationBox((prev) => !prev),
+              },
+            ]}
+          ></RecordActionBar>
 
-          <RecordEntry
-            showConsultationBox={showConsultationBox}
-            addRecord={setNewRecords}
+          <Outlet
+            context={{ showConsultationBox, setNewRecords, newRecords }}
           />
-
-          <RecordFeed>
-            {newRecords?.map((record, index) => {
-              return (
-                <RecordDisplay
-                  key={index}
-                  isPublic={record.is_public}
-                  dateCreated={record.date_created}
-                  history={record.history}
-                  examination={record.examination}
-                  diagnosis={record.diagnosis}
-                  plan={record.managment_plan}
-                />
-              );
-            }).reverse()}
-          </RecordFeed>
         </div>
       </div>
     </RecordContextProvider>

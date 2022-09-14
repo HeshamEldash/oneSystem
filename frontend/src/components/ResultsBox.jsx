@@ -49,8 +49,12 @@ function ResultsBox(props) {
       <Table size={props.tableSize} stickyHeader={props.stickyHeader}>
         <TableHead>
           <StyledTableRow>
-            {props.headerElements?.map((item) => (
-              <StyledTableCell>{item}</StyledTableCell>
+            {props.headerElements?.map((item, index) => (
+              <StyledTableCell
+              key={index}
+              >
+              
+              {item}</StyledTableCell>
             ))}
           </StyledTableRow>
         </TableHead>
