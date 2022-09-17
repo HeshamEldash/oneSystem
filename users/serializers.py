@@ -63,7 +63,22 @@ class TelephoneNumberSerializer(serializers.ModelSerializer):
         model = TelephoneNumber
         fields = ["id", "telephone_number"]
 
+    def create(self, validated_data):
+        # queryset = self.context["view"].get_queryset()
+        # tel_obj = super().create(validated_data)
+        # queryset.add(tel_obj)
+        # return tel_obj
+        owner_id = self.context["view"].kwargs.get("owner_pk")
+        owner_type = self.context.get("owner_type")
+        if owner_type == "patient":
+             return TelephoneNumber.objects.create(owner_patient_id=owner_id,**validated_data)
         
+        elif owner_type == "provider":
+          qs = TelephoneNumber.objects.filter(owner_provider_id=owner_id, **validated_data)
+          return qs
+        elif owner_type == "staff":
+          qs = TelephoneNumber.objects.filter(owner_staff_id=owner_id, **validated_data)
+          return qs
 
 class AddressSerializer(serializers.ModelSerializer):
 
@@ -90,7 +105,7 @@ class PatientProfileSerializer(serializers.Serializer):
     middle_names = serializers.CharField(max_length=100)
     last_name = serializers.CharField(max_length=100)
     date_of_birth = serializers.DateField()
-    gender= serializers.ChoiceField(GENDER_CHOICES )
+    gender= serializers.ChoiceField(GENDER_CHOICES)
     account = serializers.PrimaryKeyRelatedField(read_only=True)
     account_email = serializers.EmailField(source="account",read_only=True)
     telephone_numbers = TelephoneNumberSerializer(source='phone_nums',many=True)

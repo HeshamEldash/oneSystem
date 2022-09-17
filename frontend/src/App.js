@@ -56,9 +56,7 @@ function App() {
               
                    <Route element={<RecordLayout />} path="patient-record/:patient_id" >
                       <Route index element={<RecordMain/>} />
-                      <Route element={<RecordProfile/>} path="profile"/>
-
-                    
+                      <Route element={<RecordProfile/>} path="profile"/>   
                    </Route>
              </Route>
              

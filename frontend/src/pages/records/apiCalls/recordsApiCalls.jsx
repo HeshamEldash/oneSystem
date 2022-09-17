@@ -77,17 +77,32 @@ const getPatientProfile = async (patient_id) => {
             is_public:is_public,
           })
       });
-
-
-      
   }
 
 
 
+const updatePatinetProfile = async(data, profileId)=>{
+
+  await fetch (`${APIENDPOINT}/users/patient-profile-detail/${profileId}/`, {
+    method:"PATCH",
+    headers:{
+      "Content-type": "application/json",
+      Authorization: "Bearer " + String(token.access),
+    },
+    body:JSON.stringify({
+      first_name:data.first_name,
+      middle_names:data.middle_names,
+      last_name:data.last_name,
+      gender:data.gender,
+      date_of_birth:data.date_of_birth,
+      gender:data.gender,
+    })
+  }
+    )
+}
+  
 
 
 
 
-
-
-export {getPatientProfile, getPatientRecords, createRecord, updateRecord}
+export {getPatientProfile, getPatientRecords, createRecord, updateRecord,updatePatinetProfile}

@@ -265,19 +265,24 @@
 
 .inpage-container_record {
   background-color: #eeeeee;
+  flex-direction: column;
   display: flex;
-  gap: 2rem;
+  padding-inline-start: 3rem;
+  gap: 1.5rem;
   flex-wrap: wrap;
   justify-content: space-evenly;
-  padding-block: 4rem;
+  padding-block: 2rem;
   border-radius: 4px;
   box-shadow: -5px 0px 10px -7px #000000aa, 5px 5px 10px -7px #000000aa,
     5px 5px 15px 5px rgba(0, 0, 0, 0);
 }
 .input_component {
-  font-size: 1.3em;
+  font-size: 1.1em;
   border: 1px solid rgba(61, 61, 61, 0.055);
-  padding: 1rem;
+  padding: 0.2rem;
+  /* display: flex; 
+  align-items: center;  */
+
 }
 .label {
   font-weight: bold;
@@ -296,7 +301,7 @@
   display: flex;
   justify-content: flex-end;
   padding-right: 10rem;
-  margin-bottom: -2rem;
+  margin-bottom: -1rem;
 }
 .b3{
   box-shadow:inset 0px 1px 3px 0px #26302f;
@@ -384,3 +389,4 @@
   }
 
 }
+

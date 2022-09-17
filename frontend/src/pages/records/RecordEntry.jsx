@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { createRecord } from "./apiCalls/recordsApiCalls";
 import { useRecordContext } from "./context/RecordContextHook";
 import { useTranslation } from "react-i18next";
-
+import Icd from "../../externalapis/icd-10/Icd";
 function RecordEntry(props) {
   const { patient } = useRecordContext();
   const { t } = useTranslation();
@@ -136,6 +136,7 @@ function RecordEntry(props) {
           }}
         />
       </div>
+      <Icd/>
     </div>
   );
 }

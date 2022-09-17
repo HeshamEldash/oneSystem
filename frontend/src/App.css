@@ -63,9 +63,12 @@
   display: grid;
   grid-gap: 2rem;
   grid-template-columns: repeat(4, minmax(100px,1fr));
-
   padding-inline: 4rem;
   padding-block: 2rem;
+}
+.page-component-main--grid--small{
+  max-width: 50%;
+
 }
 .page_component__inpage--scroll_box{
   max-height: 40rem;
@@ -106,6 +109,9 @@
     padding-block: 2rem;
 
   } 
+  .page-component-main--grid--small{
+    max-width: 100%;
+  }
   .page_component__inpage--span1{
     grid-column: 1/end
   }

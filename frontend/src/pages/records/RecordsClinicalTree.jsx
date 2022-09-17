@@ -7,8 +7,9 @@ function RecordsClinicalTree() {
   const navigate = useNavigate();
   const { patient_id } = useParams();
 
+
   return (
-    <div className="clincal_tree">
+    <div className="clincal_tree" id="ct1">
       <div className="clnical_tree__component" onClick={() => navigate("profile")}>
         {t("profile")}
       </div>

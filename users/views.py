@@ -1,3 +1,4 @@
+from multiprocessing import context
 from .models import Account, Patient, TelephoneNumber
 from .serializers import *
 from rest_framework_simplejwt.views import TokenObtainPairView
@@ -64,8 +65,9 @@ class PatinetProfileDetailView(generics.GenericAPIView,  mixins.RetrieveModelMix
     def post(self, request, *args, **kwargs):
         return self.create(request, *args, **kwargs)
 
-    def put(self, request, *args, **kwargs):
-        return self.update(request, *args, **kwargs)
+    def patch(self, request, *args, **kwargs):
+        return self.partial_update(request, *args, **kwargs)
+
 
 class PatientAccountDetailView(generics.GenericAPIView,mixins.UpdateModelMixin, 
                             mixins.RetrieveModelMixin,mixins.CreateModelMixin):
@@ -332,15 +334,33 @@ class LoginToProviderEventView(generics.GenericAPIView,
     def put(self, request, *args, **kwargs):
         return self.update(request, *args, **kwargs)
 
-class TeleponeListView(generics.GenericAPIView,mixins.ListModelMixin,
+class TelephoneListView(generics.GenericAPIView,mixins.ListModelMixin,
      mixins.CreateModelMixin):
-
+    serializer_class= TelephoneNumberSerializer
      
+    def get_queryset(self):
+      
+        owner = self.kwargs.get("owner_pk")
+        owner_type = self.kwargs.get("owner_type")
+        if owner_type == "patient":
+          qs = TelephoneNumber.objects.filter(owner_patient=3)
+          return qs
+        elif owner_type == "provider":
+          qs = TelephoneNumber.objects.filter(owner_provider=owner)
+          return qs
+        elif owner_type == "staff":
+          qs = TelephoneNumber.objects.filter(owner_staff=owner)
+          return qs
+    def get_serializer_context(self):
+        context = super().get_serializer_context()
+        owner_type = self.kwargs.get("owner_type")
+        context["owner_type"] = owner_type
+        return context
  
     def get(self,request, *args, **kwargs):
         return self.list(request, *args,**kwargs)
 
-    def post(self, request, *args, **kwargs):
+    def post(self, request ,*args, **kwargs):
         return self.create(request, *args, **kwargs)
 
 
@@ -388,8 +408,9 @@ class TelephoneDetailView(generics.GenericAPIView,mixins.UpdateModelMixin,mixins
     def post(self, request, *args, **kwargs):
         return self.create(request, *args, **kwargs)
 
-    def patch(self, request, *args, **kwargs):
-        return self.partial_update(request, *args, **kwargs)
+    def put(self, request, *args, **kwargs):
+        return self.update(request, *args, **kwargs)
+
 
 
     def delete(self, request, *args, **kwargs):

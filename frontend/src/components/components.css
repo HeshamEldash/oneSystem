@@ -103,3 +103,29 @@
     height: 2rem;
     width: 100%;
 }
+.delete_icon{
+    color: #ef4423;
+    cursor: pointer;
+}
+.delete_icon:hover{
+    color: #761f0e;
+
+}
+.telephone_update_component{
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+
+}
+.user-form--telephone{
+    display:flex;
+    align-items: center;
+    gap: 1rem;
+}
+.user-form--telephone--button{
+
+}
+.b3--small{
+    max-height: 40px;
+    padding: 8px 5px !important;
+}

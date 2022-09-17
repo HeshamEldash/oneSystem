@@ -28,6 +28,7 @@ urlpatterns = [
     path("address-detail/<int:pk>/", AddressDetailView.as_view(), name="address_detail"),
 
     path("telephone-number-detail/<int:pk>/", TelephoneDetailView.as_view(), name="telephone-number-detail/"),
+    path("telephone-number-list/<str:owner_type>/<int:owner_pk>/", TelephoneListView.as_view()),
 
     path("registration/<int:provider_pk>/<int:patient_pk>/",RegistrationDetailView.as_view(), name= "registration_detail"),
     path("registration-list/<int:provider_pk>/",RegistrationListView.as_view(), name= "registration_list"),

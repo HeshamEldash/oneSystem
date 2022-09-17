@@ -1,41 +1,24 @@
-import React, { useState, useContext, useRef } from "react";
+import React, { useState, useContext } from "react";
 import { useFormik } from "formik";
 import { useTranslation } from "react-i18next";
-import { Link, Navigate, useLocation, useParams } from "react-router-dom";
-import {
-  createAddress,
-  updateAddress,
-} from "../../utils/api_calls/addressApis";
+import { Link, Navigate, useLocation, useParams} from "react-router-dom";
+import { createAddress, updateAddress } from "../../utils/api_calls/addressApis";
 
-function AddressUpdate({ address, closeModal,addressFormSubmitRef, updateParent, addressId }) {
 
-  /**
-  addressupdate component is very flexible, it can work independently or as part of a parent. 
-  It can also be a part of a modal. 
-  it all depends on which props to pass... 
-
-  to work with a parent pass {addressId,address,addressFormSubmitRef, updateParent }
-
-  addressId is passed to ensure that the address is updated when the address prop gets passsed a rendered address
-  address: the address to be updated, if address is not passed the component will create a new address instead of updating
-  addressFormSubmitRef is a useRef hook declared in the parent 
-  updateParent: a callback function that controls the state of the address in the parent 
- */
+function AddressUpdate({address, closeModal}) {
   const { t } = useTranslation();
 
-  const { id } = useParams();
+  const{id} = useParams()
 
-
-  const onSubmit = (values, actions) => {
-    if (!!address) {
-      addressId ?  updateAddress(addressId, values) :updateAddress(address.id, values);
-    } else {
-      createAddress(id, values);
+    const onSubmit = (values, actions)=>{
+      if (!!address){
+        updateAddress(address.id, values)
+      }else{
+        createAddress(id , values)
+      }
+      !!closeModal && closeModal()
+      actions.resetForm(); 
     }
-    !!closeModal && closeModal();
-    // actions.resetForm();
-    updateParent(values)
-  };
 
   const {
     values,
@@ -57,13 +40,9 @@ function AddressUpdate({ address, closeModal,addressFormSubmitRef, updateParent,
   });
 
   return (
-    <div>
-      <form
-        className="user-form"
-        type="submit"
-        onSubmit={handleSubmit}
-      >
-        <label> {t("unit_number")}</label>
+   
+    <form className="" type="submit" onSubmit={handleSubmit}>
+    <label> {t("unit_number")}</label>
         <input
           className={
             errors.unit_number && touched.unit_number
@@ -91,8 +70,7 @@ function AddressUpdate({ address, closeModal,addressFormSubmitRef, updateParent,
           value={values.first_line}
           onChange={handleChange}
           onBlur={handleBlur}
-          type="text"
-          first_line
+          type="text"first_line
           name="first_line"
           placeholder={t("first_line")}
         />
@@ -154,18 +132,15 @@ function AddressUpdate({ address, closeModal,addressFormSubmitRef, updateParent,
           <p className="error">{errors.email}</p>
         )} */}
 
-         <input
+        <input
           className="form-button"
           disabled={isSubmitting}
           type="submit"
           value={t("submit")}
-           ref={addressFormSubmitRef && addressFormSubmitRef}
-           style={{display: addressFormSubmitRef && "none"}}
-
-        /> 
-      </form>
-    </div>
-  );
+        />
+    </form>
+      
+  )
 }
 
-export default AddressUpdate;
+export default AddressUpdate

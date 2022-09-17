@@ -104,9 +104,17 @@ def update_patient_profile(instance, **kwargs):
     will create new phone numbers if needed 
     Will update the patient address if changed
     """
+    phone_nums=None 
+    address=None
+    try: 
+        phone_nums= kwargs.pop("phone_nums")
+    except:
+        pass 
+    try:
+        address = kwargs.pop("address")
+    except:
+        pass 
 
-    phone_nums= kwargs.pop("phone_nums")
-    address = kwargs.pop("address")
     instance.first_name = kwargs.get('first_name', instance.first_name)
     instance.middle_names = kwargs.get('middle_names', instance.middle_names)
     instance.last_name = kwargs.get('last_name', instance.last_name)
@@ -120,31 +128,33 @@ def update_patient_profile(instance, **kwargs):
     #     it gets deleted
     old_nums = instance.phone_nums.all()
     new_nums = []
-    for num in phone_nums:
-        try:
-            obj = TelephoneNumber.objects.get(
-                owner_patient = instance, 
-                telephone_number = num["telephone_number"]
-            )
-        except:
-            obj = TelephoneNumber.objects.create(
-                owner_patient = instance, 
-                telephone_number = num["telephone_number"]
-            )
-        new_nums.append(obj)
+    if phone_nums:
+        for num in phone_nums:
+            try:
+                obj = TelephoneNumber.objects.get(
+                    owner_patient = instance, 
+                    telephone_number = num["telephone_number"]
+                )
+            except:
+                obj = TelephoneNumber.objects.create(
+                    owner_patient = instance, 
+                    telephone_number = num["telephone_number"]
+                )
+            new_nums.append(obj)
 
-    for num_obj in old_nums:
-        if num_obj not in new_nums:
-            num_obj.delete() 
+        for num_obj in old_nums:
+            if num_obj not in new_nums:
+                num_obj.delete() 
 
     # to update the address
-    instance.address.unit_number = address["unit_number"]
-    instance.address.first_line = address["first_line"]
-    instance.address.second_line = address["second_line"]
-    instance.address.city = address["city"]
-    instance.address.governorate = address["governorate"]
+    if address:
+        instance.address.unit_number = address["unit_number"]
+        instance.address.first_line = address["first_line"]
+        instance.address.second_line = address["second_line"]
+        instance.address.city = address["city"]
+        instance.address.governorate = address["governorate"]
 
-    instance.address.save()
+        instance.address.save()
     instance.save()
     return instance
 
