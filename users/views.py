@@ -4,6 +4,7 @@ from .serializers import *
 from rest_framework_simplejwt.views import TokenObtainPairView
 from rest_framework import generics
 from rest_framework import mixins
+from django.core.exceptions import ObjectDoesNotExist
 from django.shortcuts import get_object_or_404
 
 class MyTokenObtainPairView(TokenObtainPairView):
@@ -189,11 +190,18 @@ mixins.DestroyModelMixin, mixins.UpdateModelMixin):
     queryset = Provider.objects.all()
     serializer_class = ProviderDetailSerializer
     
-    # def get_object(self):
-    #     qs = self.queryset
-    #     owner_pk = self.kwargs.get("pk")
-    #     obj = qs.get(owner__pk =owner_pk )
-    #     return obj
+    def get_object(self):
+        qs = self.queryset
+
+        q_params=self.request.query_params 
+        if q_params.get("owner_id"):
+            owner_id = q_params.get("owner_id") 
+            obj = qs.get(owner__pk =owner_id )
+            return obj 
+
+        else:
+
+            return qs.get(id=self.kwargs.get("pk"))
 
 
     def get(self,request, *args, **kwargs):
@@ -201,9 +209,6 @@ mixins.DestroyModelMixin, mixins.UpdateModelMixin):
 
     def delete(self, *args, **kwargs):
         return self.destroy(*args, **kwargs)
-
-    def put(self, *args, **kwargs):
-        return self.update(*args, **kwargs)
     def patch(self, request, *args, **kwargs):
         return self.partial_update(request, *args, **kwargs)
 
@@ -273,6 +278,7 @@ class EmploymentStaffListView(generics.GenericAPIView,
     
     def get_queryset(self):
         pk = self.kwargs.get("pk")
+      
         if pk:
             staffAccount = Account.objects.get(id=pk)
             queryset = Employment.objects.filter(staff=staffAccount.staff, is_active=True)
@@ -307,9 +313,14 @@ class LoginToProviderEventViewList(generics.GenericAPIView, mixins.CreateModelMi
 
     def post(self, request, *args, **kwargs):
         """ensures that the previous login is ended when a new one is created"""
-        last_login = self.get_object()
-        last_login.end_time=timezone.now()
-        last_login.save()
+        
+        try:
+            last_login = self.get_object()
+            last_login.end_time=timezone.now()
+            last_login.save()
+        except ObjectDoesNotExist:
+            return self.create(request, *args, **kwargs)
+
         return self.create(request, *args, **kwargs)
 
 class LoginToProviderEventView(generics.GenericAPIView,
@@ -343,7 +354,7 @@ class TelephoneListView(generics.GenericAPIView,mixins.ListModelMixin,
         owner = self.kwargs.get("owner_pk")
         owner_type = self.kwargs.get("owner_type")
         if owner_type == "patient":
-          qs = TelephoneNumber.objects.filter(owner_patient=3)
+          qs = TelephoneNumber.objects.filter(owner_patient=owner)
           return qs
         elif owner_type == "provider":
           qs = TelephoneNumber.objects.filter(owner_provider=owner)
@@ -371,9 +382,22 @@ class AddressListView(generics.GenericAPIView,mixins.ListModelMixin,
 
     def get_queryset(self):
         owner = self.kwargs.get("owner_pk")
-        qs = Address.objects.filter(provider=owner)
-        return qs
-
+        owner_type = self.kwargs.get("owner_type")
+        if owner_type == "patient":
+          qs = Address.objects.filter(patient=owner)
+          return qs
+        elif owner_type == "provider":
+          qs = Address.objects.filter(provider=owner)
+          return qs
+        # elif owner_type == "staff":
+        #   qs = Address.objects.filter(staff=owner)
+        #   return qs
+    def get_serializer_context(self):
+        context = super().get_serializer_context()
+        owner_type = self.kwargs.get("owner_type")
+        context["owner_type"] = owner_type
+        return context
+ 
     def get(self,request, *args, **kwargs):
         return self.list(request, *args,**kwargs)
 

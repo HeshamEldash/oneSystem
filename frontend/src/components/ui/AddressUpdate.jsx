@@ -7,7 +7,7 @@ import {
   updateAddress,
 } from "../../utils/api_calls/addressApis";
 
-function AddressUpdate({ address, closeModal,addressFormSubmitRef, updateParent, addressId }) {
+function AddressUpdate({ address, closeModal,addressFormSubmitRef, updateParent, addressId, ownerType, ownerId }) {
 
   /**
   addressupdate component is very flexible, it can work independently or as part of a parent. 
@@ -30,7 +30,7 @@ function AddressUpdate({ address, closeModal,addressFormSubmitRef, updateParent,
     if (!!address) {
       addressId ?  updateAddress(addressId, values) :updateAddress(address.id, values);
     } else {
-      createAddress(id, values);
+      createAddress(ownerId, values, ownerType);
     }
     !!closeModal && closeModal();
     // actions.resetForm();
@@ -92,7 +92,6 @@ function AddressUpdate({ address, closeModal,addressFormSubmitRef, updateParent,
           onChange={handleChange}
           onBlur={handleBlur}
           type="text"
-          first_line
           name="first_line"
           placeholder={t("first_line")}
         />

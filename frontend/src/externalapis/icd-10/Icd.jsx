@@ -5,13 +5,20 @@ import '@whoicd/icd11ect/style.css';
 function Icd() {
     const mySettings = {
         apiServerUrl: "https://icd11restapi-developer-test.azurewebsites.net"   ,
-        popupMode: true,
+        popupMode: false,
     };
-    ECT.Handler.configure(mySettings);
+
+    const myCallbacks ={
+      selectedEntityFunction: (selectedEntity) => {
+        console.log(selectedEntity)
+    },
+    }
+
+    ECT.Handler.configure(mySettings, myCallbacks);
   return (
     <div className='tetingicd'>
-        <input type="text" class="ctw-input" autocomplete="off" data-ctw-ino="1"/> 
-        <div class="ctw-window" data-ctw-ino="1"></div>
+        <input type="text" className="ctw-input" autoComplete="off" data-ctw-ino="1"/> 
+        <div className="ctw-window" data-ctw-ino="1"></div>
     </div>
   )
 }

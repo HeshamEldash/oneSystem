@@ -5,7 +5,7 @@ import { DateTime } from "luxon";
 import { getLogins, createLogin,getLastLogin } from "../../utils/api_calls/getLogins"
 
 function StaffProfileItem(props) {
-const[login, setLogin]= useState({})
+const[login, setLogin]= useState()
 
 
 const { t,i18n } = useTranslation();
@@ -14,21 +14,23 @@ const { t,i18n } = useTranslation();
 // .toFormat('MM/dd/yyyy h:mm a');
 
 const getLogin = async ()=>{
-  
+    if(props.staffId) { 
     const log= await getLastLogin(props.staffId,props.providerID )
     setLogin(log)
+    }
   }
 
   useEffect(() => {
     getLogin(); 
+
   }, []);
 
 
   return (
     <div className='staff-profile-item'>
 
-    <span>{props.provider}</span>
-    <span>{login && Date(login.start_time).toLocaleString() }</span>
+    <span className='staff-profile-item--name'>{props.provider}</span>
+    <span>{login && "last login: " + new Date(login.start_time).toLocaleString() }</span>
     
     <Link onClick={()=>{
       localStorage.setItem("provider", JSON.stringify(props.providerID))

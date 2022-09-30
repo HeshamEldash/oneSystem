@@ -25,7 +25,7 @@ function ProviderRegisterStaff() {
   const { t } = useTranslation();
 
   let onSubmit = async (values, actions) => {
-    let res = await fetch(`${APIENDPOINT}users/staff-create/`, {
+    let res = await fetch(`${APIENDPOINT}/users/staff-create/`, {
       method: "POST",
       headers: {
         "Content-type": "application/json",

@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, {useContext } from "react";
 import AuthContext from "../../context/AuthContext";
 import { Link } from "react-router-dom";
 import { useFormik } from "formik";
@@ -18,7 +18,7 @@ function RegistrationStaffMultiStep() {
   const { t } = useTranslation();
   let { loginUser } = useContext(AuthContext);
   let onSubmit = async (values, actions) => {
-    let res = await fetch(`${APIENDPOINT}users/staff-create/`, {
+    let res = await fetch(`${APIENDPOINT}/users/staff-create/`, {
       method: "POST",
       headers: {
         "Content-type": "application/json",
@@ -40,6 +40,7 @@ function RegistrationStaffMultiStep() {
         },
       }),
     });
+
 
     if (res.ok) {
       loginUser(values);

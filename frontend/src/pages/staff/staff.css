@@ -1,26 +1,33 @@
+
+.staff-dashboard-main{
+    /* background-color: #eee; */
+    padding: 2rem;
+    color: #808080;
+
+}
 .staff-dashboard-inner{
-    display: grid;
-    padding: 100px;
-    height: 100vh;
-    width: 100vw;
     gap: 1.5rem;
     grid-template-columns: repeat(4, 1fr);
+     margin-top: 2px;
     
 }
 
 .staff-profiles{
     display: flex;
     flex-direction: column;
-    max-height: 30vh;
+    overflow-y: auto;
     grid-column: span 2;
     border:solid 1px var(--nav-color);
     padding: 20px 20px;
+    max-width: 1000px;
+    margin-top: 3rem;
+
 }
 .staff-profile-item{
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 10px;
+    padding-inline:4rem ;
     background-color: rgb(234, 246, 253);
     height: 100px;
     right: 200px;
@@ -32,4 +39,55 @@
     background-color:var(  --sry-btn-bg-color) ;
     padding: 10px;
     color: white;
+}
+
+.staff-profile-item--name{
+    font-size: large;
+    font-weight: bold
+}
+.call-to-action__box{
+    background-color:  rgb(235 247 255);
+    border:solid 1px var(--nav-color);
+    padding: 2rem;
+    margin-block: 2rem;
+    max-width: 1000px;
+    min-width: 200px;
+}
+.call-to-action__header{
+    display: block;
+    padding-bottom: 1rem;
+    font-size:large;
+    font-weight: 600;
+    line-height: 1.6;
+}
+.bd{
+    font-family: galano-bold, galano, sans-serif;
+    cursor: pointer;
+    border-radius: 4px;
+    padding: 8px 16px;
+    transition: all 0.3s ease 0s;
+    line-height: 1;
+    display: inline-block;
+    vertical-align: middle;
+    text-align: center;
+    color: rgb(255, 255, 255);
+    background-color: rgb(225, 0, 120);
+    border: 2px solid rgb(225, 0, 120);
+    text-decoration: none;
+}
+
+@media screen and (max-width:800px) {
+    
+    .staff-profile-item{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding-inline:0.5rem ;
+        background-color: rgb(234, 246, 253);
+        height: 100px;
+        right: 0px;
+        top:0px;
+        width: 100%;
+        gap:0.9rem
+}
 }

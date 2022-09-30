@@ -12,6 +12,13 @@ function RecordDisplay(props) {
   const [updating, setUpdating] = useState(false);
   const [open, setOpen] = useState(false);
   const [mount, setMount] = useState(true);
+  const [displayedEntry, setDisplayedEntry] = useState({
+    history: props.history,
+    examination: props.examination,
+    diagnosis: props.diagnosis,
+    plan: props.plan,
+    is_public: props.isPublic,
+  })
 
 
   const handleOpen = (address) => {
@@ -36,33 +43,33 @@ function RecordDisplay(props) {
     <div className="record">
       <div className="record__header">
         <span>
-          created by: {props.author} @ {props.dateCreated}{" "}
+          created by: {props.author || "current user"} @ {props.dateCreated || new Date().toDateString()}{" "}
         </span>
         <span>
           shared:
-          {props.isPublic?.toString()}
+          {displayedEntry.is_public?.toString()}
         </span>
       </div>
 
       <div className="record_body">
         <div className="record__entry_container">
           <span className="record__entry_begining">Hx:</span>
-          {props.history}
+          {displayedEntry.history}
         </div>
 
         <div className="record__entry_container">
           <span className="record__entry_begining">Ex:</span>
-          {props.examination}
+          {displayedEntry.examination}
         </div>
 
         <div className="record__entry_container">
           <span className="record__entry_begining">Dx:</span>
-          {props.diagnosis}
+          {displayedEntry.diagnosis}
         </div>
 
         <div className="record__entry_container">
           <span className="record__entry_begining">Mx:</span>
-          {props.plan}
+          {displayedEntry.plan}
         </div>
       </div>
       <div className="records__actions_container">any actions</div>
@@ -97,12 +104,13 @@ function RecordDisplay(props) {
         <Box sx={style}>
           <RecordUpdate
             recordId={props.id}
-            history={props.history}
-            examination={props.examination}
-            diagnosis={props.diagnosis}
-            plan={props.plan}
-            isPublic={props.isPublic}
+            history={displayedEntry.history}
+            examination={displayedEntry.examination}
+            diagnosis={displayedEntry.diagnosis}
+            plan={displayedEntry.plan}
+            isPublic={displayedEntry.isPublic}
             closeModal={() => handleClose()}
+            updateParent = {(newRecord)=>setDisplayedEntry(newRecord)}
           />
           <input 
           className="discard_button position" type="button" value={"discard"}

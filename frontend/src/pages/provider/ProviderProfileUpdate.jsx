@@ -1,23 +1,14 @@
-import React, { useState, useContext, useEffect } from "react";
-import { useFormik } from "formik";
+import React, { useState, useEffect } from "react";
 import DeleteIcon from "@mui/icons-material/Delete";
 import {
   deletePhoneNumber,
   updatePhoneNumber,
 } from "../../utils/api_calls/telephoneApi";
-import {
-  BrowserRouter as Router,
-  Route,
-  Routes,
-  NavLink,
-  Link,
-  useParams,
-} from "react-router-dom";
+import { useParams } from "react-router-dom";
 import Box from "@mui/material/Box";
 
 import { useTranslation } from "react-i18next";
 import { getProfile } from "./providerApi";
-import { providerProfileSchema } from "./providerProfileSchema";
 import { Address } from "../../components/Address";
 import AddressUpdate from "../../components/ui/AddressUpdate";
 
@@ -34,8 +25,23 @@ function ProviderProfileUpdate() {
   const [telephones, setTelephones] = useState([]);
   const [profile, setProfile] = useState({});
   const [addresses, setAddresses] = useState([]);
-  const [updatingAddress, setUpdatingAddress] = useState({});
+  const [updatingAddress, setUpdatingAddress] = useState();
   const [open, setOpen] = useState(false);
+
+
+  const updateProfile = async ()=>{
+    console.log("updated")
+    const response = await fetch(`${APIENDPOINT}/users/provider/${id}/`, {
+      method: "PATCH",
+      headers: {
+        "Content-type": "application/json",
+        Authorization: "Bearer " + String(token.access),
+      },
+      body: JSON.stringify({
+        name:profile.name,
+      }),
+    });
+  }
 
   const addPhone = async () => {
     const response = await fetch(`${APIENDPOINT}/users/provider/${id}/`, {
@@ -131,9 +137,9 @@ function ProviderProfileUpdate() {
             </div>
           )}
 
-          {telephones?.map((num) => {
+          {telephones?.map((num, index) => {
             return (
-              <div key={num.id} style={{ padding: "0.4rem" }}>
+              <div key={num.id || index} style={{ padding: "0.4rem" }}>
                 {!updating ? (
                   <> {num.telephone_number}</>
                 ) : (
@@ -187,6 +193,7 @@ function ProviderProfileUpdate() {
             value={updating ? t("save") : t("update")}
             onClick={() => {
               setUpdating((prev) => !prev);
+              updating && updateProfile()
             }}
           />
         </div>
@@ -204,8 +211,18 @@ function ProviderProfileUpdate() {
             />
             {addresses.map((address) => {
               return (
-                <div key ={address.id}>
-                  <Address key={address.id} address={address}>
+                <div key={address.id}>
+                  <Address
+                    key={address.id}
+                    address={address}
+                    deleteFromParent={() => {
+                      setAddresses((prev) => {
+                        return prev.filter((item) => {
+                          return item.id !== address.id;
+                        });
+                      });
+                    }}
+                  >
                     <input
                       type="button"
                       className="secondry-button"
@@ -228,6 +245,30 @@ function ProviderProfileUpdate() {
               <AddressUpdate
                 address={updatingAddress}
                 closeModal={() => handleClose()}
+                ownerId={id}
+                ownerType={"provider"}
+                updateParent={(values) =>
+                  setAddresses((prev) => {
+                    if (updatingAddress) {
+                      const newList = prev.map((address) => {
+                        if (address.id === updatingAddress.id) {
+                          address.unit_number = values.unit_number;
+                          address.first_line = values.first_line;
+                          address.second_line = values.second_line;
+                          address.city = values.city;
+                          address.governorate = values.governorate;
+                          return address;
+                        } else {
+                          return address;
+                        }
+                      });
+                      console.log(newList);
+                      return (prev = newList);
+                    } else {
+                      return [...prev, values];
+                    }
+                  })
+                }
               />
             </Box>
           </Modal>

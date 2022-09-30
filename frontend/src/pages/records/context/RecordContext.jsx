@@ -1,7 +1,6 @@
-import Context from "@mui/base/TabsUnstyled/TabsContext";
+
 import react, { createContext, useState, useEffect } from "react";
 import { useParams } from "react-router";
-import { providerProfileSchema } from "../../provider/providerProfileSchema";
 import { getPatientProfile, getPatientRecords } from "../apiCalls/recordsApiCalls";
 
 const RecordContext = createContext();
@@ -10,7 +9,7 @@ const RecordContext = createContext();
 
 function RecordContextProvider(props) {
   const [patientProfile, setPatientProfile] = useState({});
-    const [patientRecords, setPatientRecords] = useState([])
+ const [patientRecords, setPatientRecords] = useState([])
   const { patient_id } = useParams("patient_id");
 
   const getProfileData = async ()=>{
@@ -25,16 +24,23 @@ function RecordContextProvider(props) {
   useEffect(()=>{
     getProfileData()
     getRecordsData()
+
   },[])
 
-
+// useEffect(()=>{
+//   return () => {
+//     alert('The component is going to be unmounted');
+// }
+// }, [])
   const contextData = {
 
     patient:patientProfile,
     records:patientRecords
   };
 
-
+// componentWillUnmount() {
+//     alert('The component is going to be unmounted');
+//   }
 
 
   return (

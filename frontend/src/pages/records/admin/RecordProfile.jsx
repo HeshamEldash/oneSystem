@@ -168,6 +168,8 @@ function RecordProfile() {
                 address={displayedAddress ? displayedAddress : patient?.address}
                 addressFormSubmitRef={addressFormSubmitRef}
                 updateParent={(values) => setDisplayedAddress(values)}
+                ownerType={"patient"}
+                ownerId={patient?.id}
               />
             </>
           )}

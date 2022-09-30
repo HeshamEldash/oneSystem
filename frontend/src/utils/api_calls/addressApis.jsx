@@ -2,9 +2,9 @@ import APIENDPOINT from "./apiEndpoint";
 
 const token = JSON.parse(localStorage.getItem("authTokens"));
 
-const createAddress = async (provider_id, values) => {
+const createAddress = async (owner_id, values, owner_type) => {
   const response = await fetch(
-    `${APIENDPOINT}/users/address-list/${provider_id}/`,
+    `${APIENDPOINT}/users/address-list/${owner_type}/${owner_id}/`,
     {
       method: "post",
       headers: {
@@ -17,7 +17,7 @@ const createAddress = async (provider_id, values) => {
         second_line: values.second_line,
         city: values.city,
         governorate: values.governorate,
-        provider: provider_id,
+        // provider: provider_id,
       }),
     }
   );

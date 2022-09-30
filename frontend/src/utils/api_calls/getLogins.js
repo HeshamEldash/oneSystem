@@ -28,6 +28,7 @@ const getLogins = async (staff_id, provider_id) => {
     return await data
   };
 
+
 const createLogin = async (staff_id, provider_id) => {
     const response = await fetch(
       `${APIENDPOINT}/users/staff-logins-list/${provider_id}/${staff_id}/`,

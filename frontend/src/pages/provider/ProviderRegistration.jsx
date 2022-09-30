@@ -9,11 +9,12 @@ function ProviderRegistration() {
   const { t } = useTranslation();
   const { loginUse , user } = useContext(AuthContext);
   const navigate= useNavigate()
-  const onSubmit = (values, actions)=>{
-    createProvider(values, user.user_id)
-    actions.resetForm();
-    navigate("/provider")
-    //add the local storage 
+  const onSubmit = async (values, actions)=>{
+    console.log(user)
+    const providerData = await createProvider(values, user.user_id)
+    // actions.resetForm();
+
+    navigate(`/provider/${providerData.id}`)
   }
   const {
     values,
@@ -41,7 +42,8 @@ function ProviderRegistration() {
   });
 
   return (
-    <section>
+    <section className="provider-home-main">
+    <h1 className="provider-home-main__headers">{t("Register your clinic...")}</h1>
       <form className="user-form" type="submit" onSubmit={handleSubmit}>
         <label> {t("provider-name")}</label>
 

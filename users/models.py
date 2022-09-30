@@ -79,10 +79,12 @@ class Account(AbstractBaseUser, PermissionsMixin):
         """Send an email to this user."""
         send_mail(subject, message, from_email, [self.email], **kwargs)
 
+
+
     @property
     def is_staff(self):
-        "Is the user a member of staff?"
-        return self.is_admin
+        return self.staff.full_name
+
 
     def __str__(self):
         return self.email
@@ -247,6 +249,6 @@ class LoginToProviderEvent(models.Model):
     provider = models.ForeignKey(Provider, on_delete=models.DO_NOTHING)
     start_time = models.DateTimeField(auto_now_add=True)
     end_time = models.DateTimeField(null=True, blank=True)
-
+    
     class Meta:
         ordering = ['start_time']

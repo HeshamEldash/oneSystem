@@ -14,10 +14,10 @@ function StaffDashboard() {
   const { t,i18n } = useTranslation();
   const{user} = useContext(AuthContext)
   const navigate = useNavigate()
-  const [ownedProvider, setOwnedProvider]= useState({})
+  const [ownedProvider, setOwnedProvider]= useState()
 
   const getOwnedProvider = async()=>{
-      const response = await fetch (`${APIENDPOINT}/users/provider/${user.user_id}`, {
+      const response = await fetch (`${APIENDPOINT}/users/provider/${user.user_id}?` + new URLSearchParams({owner_id:user.user_id}), {
         method: "GET",
         headers: {
           "Content-type": "application/json",
@@ -27,6 +27,7 @@ function StaffDashboard() {
 
       if (response.ok) {
         const data =await response.json()
+        console.log(data)
         setOwnedProvider(data)
       }
   }
@@ -35,23 +36,27 @@ function StaffDashboard() {
     getOwnedProvider()
   },[])
 
-  return (
-    <div className='staff-dashboard-main'>
+  return (<>
     <Navbar/> 
-    
+    <div className='staff-dashboard-main'>
+    <h1>{t("My Dashboard")}</h1>
+  
 
-      {ownedProvider?
+      {!!ownedProvider?
       <div className='primary-container'>
         <h3>{t("my_clinic")}</h3>
         <StaffProfileItem
           providerID={ownedProvider?.id}
           provider={ownedProvider?.name}
+
+
         />
         </div> 
       :
-      <div className='staff-dashboard-inner'>
-      <input type="button"  onClick={()=>{navigate("/register/provider")}} className="item-link" />
-        {t("register_a_provider")}
+      <div className='call-to-action__box'>
+      <span className='call-to-action__header'>{t("would you like to register a clinic to your account?")}</span>
+      <input type="button"  onClick={()=>{navigate("/register/provider")}} className="bd" value={t("register_a_provider")}/>
+     
  
       </div>
       }
@@ -59,7 +64,9 @@ function StaffDashboard() {
       <div className='staff-dashboard-inner'>
       <StaffProfiles/>
       </div>
+
     </div>
+    </>
   )
 }
 

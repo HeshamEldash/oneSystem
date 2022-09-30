@@ -1,45 +1,55 @@
 import React, { useState, useContext } from "react";
-import SideBar from "../../components/ui/SideBar";
-import RecordDisplay from "./RecordDisplay";
-import RecordEntry from "./RecordEntry";
 import { useTranslation } from "react-i18next";
-import { RecordContext } from "./context/RecordContext";
-import RecordFeed from "./RecordFeed";
-import data from "./example";
 import RecordPatientDetailsBox from "./RecordPatientDetailsBox";
 import RecordsClinicalTree from "./RecordsClinicalTree";
 import { RecordContextProvider } from "./context/RecordContext";
-import { useRecordContext } from "./context/RecordContextHook";
 import RecordActionBar from "./RecordActionBar";
 import { Outlet } from "react-router";
+import useCurrentPath from "./hooks/useCurrentRecordLocation";
 
 export default function RecordLayout() {
   const { t } = useTranslation();
-
   const [showConsultationBox, setShowConsultationBox] = useState(true);
+  const [showAddMedicalConditionBox, setShowAddMedicalConditionBox] = useState(false);
+
   const [newRecords, setNewRecords] = useState([]);
+  const path = useCurrentPath();
 
   return (
     <RecordContextProvider>
       <div className="record_layout">
+        <RecordPatientDetailsBox />
         <RecordsClinicalTree />
 
-        <RecordPatientDetailsBox />
-
-        <div className="content">
+        <main className="content">
           <RecordActionBar
-            items={[
-              {
-                name: t("consultation"),
-                func: () => setShowConsultationBox((prev) => !prev),
-              },
-            ]}
-          ></RecordActionBar>
+          // items={[
+          //   {
+          //     name: t("consultation"),
+          //     func: () => setShowConsultationBox((prev) => !prev),
+          //   },
+          // ]}
+          >
+            {path === "record" && (
+              <div
+                className="action_bar__element"
+                onClick={() => setShowConsultationBox((prev) => !prev)}
+              >
+                {t("consultation")}
+              </div>
+            )}
+
+            {path === "past-history" && (
+              <div className="action_bar__element" onClick={() => setShowAddMedicalConditionBox((prev)=>!prev)}>
+                {t("add_pmh")}
+              </div>
+            )}
+          </RecordActionBar>
 
           <Outlet
-            context={{ showConsultationBox, setNewRecords, newRecords }}
+            context={{ showConsultationBox, setNewRecords, newRecords, showAddMedicalConditionBox }}
           />
-        </div>
+        </main>
       </div>
     </RecordContextProvider>
   );

@@ -74,11 +74,11 @@ class TelephoneNumberSerializer(serializers.ModelSerializer):
              return TelephoneNumber.objects.create(owner_patient_id=owner_id,**validated_data)
         
         elif owner_type == "provider":
-          qs = TelephoneNumber.objects.filter(owner_provider_id=owner_id, **validated_data)
-          return qs
+          new_obj = TelephoneNumber.objects.create(owner_provider_id=owner_id, **validated_data)
+          return new_obj
         elif owner_type == "staff":
-          qs = TelephoneNumber.objects.filter(owner_staff_id=owner_id, **validated_data)
-          return qs
+          new_obj = TelephoneNumber.objects.create(owner_staff_id=owner_id, **validated_data)
+          return new_obj
 
 class AddressSerializer(serializers.ModelSerializer):
 
@@ -88,6 +88,20 @@ class AddressSerializer(serializers.ModelSerializer):
         "second_line", "city", "governorate", "provider",
         "staff", "patient", "owner"
         ]
+    def create(self, validated_data):
+        owner_id = self.context["view"].kwargs.get("owner_pk")
+        owner_type = self.context.get("owner_type")
+        print(owner_id)
+        if owner_type == "patient":
+            new_obj =  Address.objects.create(patient_id=owner_id,**validated_data)
+            print(new_obj)
+            return new_obj
+        elif owner_type == "provider":
+            new_obj = Address.objects.create(provider_id=owner_id, **validated_data)
+            return new_obj
+        # elif owner_type == "staff":
+        #   qs = Address.objects.filter(owner_staff_id=owner_id, **validated_data)
+        #   return qs
         
 
 class PatientProfileSerializer(serializers.Serializer):
@@ -190,9 +204,10 @@ class ProviderDetailSerializer(serializers.Serializer):
 
         
         number_set=[]
-        for num in numbers:
-            number_obj = TelephoneNumber.objects.update_or_create(owner_provider = instance, telephone_number=num["telephone_number"])[0]
-            number_set.append(number_obj)
+        if numbers:
+            for num in numbers:
+                number_obj = TelephoneNumber.objects.update_or_create(owner_provider = instance, telephone_number=num["telephone_number"])[0]
+                number_set.append(number_obj)
 
         # for i in instance.phone_nums.all():
         #     if i not in number_set:
@@ -204,6 +219,7 @@ class ProviderDetailSerializer(serializers.Serializer):
         return instance
 
 class ProviderCreateSerializer(serializers.Serializer):
+    id = serializers.CharField(read_only = True)
     name = serializers.CharField(max_length=200)
     owner = serializers.PrimaryKeyRelatedField( queryset = Account.objects.all())
 

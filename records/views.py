@@ -1,3 +1,4 @@
+
 from django.shortcuts import render
 from .models import *
 from users.models import Patient, Staff
@@ -6,6 +7,42 @@ from rest_framework import generics
 from rest_framework import mixins
 from django.shortcuts import get_object_or_404
 
+
+
+class PastConditionView(generics.GenericAPIView,  mixins.RetrieveModelMixin, mixins.DestroyModelMixin):
+
+    serializer_class = PastConditionsSerializer
+    
+    def get_queryset(self):
+        patient_id = self.request.query_params.get('patient_id')
+        qs = PastConditions.objects.filter(patient=patient_id)
+        return qs   
+
+    def get_object(self):
+        condition_pk = self.kwargs['condition_pk']
+        obj = get_object_or_404(PastConditions, pk=condition_pk)
+        return obj
+
+    def get(self,request, *args, **kwargs):
+        return self.retrieve(request, *args,**kwargs)
+    def delete(self, *args, **kwargs):
+        return self.destroy(*args, **kwargs)
+
+class PastConditionsView(generics.GenericAPIView, mixins.ListModelMixin, mixins.CreateModelMixin):
+
+    serializer_class = PastConditionsSerializer
+    
+    def get_queryset(self):
+        patient_id = self.request.query_params.get('patient_id')
+        qs = PastConditions.objects.filter(patient=patient_id)
+        return qs   
+
+    def get(self, request, *args, **kwargs):
+        return self.list(request, *args,**
+        kwargs)
+
+    def post(self, request, *args, **kwargs):
+        return self.create(request, *args, **kwargs)
 
 
 

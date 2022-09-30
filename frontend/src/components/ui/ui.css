@@ -1,18 +1,24 @@
 .main-navbar{
-    position: relative;
+    /* position: relative; */
     /* overflow: hidden; */
+    position: fixed;
+    top:30px;
     overflow-wrap: break-word;
     width: 100%;
     min-height: 2.7rem;
     max-height: 2.7rem;
     /* background-color: rgb(151, 180, 203); */
-    background-color: rgba(61, 176, 247, 0.718);
+    background-color: rgba(61, 176, 247);
     align-items: normal;
     min-width: 270px;
+    z-index: 100;
+    display: flex;
+    justify-content: flex-end;
 }
 .main-navbar__links{
     height: 100%;
-    float: right;
+    /* float: inline-start; */
+
     /* display: flex; */
 }
 .navigation-menu {
@@ -25,10 +31,16 @@
     /* max-width: 6.5rem; */
     cursor: pointer;
     align-items: center;
+    justify-content: center;
+}
+.navlink_item img{
+  width: 20px;
+  margin-inline-end: 3px;
 }
 .navlink_item a{
     text-decoration: none;
     color: rgba(255, 255, 255, 0.95);
+    text-align: center;
 }
 .navlink_item:hover{
     background-color: rgb(96, 110, 133);

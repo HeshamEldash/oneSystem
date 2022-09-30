@@ -22,6 +22,8 @@ const searchPatients = async (values, provider_id) => {
     return response.json();
   }
 };
+
+
 let getProfile = async (provider_id) => {
   let response = await fetch(`${APIENDPOINT}/users/provider/${provider_id}/`, {
     method: "GET",
@@ -59,7 +61,17 @@ const createProvider = async (data, user_id) => {
       },
     }),
   });
+
+  if(response.ok){
+    const data = response.json()
+    console.log(data)
+    return data
+  }
+
+
+
 };
+
 
 const endEmployment = async (employmentId) => {
   const response = await fetch(
@@ -97,7 +109,6 @@ const getAllEmployments = async (provider_id) => {
   }
 };
 const createEmployment = async (staff_email, provider_id) => {
-  console.log(token.access);
   const response = await fetch(`${APIENDPOINT}/users/employment-create/`, {
     method: "POST",
     headers: {

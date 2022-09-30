@@ -25,6 +25,7 @@ function RecordEntry(props) {
       const confirm = window.confirm(
         t("are_you_sure_you_want_to_save_an_empty_record")
       );
+      console.log(is_public)
       if (confirm) {
         createRecord(patient.id, recordEntry, is_public);
         props.addRecord((prev) => {
@@ -107,7 +108,7 @@ function RecordEntry(props) {
         <input
           className="record_entry__button"
           type="button"
-          value="save_localy"
+          value={t("save_localy")}
           onClick={() => {
             // setRecordEntry((prev) => {
             //   return { ...prev, is_public: false };
@@ -123,7 +124,7 @@ function RecordEntry(props) {
         <input
           className="record_entry__button"
           type="button"
-          value="save_and_share"
+          value={t("save_and_share")}
           onClick={() => {
 
             handleSubmit(true);
@@ -136,7 +137,7 @@ function RecordEntry(props) {
           }}
         />
       </div>
-      <Icd/>
+      {/* <Icd/> */}
     </div>
   );
 }

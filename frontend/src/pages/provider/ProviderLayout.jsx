@@ -10,10 +10,8 @@ import {
 } from "react-router-dom";
 import Navbar from "../../components/ui/Navbar";
 import NavMenu from "../../components/ui/NavMenu";
-import SideBar from "../../components/ui/SideBar";
-import Button from "@mui/material/Button";
-import Menu from "@mui/material/Menu";
-import MenuItem from "@mui/material/MenuItem";
+import register from "../../assets/images/register.svg"
+
 
 function ProviderLayout() {
   const [isNavExpanded, setIsNavExpanded] = useState(false);
@@ -22,6 +20,8 @@ function ProviderLayout() {
   const navigate = useNavigate();
   return (
     <>
+
+
       <Navbar>
         <NavMenu
           buttonName={t("patients")}
@@ -29,21 +29,23 @@ function ProviderLayout() {
             {
               name: t("register_a_patient"),
               func: () => {
-                navigate("/provider/${id}/patient-registration");
+                navigate(`/provider/${id}/patient-registration`);
               },
             },
             {
               name: t("search_patients"),
 
               func: () => {
-                navigate("/provider/${id}/search-patient");
+                navigate(`/provider/${id}/search-patient`);
               },
             },
           ]}
         ></NavMenu>
 
         <NavLink className="" to={`/provider/${id}/patient-registration`}>
+      
           {t("register_a_patient")}
+       
         </NavLink>
 
         <NavLink className="" to={`/provider/${id}/profile-update`}>
@@ -51,6 +53,7 @@ function ProviderLayout() {
         </NavLink>
 
         <NavLink className="" to={`/provider/${id}/manage-staff`}>
+
           {t("manage_staff")}
         </NavLink>
 
@@ -63,6 +66,9 @@ function ProviderLayout() {
       </Navbar>
 
       <Outlet />
+
+
+
     </>
   );
 }

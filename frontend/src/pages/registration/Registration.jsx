@@ -25,7 +25,8 @@ function RegisterationPage() {
   const { t } = useTranslation();
   let { loginUser } = useContext(AuthContext);
   let onSubmit = async (values, actions) => {
-    let res = await fetch(`${APIENDPOINT}users/staff-create/`, {
+    console.log("fasdgfdas")
+    let res = await fetch(`${APIENDPOINT}/users/staff-create/`, {
       method: "POST",
       headers: {
         "Content-type": "application/json",
@@ -57,11 +58,13 @@ function RegisterationPage() {
         }
       })
       .catch((err) => {
-        notify(err.msg);
+        // notify(err.msg);
+        console.log(err)
         return { msg: err.message };
       });
 
     if (res.ok) {
+      
       loginUser(values);
       navigate("/staff-dashboard");
     }

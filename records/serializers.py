@@ -1,8 +1,20 @@
+from dataclasses import field
 from rest_framework import serializers
 from . import utils
 from django.utils.translation import gettext_lazy as _
 from users.models import Patient, Staff
 from .models import *
+
+class PastConditionsSerializer(serializers.ModelSerializer):
+    # recorded_by = serializers.SlugRelatedField(slug_field="is_staff", read_only=True)
+    class Meta:
+        model = PastConditions
+        fields = "__all__"
+        extra_kwargs = {'recorded_by': {'required': False},
+        }
+    def create(self, validated_data):
+        user = self.context["request"].user
+        return PastConditions.objects.create(recorded_by = user, **validated_data)
 
 
 
@@ -29,7 +41,7 @@ class RecordSerializer(serializers.ModelSerializer):
     def update(self, instance, validated_data):
 
         req_user = self.context["request"].user
-        
+        print(validated_data)
         records= RecordUpdateEvent.objects.create(
             record=instance,
             staff = req_user.staff,

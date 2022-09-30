@@ -13,7 +13,6 @@ function ProviderHome() {
     const { id } = useParams();
   const [registeredPatients, setRegisteredPatients] = useState([]);
   const [employedStaff, setEmployedStaff] = useState([])
-
   const getAllStaff = async ()=>{
     const response = await fetch(`${APIENDPOINT}/users/staff-list/${id}/`, {
         method: "GET",

@@ -1,8 +1,9 @@
 from pyexpat import model
 from django.db import models
 from django.utils.translation import gettext_lazy as _
-from users.models import Patient, Staff
-
+from users.models import Account, Patient, Staff
+import datetime
+from django.utils import timezone 
 
 class Record(models.Model):
     date_created= models.DateTimeField(auto_now_add=True)
@@ -13,6 +14,8 @@ class Record(models.Model):
     diagnosis= models.TextField(null=True, blank=True)
     managment_plan = models.TextField(null=True, blank=True)
     is_public = models.BooleanField(default=True)
+
+
 
 class RecordUpdateEvent(models.Model):
     record = models.ForeignKey(Record, on_delete=models.DO_NOTHING)
@@ -46,7 +49,7 @@ class Note(models.Model):
         verbose_name_plural = _("note")
 
 
-class ViewedRecordEvenet(models.Model):
+class ViewedRecordEvent(models.Model):
     start = models.DateTimeField(auto_now_add=True)
     end = models.DateTimeField(blank=True, null=True)
     staff = models.ForeignKey(Staff, on_delete=models.DO_NOTHING) 
@@ -63,12 +66,25 @@ class ViewedRecordEvenet(models.Model):
 
 
 class PastConditions(models.Model):
-    date_diagnosed = models.DateField(null=True, blank=True)
+    date_diagnosed = models.DateField(default=timezone.now().date(), blank=True)
     condition = models.CharField(max_length=600)
     patient = models.ForeignKey(Patient, on_delete=models.CASCADE)
-    
+    recorded_by = models.ForeignKey(Account, on_delete= models.DO_NOTHING)
+    icd_code = models.CharField(max_length=20, blank=True, null=True)
 
     def __str__(self):
         return self.condition
 
-    
+
+class PatientIcdCode(models.Model):
+    recorded_by = models.ForeignKey(Staff, on_delete= models.DO_NOTHING)
+    patient = models.ForeignKey(Patient, on_delete=models.CASCADE)
+    date_recorded = models.DateField(auto_now_add=True)
+    code= models.CharField(max_length=20)
+    selectedText = models.CharField(max_length=200)
+    linearizationUri = models.CharField(max_length=200)
+    foundationUri = models.CharField(max_length=200)
+
+    def __str__(self):
+        return self.selectedText +" " + self.code
+

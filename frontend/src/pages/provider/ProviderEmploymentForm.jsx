@@ -21,7 +21,8 @@ function ProviderEmploymentForm() {
   
 
     const onSubmit = async (values, actions) => {
-      const response = await createEmployment( values.staffEmail,id)
+      console.log(values, id)
+      const response = await createEmployment(values.staffEmail, id)
         notify(response.msg)
         actions.resetForm();
       };

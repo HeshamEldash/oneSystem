@@ -33,6 +33,7 @@ import  { RecordContext, RecordContextProvider } from "./pages/records/context/R
 import Icd from "./externalapis/icd-10/Icd.jsx";
 import RecordMain from "./pages/records/RecordMain.jsx";
 import RecordProfile from "./pages/records/admin/RecordProfile.jsx";
+import RecordPastHistory from "./pages/records/RecordPastHistory.jsx";
 function App() {
   const { t, i18n } = useTranslation();
 
@@ -41,11 +42,11 @@ function App() {
       <AuthProvider>
 
       <Header />
-      {/* <Icd/> */}
       <Routes>
         <Route element={<ProtectedUserRoutes/>} >
              <Route element={<StaffDashboard/>} path="/staff-dashboard" />
              <Route element={<ProviderLayout/>} path="/provider/:id">
+             
                 <Route index element={<ProviderHome/>} />
                 <Route element={<ProviderProfileUpdate/>} path="profile-update" />
                 <Route element={<AddressUpdate/>} path="address-update" />
@@ -56,8 +57,11 @@ function App() {
               
                    <Route element={<RecordLayout />} path="patient-record/:patient_id" >
                       <Route index element={<RecordMain/>} />
-                      <Route element={<RecordProfile/>} path="profile"/>   
+                      <Route element={<RecordProfile/>} path="profile"/>  
+                      <Route element={<RecordPastHistory/>} path="past-history"/>   
                    </Route>
+
+
              </Route>
              
               

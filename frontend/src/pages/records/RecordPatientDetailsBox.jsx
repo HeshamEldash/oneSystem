@@ -6,15 +6,45 @@ function RecordPatientDetailsBox() {
 
   const { patient } = useRecordContext();
 
+
   function getAge(dateString) {
     var today = new Date();
     var birthDate = new Date(dateString);
     var age = today.getFullYear() - birthDate.getFullYear();
     var m = today.getMonth() - birthDate.getMonth();
+
+
+    function getMonthDifference(startDate, endDate) {
+      return (
+        endDate.getMonth() -
+        startDate.getMonth() +
+        12 * (endDate.getFullYear() - startDate.getFullYear())
+      );
+    }
+
+    function getDaysDifference(startDate, endDate) {
+      const time = endDate.getTime() -startDate.getTime() 
+      return (
+        Math.round (time / (1000 * 3600 * 24))
+      );
+    }
+
+    
+
     if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
       age--;
     }
-    return age;
+    if (age === 0){
+      const months = getMonthDifference(birthDate, today)
+      if (months === 0){
+        const  days = getDaysDifference(birthDate,today )
+        return days + " " + t("days")
+      }
+
+      return months + " " + t("months")
+    }
+
+    return age + " " + t("years");
   }
 
   return (

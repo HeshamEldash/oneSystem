@@ -118,6 +118,7 @@ def update_patient_profile(instance, **kwargs):
     instance.first_name = kwargs.get('first_name', instance.first_name)
     instance.middle_names = kwargs.get('middle_names', instance.middle_names)
     instance.last_name = kwargs.get('last_name', instance.last_name)
+    instance.gender = kwargs.get("gender", instance.gender)
     instance.date_of_birth = kwargs.get('date_of_birth', instance.date_of_birth)
   
     # This code will do 3 things:

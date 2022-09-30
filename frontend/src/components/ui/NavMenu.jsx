@@ -5,6 +5,7 @@ import MenuItem from "@mui/material/MenuItem";
 import { Outlet, NavLink, useParams } from "react-router-dom";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import Divider from "@mui/material/Divider";
+import register from "../../assets/images/register.svg"
 
 function NavMenu(props) {
   const [anchorEl, setAnchorEl] = React.useState(null);

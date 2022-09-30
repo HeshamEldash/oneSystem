@@ -1,6 +1,6 @@
 import React, { useState, useContext } from "react";
 
-import { Link, Navigate, useParams } from "react-router-dom";
+import { Link, useNavigate , useParams } from "react-router-dom";
 import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
 
@@ -12,10 +12,11 @@ import DatePicker from "react-datepicker";
 function ProviderPatientRegistration() {
   const { t } = useTranslation();
   const { id } = useParams();
+  const navigate = useNavigate()
   const [startDate, setStartDate] = useState(new Date());
 
   let onSubmit = async (values, actions) => {
-    let res = await fetch(`${APIENDPOINT}/users/patient-profile-create/`, {
+    let newPatient = await fetch(`${APIENDPOINT}/users/patient-profile-create/`, {
       method: "POST",
       headers: {
         "Content-type": "application/json",
@@ -42,10 +43,15 @@ function ProviderPatientRegistration() {
       }),
     }).then((response) => {
       if (response.ok) {
+        return response.json()
       }
     });
 
-    actions.resetForm();
+    if (newPatient){
+      navigate(`/provider/${id}/patient-record/${newPatient.id}`)
+  }
+
+    // actions.resetForm();
   };
 
   const {
@@ -215,7 +221,6 @@ function ProviderPatientRegistration() {
           onChange={handleChange}
           onBlur={handleBlur}
           type="text"
-          first_line
           name="first_line"
           placeholder={t("first_line")}
         />

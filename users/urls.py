@@ -24,7 +24,7 @@ urlpatterns = [
 
     path("staff-list/<int:pk>/", StaffListView.as_view(), name= "staff_list"),
     
-    path("address-list/<int:owner_pk>/", AddressListView.as_view()),
+    path("address-list/<str:owner_type>/<int:owner_pk>/", AddressListView.as_view()),
     path("address-detail/<int:pk>/", AddressDetailView.as_view(), name="address_detail"),
 
     path("telephone-number-detail/<int:pk>/", TelephoneDetailView.as_view(), name="telephone-number-detail/"),

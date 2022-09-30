@@ -83,9 +83,9 @@ function RecordUpdate(props) {
             setRecordEntry((prev) => {
               return { ...prev, is_public: false };
             });
-
-            updateRecord(props.recordId, recordEntry);
+            updateRecord(props.recordId, recordEntry, false);
             props.closeModal();
+            props.updateParent({...recordEntry, is_public:false})
           }}
         />
 
@@ -94,8 +94,12 @@ function RecordUpdate(props) {
           type="button"
           value="save_and_share"
           onClick={() => {
-            updateRecord(props.recordId, recordEntry);
+            setRecordEntry((prev) => {
+              return { ...prev, is_public: true };
+            });
+            updateRecord(props.recordId, recordEntry, true);
             props.closeModal();
+            props.updateParent({...recordEntry, is_public:true})
           }}
         />
       </div>
