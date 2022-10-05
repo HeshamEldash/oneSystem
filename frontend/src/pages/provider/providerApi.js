@@ -23,6 +23,24 @@ const searchPatients = async (values, provider_id) => {
   }
 };
 
+const getAllPatients = async (provider_id) => {
+
+  const response = await fetch(
+    `${APIENDPOINT}/users/registration-list/${provider_id}` ,
+    {
+      method: "GET",
+      headers: {
+        "Content-type": "application/json",
+        Authorization: "Bearer " + String(token.access),
+      },
+    }
+  );
+
+  if (response.ok) {
+    return response.json();
+  }
+};
+
 
 let getProfile = async (provider_id) => {
   let response = await fetch(`${APIENDPOINT}/users/provider/${provider_id}/`, {
@@ -165,4 +183,5 @@ export {
   createProvider,
   getAllEmployments,
   endEmployment,
+  getAllPatients
 };

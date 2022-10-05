@@ -74,12 +74,12 @@ function ProviderPatientSearch() {
 
     onSubmit,
   });
-  // useEffect(() => {}, [patients]);
+ 
   return (
     <>
       <h1>search a patient</h1>
 
-      <form className="search-form" type="submit" onSubmit={handleSubmit}>
+      <form className="search-form primary--page-bdox" type="submit" onSubmit={handleSubmit}>
         <div className="search-form__inputs">
           <div className="form-input--group">
             <label> {t("email")}</label>
@@ -225,7 +225,7 @@ function ProviderPatientSearch() {
         paginationCount={patients?.length}
         tableSize=""
         stickyHeader={true}
-        headerBackground={"rgba(61, 176, 247, 0.918)"}
+        headerBackground={"rgba(225, 0, 120)"}
       >
         {patients?.map((patient) => {
           return (

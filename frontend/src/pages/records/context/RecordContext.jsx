@@ -24,7 +24,7 @@ function RecordContextProvider(props) {
   useEffect(()=>{
     getProfileData()
     getRecordsData()
-
+    localStorage.setItem("patient_id", patient_id)
   },[])
 
 // useEffect(()=>{

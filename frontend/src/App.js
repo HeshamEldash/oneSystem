@@ -20,7 +20,7 @@ import ProviderRegistration from "./pages/provider/ProviderRegistration.jsx";
 import RegistrationLayout from "./pages/registration/RegistrationLayout.jsx";
 import RegistrationChoice from "./pages/registration/RegistrationChoice.jsx";
 import RegistrationStaffMultiStep from "./pages/registration/RegistrationStaffMultiStep.jsx";
-import Sidebar from "./components/ui/SideBar.jsx";
+
 import "./components/ui/form/form.css"
 import ProviderStartEmployment from "./pages/provider/ProviderStartEmployment.jsx";
 import ProviderManageStaff from "./pages/provider/ProviderManageStaff.jsx";
@@ -36,6 +36,7 @@ import Icd from "./externalapis/icd-10/Icd.jsx";
 import RecordMain from "./pages/records/RecordMain.jsx";
 import RecordProfile from "./pages/records/admin/RecordProfile.jsx";
 import RecordPastHistory from "./pages/records/RecordPastHistory.jsx";
+import ProviderManagePatients from "./pages/provider/ProviderManagePatients.jsx";
 function App() {
   const { t, i18n } = useTranslation();
 
@@ -56,6 +57,8 @@ function App() {
                 <Route element={<ProviderStartEmployment/>} path="register-staff" />
                 <Route element={<ProviderManageStaff/>} path="manage-staff" />
                 <Route index element={<ProviderPatientSearch/>} path="search-patient" />
+                <Route index element={<ProviderManagePatients/>} path="manage-patients" />
+
               
                    <Route element={<RecordLayout />} path="patient-record/:patient_id" >
                       <Route index element={<RecordMain/>} />

@@ -18,6 +18,7 @@ function ProviderManageStaff() {
   const getEmployments = async () => {
     const employments = await getAllEmployments(id);
     setListOfEmployments(employments);
+    
   };
 
   useEffect(() => {

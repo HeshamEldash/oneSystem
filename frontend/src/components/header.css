@@ -20,7 +20,7 @@
     text-decoration: none;
     z-index: 1000;
     box-shadow:var(--shallowShadow);
-    background-color: white;
+    background-color: var(--color-dark-purple);
     /* background-color: #4A4597;
     background: rgb(74,69,151);
 background: linear-gradient(152deg, rgba(74,69,151,1) 16%, rgba(119,40,202,1) 42%, rgba(115,69,151,1) 70%);
@@ -46,19 +46,20 @@ background: linear-gradient(152deg, rgba(74,69,151,1) 16%, rgba(115,69,151,1) 70
     padding: 15px;
 }
 }
+
 .header-content{
     display: flex;
     justify-content: center;
     align-items: center;
-    color:#1976d2;
+    color:white;
     cursor: pointer;
     text-decoration: none;
     gap:3px
   
 }
-.header-content > *{
+.header-content  *{
     
-    color:#1976d2;
+    color:white;
     cursor: pointer;
     text-decoration: none;
 }

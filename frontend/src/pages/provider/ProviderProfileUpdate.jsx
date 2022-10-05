@@ -200,15 +200,8 @@ function ProviderProfileUpdate() {
 
         <div className="primary--page-box">
           <h2 className="margin_bottom_small">{t("address")}</h2>
-          <div className="inner-page-box--flex-row width_100 space_evenly ">
-            <input
-              className="page_button page_button-width-medium page_button-padding-inline-small"
-              type="button"
-              value={t("add_address")}
-              onClick={() => {
-                handleOpen();
-              }}
-            />
+          <div className="inner-page-box--flex-row width_100 space_evenly align-items-center ">
+ 
             {addresses.map((address) => {
               return (
                 <div key={address.id}>
@@ -224,15 +217,24 @@ function ProviderProfileUpdate() {
                     }}
                   >
                     <input
-                      type="button"
-                      className="secondry-button"
+                      // type="buttond "
+                      className="page_button "
                       value={t("update")}
                       onClick={() => handleOpen(address)}
                     />
                   </Address>
+
                 </div>
               );
             })}
+            <input
+              className="page_button page_button-width-medium page_button-padding-inline-small"
+              type="button"
+              value={t("add_address")}
+              onClick={() => {
+                handleOpen();
+              }}
+            />
           </div>
 
           <Modal
