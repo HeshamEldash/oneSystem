@@ -9,6 +9,20 @@ from django.shortcuts import get_object_or_404
 
 
 
+class RecordFilesView(generics.GenericAPIView, mixins.ListModelMixin):
+    queryset = RecordFile.objects.all()
+    serializer_class = RecordFileSerializer
+    # def get_queryset(self):
+    #     qs = RecordFile.objects.all()
+    #     return qs
+
+    def get(self, request, *args, **kwargs):
+        print(RecordFile)
+        return self.list(request, *args,**
+        kwargs)  
+
+
+
 class PastConditionView(generics.GenericAPIView,  mixins.RetrieveModelMixin, mixins.DestroyModelMixin):
 
     serializer_class = PastConditionsSerializer

@@ -64,8 +64,9 @@ function ProviderLayout() {
           </div>
         </NavLink>
       </Navbar>
-
+          <div className="main_page_under_nav">
       <Outlet />
+      </div>
 
 
 

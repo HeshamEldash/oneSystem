@@ -55,7 +55,7 @@ function Employment(props) {
   }, []);
 
   return (
-    <div className="inpage-container   ">
+    <div className="inner-page-box   margin_bottom_small">
       <table>
       <tbody>
       <tr>
@@ -86,15 +86,15 @@ function Employment(props) {
       </table>
       <div className="inpage-container__footer">
       <input
-        className="secondry-button"
+        className="page_button page_button-width-small-fixed"
         type="button"
-        value={showLogins ? "hide_login_details" : "view_login_details"}
+        value={"login_details"}
         onClick={() => {
           setShowLogins((prev) => !prev);
         }}
       />
-      <input className="secondry-button" type="button" value={"edit"} />
-      <input className="secondry-button" type="button" value={"remove"}
+      <input className="page_button page_button-width-small-fixed" type="button" value={"edit"} />
+      <input className="page_button page_button-width-small-fixed" type="button" value={"remove"}
       onClick={()=>endApiEmployment()}
        />
        </div>

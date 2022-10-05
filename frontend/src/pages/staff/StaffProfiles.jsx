@@ -40,7 +40,7 @@ function StaffProfiles() {
 
 
   return (
-    <div className="staff-profiles">
+    <div className="inner-page-box--flex">
 
     {profiles.length === 0? 
     
@@ -49,9 +49,9 @@ function StaffProfiles() {
       }</span>
     
     : 
-
-      <>
+    <>
      <h3>{t("my_profiles")}</h3>
+      <div className="inner-page-box--flex-row">
       {profiles?.map((profile) => (
         <StaffProfileItem
           key={profile?.id}
@@ -63,6 +63,7 @@ function StaffProfiles() {
         />
       ))}
 
+      </div>
       </>
     }
     

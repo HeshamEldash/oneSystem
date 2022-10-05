@@ -16,7 +16,7 @@ export function Address({ address, children, deleteFromParent }) {
 
   return (
     <>
-      <div className="address-display">
+      <div className="inner-page-box inner-page-box--flex box_min_width">
         <span>{address?.unit_number}</span>
         <span>{address?.first_line}</span>
         <span>{address?.second_line}</span>

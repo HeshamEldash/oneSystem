@@ -27,7 +27,7 @@ const getLogin = async ()=>{
 
 
   return (
-    <div className='staff-profile-item'>
+    <div className='inner-page-box inner-page-box__small-width inner-page-box--flex'>
 
     <span className='staff-profile-item--name'>{props.provider}</span>
     <span>{login && "last login: " + new Date(login.start_time).toLocaleString() }</span>
@@ -36,7 +36,7 @@ const getLogin = async ()=>{
       localStorage.setItem("provider", JSON.stringify(props.providerID))
       createLogin(props.staffId,props.providerID)
       
-      }} className="item-link" to={`/provider/${props.providerID}`} style={{"display": "block"}}>
+      }} className="page_button page_button-width-medium " to={`/provider/${props.providerID}`} style={{"display": "block"}}>
         {t("go_to_profile")}
       </Link>
     

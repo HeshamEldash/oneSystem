@@ -1,9 +1,11 @@
 .provider-home-main{
+    position: relative;
     padding: 4rem;
     color: #808080;
     display: flex;
     gap: 2rem;
     justify-content: center;
+    top: 72px;
 
 }
 

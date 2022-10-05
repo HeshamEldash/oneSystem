@@ -25,8 +25,52 @@ function ProviderManageStaff() {
   }, []);
 
   return (
+    <>
+      <h1 className="page_header padding_inline-header">{t("manage_staff")}</h1>
+
+      <div className=" primary--page-box primary--page-box-contents_centered">
+        <h3 className="margin_bottom_small">{t("total_number_of_staff")}</h3>
+        
+        <div>
+        <Circle>{listOfEmployments.length}</Circle>
+        </div>
+      </div>
+
+      <div className=" primary--page-box ">
+        <h3 className="margin_bottom_small">{t("all_staff")}</h3>
+        <div className="page_component__inpage--scroll_box">
+        {listOfEmployments ? (
+          listOfEmployments?.map((employment) => {
+            return (
+              <Employment
+                key={employment.id}
+                employmentId={employment.id}
+                isActive={employment.is_active ? "true" : "false"}
+                staff={employment.staff}
+                staffId={employment.staff_id}
+                dateEmployed={employment.date_employed}
+                salary={employment.salary}
+                onDelete={getEmployments}
+              />
+            );
+          })
+        ) : (
+          <>
+            <Skeleton variant="rounded" width={600} height={150} />
+            <br />
+            <Skeleton variant="rounded" width={600} height={150} />
+          </>
+        )}
+        </div>
+      </div>
+
+      <ProviderStartEmployment />
+    </>
+  );
+
+  return (
     <div className="page-component-main--grid">
-      <div className="page_component__inpage--span3 page_component__inpage--scroll_box">
+      <div className="page_component__inpage--span3 page_component__inpage--scroll_box inpage-container">
         <h3>{t("all_staff")}</h3>
         {listOfEmployments ? (
           listOfEmployments?.map((employment) => {

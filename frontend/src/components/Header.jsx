@@ -16,16 +16,10 @@ function Header() {
   return (
     // <div className={i18n.language === 'en' ?  'header english': 'header arabic'} >
     <div className={user?  'header header--small': 'header'} > 
-
-        {/* <img className={"logo"} src={logo} alt="logo image"  /> */}
         
         {!!user && <h1>{user.email}</h1>}
       <LanguageSelect/>
-      <div className="header-content">
-      <NavLink className="header-coddntent" to="/record" style={{"display": "block"}}>
-      {t("record")}
-      </NavLink>
-      </div>
+
 
       {user?
       <>

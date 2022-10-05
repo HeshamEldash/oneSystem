@@ -5,6 +5,9 @@ from users.models import Account, Patient, Staff
 import datetime
 from django.utils import timezone 
 
+def upload_to(instance, filename):
+    return    f"documents/{filename}"
+
 class Record(models.Model):
     date_created= models.DateTimeField(auto_now_add=True)
     author=models.ForeignKey(Staff, on_delete=models.DO_NOTHING)
@@ -14,6 +17,19 @@ class Record(models.Model):
     diagnosis= models.TextField(null=True, blank=True)
     managment_plan = models.TextField(null=True, blank=True)
     is_public = models.BooleanField(default=True)
+
+
+class RecordFile(models.Model):
+    record = models.ForeignKey(Record, on_delete=models.CASCADE)
+    file= models.FileField(
+        _("file"),
+        upload_to=upload_to
+    )
+    date_uploaded = models.DateTimeField(auto_now_add=True)
+    uploaded_by_staff = models.OneToOneField(Staff, null=True, on_delete=models.DO_NOTHING)     
+    uploaded_by_patient = models.OneToOneField(Patient, null=True, on_delete=models.DO_NOTHING)     
+
+
 
 
 

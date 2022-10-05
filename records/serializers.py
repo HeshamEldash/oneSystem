@@ -5,6 +5,18 @@ from django.utils.translation import gettext_lazy as _
 from users.models import Patient, Staff
 from .models import *
 
+
+
+
+
+
+
+class RecordFileSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = RecordFile
+        fields = "__all__"
+
+
 class PastConditionsSerializer(serializers.ModelSerializer):
     # recorded_by = serializers.SlugRelatedField(slug_field="is_staff", read_only=True)
     class Meta:

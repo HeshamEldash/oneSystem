@@ -57,11 +57,25 @@ function RecordsClinicalTree() {
 
         {t("plans")}
       </div>
+
+
       <div className="clnical_tree__component" onClick={() => navigate("")}>
       <img src={investigations} alt="investigations Logo" />
-
         {t("pathology")}
       </div>
+
+      <div className="clnical_tree__component" onClick={() => navigate("")}>
+      <img src={investigations} alt="investigations Logo" />
+        {t("documents")}
+      </div>
+
+
+
+
+
+
+
+
     </div>
   );
 }

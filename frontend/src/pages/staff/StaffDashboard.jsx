@@ -36,6 +36,47 @@ function StaffDashboard() {
     getOwnedProvider()
   },[])
 
+
+  
+  return (<>
+      <Navbar/>  
+    <div className='main_page_under_nav'>
+    <h1 className='page_header'>{t("My Dashboard")}</h1>
+  
+
+      {!!ownedProvider?
+      <div className='primary--page-box'>
+        {/* <h3>{t("my_clinic")}</h3> */}
+        <StaffProfileItem
+          providerID={ownedProvider?.id}
+          provider={ownedProvider?.name}
+
+
+        />
+        </div> 
+      :
+      <div className='primary--page-box'>
+      <span className='call-to-action__header'>{t("would you like to register a clinic to your account?")}</span>
+      <input type="button"  onClick={()=>{navigate("/register/provider")}} className="bd" value={t("register_a_provider")}/>
+     
+ 
+      </div>
+      }
+
+      <div className='primary--page-box'>
+      <StaffProfiles/>
+      </div>
+      g
+      awer
+      gwegwegweg
+
+    </div>
+</>
+  )
+
+
+  // old css changes VVVVVV 
+  
   return (<>
     <Navbar/> 
     <div className='staff-dashboard-main'>

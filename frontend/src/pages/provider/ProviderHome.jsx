@@ -13,6 +13,7 @@ function ProviderHome() {
     const { id } = useParams();
   const [registeredPatients, setRegisteredPatients] = useState([]);
   const [employedStaff, setEmployedStaff] = useState([])
+  const [image, setImage] = useState()
   const getAllStaff = async ()=>{
     const response = await fetch(`${APIENDPOINT}/users/staff-list/${id}/`, {
         method: "GET",
@@ -28,11 +29,26 @@ function ProviderHome() {
 
   } 
 
+  const testGetRecordFile = async ()=>{
+    const response = await fetch(`${APIENDPOINT}/records/patients-records-files/`,{
+      method: "GET",
+      headers: {
+          "Content-type": "application/json",
+        },
+    })
+
+    if (response.ok){
+      const data = await response.json()
+      console.log(data)
+      setImage(data[0])
+    }
+  }
 const setLocalStorage = ()=>{
 
 }  
 useEffect(()=>{
     getAllStaff()
+    testGetRecordFile()
     // localStorage.setItem("provider", JSON.stringify(data))
 },[])
 
@@ -40,6 +56,7 @@ useEffect(()=>{
     <>
 
       <div className="provider-home-main">
+      <img src={image?.file}/>
       This si the provider home
         {registeredPatients?.map((patient)=>{
             <span>patient.id</span>

@@ -80,12 +80,12 @@ function ProviderPatientRegistration() {
   });
 
   return (
-    <>
+    <div className="page_padding_bottom">
       <div className="page_header__container">
           <h1 className="page_header__title">{t("register_a_patient")}</h1>
       </div>
       <form
-        className="user-form--centered form-padding"
+        className="primary--page-box  page_user-form--centered form-padding deep_shadow"
         type="submit"
         onSubmit={handleSubmit}
       >
@@ -288,7 +288,7 @@ function ProviderPatientRegistration() {
           value={t("register_patient")}
         />
       </form>
-    </>
+    </div>
   );
 }
 
