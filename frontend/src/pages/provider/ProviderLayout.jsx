@@ -21,18 +21,24 @@ function ProviderLayout() {
   let location = useLocation();
   const getPath = () => {
     const locationArray = location.pathname.split("/");
+
     if (locationArray.includes("patient-record")) {
       return "record";
     }
+    else if(locationArray.length === 3){
+      return "home"
+    }
   };
+
 
   return (
     <>
       <Navbar>
+      {getPath() != "home" && 
         <NavLink className="" to={`/provider/${id}`}>
           {t("home")}
         </NavLink>
-
+      }
         <NavMenu
           buttonName={t("patients")}
           menuItems={[

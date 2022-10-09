@@ -8,15 +8,12 @@ function RecordActionBar(props) {
     <div className="action_bar">
       {props.items?.map((item) => {
         return (
-          <div 
-          key = {item.name}
-          className="action_bar__element"
-          onClick={
-            ()=>{
-          item.func()      
-
-            }
-          }
+          <div
+            key={item.name}
+            className="action_bar__element"
+            onClick={() => {
+              item.func();
+            }}
           >
             {item.name}
           </div>

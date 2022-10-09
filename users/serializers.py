@@ -28,6 +28,8 @@ class AccountSerializer(serializers.ModelSerializer):
         model = Account
         fields= ["email", "password", "is_active"]
 
+
+
 class ChangePasswordSerializer(serializers.ModelSerializer):
     password = serializers.CharField(write_only=True, required=True)
     password2 = serializers.CharField(write_only=True, required=True)
@@ -181,6 +183,16 @@ class StaffAccountSerializer(serializers.Serializer):
 
     def create(self, validated_data):
         return utils.create_staff(**validated_data)
+
+
+class AccountDetailSerializer(serializers.ModelSerializer):
+    # JUST TESTING THINGS
+    staff = StaffSerializer(read_only=True)
+    patient = PatientProfileSerializer(read_only=True)
+    class Meta:
+        model = Account
+        fields= "__all__"
+
 
 class ProviderDetailSerializer(serializers.Serializer):
     id = serializers.CharField(read_only = True)

@@ -35,7 +35,7 @@ class AccountStatusView(generics.GenericAPIView, mixins.RetrieveModelMixin,mixin
             return get_object_or_404(Account, email = email)
 
         def post(self, request, *args, **kwargs):
-            return self.retrieve(request, *args,**kwargs)
+                return self.retrieve(request, *args,**kwargs)
 
 
 class CreateAccountView(generics.GenericAPIView, mixins.CreateModelMixin):
@@ -44,6 +44,23 @@ class CreateAccountView(generics.GenericAPIView, mixins.CreateModelMixin):
 
         def post(self, request, *args, **kwargs):
             return self.create(request, *args, **kwargs)
+
+class AccountDetailView(generics.GenericAPIView, mixins.RetrieveModelMixin,mixins.CreateModelMixin):
+    serializer_class =AccountDetailSerializer
+    queryset=Account.objects.all()
+
+    def get_object(self):
+        # self.request.query_params()
+        pk = self.kwargs.get("pk")
+        return self.queryset.get(pk=pk)
+    
+    
+    
+    def get(self, request, *args, **kwargs):
+        return self.retrieve(request, *args,**kwargs)
+
+
+
 
 
 class PatinetProfileCreateView(generics.GenericAPIView,  mixins.RetrieveModelMixin,
@@ -105,8 +122,8 @@ class StaffProfileDetailView(generics.GenericAPIView,  mixins.RetrieveModelMixin
     def post(self, request, *args, **kwargs):
         return self.create(request, *args, **kwargs)
 
-    def put(self, request, *args, **kwargs):
-        return self.update(request, *args, **kwargs)
+    def patch(self, request, *args, **kwargs):
+        return self.partial_update(request, *args, **kwargs)
 
 class StaffDetailView(generics.GenericAPIView,  mixins.RetrieveModelMixin,
                         mixins.CreateModelMixin, mixins.UpdateModelMixin):
@@ -426,21 +443,89 @@ class TelephoneDetailView(generics.GenericAPIView,mixins.UpdateModelMixin,mixins
     queryset = TelephoneNumber.objects.all()
     serializer_class = TelephoneNumberSerializer
 
+    # def get_object(self):
+    #     print(self.kwargs.get("pk"))
+    #     print("gsodhaaaa#############################################################################")
+    #     return super().get_object()
+
     def get(self,request, *args, **kwargs):
         return self.retrieve(request, *args,**kwargs)
 
     def post(self, request, *args, **kwargs):
         return self.create(request, *args, **kwargs)
 
-    def put(self, request, *args, **kwargs):
-        return self.update(request, *args, **kwargs)
+    # def put(self, request, *args, **kwargs):
+    #     return self.update(request, *args, **kwargs)
 
+    def patch(self, request, *args, **kwargs):
+        return self.partial_update(request, *args, **kwargs)
 
 
     def delete(self, request, *args, **kwargs):
         return self.destroy(request, *args, **kwargs)
 
 
+class SearchPatientView(generics.GenericAPIView, mixins.RetrieveModelMixin, 
+    mixins.ListModelMixin, mixins.CreateModelMixin, mixins.UpdateModelMixin
+                 ):
+
+    serializer_class = PatientProfileSerializer
+
+    lookup_field= "email"
+    lookup_url_kwarg = "email"
+
+
+    def get_queryset(self):
+
+        q_params=self.request.query_params 
+        
+        lookups = Q()
+  
+        first_name = q_params.get("firstName", None)
+        if first_name:
+              q_obj = Q(first_name__icontains=first_name) 
+              lookups &=q_obj
+
+
+        middle_names = q_params.get("middleNames", None)
+        if middle_names:
+            q_obj = Q(middle_names__icontains=middle_names)
+            lookups &=q_obj
+
+        last_name = q_params.get("lastName", None)
+        if last_name:
+            q_obj = Q(last_name__icontains=last_name)
+            lookups &=q_obj
+            
+        date_of_birth = q_params.get("dateOfBirth", None)
+        if date_of_birth:
+            q_obj = Q(date_of_birth__exact=date_of_birth)
+            lookups |=q_obj
+            
+        email = q_params.get("email", None)
+        if email and email !="" :
+            q_obj = Q(account__email__exact=email)
+            lookups &=q_obj
+
+        telephone_number= q_params.get("telephoneNumber", None)
+        if telephone_number and telephone_number !="":
+            q_obj = Q(phone_nums__telephone_number__exact=telephone_number)
+            lookups &=q_obj
+        qs = Patient.objects.filter(lookups).distinct()
+
+        provider = q_params.get("provider", None)
+        if provider:
+            return qs.filter(provider__id=provider)
+
+        return qs
+    def get(self,request, *args, **kwargs):
+        return self.list(request, *args,**kwargs)
+
+    def post(self, request, *args, **kwargs):
+        return self.create(request, *args, **kwargs)
+    
+    def put(self, request, *args, **kwargs):
+        return self.update(request, *args, **kwargs)
 
 class TestView(generics.GenericAPIView, mixins.RetrieveModelMixin, 
     mixins.ListModelMixin, mixins.CreateModelMixin, mixins.UpdateModelMixin
@@ -495,17 +580,6 @@ class TestView(generics.GenericAPIView, mixins.RetrieveModelMixin,
              return qs.filter(provider__id=1)
 
         return qs
-    # def get_queryset(self):
-    #     email = self.kwargs.get("email")
-    #     if email:
-    #         staffAccount = Account.objects.get(email=email)
-    #         print (staffAccount.staff)
-    #         queryset = Employment.objects.filter(staff=staffAccount.staff)
-    #         return queryset
-    #     else: 
-    #         pk = self.kwargs.get("pk")
-    #         return Employment.objects.filter(provider=pk)    
-
     def get(self,request, *args, **kwargs):
         return self.list(request, *args,**kwargs)
 

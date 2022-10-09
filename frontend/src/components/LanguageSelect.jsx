@@ -27,9 +27,9 @@ const LanguageSelect = () => {
 
   return (
     <div className="d-flex justify-content-end align-items-center language-select-root">
-      <Button onClick={({ currentTarget }) => setMenuAnchor(currentTarget)}>
-        {languageMap[selected]?.label} 
-        <ArrowDropDown fontSize="small" />
+      <Button  onClick={({ currentTarget }) => setMenuAnchor(currentTarget)}>
+        <span className="white">{languageMap[selected]?.label} </span>
+        <ArrowDropDown className="white" fontSize="small" />
       </Button>
       <Popover
         open={!!menuAnchor}
@@ -46,7 +46,8 @@ const LanguageSelect = () => {
       >
         <div>
           <List>
-            <ListSubheader>{t("select_language")}</ListSubheader>
+            <ListSubheader
+            >{t("select_language")}</ListSubheader>
             {Object.keys(languageMap)?.map(item => (
               <ListItem
                 button

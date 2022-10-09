@@ -30,7 +30,6 @@ function ProviderProfileUpdate() {
 
 
   const updateProfile = async ()=>{
-    console.log("updated")
     const response = await fetch(`${APIENDPOINT}/users/provider/${id}/`, {
       method: "PATCH",
       headers: {
@@ -152,7 +151,6 @@ function ProviderProfileUpdate() {
                         setTelephones((prev) => {
                           return prev.filter((number) => {
                             if (number === num) {
-                              console.log(number);
                               number.telephone_number = e.target.value;
                             }
                             return telephones;

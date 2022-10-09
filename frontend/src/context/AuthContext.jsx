@@ -19,6 +19,8 @@ export const AuthProvider = ({ children }) => {
       : null
   );
   const [loading, setLoading] = useState(true);
+  const [userDetails, setUserDetails] = useState({});
+
   const navigate = useNavigate();
   const [error, setError] = useState(false);
 
@@ -49,24 +51,24 @@ export const AuthProvider = ({ children }) => {
   };
 
   let logoutUser = () => {
-    console.log("logoutUser")
     setUser(null);
     setAuthTokens(null);
     localStorage.removeItem("authTokens");
     localStorage.removeItem("provider");
-
+    localStorage.removeItem("patient_id")
     navigate("/");
   };
   const contextData = {
     authTokens: authTokens,
     user: user,
+
     loginUser: loginUser,
     logoutUser: logoutUser,
     erorr: error,
   };
 
   const rotateTokens = async () => {
-    console.log("tried")
+
       let response = await fetch(`${APIENDPOINT}/token/refresh/`, {
       method: "POST",
       headers: {

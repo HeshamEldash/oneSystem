@@ -37,6 +37,7 @@ import RecordMain from "./pages/records/RecordMain.jsx";
 import RecordProfile from "./pages/records/admin/RecordProfile.jsx";
 import RecordPastHistory from "./pages/records/RecordPastHistory.jsx";
 import ProviderManagePatients from "./pages/provider/ProviderManagePatients.jsx";
+import RecordFiles from "./pages/records/RecordFiles.jsx";
 function App() {
   const { t, i18n } = useTranslation();
 
@@ -64,6 +65,8 @@ function App() {
                       <Route index element={<RecordMain/>} />
                       <Route element={<RecordProfile/>} path="profile"/>  
                       <Route element={<RecordPastHistory/>} path="past-history"/>   
+                      <Route element={<RecordFiles/>} path="files"/>   
+
                    </Route>
 
 

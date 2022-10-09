@@ -12,6 +12,9 @@ import { matchRoutes, useLocation } from "react-router-dom"
     if(pathname.includes("past-history")){
         return "past-history"
     }
+    if(pathname.includes("files")){
+      return "files"
+  }
 
 
   return "record"

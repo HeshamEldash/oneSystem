@@ -35,7 +35,7 @@ def update_staff(instance, **kwargs ):
     instance.last_name = kwargs.get('last_name', instance.last_name)
     instance.staff_role = kwargs.get('staff_role', instance.staff_role)
     instance.professional_number = kwargs.get('professional_number', instance.professional_number)
-
+  
     # This code will do 3 things:
     # 1) Gets all previous instance (staff) numbers 
     # 2) Loops through the incoming numbers, will either get it or 
@@ -44,6 +44,7 @@ def update_staff(instance, **kwargs ):
     #     it gets deleted
     old_nums = instance.phone_nums.all()
     new_nums = []
+
     for num in phone_nums:
         try:
             obj = TelephoneNumber.objects.get(

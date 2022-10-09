@@ -10,6 +10,7 @@ urlpatterns = [
         
     path("account-status/", AccountStatusView.as_view(), name= "account_status"),
     path("account-create/", CreateAccountView.as_view(), name= "account_create"),
+    path("account-detail/<int:pk>/", AccountDetailView.as_view(), name= "account_detail"),
 
 
 
@@ -46,10 +47,11 @@ urlpatterns = [
     path("staff-login/<int:provider_pk>/<int:staff_pk>/", LoginToProviderEventView.as_view(), name="staff_logins"),
     path("staff-logins-list/<int:provider_pk>/<int:staff_pk>/", LoginToProviderEventViewList.as_view(), name="staff_logins"),
     
+    path("testing/", SearchPatientView.as_view(), name= "search_patients"),
 
    
    
-    path("testing/", TestView.as_view(), name= "tetsing"),
+    # path("testing/", TestView.as_view(), name= "tetsing"),
     path('token/', MyTokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
 ]

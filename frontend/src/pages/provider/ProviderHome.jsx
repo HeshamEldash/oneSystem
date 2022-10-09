@@ -40,7 +40,7 @@ function ProviderHome() {
     if (response.ok){
       const data = await response.json()
       console.log(data)
-      setImage(data[0])
+      setImage(data[1])
     }
   }
 const setLocalStorage = ()=>{
@@ -69,9 +69,9 @@ useEffect(()=>{
                 <p>{staff.last_name}</p>
                 <p>{staff.staff_role}</p>
                 <p>{staff.professional_number}</p>
-                {staff?.telephone_numbers.map((num)=>{
+                {/* {staff?.telephone_numbers.map((num)=>{
                     return <p>{num}</p>
-                })}
+                })} */}
 
 
 

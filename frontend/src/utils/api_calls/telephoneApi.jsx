@@ -22,10 +22,10 @@ const deletePhoneNumber = async (phone_id) => {
         headers: {
           "Content-type": "application/json",
           Authorization: "Bearer " + String(token.access),
-          body: JSON.stringify({
-            telephone_number: phone_num
-          })
         },
+        body: JSON.stringify({
+          telephone_number: phone_num
+        })
       }
     );
   };

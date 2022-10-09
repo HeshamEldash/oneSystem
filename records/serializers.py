@@ -12,9 +12,10 @@ from .models import *
 
 
 class RecordFileSerializer(serializers.ModelSerializer):
+    uploaded_by_staff = serializers.SlugRelatedField(read_only= True,slug_field="full_name")
     class Meta:
         model = RecordFile
-        fields = "__all__"
+        fields = ["id","file", "file_name","date_uploaded","record",  "uploaded_by_staff" ]
 
 
 class PastConditionsSerializer(serializers.ModelSerializer):

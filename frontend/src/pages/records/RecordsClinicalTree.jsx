@@ -9,7 +9,7 @@ import injection from "../../assets/images/injection.svg";
 import history from "../../assets/images/history.svg";
 import investigations from "../../assets/images/investigations2.svg";
 import plan from "../../assets/images/plan.svg";
-// import injection from "../../assets/images/injection.svg";
+import document from "../../assets/images/document.svg";
 
 
 
@@ -64,8 +64,8 @@ function RecordsClinicalTree() {
         {t("pathology")}
       </div>
 
-      <div className="clnical_tree__component" onClick={() => navigate("")}>
-      <img src={investigations} alt="investigations Logo" />
+      <div className="clnical_tree__component" onClick={() => navigate("files")}>
+      <img src={document} alt="document Logo" />
         {t("documents")}
       </div>
 

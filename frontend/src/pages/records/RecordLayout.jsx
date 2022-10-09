@@ -19,9 +19,9 @@ export default function RecordLayout() {
 
   const handleCloseRecord = () => {
     navigate(`/provider/${id}`);
-
     localStorage.removeItem("patient_id");
   };
+
   return (
     <RecordContextProvider>
       <div className="record_layout">
@@ -54,6 +54,11 @@ export default function RecordLayout() {
                 {t("add_pmh")}
               </div>
             )}
+            { path === "files" && <div className="action_bar__element">
+            {t("Add File")}
+            </div>}
+
+
           </RecordActionBar>
 
           <Outlet

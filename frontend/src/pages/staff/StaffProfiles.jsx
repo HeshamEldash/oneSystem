@@ -50,7 +50,7 @@ function StaffProfiles() {
     
     : 
     <>
-     <h3>{t("my_profiles")}</h3>
+     {/* <h3>{t("my_profiles")}</h3> */}
       <div className="inner-page-box--flex-row">
       {profiles?.map((profile) => (
         <StaffProfileItem
