@@ -20,15 +20,15 @@ class Record(models.Model):
 
 
 class RecordFile(models.Model):
-    record = models.ForeignKey(Record, on_delete=models.CASCADE)
+    patient = models.ForeignKey(Patient, on_delete=models.CASCADE)
     file= models.FileField(
         _("file"),
         upload_to=upload_to
     )
     file_name= models.CharField(max_length=500)
     date_uploaded = models.DateTimeField(auto_now_add=True)
-    uploaded_by_staff = models.ForeignKey(Staff, null=True, on_delete=models.DO_NOTHING)     
-    uploaded_by_patient = models.ForeignKey(Patient, null=True, on_delete=models.DO_NOTHING) 
+    uploaded_by = models.ForeignKey(Account, on_delete= models.DO_NOTHING)
+    # uploaded_by_patient = models.ForeignKey(Patient, null=True, on_delete=models.DO_NOTHING) 
 
     def __str__(self) -> str:
         return self.file_name    

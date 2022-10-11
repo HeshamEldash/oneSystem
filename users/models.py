@@ -84,10 +84,18 @@ class Account(AbstractBaseUser, PermissionsMixin):
     @property
     def is_staff(self):
         return self.staff.full_name
-
+    @property
+    def is_patient(self):
+        return self.patient
 
     def __str__(self):
         return self.email
+    @property
+    def get_name(self):
+        if self.is_staff:
+            return self.staff.full_name
+        if self.is_patient:
+            return self.is_patient
 
 class BaseProfile(models.Model):
     title = models.CharField(_("title"), max_length=20, unique=False, null=True)

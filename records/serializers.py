@@ -12,12 +12,16 @@ from .models import *
 
 
 class RecordFileSerializer(serializers.ModelSerializer):
-    uploaded_by_staff = serializers.SlugRelatedField(read_only= True,slug_field="full_name")
+    uploading_staff_name = serializers.SlugRelatedField(source="uploaded_by",read_only= True,slug_field="get_name")
     class Meta:
         model = RecordFile
-        fields = ["id","file", "file_name","date_uploaded","record",  "uploaded_by_staff" ]
-
-
+        fields = ["id","file", "file_name","date_uploaded","patient", "uploaded_by", "uploading_staff_name" ]
+        extra_kwargs = {'uploaded_by': {'required': False},
+        }
+    def create(self, validated_data):
+        user = self.context["request"].user
+        print(user)
+        return RecordFile.objects.create(uploaded_by=user,**validated_data )
 class PastConditionsSerializer(serializers.ModelSerializer):
     # recorded_by = serializers.SlugRelatedField(slug_field="is_staff", read_only=True)
     class Meta:

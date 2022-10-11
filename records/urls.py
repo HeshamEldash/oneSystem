@@ -9,6 +9,6 @@ urlpatterns = [
     path("patients-past-conditions/", PastConditionsView.as_view(), name= "patients_past_conditions"),
     path("patients-past-condition/<int:condition_pk>/", PastConditionView.as_view(), name= "patients_past_condition"),
     
-    path("patients-records-files/", RecordFilesView.as_view(), name= "patients_records_files"),
+    path("patients-records-files/<int:patient_pk>/", RecordFilesView.as_view(), name= "patients_records_files"),
 
 ]

@@ -4,7 +4,7 @@ import externalLink from "../../../assets/images/externalLink.svg";
 import "../../../svg.css";
 import NewWindow from "./NewWindow";
 
-function DocumentElements(props) {
+function DocumentElement(props) {
   const [numPages, setNumPages] = useState(null);
   const [pageNumber, setPageNumber] = useState(1);
 
@@ -36,9 +36,10 @@ function DocumentElements(props) {
   }, [props.file]);
 
   return (
-    <div className="testingfile">
-      <span className="recordElement">{props.name}</span>
+    <div className="file_component_row">
+      <span className="recordElement--name">{props.name}</span>
       <span className="recordElement">{uploadDate}</span>
+
       <span className="recordElement"> {props.uploadedBy}</span>
       <span className="recordElement">
         <img
@@ -46,16 +47,30 @@ function DocumentElements(props) {
           src={externalLink}
           onClick={() => handleOpen()}
         />
+        <a
+          href={props.file}
+          without="true"
+          rel="noopener noreferrer"
+          target="_blank"
+          style={{ color: "red" }}
+        >
+          {" "}
+          <img
+            className="svg20 svg_cursor"
+            src={externalLink}
+            // onClick={() => handleOpen()}
+          />
+        </a>
       </span>
+
       <span className="recordElement"> {fileType}</span>
 
       {open && (
         <NewWindow closeDocument={setOpen}>
+          {props.file}
+
           {fileType === "pdf" && (
-            <Document 
-     
-            
-            file={props.file} onLoadSuccess={onDocumentLoadSuccess}>
+            <Document file={props.file} onLoadSuccess={onDocumentLoadSuccess}>
               <Page pageNumber={pageNumber} />
             </Document>
           )}
@@ -67,4 +82,4 @@ function DocumentElements(props) {
   );
 }
 
-export default DocumentElements;
+export default DocumentElement;

@@ -532,11 +532,20 @@
   }
 }
 
-.testingfileHeader {
+
+.files_box{
+
+  max-height: 80vh;
+  overflow-y: auto;
+  overflow-x: hidden;
+
+
+}
+.fileHeader {
   background-color: whitesmoke;
-  width: 84%;
+  width: 100%;
   min-height: 50px;
-  position: fixed;
+  position: sticky;
   display: flex;
   justify-content: flex-start;
   color: var(--color-gray-darker);
@@ -544,31 +553,51 @@
   padding-inline: 5rem;
   line-height: 1.6;
   font-weight: 600;
-  gap: 8rem;
+  gap: 5%;
   margin-top: -6px;
   margin-inline-start: 8px;
   box-shadow: var(--shallowShadow);
 }
 .recordElement {
+  /* background-color: red; */
   width: 11rem;
+  /* width: 250px; */
+
+  overflow: hidden;
+  padding-top: 6px;
+  color: var(--color-gray-darker);
+}
+.recordElement--name{
+  width: 17rem;
   overflow: hidden;
   padding-top: 6px;
   color: var(--color-gray-darker);
 }
 .filecontainre {
-  max-height: 70vh;
-  padding-top: 52px;
-  overflow-y: auto;
+
   width: 99%;
   margin-inline: auto;
 }
-.testingfile {
+.file_component_row {
   background-color: white;
   width: 100%;
   min-height: 40px;
   border-bottom: 1px solid var(--color-gray-light);
   display: flex;
-  gap: 8rem;
+  gap: 5%;
   padding-inline: 5rem;
   box-shadow: var(--shallowShadow);
+}
+@media screen and (max-width: 800px) {
+  .fileHeader{
+    width: 100%;
+  }
+  .file_component_row{
+    gap: 0.3rem;
+    flex-wrap: wrap;
+  }
+  .testingfile{
+  padding-inline: 1rem;
+
+  }
 }

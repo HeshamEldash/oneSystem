@@ -33,7 +33,7 @@ function RecordContextProvider(props) {
 // }
 // }, [])
   const contextData = {
-
+    patientId:patientProfile.id,
     patient:patientProfile,
     records:patientRecords
   };
@@ -41,7 +41,6 @@ function RecordContextProvider(props) {
 // componentWillUnmount() {
 //     alert('The component is going to be unmounted');
 //   }
-
 
   return (
     <RecordContext.Provider value={{ contextData }}>

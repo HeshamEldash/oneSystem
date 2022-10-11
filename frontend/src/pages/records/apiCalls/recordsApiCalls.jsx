@@ -153,7 +153,23 @@ const deletePastCodition = async (patient_id, condition_id) => {
   );
 };
 
+const getRecordFiles = async (patient_id)=>{
+  const response = await fetch(
+    `${APIENDPOINT}/records/patients-records-files/${patient_id}/`,
+    {
+      method: "GET",
+      headers: {
+        "Content-type": "application/json",
+        Authorization: "Bearer " + String(token.access),
+      },
+    }
+  );
+  if (response.ok) {
+    const data = await response.json();
+    return data
+  }
 
+}
 
 export {
   getPatientProfile,
@@ -163,5 +179,7 @@ export {
   updatePatinetProfile,
   createPastCodition,
   getPastCoditions,
-  deletePastCodition
+  deletePastCodition,
+  getRecordFiles,
+
 };

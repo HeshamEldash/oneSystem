@@ -12,6 +12,8 @@ export default function RecordLayout() {
   const [showConsultationBox, setShowConsultationBox] = useState(true);
   const [showAddMedicalConditionBox, setShowAddMedicalConditionBox] =
     useState(false);
+  const [upload, setUpload] = useState(false)
+
   const navigate = useNavigate();
   const [newRecords, setNewRecords] = useState([]);
   const path = useCurrentPath();
@@ -54,7 +56,8 @@ export default function RecordLayout() {
                 {t("add_pmh")}
               </div>
             )}
-            { path === "files" && <div className="action_bar__element">
+            { path === "files" && <div className="action_bar__element"
+            onClick={() => setUpload((prev) => !prev)}>
             {t("Add File")}
             </div>}
 
@@ -67,6 +70,7 @@ export default function RecordLayout() {
               setNewRecords,
               newRecords,
               showAddMedicalConditionBox,
+              upload,
             }}
           />
         </main>
