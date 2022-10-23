@@ -1,6 +1,14 @@
 .svg20{
     width: 20px;
 }
+.svg30{
+    width: 30px;
+}
 .svg_cursor{
     cursor: pointer
+}
+.svg_hover:hover{
+    transform: scale(1.2);
+    /* background-color: rgba(201, 201, 201, 0.322); */
+    border-radius: 100%;
 }

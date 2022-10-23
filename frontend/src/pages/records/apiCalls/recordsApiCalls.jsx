@@ -118,6 +118,29 @@ const createPastCodition = async (patient_id, values) => {
   );
 };
 
+const getIcdList = async (patient_id) =>{
+  let response = await fetch(
+    `${APIENDPOINT}/records/patients-icd-codes/?` +
+      new URLSearchParams({ patient_id: patient_id }),
+    {
+      method: "GET",
+      headers: {
+        "Content-type": "application/json",
+        Authorization: "Bearer " + String(token.access),
+      },
+    }
+  );
+
+
+  if (response.ok) {
+    const data = response.json();
+    return data;
+  } else {
+    throw "An error has happened";
+  }
+
+}
+
 const getPastCoditions = async (patient_id) => {
   let response = await fetch(
     `${APIENDPOINT}/records/patients-past-conditions/?` +
@@ -181,5 +204,6 @@ export {
   getPastCoditions,
   deletePastCodition,
   getRecordFiles,
+  getIcdList,
 
 };

@@ -1,26 +1,29 @@
 import react, { createContext, useState, useEffect } from "react";
 import { useParams } from "react-router";
 import { createLogin } from "../../../utils/api_calls/getLogins";
-const ProviderContext = createContext();
+export const ProviderContext = createContext();
 
-function ProviderContextProvider(props) {
+export default function ProviderContextProvider(props) {
 
-  const getProfileData = async () => {
-
-  };
 
   
 
+
+
   useEffect(() => {
-    createLogin()
+    console.log("in")
+    const dont = true
+
+    if (dont) return ()=> console.log("logged")
   }, []);
 
   const contextData = {
- 
+    hello : "hello world",
+
   };
 
   return (
-    <ProviderContext.Provider value={{ contextData }}>
+    <ProviderContext.Provider value={contextData}>
       {props.children}
     </ProviderContext.Provider>
   );

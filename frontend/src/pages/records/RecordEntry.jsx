@@ -4,9 +4,8 @@ import { useRecordContext } from "./context/RecordContextHook";
 import { useTranslation } from "react-i18next";
 import Icd from "../../externalapis/icd-10/Icd";
 function RecordEntry(props) {
-  const { patient } = useRecordContext();
+  const { patient, patientId } = useRecordContext();
   const { t } = useTranslation();
-
   const [recordEntry, setRecordEntry] = useState({
     history: "",
     examination: "",
@@ -25,17 +24,17 @@ function RecordEntry(props) {
       const confirm = window.confirm(
         t("are_you_sure_you_want_to_save_an_empty_record")
       );
-      console.log(is_public)
+      console.log(is_public);
       if (confirm) {
         createRecord(patient.id, recordEntry, is_public);
         props.addRecord((prev) => {
-          return [...prev, {...recordEntry, is_public:is_public}];
+          return [...prev, { ...recordEntry, is_public: is_public }];
         });
       }
     } else {
       createRecord(patient.id, recordEntry, is_public);
       props.addRecord((prev) => {
-        return [...prev, {...recordEntry, is_public:is_public}];
+        return [...prev, { ...recordEntry, is_public: is_public }];
       });
     }
   };
@@ -126,9 +125,7 @@ function RecordEntry(props) {
           type="button"
           value={t("save_and_share")}
           onClick={() => {
-
             handleSubmit(true);
-
 
             // createRecord(patient.id, recordEntry);
             // props.addRecord((prev) => {
@@ -137,7 +134,7 @@ function RecordEntry(props) {
           }}
         />
       </div>
-      {/* <Icd/> */}
+      <Icd />
     </div>
   );
 }

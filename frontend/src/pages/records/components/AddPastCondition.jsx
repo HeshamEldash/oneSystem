@@ -8,21 +8,21 @@ import { useRecordContext } from "../context/RecordContextHook";
 
 function AddPastCondition({ pastCondition, updateParent }) {
   const { t } = useTranslation();
-  const { patient } = useRecordContext()
+  const { patient } = useRecordContext();
 
   const onSubmit = (values, actions) => {
-    if (values.condition === ""){
-    actions.resetForm();
+    if (values.condition === "") {
+      actions.resetForm();
 
-        return alert(t("You cannot add an empty condition"))
+      return alert(t("You cannot add an empty condition"));
     }
 
-    values.date_diagnosed = values.date_diagnosed.toISOString().split('T')[0]
+    values.date_diagnosed = values.date_diagnosed.toISOString().split("T")[0];
 
-    createPastCodition(patient.id, values)
+    createPastCodition(patient.id, values);
     // !!closeModal && closeModal();
     actions.resetForm();
-    updateParent((prev)=>[...prev,values])
+    updateParent((prev) => [...prev, values]);
   };
 
   const {
@@ -46,33 +46,39 @@ function AddPastCondition({ pastCondition, updateParent }) {
 
   return (
     <div>
-      <h3 className="record_inner_container--title">{t("add_a_medical_condition")}</h3>
+      <h3 className="record_inner_container--title">
+        {t("add_a_medical_condition")}
+      </h3>
       <div className="add_condition_box">
-        <form className="user-fodrm grid_form" type="submit" onSubmit={handleSubmit}>
+        <form
+          className="user-fodrm grid_form"
+          type="submit"
+          onSubmit={handleSubmit}
+        >
+          <label className="label grid_form--span1"> {t("condition")}</label>
+          <input
+            className={
+              errors.condition && touched.condition
+                ? "input-error form-fields label grid_form--span2"
+                : "form-fields grid_form--span2"
+            }
+            value={values.condition}
+            onChange={handleChange}
+            onBlur={handleBlur}
+            type="text"
+            name="condition"
+          />
 
-            <label className="label grid_form--span1"> {t("condition")}</label>
-            <input
-              className={
-                errors.condition && touched.condition
-                  ? "input-error form-fields label grid_form--span2"
-                  : "form-fields grid_form--span2"
-              }
-              value={values.condition}
-              onChange={handleChange}
-              onBlur={handleBlur}
-              type="text"
-              name="condition"
-            />
-
-            {/* {errors.email && touched.email && (
+          {/* {errors.email && touched.email && (
           <p className="error">{errors.email}</p>
         )} */}
-      
 
+          <label className="label grid_form--span1">
+            {" "}
+            {t("date_diagnosed")}
+          </label>
 
-            <label className="label grid_form--span1"> {t("date_diagnosed")}</label>
-
-            <div className="grid_form--span2">
+          <div className="grid_form--span2">
             <DatePicker
               className="form-fields grid_form--span2"
               name="date_diagnosed"
@@ -80,27 +86,26 @@ function AddPastCondition({ pastCondition, updateParent }) {
               selected={new Date(values?.date_diagnosed)}
               onChange={(date) => setFieldValue("date_diagnosed", date)}
             />
-            </div>
+          </div>
 
-            {/* {errors.email && touched.email && (
+          {/* {errors.email && touched.email && (
           <p className="error">{errors.email}</p>
         )} */}
-    
-      
-            <label className="label grid_form--span1"> {t("icd_code")}</label>
-            <input
-              className={
-                errors.icd_code && touched.icd_code
-                  ? "input-error form-fields grid_form--span2"
-                  : "form-fields grid_form--span2"
-              }
-              value={values.icd_code}
-              onChange={handleChange}
-              onBlur={handleBlur}
-              type="text"
-              name="icd_code"
-            />
-            {/* {errors.email && touched.email && (
+
+          <label className="label grid_form--span1"> {t("icd_code")}</label>
+          <input
+            className={
+              errors.icd_code && touched.icd_code
+                ? "input-error form-fields grid_form--span2"
+                : "form-fields grid_form--span2"
+            }
+            value={values.icd_code}
+            onChange={handleChange}
+            onBlur={handleBlur}
+            type="text"
+            name="icd_code"
+          />
+          {/* {errors.email && touched.email && (
           <p className="error">{errors.email}</p>
         )} */}
           <input
@@ -110,10 +115,8 @@ function AddPastCondition({ pastCondition, updateParent }) {
             value={t("submit")}
           />
         </form>
-
       </div>
-      {/* <Icd/> */}
-
+      <Icd/>
     </div>
   );
 }

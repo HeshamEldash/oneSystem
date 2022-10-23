@@ -367,13 +367,19 @@
   font-weight: 600;
   text-transform: capitalize;
 }
+.condition_details {
+  line-height: 1.5;
+  display: block;
+  text-transform: capitalize;
+  font-weight: 600;
+  color: var(--color-gray-dark);
+}
 .condition_date {
   display: block;
 }
 .condition_box--utils {
   display: inline-block;
   margin-left: 10px;
-  /* right: 10px; */
   inset-inline-end: 10px;
   top: 10px;
   display: inline;
@@ -500,15 +506,7 @@
     display: inline;
     position: absolute;
   }
-  .svg_icon_large {
-    width: 30px;
-    cursor: pointer;
-  }
-  .svg_icon_large:hover {
-    transform: scale(1.2);
-    background-color: rgba(201, 201, 201, 0.322);
-    border-radius: 100%;
-  }
+
   .content {
     margin: 0;
     top: 23%;
@@ -532,14 +530,10 @@
   }
 }
 
-
-.files_box{
-
+.files_box {
   max-height: 80vh;
   overflow-y: auto;
   overflow-x: hidden;
-
-
 }
 .fileHeader {
   background-color: whitesmoke;
@@ -567,14 +561,13 @@
   padding-top: 6px;
   color: var(--color-gray-darker);
 }
-.recordElement--name{
+.recordElement--name {
   width: 17rem;
   overflow: hidden;
   padding-top: 6px;
   color: var(--color-gray-darker);
 }
 .filecontainre {
-
   width: 99%;
   margin-inline: auto;
 }
@@ -589,15 +582,65 @@
   box-shadow: var(--shallowShadow);
 }
 @media screen and (max-width: 800px) {
-  .fileHeader{
+  .fileHeader {
     width: 100%;
   }
-  .file_component_row{
+  .file_component_row {
     gap: 0.3rem;
     flex-wrap: wrap;
   }
-  .testingfile{
-  padding-inline: 1rem;
-
+  .testingfile {
+    padding-inline: 1rem;
   }
+}
+.tetingicd {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+
+}
+.icdInput {
+  min-width: 30rem;
+  line-height: 2.3;
+  border-radius: 7px;
+  box-shadow: var(--shallowShadow);
+  border: none;
+}
+.popupModeResults {
+  border-radius: 9px !important;
+  padding-inline: 1rem !important;
+  background-color: var(--color-gray-lightest) !important;
+  padding-bottom: 3rem !important;
+}
+
+.wordlist ul {
+  margin: 0 !important;
+}
+.sortoption > select {
+  height: 30px !important;
+}
+.entitylist ul {
+  margin-left: 0px !important;
+}
+
+.ctwFlexItem75 {
+  max-height: 60vh;
+  background-color: white;
+  box-shadow: var(--shallowShadow);
+  padding-block: 0.6rem;
+  border-radius: 9px;
+}
+
+.closeicon {
+  width: 25px !important;
+  height: 25px !important;
+  display: flex !important;
+  align-content: center !important;
+  justify-content: center !important;
+  align-items: center !important;
+  background-color: #ff94a3 !important;
+  border-radius: 4px !important;
+}
+.closeicon:hover{
+  background-color:#ff0000 !important;
 }

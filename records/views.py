@@ -9,6 +9,22 @@ from django.shortcuts import get_object_or_404
 
 
 
+
+class PatientIcdCodeView(generics.GenericAPIView, mixins.ListModelMixin,mixins.CreateModelMixin):
+
+    serializer_class = PatientIcdCodeSerializer
+    def get_queryset(self):
+        patient_pk =  self.request.query_params.get('patient_id')
+        qs = PatientIcdCode.objects.filter(patient= patient_pk)
+        return qs
+
+    def get(self, request, *args, **kwargs):
+        return self.list(request, *args,**
+    kwargs)  
+
+    def post(self, request, *args, **kwargs):
+        return self.create(request, *args, **kwargs)
+
 class RecordFilesView(generics.GenericAPIView, mixins.ListModelMixin,mixins.CreateModelMixin):
 
     serializer_class = RecordFileSerializer

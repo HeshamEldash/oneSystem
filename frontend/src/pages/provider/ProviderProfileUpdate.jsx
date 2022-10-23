@@ -215,7 +215,7 @@ function ProviderProfileUpdate() {
                     }}
                   >
                     <input
-                      // type="buttond "
+                      readOnly
                       className="page_button "
                       value={t("update")}
                       onClick={() => handleOpen(address)}

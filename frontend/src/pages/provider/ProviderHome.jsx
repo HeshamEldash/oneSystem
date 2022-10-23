@@ -29,54 +29,17 @@ function ProviderHome() {
 
   } 
 
-  const testGetRecordFile = async ()=>{
-    const response = await fetch(`${APIENDPOINT}/records/patients-records-files/`,{
-      method: "GET",
-      headers: {
-          "Content-type": "application/json",
-        },
-    })
 
-    if (response.ok){
-      const data = await response.json()
-      console.log(data)
-      setImage(data[1])
-    }
-  }
-const setLocalStorage = ()=>{
-
-}  
 useEffect(()=>{
     getAllStaff()
-    testGetRecordFile()
-    // localStorage.setItem("provider", JSON.stringify(data))
 },[])
 
   return (
     <>
 
       <div className="provider-home-main">
-      <img src={image?.file}/>
-      This si the provider home
-        {registeredPatients?.map((patient)=>{
-            <span>patient.id</span>
-        })}
-        {employedStaff?.map((staff)=>{
-            return <div>
-                <p>{staff.id}</p>
-                <p>{staff.first_name}</p>
-                <p>{staff.middle_names}</p>
-                <p>{staff.last_name}</p>
-                <p>{staff.staff_role}</p>
-                <p>{staff.professional_number}</p>
-                {/* {staff?.telephone_numbers.map((num)=>{
-                    return <p>{num}</p>
-                })} */}
 
-
-
-            </div>
-        })}
+     
       </div>
     </>
   );

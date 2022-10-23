@@ -7,7 +7,23 @@ from .models import *
 
 
 
+class PatientIcdCodeSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = PatientIcdCode
+        fields = "__all__"
+        extra_kwargs = {'recorded_by': {'required': False},
+        }
 
+    # recorded_by = models.ForeignKey(Staff, on_delete= models.DO_NOTHING)
+    # patient = models.ForeignKey(Patient, on_delete=models.CASCADE)
+    # date_recorded = models.DateField(auto_now_add=True)
+    
+
+    # code= models.CharField(max_length=20)
+    # title = models.CharField(max_length=200)
+    # selectedText = models.CharField(max_length=200)
+    # linearizationUri = models.CharField(max_length=200)
+    # foundationUri = models.CharField(max_length=200)
 
 
 

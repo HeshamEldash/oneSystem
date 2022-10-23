@@ -1,7 +1,6 @@
 import React, { useRef, useEffect, useState } from "react";
 import { useOutletContext } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import Icd from "../../externalapis/icd-10/Icd";
 import { useRecordContext } from "./context/RecordContextHook";
 
 import AddPastCondition from "./components/AddPastCondition";
@@ -10,6 +9,7 @@ import {
   deletePastCodition,
 } from "./apiCalls/recordsApiCalls";
 import deleteColored from "../../assets/images/deleteColored.svg";
+import RecordPastIcd from "./RecordPastIcd";
 
 function RecordPastHistory() {
   const { t } = useTranslation();
@@ -20,7 +20,6 @@ function RecordPastHistory() {
   const getConditions = async () => {
     const data = await getPastCoditions(patient.id);
     setCondition(data);
-    console.log(data);
   };
   useEffect(() => {
     getConditions();
@@ -50,9 +49,6 @@ function RecordPastHistory() {
           <div
             key={condition.id || index}
             className="condition_box"
-            onSelect={(e) => {
-              console.dir(e.target);
-            }}
           >
             <span className="condition_text">{condition.condition}</span>
             <span className="condition_date">
@@ -66,7 +62,7 @@ function RecordPastHistory() {
             <div className="condition_box--utils">
               {condition.id && (
                 <img
-                  className="svg_icon_large"
+                  className=" svg30  svg_cursor svg_hover"
                   src={deleteColored}
                   alt="delete Logo"
                   onClick={() => handleDelete(condition.id)}
@@ -76,6 +72,8 @@ function RecordPastHistory() {
           </div>
         );
       })}
+
+      <RecordPastIcd/>
     </div>
   );
 }
