@@ -39,15 +39,15 @@ import RecordPastHistory from "./pages/records/RecordPastHistory.jsx";
 import ProviderManagePatients from "./pages/provider/ProviderManagePatients.jsx";
 import RecordFiles from "./pages/records/RecordFiles.jsx";
 import ProviderMainContainer from "./pages/provider/ProviderMainContainer.jsx";
-import Testings from "./pages/medications/Testings.jsx";
+import MedicationPrescribePanel from "./pages/medications/MedicationPrescribePanel.jsx";
 function App() {
   const { t, i18n } = useTranslation();
 
   return (
     <div className="App {i18n.language === 'en' ? 'english': 'arabic'}">
       <AuthProvider>
-        {/* <Header /> */}
-        <Testings/>
+        <Header />
+        {/* <MedicationPrescribePanel/> */}
         <Routes>
           <Route element={<ProtectedUserRoutes />}>
             <Route element={<StaffDashboard />} path="/staff-dashboard" />
@@ -86,6 +86,8 @@ function App() {
                 <Route element={<RecordProfile />} path="profile" />
                 <Route element={<RecordPastHistory />} path="past-history" />
                 <Route element={<RecordFiles />} path="files" />
+                <Route element={<MedicationPrescribePanel />} path="medications" />
+
               </Route>
             </Route>
           </Route>

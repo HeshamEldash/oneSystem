@@ -34,7 +34,7 @@ function RecordsClinicalTree() {
 
         {t("main_record")}
       </div>
-      <div className="clnical_tree__component" onClick={() => navigate("")}>
+      <div className="clnical_tree__component" onClick={() => navigate("medications")}>
       <img src={pills} alt="medications Logo" />
 
         {t("medications")}

@@ -11,7 +11,7 @@ function Icd() {
 
   const saveIcd = async () => {
     let response = await fetch(
-      `${APIENDPOINT}/records/patients-icd-codes/${patientId}/?` +
+      `${APIENDPOINT}/records/patients-icd-codes/?` +
       new URLSearchParams({ patient_id: patientId }),
       {
         method: "POST",

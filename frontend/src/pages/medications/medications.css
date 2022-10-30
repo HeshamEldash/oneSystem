@@ -1,6 +1,116 @@
-.testmedicince{
-    margin-top: 50px;
-    min-height: 400px;
-    min-width: 400px;
-    background-color: lightgray;
+.medication_px_panel{
+    background-color: var(--color-gray-light);
+    /* max-width: 1600px; */
+    box-shadow: var(--shallowShadow);
+    padding: 1rem;
+    padding-block: 2rem;
+    border-radius: 6px;
+    margin-inline: 10px;
+
+}
+
+.search_box{
+    /* background-color: red; */
+    
+}
+.search_box__form{
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    /* padding: 10px; */
+    margin-bottom: 3rem;
+    padding-inline-end: 2.5rem;
+}
+.border_radius_5{
+    border-radius: 5px;
+}
+.medications_results{
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    justify-content: space-between;
+    gap: 0.8rem;
+    padding-inline-end: 0.7rem;
+    
+}
+
+.medications_results_box{
+    height: fit-content;
+    /* width: 100%; */
+    width: 49%;
+    width: 49%;
+
+    max-height: 20rem;
+    overflow-y: auto;
+}
+.light_border_bottom{
+    border-bottom: solid 1px var(--color-gray-light);
+}
+.font_weight_bold{
+    font-weight: bold;
+}
+
+.medication_main{
+    background-color: white;
+}
+.medication_main:hover{
+    background-color: var(--color-gray-light);
+}
+.medication_group_box{
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 0.3rem;
+}
+.medication_selected{
+    background-color: white;
+    min-width: 80%;
+    padding: 0.3rem;
+    border-radius: 4px;
+}
+
+.prescribtion_label{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+    margin-bottom: 10px;
+    flex-wrap: wrap;
+    max-width: 1300px; 
+}
+
+.prescribtion_label > *{
+    flex: 0 0 90%;
+    margin-left: 10px;
+}
+
+
+
+
+
+.prescription__footer{
+    display: flex;
+    padding: 2rem;
+    justify-content: flex-end;
+    gap: 2rem;
+}
+.prescription__actions{
+    width: fit-content;
+    display: flex;
+    gap:0.7rem;
+
+}
+
+
+
+
+@media screen and (max-width: 1000px) {
+    .medications_results_box{
+        width: 100%;
+    }
+    .prescribtion_label{
+    justify-content: flex-start;
+
+    }
 }

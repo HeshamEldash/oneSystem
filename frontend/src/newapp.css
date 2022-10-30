@@ -159,6 +159,12 @@ UTILITY CLASSES
 */
 
 
+
+
+.padding1{
+  padding: 1rem;
+}
+
 .page_padding_bottom{
     padding-bottom:7rem ;
 
@@ -184,6 +190,11 @@ UTILITY CLASSES
   flex-direction: column;
   gap: 1rem;
   width: 100%;
+}
+.flex-row{
+  display: flex;
+  flex-direction: row;
+
 }
 .inner-page-box--flex-row {
   display: flex;
@@ -237,11 +248,17 @@ UTILITY CLASSES
 .deep_shadow{
     box-shadow: var(--deepShadow);
 }
-
-
-.padding_inline-header{
-    padding-inline: rem;
+.shallow_shadow{
+  box-shadow: var(--shallowShadow);
 }
+.padding_block_small{
+  padding-block:0.5rem ;
+}
+
+.padding_inline-small{
+    padding-inline: 0.5rem;
+}
+
 .display_inline{
     display: inline;
 }
