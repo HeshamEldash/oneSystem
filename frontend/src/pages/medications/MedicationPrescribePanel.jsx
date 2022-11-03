@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useRef, useState } from "react";
+import React, { useEffect, useMemo, useRef, useState, useContext } from "react";
 import Autocomplete from "@mui/material/Autocomplete";
 import TextField from "@mui/material/TextField";
 import "./medications.css";
@@ -10,6 +10,10 @@ import RepeatIcon from "@mui/icons-material/Repeat";
 import QueueIcon from "@mui/icons-material/Queue";
 import LayersIcon from "@mui/icons-material/Layers";
 import Tooltip from "@mui/material/Tooltip";
+import ClearIcon from "@mui/icons-material/Clear";
+import { createPrescription } from "./medicationsApiCalls";
+import { useRecordContext } from "../records/context/RecordContextHook";
+import { ProviderContext } from "../provider/context/ProviderContext";
 
 function MedicationPrescribePanel() {
   const [drugList, setDrugList] = useState([]);
@@ -20,16 +24,20 @@ function MedicationPrescribePanel() {
   const [value, setValue] = React.useState(options[0]);
   const [selectedMedicine, setSelectedMedicine] = useState();
   const [apiPx, setApiPx] = useState(true);
-
-  const [prescription, setPrescription] = useState({
-    name: "",
-    rxcui: "",
-    synonym: "",
-    dose: "",
-  });
-
+  const { patient, patientId } = useRecordContext();
+  const { providerId } = useContext(ProviderContext);
   const doseRef = useRef();
   const freeTextMedicineRef = useRef();
+  const [prescribedList, setPrescribedList] = useState([]);
+  const [inputValue, setInputValue] = React.useState("");
+
+  const [prescription, setPrescription] = useState({
+    // name: "",
+    // rxcui: "",
+    // synonym: "",
+    // dose: "",
+    // is_regular: false,
+  });
 
   const showInteractions = async () => {
     let response = await fetch(
@@ -73,6 +81,7 @@ function MedicationPrescribePanel() {
     const termList = terms?.displayTermsList?.term;
     return termList;
   }, []);
+
   const getTerms = async () => {
     // a function to be called in useEffect to set the terms list
     const terms = await displayTerms;
@@ -165,22 +174,107 @@ function MedicationPrescribePanel() {
     setSelectedMedicine(drug);
   };
 
-  const handlePresciption = () => {
+  const handleClearPanel = () => {
+    if (freeTextMedicineRef.current != null) {
+      freeTextMedicineRef.current.value = "";
+    }
+    if (doseRef.current != null) {
+      doseRef.current.value = "";
+    }
+    setStoredRcuxi();
+    setValue();
+    setDrugList([]);
+    setOptions([]);
+    setInputValue("");
+    setInteractions([]);
+    setSelectedMedicine();
+    setPrescription()
+  };
+
+  const prescribeCurrentMedication = () => {
+    let prescriptionInit = {};
+
     if (apiPx) {
-      setPrescription({
+      if (!selectedMedicine) {
+        return null;
+      }
+      if (doseRef.current.value === "") {
+        alert("you cannot leave the dose box empty");
+        return null;
+      }
+
+      prescriptionInit = {
         name: selectedMedicine.name,
         rxcui: selectedMedicine.rcuxi,
-        synonym: selectedMedicine.synonym,
+        // synonym: selectedMedicine.synonym,
         dose: doseRef.current.value,
-      });
+        is_regular: false,
+      };
+      setPrescription(prescriptionInit);
     } else {
-      setPrescription({
+      if (freeTextMedicineRef.current.value === "") {
+        alert("you cannot leave the medication box empty");
+        return null;
+      }
+      if (doseRef.current.value === "") {
+        alert("you cannot leave the dose box empty");
+        return null;
+      }
+
+      prescriptionInit = {
         name: freeTextMedicineRef.current.value,
         rxcui: "",
-        synonym: "",
+        // synonym: "",
         dose: doseRef.current.value,
-      });
+        is_regular: false,
+      };
+      setPrescription(prescriptionInit);
     }
+
+    return prescriptionInit;
+  };
+
+  const handleAddMedication = () => {
+    let currentPx = prescribeCurrentMedication();
+    if (currentPx === null) {
+      return;
+    }
+    setPrescribedList((prev) => [...prev, currentPx]);
+
+    handleClearPanel();
+  };
+
+  const handlePresciption = () => {
+    let currentPx = prescribeCurrentMedication();
+
+    // // handle sending data to backend
+    let prescriptionData = [];
+
+
+    if (currentPx === null) { 
+
+
+      if (apiPx && prescribedList.length > 0 ){
+        prescriptionData = [...prescribedList]
+      }else{
+        return 
+      } 
+
+    }else{
+      prescriptionData = [
+        ...prescribedList,
+        currentPx
+      ];
+    }
+
+
+
+
+    createPrescription(patientId, providerId, prescriptionData);
+
+    // clear the panel
+    setPrescribedList([])
+    handleClearPanel();
   };
 
   return (
@@ -193,26 +287,35 @@ function MedicationPrescribePanel() {
         }}
       />
       Computer prescription
+      <br />
+      <br />
       {apiPx ? (
         <div>
           <div className="search_box">
             <form className="search_box__form" onSubmit={handleSubmit}>
               <Autocomplete
-                // id="free-solo-demo"
-
                 value={value}
+                inputValue={inputValue}
                 onChange={(event, newValue) => {
                   setValue(newValue);
+                  // setInputValue(newValue)
                 }}
                 freeSolo
                 options={options}
-                renderInput={(params) => (
-                  <TextField
-                    {...params}
-                    label="Medication"
-                    onChange={handleChange}
-                  />
-                )}
+                onInputChange={(event, newInputValue) => {
+                  setValue(newInputValue);
+                  setInputValue(newInputValue);
+                  handleChange(event);
+                }}
+                renderInput={(params) => {
+                  return (
+                    <TextField
+                      {...params}
+                      label="Medication"
+                      // onChange={handleChange}
+                    />
+                  );
+                }}
                 sx={{
                   bgcolor: "white",
                   width: 0.8,
@@ -255,6 +358,7 @@ function MedicationPrescribePanel() {
                 return item?.conceptProperties?.map((drug, index) => {
                   return (
                     <Medicine
+                      key={index}
                       drug={drug}
                       selectMedicine={handleMedicineSelect}
                     />
@@ -310,12 +414,36 @@ function MedicationPrescribePanel() {
         </div>
       )}
       <div className="prescription__footer">
+        <div className="prescribed_list">
+    
+        {prescribedList.map((medication, index)=>{
+          return <div>
+          <span className="medName" key={index}>{medication.name} </span>
+          <span className="closeBox">
+          <ClearIcon 
+          sx={{width:20, position:"relative", cursor:"pointer", height:"auto", position:"absolute"}}
+            onClick={()=>{
+              setPrescribedList(()=>
+              prescribedList.filter((med, medIndex)=>{
+                return index != medIndex
+              })
+              )
+            }}
+          />
+          </span>
+          
+          </div>
+        })}
+        </div>
+
+    
         <div className="prescription__actions">
           <Tooltip title="Add Another Drug">
             <Fab
               color="primary"
               aria-label="add"
               sx={{ width: 30, height: 30, borderRadius: 1 }}
+              onClick={() => handleAddMedication()}
             >
               <AddIcon />
             </Fab>
@@ -348,6 +476,17 @@ function MedicationPrescribePanel() {
               sx={{ width: 30, height: 30, borderRadius: 1 }}
             >
               <LayersIcon />
+            </Fab>
+          </Tooltip>
+
+          <Tooltip title="Clear the panel">
+            <Fab
+              color="primary"
+              aria-label="add"
+              sx={{ width: 30, height: 30, borderRadius: 1 }}
+              onClick={() => handleClearPanel()}
+            >
+              <ClearIcon />
             </Fab>
           </Tooltip>
 

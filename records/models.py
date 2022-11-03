@@ -1,4 +1,3 @@
-from pyexpat import model
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 from users.models import Account, Patient, Staff

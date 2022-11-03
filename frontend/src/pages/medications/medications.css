@@ -102,6 +102,27 @@
 
 }
 
+.prescribed_list{
+    flex:95% 0 0;
+
+}
+.prescribed_list div{
+    border: 1px solid rgba(91, 91, 91, 0.387);
+    display: inline;
+    width: fit-content;
+    border-radius: 12px;
+    margin-inline-end: 4px; 
+    padding: 5px;
+    background-color: white;
+    box-shadow: var(--shallowShadow);
+}
+.closeBox{
+    position: relative;
+    padding-inline-end: 20px;
+}
+.medName{
+    margin-inline-end: 9px;
+}
 
 
 

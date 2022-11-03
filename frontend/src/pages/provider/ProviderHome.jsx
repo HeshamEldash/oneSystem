@@ -9,8 +9,8 @@ import APIENDPOINT from "../../utils/api_calls/apiEndpoint";
 
 
 function ProviderHome() {
-    const { t,i18n } = useTranslation();
-    const { id } = useParams();
+  const { t,i18n } = useTranslation();
+  const { id } = useParams();
   const [registeredPatients, setRegisteredPatients] = useState([]);
   const [employedStaff, setEmployedStaff] = useState([])
   const [image, setImage] = useState()

@@ -6,6 +6,7 @@ export const ProviderContext = createContext();
 export default function ProviderContextProvider(props) {
 
 
+  const { id } = useParams();
   
 
 
@@ -18,7 +19,7 @@ export default function ProviderContextProvider(props) {
   }, []);
 
   const contextData = {
-    hello : "hello world",
+    providerId : id,
 
   };
 
