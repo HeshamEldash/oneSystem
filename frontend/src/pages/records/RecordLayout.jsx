@@ -6,13 +6,20 @@ import { RecordContextProvider } from "./context/RecordContext";
 import RecordActionBar from "./RecordActionBar";
 import { Outlet, useNavigate, useLocation, useParams } from "react-router";
 import useCurrentPath from "./hooks/useCurrentRecordLocation";
+import Tooltip from "@mui/material/Tooltip";
+import AddIcon from "@mui/icons-material/Add";
+import Fab from "@mui/material/Fab";
+import pills from "../../assets/images/pills.svg";
+import RecordEntry from "./RecordEntry";
+import MedicationPrescribePanel from "../medications/MedicationPrescribePanel";
 
 export default function RecordLayout() {
   const { t } = useTranslation();
   const [showConsultationBox, setShowConsultationBox] = useState(true);
-  const [showAddMedicalConditionBox, setShowAddMedicalConditionBox] =
-    useState(false);
-  const [upload, setUpload] = useState(false)
+  const [showAddMedicalConditionBox, setShowAddMedicalConditionBox] =useState(false);
+  const [upload, setUpload] = useState(false);
+  const [showMedicationPanel, setShowMedicationPanel] = useState(false);
+  const [showPresciptions, setShowPrescriptions] = useState(false)
 
   const navigate = useNavigate();
   const [newRecords, setNewRecords] = useState([]);
@@ -56,13 +63,36 @@ export default function RecordLayout() {
                 {t("add_pmh")}
               </div>
             )}
-            { path === "files" && <div className="action_bar__element"
-            onClick={() => setUpload((prev) => !prev)}>
-            {t("Add File")}
-            </div>}
 
+            {path === "files" && (
+              <div
+                className="action_bar__element"
+                onClick={() => setUpload((prev) => !prev)}
+              >
+                {t("Add File")}
+              </div>
+            )}
 
+            {path === "medications" && (
+              <div className="action_bar__element" onClick={() => setShowMedicationPanel((prev)=>!prev)}>
+
+                <Tooltip title="Prescribe">
+                    <img className="svg20 margin_inline-small " src={pills} alt="medications Logo" />
+                </Tooltip>
+              </div>
+            )}
+
+            {path === "medications" && (
+              <div className="action_bar__element" onClick={() => setShowPrescriptions((prev)=>!prev)}>
+
+                {/* <Tooltip title="Prescribe"> */}
+                    {t("Show Prescriptions")}
+                {/* </Tooltip> */}
+              </div>
+            )}
           </RecordActionBar>
+
+
 
           <Outlet
             context={{
@@ -71,8 +101,11 @@ export default function RecordLayout() {
               newRecords,
               showAddMedicalConditionBox,
               upload,
+              showMedicationPanel,
+              showPresciptions
             }}
           />
+        
         </main>
       </div>
     </RecordContextProvider>

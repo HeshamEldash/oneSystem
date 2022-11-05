@@ -258,6 +258,9 @@ UTILITY CLASSES
 .padding_inline-small{
     padding-inline: 0.5rem;
 }
+.margin_inline-small{
+  margin-inline: 0.5rem;
+}
 
 .display_inline{
     display: inline;

@@ -10,8 +10,7 @@ function RecordEntry(props) {
     history: "",
     examination: "",
     diagnosis: "",
-    plan: "",
-    // is_public: true,
+    plan: ""
   });
 
   const handleSubmit = (is_public) => {
@@ -24,7 +23,6 @@ function RecordEntry(props) {
       const confirm = window.confirm(
         t("are_you_sure_you_want_to_save_an_empty_record")
       );
-      console.log(is_public);
       if (confirm) {
         createRecord(patient.id, recordEntry, is_public);
         props.addRecord((prev) => {
@@ -39,6 +37,7 @@ function RecordEntry(props) {
     }
   };
 
+  
   const handleChange = (e) => {
     const name = e.target.name;
     const value = e.target.value;

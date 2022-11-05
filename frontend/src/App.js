@@ -40,6 +40,7 @@ import ProviderManagePatients from "./pages/provider/ProviderManagePatients.jsx"
 import RecordFiles from "./pages/records/RecordFiles.jsx";
 import ProviderMainContainer from "./pages/provider/ProviderMainContainer.jsx";
 import MedicationPrescribePanel from "./pages/medications/MedicationPrescribePanel.jsx";
+import MedicationMain from "./pages/medications/MedicationMain.jsx";
 function App() {
   const { t, i18n } = useTranslation();
 
@@ -86,7 +87,7 @@ function App() {
                 <Route element={<RecordProfile />} path="profile" />
                 <Route element={<RecordPastHistory />} path="past-history" />
                 <Route element={<RecordFiles />} path="files" />
-                <Route element={<MedicationPrescribePanel />} path="medications" />
+                <Route element={<MedicationMain />} path="medications" />
 
               </Route>
             </Route>

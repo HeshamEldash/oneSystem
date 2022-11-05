@@ -9,7 +9,7 @@ from users.models import Account, Patient, Staff, Provider
 class Medication(models.Model):
     name = models.CharField(_("name"),max_length=500, unique=False, null=False)
     rxcui =models.CharField(max_length=20, unique=False, null=True, blank=True)
-
+    
     class Meta:
         abstract= True
      
@@ -40,4 +40,12 @@ class RepeatMedication(Medication):
 
 class PrescriptionTemplate():
     pass 
+
+class UserMedicationPreset(models.Model):
+    staff = models.ForeignKey(Staff,on_delete=models.CASCADE)
+    medication = models.ForeignKey(PrescribedMedication,on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.medication.name
+
 

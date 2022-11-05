@@ -16,6 +16,10 @@ import { matchRoutes, useLocation } from "react-router-dom"
       return "files"
   }
 
+  if(pathname.includes("medications")){
+    return "medications"
+}
+
 
   return "record"
 }

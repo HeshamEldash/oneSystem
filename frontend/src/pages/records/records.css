@@ -644,3 +644,31 @@
 .closeicon:hover{
   background-color:#ff0000 !important;
 }
+
+.prescription_box{
+  border-bottom: solid 1px var(--color-gray-light);
+  margin-bottom: 0.5rem;
+  padding-inline-start: 1rem;
+  line-height: 1.9;
+}
+
+
+.medications_main {
+  padding: 2rem;
+
+}
+
+
+.regular_medication_box{
+  /* background-color: white; */
+  border: 1px solid var(--color-gray-light);
+  box-shadow: var(--shallowShadow);
+  /* margin-inline: 2rem; */
+  margin-bottom: 1rem;
+  min-height: 2rem;
+  padding-inline: 1rem;
+  display: flex;
+  flex-direction: column;
+  border-radius: 4px;
+  max-width: 80rem;
+}

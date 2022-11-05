@@ -15,7 +15,9 @@ import { createPrescription } from "./medicationsApiCalls";
 import { useRecordContext } from "../records/context/RecordContextHook";
 import { ProviderContext } from "../provider/context/ProviderContext";
 
-function MedicationPrescribePanel() {
+function MedicationPrescribePanel({showMedicationPanel, setParent}) {
+
+  const {contextPrescribedList, setContextPrescribedList}=useRecordContext()
   const [drugList, setDrugList] = useState([]);
   const [terms, setTerms] = useState([]);
   const [options, setOptions] = useState([]);
@@ -30,6 +32,7 @@ function MedicationPrescribePanel() {
   const freeTextMedicineRef = useRef();
   const [prescribedList, setPrescribedList] = useState([]);
   const [inputValue, setInputValue] = React.useState("");
+  const [isRegular, setIsRegular] = useState(false)
 
   const [prescription, setPrescription] = useState({
     // name: "",
@@ -38,6 +41,7 @@ function MedicationPrescribePanel() {
     // dose: "",
     // is_regular: false,
   });
+  const fabStyle ={ width: 30, height: 30, borderRadius: 1 , zIndex:0 }
 
   const showInteractions = async () => {
     let response = await fetch(
@@ -189,6 +193,7 @@ function MedicationPrescribePanel() {
     setInteractions([]);
     setSelectedMedicine();
     setPrescription()
+    setIsRegular(false)
   };
 
   const prescribeCurrentMedication = () => {
@@ -208,7 +213,7 @@ function MedicationPrescribePanel() {
         rxcui: selectedMedicine.rcuxi,
         // synonym: selectedMedicine.synonym,
         dose: doseRef.current.value,
-        is_regular: false,
+        is_regular: isRegular,
       };
       setPrescription(prescriptionInit);
     } else {
@@ -226,7 +231,7 @@ function MedicationPrescribePanel() {
         rxcui: "",
         // synonym: "",
         dose: doseRef.current.value,
-        is_regular: false,
+        is_regular: isRegular,
       };
       setPrescription(prescriptionInit);
     }
@@ -267,18 +272,28 @@ function MedicationPrescribePanel() {
       ];
     }
 
-
-
-
     createPrescription(patientId, providerId, prescriptionData);
+    setParent(prescriptionData)
 
     // clear the panel
     setPrescribedList([])
     handleClearPanel();
   };
 
+
+
+  useEffect(()=>{
+    if (contextPrescribedList.length > 0){
+      setPrescribedList(contextPrescribedList)
+    }
+  },[])
+
+  useEffect(()=>{
+    setContextPrescribedList(prescribedList)
+  },[prescribedList])
+
   return (
-    <div className="medication_px_panel ">
+    <div className="medication_px_panel " style={{display:showMedicationPanel ?"block":"none" }}>
       free Text
       <Switch
         checked={apiPx}
@@ -442,18 +457,19 @@ function MedicationPrescribePanel() {
             <Fab
               color="primary"
               aria-label="add"
-              sx={{ width: 30, height: 30, borderRadius: 1 }}
+              sx={fabStyle}
               onClick={() => handleAddMedication()}
             >
               <AddIcon />
             </Fab>
           </Tooltip>
 
-          <Tooltip title="Make Repeat">
+          <Tooltip title= {isRegular? "Regular" : "Make Regular"} >
             <Fab
-              color="primary"
+              color={isRegular? "secondary" : "primary"}
               aria-label="add"
-              sx={{ width: 30, height: 30, borderRadius: 1 }}
+              sx={fabStyle}
+              onClick={()=>setIsRegular((prev)=>!prev)}
             >
               <RepeatIcon />
             </Fab>
@@ -463,7 +479,7 @@ function MedicationPrescribePanel() {
             <Fab
               color="primary"
               aria-label="add"
-              sx={{ width: 30, height: 30, borderRadius: 1 }}
+              sx={fabStyle}
             >
               <QueueIcon />
             </Fab>
@@ -473,7 +489,7 @@ function MedicationPrescribePanel() {
             <Fab
               color="primary"
               aria-label="add"
-              sx={{ width: 30, height: 30, borderRadius: 1 }}
+              sx={fabStyle}
             >
               <LayersIcon />
             </Fab>
@@ -483,7 +499,7 @@ function MedicationPrescribePanel() {
             <Fab
               color="primary"
               aria-label="add"
-              sx={{ width: 30, height: 30, borderRadius: 1 }}
+              sx={fabStyle}
               onClick={() => handleClearPanel()}
             >
               <ClearIcon />
