@@ -10,11 +10,6 @@ class PrescribedMedicationSerializer(serializers.ModelSerializer):
         model = PrescribedMedication
         fields = "__all__"
 
-    def __init__(self, instance=None, data=..., **kwargs):
-
-
-        super().__init__(instance, data, **kwargs)
-
     def date_created_method(self, obj):
         try:
             date = obj.prescription_set.first().date_created
@@ -45,7 +40,7 @@ class UserMedicationPresetSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = UserMedicationPreset
-        fields = ["staff", "medication"]
+        fields = ["staff", "medication" ]
         extra_kwargs = {'rxcui': {'required': False},
 
         }

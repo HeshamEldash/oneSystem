@@ -51,7 +51,7 @@ class UserMedicationPresetView(generics.GenericAPIView, mixins.ListModelMixin, m
             qs = UserMedicationPreset.objects.filter(staff=staff_pk)
             return qs
 
-        staff= self.request.user
+        staff= self.request.user.staff
         qs = UserMedicationPreset.objects.filter(staff=staff)
         return qs
         

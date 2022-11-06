@@ -14,6 +14,7 @@ import ClearIcon from "@mui/icons-material/Clear";
 import { createPrescription } from "./medicationsApiCalls";
 import { useRecordContext } from "../records/context/RecordContextHook";
 import { ProviderContext } from "../provider/context/ProviderContext";
+import MedicationPresetPanel from "./MedicationPresetPanel";
 
 function MedicationPrescribePanel({showMedicationPanel, setParent}) {
 
@@ -428,6 +429,13 @@ function MedicationPrescribePanel({showMedicationPanel, setParent}) {
           </label>
         </div>
       )}
+
+      { showPresetPanel && <MedicationPresetPanel
+              setPrescribedList={setPrescribedList}
+              isRegular= {isRegular}
+
+      />}
+
       <div className="prescription__footer">
         <div className="prescribed_list">
     
@@ -451,7 +459,6 @@ function MedicationPrescribePanel({showMedicationPanel, setParent}) {
         })}
         </div>
 
-        {/* <MedicationPrescribePanel/> */}
 
     
         <div className="prescription__actions">
@@ -489,7 +496,7 @@ function MedicationPrescribePanel({showMedicationPanel, setParent}) {
 
           <Tooltip title="Select From User Presets">
             <Fab
-              color="primary"
+              color={showPresetPanel? "secondary" : "primary"}
               aria-label="add"
               sx={fabStyle}
               onClick={()=>setShowPresetPanel((prev)=>!prev)}

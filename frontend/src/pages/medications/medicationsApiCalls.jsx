@@ -40,10 +40,9 @@ const getRegularMedications = async (patient_id)=>{
   }
 
 }
-const getUserMedicationPresets = async (staff_id)=>{
+const getUserMedicationPresets = async ()=>{
   let response = await fetch(
-    `${APIENDPOINT}/medicines/user-medication-preset/?` +
-      new URLSearchParams({ staff_id: staff_id }),
+    `${APIENDPOINT}/medicines/user-medication-preset/?`, 
     {
       method: "GET",
       headers: {

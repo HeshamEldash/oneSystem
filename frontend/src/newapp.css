@@ -242,9 +242,14 @@ UTILITY CLASSES
 .margin_bottom_small{
     margin-bottom: 1rem;
 }
+
 .margin_bottom_medium{
     margin-bottom: 2rem;
 }
+.margin_top_small{
+  margin-top: 1rem;
+}
+
 .deep_shadow{
     box-shadow: var(--deepShadow);
 }

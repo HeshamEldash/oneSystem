@@ -13,12 +13,30 @@ def create_prescription(validated_data,prescriber, **kwargs):
 
     medication_objects = []
     for medication in medications:
-        print(medication)
-        med = PrescribedMedication.objects.create(**medication)
-        print(med)
-        medication_objects.append(med)
+        # medication.
+        # medication_id = medication.get("id", None)
+        # if medication_id:
+        #     print(medication)
+        #     med =  PrescribedMedication.objects.get(id=medication_id)     
+        #     medication_objects.append(med)
 
-    print(medication_objects)
+        # else:     
+        #     med = PrescribedMedication.objects.create(**medication)
+        #     print(med)
+        #     medication_objects.append(med)
+        is_regular = medication.get("is_regular")
+        dose= medication.get("dose")
+        rxcui= medication.get("rxcui")
+        name= medication.get("name")
+  
+        med = PrescribedMedication.objects.create(
+          name=name,
+           dose=dose, 
+           rxcui=rxcui,
+           is_regular=is_regular
+        )
+        medication_objects.append(med)
+        print(med.is_regular)
     px_obj.medications.set(medication_objects)
 
     return px_obj

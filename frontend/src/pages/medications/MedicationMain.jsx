@@ -20,7 +20,7 @@ function MedicationMain() {
         <div className="">
           <h2> Regular Medications</h2>
           {regularMedications?.map((medication) => {
-            return <RegularMedication medication={medication} />;
+            return <RegularMedication key={medication.id} medication={medication} />;
           })}
           {newMeds?.map((medication) => {
             return (
@@ -34,7 +34,7 @@ function MedicationMain() {
         <>
           {allPrescriptions?.map((px) => {
             return (
-              <div className="prescription_box">
+              <div key ={px.id} className="prescription_box">
                 {px.date_created}
                 {px.medications?.map((med) => {
                   return (
