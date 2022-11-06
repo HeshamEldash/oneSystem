@@ -6,4 +6,6 @@ from .models import *
 
 admin.site.register(Prescription)
 admin.site.register(PrescribedMedication)
+admin.site.register(UserMedicationPreset)
+
 

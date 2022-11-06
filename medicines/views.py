@@ -45,9 +45,16 @@ class UserMedicationPresetView(generics.GenericAPIView, mixins.ListModelMixin, m
     serializer_class = UserMedicationPresetSerializer
 
     def get_queryset(self):
+    
         staff_pk =  self.request.query_params.get('staff_id', None)
-        qs = UserMedicationPreset.objects.filter(staff=staff_pk)
+        if staff_pk:
+            qs = UserMedicationPreset.objects.filter(staff=staff_pk)
+            return qs
+
+        staff= self.request.user
+        qs = UserMedicationPreset.objects.filter(staff=staff)
         return qs
+        
 
     def get(self, request, *args, **kwargs):
         return self.list(request, *args,**kwargs)  

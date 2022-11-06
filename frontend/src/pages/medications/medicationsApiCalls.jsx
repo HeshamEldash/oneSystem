@@ -40,6 +40,24 @@ const getRegularMedications = async (patient_id)=>{
   }
 
 }
+const getUserMedicationPresets = async (staff_id)=>{
+  let response = await fetch(
+    `${APIENDPOINT}/medicines/user-medication-preset/?` +
+      new URLSearchParams({ staff_id: staff_id }),
+    {
+      method: "GET",
+      headers: {
+        "Content-type": "application/json",
+        Authorization: "Bearer " + String(token.access),
+      },
+    }
+  );
+
+  if (response.ok){
+    return response.json()
+  }
+
+}
 
 
 const createPrescription = async (patient_id,providerId, prescriptionData)=>{
@@ -63,4 +81,4 @@ const createPrescription = async (patient_id,providerId, prescriptionData)=>{
 }
 
 
-export { createPrescription, getPrescriptionList, getRegularMedications}
+export { createPrescription, getPrescriptionList, getRegularMedications, getUserMedicationPresets}

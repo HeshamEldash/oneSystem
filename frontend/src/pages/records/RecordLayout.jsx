@@ -35,7 +35,9 @@ export default function RecordLayout() {
     <RecordContextProvider>
       <div className="record_layout">
         <RecordPatientDetailsBox />
-        <RecordsClinicalTree />
+        <RecordsClinicalTree 
+          setShowPrescriptions= {setShowPrescriptions}
+        />
 
         <main className="content">
           <RecordActionBar
@@ -82,14 +84,10 @@ export default function RecordLayout() {
               </div>
             )}
 
-            {path === "medications" && (
-              <div className="action_bar__element" onClick={() => setShowPrescriptions((prev)=>!prev)}>
+  
 
-                {/* <Tooltip title="Prescribe"> */}
-                    {t("Show Prescriptions")}
-                {/* </Tooltip> */}
-              </div>
-            )}
+
+
           </RecordActionBar>
 
 
@@ -102,7 +100,8 @@ export default function RecordLayout() {
               showAddMedicalConditionBox,
               upload,
               showMedicationPanel,
-              showPresciptions
+              showPresciptions,
+              setShowPrescriptions
             }}
           />
         

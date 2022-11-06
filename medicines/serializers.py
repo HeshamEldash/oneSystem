@@ -16,9 +16,11 @@ class PrescribedMedicationSerializer(serializers.ModelSerializer):
         super().__init__(instance, data, **kwargs)
 
     def date_created_method(self, obj):
-        date = obj.prescription_set.first().date_created
-
-        return date.date()
+        try:
+            date = obj.prescription_set.first().date_created
+            return date.date()
+        except:
+            return None
 
 
 class PrescriptionSerializer(serializers.ModelSerializer):

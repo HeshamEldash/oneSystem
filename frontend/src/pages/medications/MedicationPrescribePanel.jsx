@@ -33,7 +33,7 @@ function MedicationPrescribePanel({showMedicationPanel, setParent}) {
   const [prescribedList, setPrescribedList] = useState([]);
   const [inputValue, setInputValue] = React.useState("");
   const [isRegular, setIsRegular] = useState(false)
-
+  const [showPresetPanel, setShowPresetPanel]= useState(false)
   const [prescription, setPrescription] = useState({
     // name: "",
     // rxcui: "",
@@ -451,6 +451,8 @@ function MedicationPrescribePanel({showMedicationPanel, setParent}) {
         })}
         </div>
 
+        {/* <MedicationPrescribePanel/> */}
+
     
         <div className="prescription__actions">
           <Tooltip title="Add Another Drug">
@@ -490,6 +492,7 @@ function MedicationPrescribePanel({showMedicationPanel, setParent}) {
               color="primary"
               aria-label="add"
               sx={fabStyle}
+              onClick={()=>setShowPresetPanel((prev)=>!prev)}
             >
               <LayersIcon />
             </Fab>
@@ -506,10 +509,7 @@ function MedicationPrescribePanel({showMedicationPanel, setParent}) {
             </Fab>
           </Tooltip>
 
-          {/* make preset  */}
-          {/* make repeat  */}
-          {/* add another */}
-          {/* choose from presets */}
+
         </div>
 
         <button

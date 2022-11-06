@@ -241,6 +241,26 @@
   width: 20px;
   margin-inline-end: 15px;
 }
+.sub_clincal_tree{    
+  /* padding-block: 0.5rem; */
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 1px 1px 14px -2px rgb(0 0 0 / 17%) inset;}
+
+.sub_clincal_tree--component{
+  min-height: 2.2rem;
+  /* background-color: red; */
+  width: 100%;
+  text-align: center;
+  border-bottom: 1px solid var(--color-gray-light);
+  cursor: pointer;
+  color: rgb(86, 86, 86);
+  padding-top: 5px;
+  }
+
 .svg_icon_large {
   width: 40px;
   cursor: pointer;
@@ -251,6 +271,10 @@
   border-radius: 100%;
 }
 .clnical_tree__component:hover {
+  background-color: #b2bebf;
+  border-radius: 4px;
+}
+.sub_clincal_tree--component:hover{
   background-color: #b2bebf;
   border-radius: 4px;
 }
