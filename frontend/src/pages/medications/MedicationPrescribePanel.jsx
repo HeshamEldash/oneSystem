@@ -57,9 +57,12 @@ function MedicationPrescribePanel({showMedicationPanel, setParent}) {
     )
       .then((response) => response.json())
       .then((data) => {
+        console.log(data)
         const info =
           data.interactionTypeGroup[0].interactionType[0].interactionPair;
         setInteractions(info);
+        console.log(info)
+
       });
   };
 
@@ -336,7 +339,7 @@ function MedicationPrescribePanel({showMedicationPanel, setParent}) {
                   bgcolor: "white",
                   width: 0.8,
                   display: "inline-block",
-                  minWidth: 300,
+                  minWidth: 250,
                 }}
                 size="small"
               />

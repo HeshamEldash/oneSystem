@@ -94,6 +94,7 @@
     padding: 2rem;
     justify-content: flex-end;
     gap: 2rem;
+    flex-wrap: wrap;
 }
 .prescription__actions{
     width: fit-content;
@@ -134,4 +135,5 @@
     justify-content: flex-start;
 
     }
+
 }

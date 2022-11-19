@@ -34,7 +34,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('records/', include('records.urls')),
     path('users/', include('users.urls')),
-    # path('records/', include('records.urls')),
+    path('appointments/', include('appointments.urls')),
     path('medicines/', include('medicines.urls')),
 
     path('api-auth/', include('rest_framework.urls')),

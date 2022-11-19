@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom/client';
 import App from './App';
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import "./i18nextInit";
+import * as serviceWorkerRegistration from './serviceWorkerRegistration';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -11,4 +12,8 @@ root.render(
     <App />
   </Router>
   </React.StrictMode>
+
 );
+
+
+serviceWorkerRegistration.register()

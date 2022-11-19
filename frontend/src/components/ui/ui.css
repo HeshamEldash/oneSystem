@@ -13,7 +13,7 @@
     background-color: var(--color-dark-purple);
     align-items: normal;
     min-width: 270px;
-    z-index: 100;
+    z-index: 150;
     display: flex;
     justify-content: flex-end;
     box-shadow: var(--shallowShadow);
@@ -98,6 +98,7 @@
     .main-navbar__links{
         height: auto;
         float: none;
+        width: 100%;
     }
     .hamburger {
         display: block;
@@ -112,7 +113,6 @@
         flex-direction: column;
        /* // makes menu span full height and width */
         width: 100%;
-        height: calc(100vh - 77px);
         background-color: rgb(232, 232, 232);
         border-top: 1px solid black;
       }

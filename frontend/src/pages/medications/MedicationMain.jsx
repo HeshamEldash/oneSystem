@@ -35,12 +35,18 @@ function MedicationMain() {
           {allPrescriptions?.map((px) => {
             return (
               <div key ={px.id} className="prescription_box">
-                {px.date_created}
-                {px.medications?.map((med) => {
+              <h2>Prescriptions</h2>
+              <span>Date: </span>{new Date(px.date_created).toJSON().slice(0,10).replace(/-/g,'/')}
+                {px.medications?.map((med, index) => {
                   return (
                     <div>
-                      {med.name}
-                      {med.dose}
+
+                      <span style={{paddingInlineEnd:"0.2rem", fontWeight:"bold"}}>Medication {index + 1}:</span>
+                      <span style={{paddingInlineEnd:"2rem"}} >{med.name}</span>
+
+                      <span style={{paddingInlineEnd:"0.2rem", fontWeight:"bold"}}>Dose:</span>
+                      <span style={{fontWeight:"bold"}}>{med.dose}</span>
+             
                     </div>
                   );
                 })}

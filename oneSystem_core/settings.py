@@ -50,7 +50,8 @@ INSTALLED_APPS = [
    # project apps
     'users',
     "records.apps.RecordsConfig",
-    "medicines"
+    "medicines",
+    "appointments",
     
 
 

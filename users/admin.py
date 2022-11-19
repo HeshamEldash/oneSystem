@@ -107,7 +107,7 @@ class AddressInline(admin.StackedInline):
 #
 # class StaffAdmin (admin.ModelAdmin):
 #     inlines = [TelephoneNumberInline, AddressInline, AccountInline]
-
+ 
 
 # Now register the new UserAdmin...
 admin.site.register(Account)

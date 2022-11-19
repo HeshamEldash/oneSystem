@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@amir04lm26/react-modern-calendar-date-picker": "^1.0.1",
     "@date-io/date-fns": "^2.15.0",
     "@emotion/react": "^11.10.0",
     "@emotion/styled": "^11.10.0",
@@ -15,6 +16,7 @@
     "@testing-library/user-event": "^13.5.0",
     "@whoicd/icd11ect": "^1.5.1",
     "antd": "^4.23.5",
+    "date-fns": "^2.29.3",
     "formik": "^2.2.9",
     "i18next": "^21.9.0",
     "i18next-browser-languagedetector": "^6.1.4",
@@ -27,6 +29,7 @@
     "react-dom": "^18.2.0",
     "react-file-viewer": "^0.5.0",
     "react-i18next": "^11.18.3",
+    "react-modern-calendar-datepicker": "^3.1.6",
     "react-pdf": "^5.7.2",
     "react-router": "^6.3.0",
     "react-router-dom": "^6.3.0",

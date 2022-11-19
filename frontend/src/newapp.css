@@ -230,6 +230,10 @@ UTILITY CLASSES
   max-width: 30rem;
 }
 
+.page_button-width-medium-fixed {
+  min-width: 20rem;
+}
+
 .page_button-width-small {
   max-width: 20rem;
 }

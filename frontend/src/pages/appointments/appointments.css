@@ -1,0 +1,87 @@
+.main_appointment_panel{
+    width: 100vw;
+    background-color: var(--color-gray-lighter);
+    background-color: #F5F5F7;
+    position: relative;
+    padding-top: 70px;
+
+}
+
+.appointments_side_bar{
+    width: 310px;
+    height: calc(100% - 70px);
+    padding-block: 2rem;
+    padding-inline: 4px;
+    background-color: var(--color-dark-purple);
+    position: absolute;
+
+}
+
+.clinics_panel{
+    /* background-color: inherit; */
+    min-width: calc(100% - 310px);
+    height: 100vh;
+    display: flex;
+    flex-direction: row;
+    padding-inline-start: 330px;
+    gap: 2rem;
+    padding-top: 3rem;
+    /* flex-wrap: wrap; */
+    overflow: auto;
+}
+
+
+.clinic_box{
+    width: 300px;
+    min-width: 300px;
+    min-height: 10rem;
+    height: fit-content;
+    background-color: #EBECF1;
+    box-shadow: var(--shallowShadow);
+    -webkit-box-shadow: 0px 0px 4px 0px rgba(0,0,0,0.5); 
+    box-shadow: 0px 0px 4px 0px rgba(0,0,0,0.5);
+    border-radius: 4px;
+    display: flex;
+    flex-direction: column;
+    padding-inline: 10px;
+    gap: 1rem;
+    padding-bottom: 2rem;
+}
+.clinic_box--header{
+    text-align: center;
+    padding-block: 1rem;
+    font-weight: bold;
+    font-size: 1.4em;
+
+}
+.session_header{
+
+}
+.slot{
+    background-color: rgb(247, 247, 247);
+    border-radius: 5px;
+    width: 100%;
+    height: 3.5rem;
+    -webkit-box-shadow: 0px 4px 4px 0px rgba(0,0,0,0.25); 
+    box-shadow: 0px 2px 4px 0px rgba(0,0,0,0.12);
+    margin-bottom: 0.3rem ;
+    padding: 0.2rem;
+}
+.slot__date-timebox{
+    width: 30%;
+    font-size: small;
+    display: flex;
+    flex-direction: column;
+    line-height: 19px;
+    color: var(--color-gray-dark);
+}
+.calender{
+    font-size: 9px !important;
+}
+
+.scheduler_box{
+    display: flex;
+    gap: 4rem;
+    padding-top: 3rem;
+    flex-wrap: wrap;
+}

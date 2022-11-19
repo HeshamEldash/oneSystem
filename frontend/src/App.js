@@ -41,6 +41,9 @@ import RecordFiles from "./pages/records/RecordFiles.jsx";
 import ProviderMainContainer from "./pages/provider/ProviderMainContainer.jsx";
 import MedicationPrescribePanel from "./pages/medications/MedicationPrescribePanel.jsx";
 import MedicationMain from "./pages/medications/MedicationMain.jsx";
+import AppointmentPanel from "./pages/appointments/AppointmentPanel.jsx";
+import { AppointmentContext } from "./pages/appointments/AppointmentsContext.jsx";
+import AppointmentsWrapper from "./pages/appointments/AppointmentsWrapper.jsx";
 function App() {
   const { t, i18n } = useTranslation();
 
@@ -48,12 +51,13 @@ function App() {
     <div className="App {i18n.language === 'en' ? 'english': 'arabic'}">
       <AuthProvider>
         <Header />
-        {/* <MedicationPrescribePanel/> */}
+
         <Routes>
           <Route element={<ProtectedUserRoutes />}>
             <Route element={<StaffDashboard />} path="/staff-dashboard" />
             <Route element={<ProviderMainContainer />} path="/provider/:id">
               <Route index element={<ProviderHome />} />
+
               <Route
                 element={<ProviderProfileUpdate />}
                 path="profile-update"
@@ -88,8 +92,14 @@ function App() {
                 <Route element={<RecordPastHistory />} path="past-history" />
                 <Route element={<RecordFiles />} path="files" />
                 <Route element={<MedicationMain />} path="medications" />
-
               </Route>
+
+              <Route
+                index
+                element={<AppointmentsWrapper />}
+                path="appointments"
+              />
+              
             </Route>
           </Route>
           <Route element={<Home />} path="/" />

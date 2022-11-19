@@ -1,26 +1,29 @@
 import react, { createContext, useState, useEffect } from "react";
 import { useParams } from "react-router";
 import { createLogin } from "../../../utils/api_calls/getLogins";
+import { getAllEmployments } from "../providerApi";
 export const ProviderContext = createContext();
 
 export default function ProviderContextProvider(props) {
-
-
   const { id } = useParams();
+  const [listOfEmployments, setListOfEmployments] = useState([]);
+
+  const getEmployments = async () => {
+    const employments = await getAllEmployments(id);
+    setListOfEmployments(employments);
+
+  };
   
 
 
 
   useEffect(() => {
-    console.log("in")
-    const dont = true
-
-    if (dont) return ()=> console.log("logged")
+    getEmployments()
   }, []);
 
   const contextData = {
-    providerId : id,
-
+    listOfEmployments : listOfEmployments,
+    providerId: id
   };
 
   return (
