@@ -2,9 +2,7 @@ import React, { useContext } from "react";
 import "./appointments.css";
 import AppointmentSideBar from "./AppointmentSideBar";
 import Clinic from "./Clinic";
-import AppointmentsScheduler from "./appointmentsCreate/AppointmentsScheduler";
 import CalenderComponent from "./CalenderComponent";
-import CalenderWrapper from "./hooks/CalenderWrapper";
 import { AppointmentContext } from "./AppointmentsContext";
 import Session from "./Session";
 import { formatDate } from "./utils/datetimeUtils";
@@ -17,7 +15,6 @@ function AppointmentPanel() {
       <AppointmentSideBar>
         <CalenderComponent />
 
-        <AppointmentsScheduler />
       </AppointmentSideBar>
       <div className="clinics_panel">
         {clinics.map((clincData) => {

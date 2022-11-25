@@ -18,12 +18,30 @@ class SlotSerializer(serializers.ModelSerializer):
         fields = "__all__"
 
 
+
+# class TestSessionSerializer()
 class SessionSerializer(serializers.ModelSerializer):
     """ 
         start, end are datetimes
         clinic & clinic ID are set differently becuase the default clinic field is showing are required=false
         slot_set is read only 
         slot duration is a number  
+
+    [{
+    "start": "2022-11-20T15:12:30Z",
+    "end": "2022-11-20T18:00:00Z",
+    "clinic_id": 1,
+    "slot_duration": 5
+        },
+    {
+    "start": "2022-11-20T15:12:30Z",
+    "end": "2022-11-20T18:00:00Z",
+    "clinic_id": 1,
+    "slot_duration": 5
+    }
+    ]   
+
+
 
     """
 
@@ -52,7 +70,6 @@ class SessionSerializer(serializers.ModelSerializer):
         end=end, 
         slot_duration=slot_duration,
         )
-
 
 
 

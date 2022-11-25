@@ -14,7 +14,6 @@ const [displayDate, setDisplayDate] = useState()
   const getClinicDataCall = async () => {
     const clinicData = await getClinicData(id);
     setClinics(clinicData);
-    console.log(clinicData)
   };
 
   const getSessions = async () => {
@@ -30,9 +29,11 @@ const [displayDate, setDisplayDate] = useState()
 
 
   const contextData = {
+    provider_id:id,
     clinics: clinics,
     setClinics:setClinics,
     sessions: sessions,
+    setSessions:setSessions,
     dateToShow:"10-10-120",
     setDisplayDate:(d)=>setDisplayDate(d),
     displayDate:displayDate

@@ -1,20 +1,16 @@
-import React, { useContext, useState } from "react";
+import React from "react";
 import { useTranslation } from "react-i18next";
 import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
 import {
   Outlet,
   NavLink,
   useParams,
-  Navigate,
   useNavigate,
   useLocation,
 } from "react-router-dom";
 import Navbar from "../../components/ui/Navbar";
 import NavMenu from "../../components/ui/NavMenu";
-import register from "../../assets/images/register.svg";
-import ProviderContextProvider, {
-  ProviderContext,
-} from "./context/ProviderContext";
+import home from "../../assets/images/home3.svg";
 
 function ProviderLayout() {
   const { t } = useTranslation();
@@ -26,28 +22,43 @@ function ProviderLayout() {
 
     if (locationArray.includes("patient-record")) {
       return "record";
-    } 
-    else if (locationArray.includes("appointments")) {
+    } else if (locationArray.includes("appointments")) {
       return "appointments";
-    }
-    
-    else if (locationArray.length === 3) {
+    } else if (locationArray.length === 3) {
       return "home";
     }
-
   };
-
-
-
 
   return (
     <>
       <Navbar>
         {getPath() != "home" && (
-          <NavLink className="" to={`/provider/${id}`}>
-            {t("home")}
+          <NavLink
+            className="page_button-padding-inline-small"
+            to={`/provider/${id}`}
+          >
+            <img style={{ fill: "white" }} src={home} alt={t("home")} />
           </NavLink>
         )}
+
+        <NavLink className="" to={`/provider/${id}/search-patient`}>
+          <div className="nav_content">
+            <SearchOutlinedIcon />
+            {t("search_patients")}
+          </div>
+        </NavLink>
+
+        {localStorage.getItem("patient_id") && (
+          <NavLink
+            className=""
+            to={`/provider/${id}/patient-record/${localStorage.getItem(
+              "patient_id"
+            )}`}
+          >
+            {t("opened patient")}
+          </NavLink>
+        )}
+
         <NavMenu
           buttonName={t("patients")}
           menuItems={[
@@ -74,41 +85,59 @@ function ProviderLayout() {
           ]}
         ></NavMenu>
 
-        <NavLink className="" to={`/provider/${id}/patient-registration`}>
-          {t("register_a_patient")}
-        </NavLink>
-        <NavLink className="" to={`/provider/${id}/profile-update`}>
-          {t("update_profile")}
-        </NavLink>
+        <NavMenu
+          buttonName={t("Settings")}
+          menuItems={[
+            {
+              name: t("update_profile"),
+              func: () => {
+                navigate(`/provider/${id}/profile-update`);
+              },
+            },
+            {
+              name: t("manage_staff"),
 
-        <NavLink className="" to={`/provider/${id}/manage-staff`}>
-          {t("manage_staff")}
-        </NavLink>
+              func: () => {
+                navigate(`/provider/${id}/manage-staff`);
+              },
+            },
+          ]}
+        ></NavMenu>
 
-        <NavLink className="" to={`/provider/${id}/search-patient`}>
-          <div className="nav_content">
-            <SearchOutlinedIcon />
-            {t("search_patients")}
-          </div>
-        </NavLink>
+        <NavMenu
+          buttonName={t("appointments")}
+          menuItems={[
+            {
+              name: t("appointments_panel"),
+              func: () => {
+                navigate(`/provider/${id}/appointments`);
+              },
+            },
+            {
+              name: t("clinic-create"),
 
-        {localStorage.getItem("patient_id") && (
-          <NavLink
-            className=""
-            to={`/provider/${id}/patient-record/${localStorage.getItem(
-              "patient_id"
-            )}`}
-          >
-            {t("opened patient")}
-          </NavLink>
-        )}
+              func: () => {
+                navigate(`/provider/${id}/appointments/clinic-create`);
+              },
+            },
+            {
+              name: t("scheduler"),
 
-        <NavLink className="" to={`/provider/${id}/appointments`}>
-          {t("appointments")}
-        </NavLink>
+              func: () => {
+                navigate(`/provider/${id}/appointments/appointment-scheduler`);
+              },
+            },
+          ]}
+        ></NavMenu>
       </Navbar>
 
-      <div className={getPath() === "record" || getPath() === "appointments" ? null : "main_page_under_nav"}>
+      <div
+        className={
+          getPath() === "record" || getPath() === "appointments"
+            ? null
+            : "main_page_under_nav"
+        }
+      >
         <Outlet />
       </div>
     </>

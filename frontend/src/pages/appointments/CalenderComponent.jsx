@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import DatePicker, { Calendar } from "@amir04lm26/react-modern-calendar-date-picker";
 import { AppointmentContext } from "./AppointmentsContext";
 
-function CalenderComponent({ setParent, updatedDays }) {
+function CalenderComponent({ setParent, updatedDays, range }) {
   const {setDisplayDate} = useContext(AppointmentContext)
 
   const today = new Date();
@@ -11,7 +11,7 @@ function CalenderComponent({ setParent, updatedDays }) {
     month: today.getMonth() + 1,
     day: today.getDate(),
   };
-  const [range, setRange] = useState(false);
+  // const [range, setRange] = useState(false);
 
   const [selectedDays, setSelectedDays] = useState(
     range

@@ -13,7 +13,6 @@ import ProtectedUserRoutes from "./components/ProtectedUserRoutes";
 import ProviderHome from "./pages/provider/ProviderHome.jsx";
 import ProviderProfileUpdate from "./pages/provider/ProviderProfileUpdate.jsx";
 import AddressUpdate from "./components/ui/AddressUpdate.jsx";
-import ProviderLayout from "./pages/provider/ProviderLayout.jsx";
 import ProviderRegistration from "./pages/provider/ProviderRegistration.jsx";
 import RegistrationLayout from "./pages/registration/RegistrationLayout.jsx";
 import RegistrationChoice from "./pages/registration/RegistrationChoice.jsx";
@@ -22,31 +21,22 @@ import "./components/ui/form/form.css";
 import ProviderStartEmployment from "./pages/provider/ProviderStartEmployment.jsx";
 import ProviderManageStaff from "./pages/provider/ProviderManageStaff.jsx";
 import PatientRegistration from "./pages/patients/PatientRegistration.jsx";
-import PatientProviderRegistration from "./pages/patients/PatientProviderRegistration.jsx";
 import ProviderPatientRegistration from "./pages/provider/ProviderPatientRegistration.jsx.jsx";
 import ProviderPatientSearch from "./pages/provider/ProviderPatientSearch.jsx";
-import RecordDisplay from "./pages/records/RecordDisplay.jsx";
-import RecordEntry from "./pages/records/RecordEntry.jsx";
 import RecordLayout from "./pages/records/RecordLayout.jsx";
-import {
-  RecordContext,
-  RecordContextProvider,
-} from "./pages/records/context/RecordContext.jsx";
-import Icd from "./externalapis/icd-10/Icd.jsx";
 import RecordMain from "./pages/records/RecordMain.jsx";
 import RecordProfile from "./pages/records/admin/RecordProfile.jsx";
 import RecordPastHistory from "./pages/records/RecordPastHistory.jsx";
 import ProviderManagePatients from "./pages/provider/ProviderManagePatients.jsx";
 import RecordFiles from "./pages/records/RecordFiles.jsx";
 import ProviderMainContainer from "./pages/provider/ProviderMainContainer.jsx";
-import MedicationPrescribePanel from "./pages/medications/MedicationPrescribePanel.jsx";
 import MedicationMain from "./pages/medications/MedicationMain.jsx";
 import AppointmentPanel from "./pages/appointments/AppointmentPanel.jsx";
-import { AppointmentContext } from "./pages/appointments/AppointmentsContext.jsx";
 import AppointmentsWrapper from "./pages/appointments/AppointmentsWrapper.jsx";
-function App() {
-  const { t, i18n } = useTranslation();
+import ClinicCreate from "./pages/appointments/appointmentsCreate/ClinicCreate.jsx";
+import AppointmentsSchedulerFormik from "./pages/appointments/appointmentsCreate/AppointmentSchedulerFormik.jsx";
 
+function App() {
   return (
     <div className="App {i18n.language === 'en' ? 'english': 'arabic'}">
       <AuthProvider>
@@ -94,12 +84,14 @@ function App() {
                 <Route element={<MedicationMain />} path="medications" />
               </Route>
 
-              <Route
-                index
-                element={<AppointmentsWrapper />}
-                path="appointments"
-              />
-              
+              <Route element={<AppointmentsWrapper />} path="appointments">
+                <Route index element={<AppointmentPanel />} />
+                <Route
+                  element={<AppointmentsSchedulerFormik />}
+                  path="appointment-scheduler"
+                />
+                <Route element={<ClinicCreate />} path="clinic-create" />
+              </Route>
             </Route>
           </Route>
           <Route element={<Home />} path="/" />

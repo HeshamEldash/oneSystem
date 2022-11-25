@@ -73,7 +73,7 @@ class Session(models.Model):
     objects = SessionManager()
 
     def __str__(self):
-        return f"{self.clinic}'s {self.date} session"
+        return f"{self.clinic}'s {self.start} session"
 
 
     @property

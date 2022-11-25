@@ -16,7 +16,7 @@ formatDate(sessionDetails.start)
     </div>
         {sessionDetails?.slot_set?.map((slot)=>{
             return <Slot
-                key = {slot.id}
+                key = {slot?.id}
                 slotDetails ={ slot}
             />
         })}

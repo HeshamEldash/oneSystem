@@ -1,12 +1,11 @@
-import React, { useState, useRef } from "react";
-import CalenderComponent from "../CalenderComponent";
-import { repeatWeakly } from "./repeatWeaklyHook";
+import React, {useEffect, useState, useRef} from 'react'
 import { format, Interval, addWeeks, addDays, isValid } from "date-fns";
 
-function CalenderWrapper({ children }) {
-  const [selectedDays, setSelectedDays] = useState([]);
+function useCalenderHook() {
+
+  const [selectedDates, setSelectedDates] = useState([]);
   const [needReset, setNeedReset] = useState(false);
-  const inputRef = useRef();
+  const numberOfWeeksRef = useRef();
 
   const repeatWeakly = (date, numberOfRepeats) => {
     // add the number of weeks functionality
@@ -32,15 +31,15 @@ function CalenderWrapper({ children }) {
       listOfDays.push(ndayformated);
     }
 
-    setSelectedDays((prev) => [...prev, ...listOfDays]);
+    setSelectedDates((prev) => [...prev, ...listOfDays]);
   };
 
   const excuteRepeat = () => {
-    selectedDays.map((day) => {
-      repeatWeakly(day, inputRef?.current?.value);
+    selectedDates?.map((day) => {
+      repeatWeakly(day, numberOfWeeksRef?.current?.value);
     });
 
-    setSelectedDays((prev) => {
+    setSelectedDates((prev) => {
       return prev.filter(
         (value, index, self) =>
           index ===
@@ -53,30 +52,29 @@ function CalenderWrapper({ children }) {
       );
     });
 
+
     setNeedReset(true);
   };
+
   const reset = () => {
-    setSelectedDays([]);
+    setSelectedDates([]);
     setNeedReset(false);
+    numberOfWeeksRef.current.value = 0
   };
 
-  return (
-    <div>
-      <CalenderComponent
-        updatedDays={selectedDays}
-        setParent={(data) => setSelectedDays(data)}
-        
-      />
 
-      <input type="number" ref={inputRef} disabled={needReset ? true : false} />
+  useEffect(()=>{},
+  [selectedDates])
 
-      <input
-        type="button"
-        value={needReset ? "reset" : "click"}
-        onClick={needReset ? reset : excuteRepeat}
-      />
-    </div>
-  );
+  return {
+    selectedDates,
+    setSelectedDates,
+    excuteRepeat,
+    repeatWeakly,
+    reset,
+    needReset,
+    numberOfWeeksRef,
+  }
 }
 
-export default CalenderWrapper;
+export default useCalenderHook
