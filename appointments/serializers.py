@@ -4,15 +4,16 @@ from users.serializers import StaffSerializer
 
 
 class AppointmentSerializer(serializers.ModelSerializer):
-
+    patient_name = serializers.CharField(source="patient", read_only=True)
     class Meta:
         model= Appointment
         fields = "__all__"
 
 
 
+
 class SlotSerializer(serializers.ModelSerializer):
-    # appointment = AppointmentSerializer(many=False, required=False)
+    appointment = AppointmentSerializer(many=False, required=False, read_only=True)
     class Meta:
         model= Slot
         fields = "__all__"

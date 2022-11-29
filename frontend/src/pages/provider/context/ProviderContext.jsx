@@ -16,9 +16,9 @@ export default function ProviderContextProvider(props) {
   
 
 
-
   useEffect(() => {
     getEmployments()
+    localStorage.setItem("provider", JSON.stringify(id))
   }, []);
 
   const contextData = {

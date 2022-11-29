@@ -7,8 +7,8 @@ import Popover from "@mui/material/Popover";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import ListSubheader from "@mui/material/ListSubheader";
-import Button from '@mui/material/Button';
-
+import Button from "@mui/material/Button";
+import NavMenu from "../components/ui/NavMenu";
 
 const languageMap = {
   en: { label: "English", dir: "ltr", active: true },
@@ -27,7 +27,9 @@ const LanguageSelect = () => {
 
   return (
     <div className="d-flex justify-content-end align-items-center language-select-root">
-      <Button  onClick={({ currentTarget }) => setMenuAnchor(currentTarget)}>
+
+
+      <Button onClick={({ currentTarget }) => setMenuAnchor(currentTarget)}>
         <span className="white">{languageMap[selected]?.label} </span>
         <ArrowDropDown className="white" fontSize="small" />
       </Button>
@@ -37,18 +39,17 @@ const LanguageSelect = () => {
         onClose={() => setMenuAnchor(null)}
         anchorOrigin={{
           vertical: "bottom",
-          horizontal: "right"
+          horizontal: "right",
         }}
         transformOrigin={{
           vertical: "top",
-          horizontal: "right"
+          horizontal: "right",
         }}
       >
         <div>
           <List>
-            <ListSubheader
-            >{t("select_language")}</ListSubheader>
-            {Object.keys(languageMap)?.map(item => (
+            <ListSubheader>{t("select_language")}</ListSubheader>
+            {Object.keys(languageMap)?.map((item) => (
               <ListItem
                 button
                 key={item}
@@ -62,29 +63,9 @@ const LanguageSelect = () => {
             ))}
           </List>
         </div>
-      </Popover>
+      </Popover> 
     </div>
- 
   );
 };
 
-
 export default LanguageSelect;
-
-  
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

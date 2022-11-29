@@ -1,6 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { initReactI18next, useTranslation } from "react-i18next";
-import APIENDPOINT from "../../../utils/api_calls/apiEndpoint";
 import ResultsBox from "../../../components/ResultsBox";
 import { useParams, useNavigate } from "react-router-dom";
 import TableCell, { tableCellClasses } from "@mui/material/TableCell";

@@ -33,7 +33,7 @@ const getLogin = async ()=>{
     <span>{login && "last login: " + new Date(login.start_time).toLocaleString() }</span>
     
     <Link onClick={()=>{
-      localStorage.setItem("provider", JSON.stringify(props.providerID))
+      console.log(props.staffId)
       createLogin(props.staffId,props.providerID)
       
       }} className="page_button page_button-width-medium " to={`/provider/${props.providerID}`} style={{"display": "block"}}>

@@ -35,6 +35,7 @@ import AppointmentPanel from "./pages/appointments/AppointmentPanel.jsx";
 import AppointmentsWrapper from "./pages/appointments/AppointmentsWrapper.jsx";
 import ClinicCreate from "./pages/appointments/appointmentsCreate/ClinicCreate.jsx";
 import AppointmentsSchedulerFormik from "./pages/appointments/appointmentsCreate/AppointmentSchedulerFormik.jsx";
+import StaffWrapper from "./pages/staff/StaffWrapper.jsx";
 
 function App() {
   return (
@@ -44,7 +45,7 @@ function App() {
 
         <Routes>
           <Route element={<ProtectedUserRoutes />}>
-            <Route element={<StaffDashboard />} path="/staff-dashboard" />
+            <Route element={<StaffWrapper />} path="/staff-dashboard" />
             <Route element={<ProviderMainContainer />} path="/provider/:id">
               <Route index element={<ProviderHome />} />
 

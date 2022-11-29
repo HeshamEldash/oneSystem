@@ -7,6 +7,7 @@
   --sry-btn-bg-color-hover: rgb(173, 0, 92);
   --nav-sry--bg-color: rgb(10 34 51);
   --nav-color: rgb(61 176 247);
+  height: unset;
 }
 * {
   /* background-color: var(--main-bg-color); */
@@ -14,10 +15,15 @@
   margin: 0;
   box-sizing: border-box;
   font-family: "Tajawal", sans-serif;
+  /* overflow: hidden; */
+
+
 }
 
 .english {
   font-family: "Roboto", sans-serif;
+}
+#body{
 }
 
 .main {

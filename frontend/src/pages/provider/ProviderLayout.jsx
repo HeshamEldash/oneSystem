@@ -43,7 +43,7 @@ function ProviderLayout() {
 
         <NavLink className="" to={`/provider/${id}/search-patient`}>
           <div className="nav_content">
-            <SearchOutlinedIcon />
+            {/* <SearchOutlinedIcon /> */}
             {t("search_patients")}
           </div>
         </NavLink>

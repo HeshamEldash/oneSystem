@@ -1,4 +1,5 @@
 import React from 'react'
+import ContextMenu from '../../components/ContextMenu'
 import Slot from './Slot'
 import { formatDate } from './utils/datetimeUtils'
 
@@ -15,10 +16,15 @@ formatDate(sessionDetails.start)
 
     </div>
         {sessionDetails?.slot_set?.map((slot)=>{
-            return <Slot
+            return (
+                    <Slot
                 key = {slot?.id}
                 slotDetails ={ slot}
+                session = {sessionDetails}
             />
+
+            )
+
         })}
     </div>
   )

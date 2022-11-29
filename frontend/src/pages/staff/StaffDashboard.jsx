@@ -21,37 +21,21 @@ import {
 } from "../../utils/api_calls/telephoneApi";
 import addSVG from "../../assets/images/add2.svg"
 import APIENDPOINT from "../../utils/api_calls/apiEndpoint";
+import { StaffContext } from "./StaffContext";
 
 function StaffDashboard() {
   const token = JSON.parse(localStorage.getItem("authTokens"));
 
-  const { t, i18n } = useTranslation();
-  const { user } = useContext(AuthContext);
+  const { t } = useTranslation();
   const navigate = useNavigate();
-  const [ownedProvider, setOwnedProvider] = useState();
-  const [staffProfile, setStaffProfile] = useState();
-  const [telephoneNumbers, setTelephoneNumbers] = useState([]);
+
   const [updating, setUpdating] = useState(false);
   const [newPhone, setNewPhone] = useState("");
 
-  const getOwnedProvider = async () => {
-    const response = await fetch(
-      `${APIENDPOINT}/users/provider/${user.user_id}?` +
-        new URLSearchParams({ owner_id: user.user_id }),
-      {
-        method: "GET",
-        headers: {
-          "Content-type": "application/json",
-        },
-      }
-    );
+  const {ownedProvider,staffProfile, telephoneNumbers, setTelephoneNumbers} = useContext(StaffContext)
 
-    if (response.ok) {
-      const data = await response.json();
 
-      setOwnedProvider(data);
-    }
-  };
+
 
 
   const addPhone = async () => {
@@ -78,31 +62,7 @@ function StaffDashboard() {
   };
 
 
-  const getProfileDetails = async () => {
-    const response = await fetch(
-      `${APIENDPOINT}/users/staff-account-detail/${user.user_id}/`,
-      {
-        method: "GET",
-        headers: {
-          "Content-type": "application/json",
-        },
-      }
-    );
 
-    if (response.ok) {
-      const data = await response.json();
-      setStaffProfile(data);
-      setTelephoneNumbers(data.staff_profile.telephone_numbers);
-    }
-  };
-
-
-
-
-  useEffect(() => {
-    getOwnedProvider();
-    getProfileDetails();
-  }, []);
 
   return (
     <>
@@ -241,45 +201,6 @@ function StaffDashboard() {
         <div className="primary--page-box">
         <h2 className="margin_bottom_small"> {t("your_profiles")}</h2>
 
-          <StaffProfiles />
-        </div>
-      </div>
-    </>
-  );
-
-  // old css changes VVVVVV
-
-  return (
-    <>
-      <Navbar />
-      <div className="staff-dashboard-main">
-        <h1>{t("My Dashboard")}</h1>
-
-        {!!ownedProvider ? (
-          <div className="primary-container">
-            <h3>{t("my_clinic")}</h3>
-            <StaffProfileItem
-              providerID={ownedProvider?.id}
-              provider={ownedProvider?.name}
-            />
-          </div>
-        ) : (
-          <div className="call-to-action__box">
-            <span className="call-to-action__header">
-              {t("would you like to register a clinic to your account?")}
-            </span>
-            <input
-              type="button"
-              onClick={() => {
-                navigate("/register/provider");
-              }}
-              className="bd"
-              value={t("register_a_provider")}
-            />
-          </div>
-        )}
-
-        <div className="staff-dashboard-inner">
           <StaffProfiles />
         </div>
       </div>

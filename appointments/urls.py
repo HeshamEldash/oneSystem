@@ -5,8 +5,8 @@ from .views import  *
 app_name = 'appointments'
 urlpatterns = [
     path("clinics/", ClinicView.as_view(), name= "clinics"),
-    path("sessions/", SessionView.as_view(), name= "clinics"),
-    # path("testsessions/", TestSessionView.as_view(), name= "clinics"),
+    path("sessions/", SessionView.as_view(), name= "sessions"),
+    path("appointment/", AppointmentView.as_view(), name= "appointment"),
 
 
 ]
