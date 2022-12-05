@@ -31,6 +31,7 @@ function useContextMenu(targetId) {
           posX: event.clientX,
           posY: event.clientY,
         });
+        console.log(event.clientX)
       } else if (
         contextRef.current &&
         !contextRef.current.contains(event.target)

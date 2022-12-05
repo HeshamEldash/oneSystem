@@ -16,15 +16,16 @@ import BookAppointment from "./BookAppointment";
 
 function Slot({ slotDetails, session }) {
   const { providerId } = useContext(ProviderContext);
-  const { appointmentDetails, status, deleteAppointment, blockSlot } =
+  const { appointmentDetails, status,setStatus,  deleteAppointment, blockSlot,setAppointmentDetails, slotInfo, setSlotInfo } =
     useSlot(slotDetails);
+    
   const navigate = useNavigate();
 
-
   const [openBookAppointment, setOpenBookAppointment] = useState(false);
+
   return (
     <div
-      id={slotDetails.id}
+      id={slotInfo.id}
       className="slot"
       onDoubleClick={
         appointmentDetails?.patient
@@ -36,13 +37,16 @@ function Slot({ slotDetails, session }) {
           : null
       }
     >
-      <ContextMenu targetId={slotDetails.id}>
+      <ContextMenu targetId={slotInfo.id}>
         <ContextMenuItem
           name={"Book appointment"}
           func={() => setOpenBookAppointment(true)}
         />
         <ContextMenuItem name={"Cancel"} func={() => deleteAppointment()} />
-        <ContextMenuItem name={"Block"} func={() => blockSlot()} />
+        <ContextMenuItem
+          name={status.blocked ? "unblock" : "block"}
+          func={() => blockSlot()}
+        />
         <ContextMenuItem name={"Status"} func={() => console.log("au KAlam")} />
         <ContextMenuItem
           name={"Information"}
@@ -51,8 +55,8 @@ function Slot({ slotDetails, session }) {
       </ContextMenu>
 
       <div className="slot__date-timebox">
-        <span>{formatTime(slotDetails.planned_start)}</span>
-        <span>{formatMinutes(slotDetails.slot_duration)} m</span>
+        <span>{formatTime(slotInfo.planned_start)}</span>
+        <span>{formatMinutes(slotInfo.slot_duration)} m</span>
       </div>
 
       <div className="slot__details">
@@ -64,16 +68,15 @@ function Slot({ slotDetails, session }) {
         )}
       </div>
 
-      <div className="slot_status">
+      <div className={`slot_status ${status.blocked && "blocked"}`}>
         {status.blocked && <span>blocked</span>}
       </div>
 
-
-      {openBookAppointment && <BookAppointment
-
-        slot ={slotDetails}
-        session={session}
-      />}
+      {openBookAppointment && (
+        <BookAppointment slot={slotInfo} session={session} 
+        setSlotStatus = {setStatus}
+        setAppointment ={setAppointmentDetails}/>
+      )}
     </div>
   );
 }

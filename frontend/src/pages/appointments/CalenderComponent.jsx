@@ -11,7 +11,6 @@ function CalenderComponent({ setParent, updatedDays, range }) {
     month: today.getMonth() + 1,
     day: today.getDate(),
   };
-  // const [range, setRange] = useState(false);
 
   const [selectedDays, setSelectedDays] = useState(
     range
@@ -22,10 +21,7 @@ function CalenderComponent({ setParent, updatedDays, range }) {
       : dayFormatted
   );
 
-  
-//   const [selectedDays, setSelectedDays] = useState(
-// null
-//   );
+
   const outPutDate = new Date(selectedDays.year + "-" + selectedDays.month + "-" + selectedDays.day )
 
 

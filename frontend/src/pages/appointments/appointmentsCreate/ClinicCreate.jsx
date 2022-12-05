@@ -5,9 +5,11 @@ import MenuItem from "@mui/material/MenuItem";
 import InputLabel from "@mui/material/InputLabel";
 import { ProviderContext } from "../../provider/context/ProviderContext";
 import { useTranslation } from "react-i18next";
-import { postClinicData } from "../appointmentsApiCalls";
+import { deleteClinic, postClinicData } from "../appointmentsApiCalls";
 import { AppointmentContext } from "../AppointmentsContext";
 import { ToastContainer, toast } from "react-toastify";
+import ContextMenu from "../../../components/ContextMenu";
+import ContextMenuItem from "../../../components/ContextMenuItem";
 
 function ClinicCreate() {
   const { listOfEmployments, providerId } = useContext(ProviderContext);
@@ -26,6 +28,18 @@ function ClinicCreate() {
     setSelectedStaff(e.target.value);
   };
 
+  const handleDelete = (clinicId) =>{
+    alert(t("Do yo really want to delete the clinic "))
+
+    setClinics((prev)=>{
+      return prev.filter((clinic)=>{
+        return clinic.id != clinicId
+      })
+    })
+
+    deleteClinic(clinicId)
+
+  }
   const handleSubmit = async () => {
     const speciality = specialityRef.current.value;
     const clinicDetails = await postClinicData(
@@ -96,13 +110,18 @@ function ClinicCreate() {
 
         {clinics?.map((clinic) => {
           return (
-            <div className="inner-page-box margin_bottom_small" key={clinic.id}>
+            <>
+            <div className="inner-page-box margin_bottom_small clinic" key={clinic.id} id={clinic.id}>
               <div>
                 <span>Dr {clinic?.clinican_details?.first_name}</span>
                 <span>{clinic?.clinican_details?.last_name}</span>
               </div>
               <span>{clinic.speciality}</span>
+              
+              <input type="button" className="secondry-button clinic_button" onClick={()=>handleDelete(clinic.id)} value={t("delete")}/>
             </div>
+
+           </>
           );
         })}
       </div>

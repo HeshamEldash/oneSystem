@@ -1,17 +1,13 @@
-import React, { useState, useContext } from "react";
+import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
 import RecordPatientDetailsBox from "./RecordPatientDetailsBox";
 import RecordsClinicalTree from "./RecordsClinicalTree";
 import { RecordContextProvider } from "./context/RecordContext";
 import RecordActionBar from "./RecordActionBar";
-import { Outlet, useNavigate, useLocation, useParams } from "react-router";
+import { Outlet, useNavigate, useParams } from "react-router";
 import useCurrentPath from "./hooks/useCurrentRecordLocation";
 import Tooltip from "@mui/material/Tooltip";
-import AddIcon from "@mui/icons-material/Add";
-import Fab from "@mui/material/Fab";
 import pills from "../../assets/images/pills.svg";
-import RecordEntry from "./RecordEntry";
-import MedicationPrescribePanel from "../medications/MedicationPrescribePanel";
 
 export default function RecordLayout() {
   const { t } = useTranslation();
@@ -29,6 +25,7 @@ export default function RecordLayout() {
   const handleCloseRecord = () => {
     navigate(`/provider/${id}`);
     localStorage.removeItem("patient_id");
+    localStorage.removeItem("patient_name");
   };
 
   return (

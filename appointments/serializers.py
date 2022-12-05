@@ -2,12 +2,31 @@ from rest_framework import serializers
 from .models import *
 from users.serializers import StaffSerializer
 
-
+from django.shortcuts import get_object_or_404
 class AppointmentSerializer(serializers.ModelSerializer):
     patient_name = serializers.CharField(source="patient", read_only=True)
     class Meta:
         model= Appointment
         fields = "__all__"
+        extra_kwargs = {
+            'slot': {'read_only': True},
+            'clincian': {'read_only': True},
+            }       
+
+    def create(self, validated_data):
+        slot_obj = self.context['view'].get_object()
+        clincian_obj  =slot_obj.session.clinic.clinican
+        patient_id = self.validated_data.get("patient")
+        presentation = self.validated_data.get("presentation")
+        # patient_obj = get_object_or_404(Patient, pk=patient_id)
+
+        appointment = Appointment.objects.create(
+            slot = slot_obj,
+            clincian = clincian_obj,
+            patient = patient_id,
+            presentation = presentation
+        )
+        return appointment
 
 
 

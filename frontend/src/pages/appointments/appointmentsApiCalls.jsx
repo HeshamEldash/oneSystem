@@ -23,6 +23,7 @@ const getSessionData = async (provider_id) => {
 };
 
 
+
 const postSessionData = async (provider_id, listOfData) => {
   /**
     [{
@@ -56,6 +57,19 @@ const postSessionData = async (provider_id, listOfData) => {
   return response;
 };
 
+
+const deleteClinic = async( clinic_id)=>{
+  let response = await fetch(
+    `${APIENDPOINT}/appointments/clinic/?` + new URLSearchParams({ clinic_id:clinic_id}),
+    {
+      method: "DELETE",
+      headers: {
+        "Content-type": "application/json",
+        Authorization: "Bearer " + String(token.access),
+      }
+    }
+  )
+}
 
 const getClinicData = async (provider_id) => {
     let response = await fetch(
@@ -115,4 +129,48 @@ const getClinicData = async (provider_id) => {
     return response;
   };
 
-  export { getClinicData,getSessionData,postClinicData,postSessionData,  }
+  const bookAppointment = async (slot_id,patient_id, presentation) => {
+    let response = await fetch(
+      `${APIENDPOINT}/appointments/appointment/?` + new URLSearchParams({slot_id:slot_id}),
+      {
+        method: "POST",
+        headers: {
+          "Content-type": "application/json",
+          Authorization: "Bearer " + String(token.access),
+        },
+        body:JSON.stringify({
+          patient: patient_id,
+          presentation: presentation,
+        })
+      }
+    )
+      .then((response) => response.json())
+      .then((data) => data);
+  
+    return response;
+  };
+
+
+  const updateAppointmentStatus = async (slot_id,status) => {
+    let response = await fetch(
+      `${APIENDPOINT}/appointments/slot/?` + new URLSearchParams({slot_id:slot_id}),
+      {
+        method: "PATCH",
+        headers: {
+          "Content-type": "application/json",
+          Authorization: "Bearer " + String(token.access),
+        },
+        body:JSON.stringify({
+            status:status
+        })
+      }
+    )
+      .then((response) => response.json())
+      .then((data) => data);
+  
+    return response;
+  };
+
+
+
+  export { bookAppointment, updateAppointmentStatus, deleteClinic, getClinicData,getSessionData,postClinicData,postSessionData,  }

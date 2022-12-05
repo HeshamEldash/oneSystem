@@ -94,6 +94,9 @@
     padding-inline: 3px;
 
 }
+.blocked{
+    background-color: red;
+}
 .calender{
     font-size: 9px !important;
 }
@@ -144,4 +147,63 @@
     margin-inline: auto;
     max-width: 100rem;
     min-height: 15rem;
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+    gap: 0.5rem;
+
+}
+
+.book_appointment_box > h2{
+    color: black;
+    font-weight: 600;
+    font-size: 2em;
+}
+
+.book_appointment_box__element{
+    display:flex;
+    gap: 2rem;
+    flex-wrap: wrap;
+    align-items: center;
+}
+.book_appt_label{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    margin-bottom: 10px;
+    flex-wrap: wrap;
+    max-width: 1300px; 
+    font-size: large;
+    font-weight: 600;
+    color: var(--color-gray-dark);
+}
+
+.book_appt_label > *{
+    flex: 5 0 auto;
+    margin-left: 10px;
+
+}
+
+.clinic{
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+.clinic_button{
+    position: absolute;
+    left: 90%;
+    bottom: 30%;
+}
+
+@media screen  and (max-width: 800px) {
+    .clinic{
+        position: relative;
+        gap: 0.5rem;
+    }
+    .clinic_button{
+        position: inherit;
+        left: inherit;
+        bottom: inherit;
+
+    }
 }

@@ -23,6 +23,8 @@ function RecordContextProvider(props) {
   const getProfileData = async () => {
     const profileData = await getPatientProfile(patient_id);
     setPatientProfile(profileData);
+    localStorage.setItem("patient_name", `${profileData.first_name} ${profileData.middle_names} ${profileData.last_name}`);
+
   };
   const getRecordsData = async () => {
     const recordsData = await getPatientRecords(patient_id);
@@ -45,13 +47,10 @@ function RecordContextProvider(props) {
     getAllPrescriptions();
     getRegularMedicationsData();
     localStorage.setItem("patient_id", patient_id);
+
   }, []);
 
-  // useEffect(()=>{
-  //   return () => {
-  //     alert('The component is going to be unmounted');
-  // }
-  // }, [])
+
   const contextData = {
     patientId: patientProfile.id,
     patient: patientProfile,
@@ -62,9 +61,7 @@ function RecordContextProvider(props) {
     regularMedications: regularMedications,
   };
 
-  // componentWillUnmount() {
-  //     alert('The component is going to be unmounted');
-  //   }
+
 
   return (
     <RecordContext.Provider value={{ contextData }}>
