@@ -5,6 +5,8 @@ from rest_framework import generics
 from rest_framework import mixins
 from .models import *
 from rest_framework.response import Response
+from rest_framework import serializers
+
 # Create your views here.
 from rest_framework import status
 
@@ -90,6 +92,11 @@ class SlotView(generics.GenericAPIView,mixins.UpdateModelMixin, mixins.RetrieveM
     def patch(self, request, *args, **kwargs):
         return self.partial_update(request, *args, **kwargs)
 
+
+class AppointmentWriteView(generics.GenericAPIView,mixins.UpdateModelMixin, mixins.DestroyModelMixin, mixins.CreateModelMixin):
+    class InputSerializer(serializers.Serializer):
+        patient_name = serializers.CharField(source="patient", read_only=True)
+        
 class AppointmentView(generics.GenericAPIView,mixins.UpdateModelMixin, mixins.RetrieveModelMixin, mixins.DestroyModelMixin, mixins.CreateModelMixin):
 
     serializer_class = AppointmentSerializer

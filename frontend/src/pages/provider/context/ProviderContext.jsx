@@ -1,6 +1,5 @@
 import react, { createContext, useState, useEffect } from "react";
 import { useParams } from "react-router";
-import { createLogin } from "../../../utils/api_calls/getLogins";
 import { getAllEmployments } from "../providerApi";
 export const ProviderContext = createContext();
 

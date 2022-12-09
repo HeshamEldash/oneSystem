@@ -28,13 +28,18 @@ function BookAppointment({ slot, session, setAppointment, setSlotStatus }) {
 
   const handleSubmit = () => {
     let presentation = presentationRef.current.value;
-    bookAppointment(slot.id, patient_id, presentation);
-    setSlotStatus((status) => ({ ...status, booked: true, empty: false }));
-    setAppointment((prev) => ({
-      ...prev,
-      presentation: presentation,
-      patient_name: patient_name,
-    }));
+    
+    setSlotStatus((status) => {
+      console.log(status.blocked)
+      if (status.blocked) return status
+
+      bookAppointment(slot.id, patient_id, presentation);
+      setAppointment((prev) => ({
+        ...prev,
+        presentation: presentation,
+        patient_name: patient_name,
+      }));
+      return ({ ...status, booked: true, empty: false })});
 
     handleClose();
   };

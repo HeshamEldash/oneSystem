@@ -3,7 +3,6 @@ from django.db import models
 from django.db.models import Q
 from django.contrib.auth.models import (PermissionsMixin)
 from django.contrib.auth.base_user import AbstractBaseUser, BaseUserManager
-from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 from django.core.mail import send_mail
 # query comes in with p details
@@ -169,6 +168,8 @@ class Staff(BaseProfile, models.Model):
         return f"{self.first_name} {self.last_name}"
 
 
+def provider_dir_path(instance, filename):
+    return    f"provider_{instance.id}/{filename}"
 
 class Provider(models.Model):
     owner = models.OneToOneField(Account, on_delete=models.CASCADE)
@@ -176,8 +177,13 @@ class Provider(models.Model):
     date_created = models.DateTimeField(_("date created"), auto_now_add=True)
     staff = models.ManyToManyField(Staff)
     patients = models.ManyToManyField(Patient, through="Registration")
-
-
+    # logo= models.FileField(
+    #     _("file"),
+    #     upload_to=provider_dir_path
+    #     null=True,
+    #     blank=True
+        
+    # )
     class Meta:
         verbose_name = _("health care provider")
         verbose_name_plural = _("health care providers")

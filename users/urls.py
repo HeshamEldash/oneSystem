@@ -12,12 +12,9 @@ urlpatterns = [
     path("account-create/", CreateAccountView.as_view(), name= "account_create"),
     path("account-detail/<int:pk>/", AccountDetailView.as_view(), name= "account_detail"),
 
-
-
     path("patient-profile-create/", PatinetProfileCreateView.as_view(), name= "patient_profile_create"),
     path("patient-profile-detail/<int:pk>/", PatinetProfileDetailView.as_view(), name= "patient_profile"),
     path("patient-account-detail/<int:pk>/", PatientAccountDetailView.as_view(), name= "patient_account"),
-
     
     path("staff-profile-detail/<int:pk>/", StaffProfileDetailView.as_view(), name= "staff_profile"),
     path("staff-account-detail/<int:pk>/", StaffDetailView.as_view(), name= "staff_account"),
@@ -46,9 +43,6 @@ urlpatterns = [
     
     path("staff-login/<int:provider_pk>/<int:staff_pk>/", LoginToProviderEventView.as_view(), name="staff_logins"),
     path("staff-logins-list/<int:provider_pk>/<int:staff_pk>/", LoginToProviderEventViewList.as_view(), name="staff_logins"),
-    
-    path("testing/", SearchPatientView.as_view(), name= "search_patients"),
-
    
    
     path('token/', MyTokenObtainPairView.as_view(), name='token_obtain_pair'),
