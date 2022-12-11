@@ -90,7 +90,13 @@ function listOfDatesFromCalenderObj(objDatesArr) {
 
   return formattedArray;
 }
+function builtInIsToday(dateStr) {
+  const currentDate = new Date(dateStr).toDateString()
+  const today = new Date().toDateString()
 
+  if (currentDate == today) return true 
+  return false 
+ 
+}
 
-
-export { formatDate, formatTime, formatMinutes ,listOfDatesFromCalenderObj, dateFromCalenderObj, dateStringFromCalenderObj};
+export { builtInIsToday, formatDate, formatTime, formatMinutes ,listOfDatesFromCalenderObj, dateFromCalenderObj, dateStringFromCalenderObj};

@@ -49,6 +49,8 @@ class SessionView(generics.ListCreateAPIView):
     serializer_class = SessionSerializer
     
     def get_queryset(self):
+        # TO DO:
+        # add filter to only get sessions one month after and before 
         provider = self.request.query_params.get("provider_id")
         qs = Session.objects.filter(clinic__provider_id=provider)
         return qs
@@ -93,10 +95,7 @@ class SlotView(generics.GenericAPIView,mixins.UpdateModelMixin, mixins.RetrieveM
         return self.partial_update(request, *args, **kwargs)
 
 
-class AppointmentWriteView(generics.GenericAPIView,mixins.UpdateModelMixin, mixins.DestroyModelMixin, mixins.CreateModelMixin):
-    class InputSerializer(serializers.Serializer):
-        patient_name = serializers.CharField(source="patient", read_only=True)
-        
+
 class AppointmentView(generics.GenericAPIView,mixins.UpdateModelMixin, mixins.RetrieveModelMixin, mixins.DestroyModelMixin, mixins.CreateModelMixin):
 
     serializer_class = AppointmentSerializer

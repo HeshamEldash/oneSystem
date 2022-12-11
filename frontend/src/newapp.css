@@ -259,12 +259,23 @@ UTILITY CLASSES
   flex-direction: row;
 
 }
+
+
 .inner-page-box--flex-row {
   display: flex;
   flex-direction: row;
   gap: 1rem;
   flex-wrap: wrap;
 }
+.flex-jc-space-between{
+  justify-content: space-between;
+}
+
+.flex-ai-center{
+  align-items: center;
+}
+
+
 .width_100{
     width: 100%;
 }

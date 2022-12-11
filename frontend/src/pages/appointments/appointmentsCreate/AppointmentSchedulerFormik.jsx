@@ -1,4 +1,4 @@
-import React, {  useContext, useRef, useEffect } from "react";
+import React, {  useContext, useState} from "react";
 import { useFormik } from "formik";
 import { useTranslation } from "react-i18next";
 import "react-modern-calendar-datepicker/lib/DatePicker.css";
@@ -15,7 +15,8 @@ import { postSessionData } from "../appointmentsApiCalls";
 import { ToastContainer, toast } from "react-toastify";
 import { schedulerSchema } from "./AppointmentSchedulerSchema";
 import useCalenderHook from "../hooks/useCalenderHook";
-import TextField from "@mui/material/TextField";
+import { TextField } from '@mui/material';
+
 
 function AppointmentsSchedulerFormik() {
   const { t } = useTranslation();
@@ -27,7 +28,7 @@ function AppointmentsSchedulerFormik() {
     });
 
   const { clinics, provider_id, setSessions } = useContext(AppointmentContext);
-  const [checkedShowRepeat, setCheckedShowRepeat] = React.useState(true);
+  const [checkedShowRepeat, setCheckedShowRepeat] = useState(false);
 
   const {
     selectedDates,

@@ -36,12 +36,31 @@
     "web-vitals": "^2.1.4",
     "yup": "^0.32.11"
   },
+
+
+
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
+
+// delete above scripts 
+// delete react scripts from dependancies 
+
+
+//   "devDependencies": {
+//   "@vitejs/plugin-react": "^2.0.1",
+//   "vite": "^3.0.7"
+// },  
+
+
+// "scripts": {
+//   "start": "vite",
+//   "build": "vite build",
+// },  
+
   "engines": {
     "node": "16.15.0",
     "npm": "8.5.5"

@@ -1,9 +1,10 @@
-import React, { useRef } from "react";
+import React, { useContext, useRef } from "react";
 import Modal from "@mui/material/Modal";
 import { Box } from "@mui/system";
 import { formatDate, formatMinutes } from "./utils/datetimeUtils";
 import { useTranslation } from "react-i18next";
 import { bookAppointment } from "./appointmentsApiCalls";
+import { AppointmentContext } from "./AppointmentsContext";
 
 function BookAppointment({ slot, session, setAppointment, setSlotStatus }) {
   const patient_id = localStorage.getItem("patient_id");
@@ -13,6 +14,7 @@ function BookAppointment({ slot, session, setAppointment, setSlotStatus }) {
   const presentationRef = useRef();
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+  const { sessions, setSessions } = useContext(AppointmentContext);
 
   const style = {
     position: "absolute",
@@ -25,22 +27,45 @@ function BookAppointment({ slot, session, setAppointment, setSlotStatus }) {
     boxShadow: 10,
     p: 3,
   };
+  // console.log(slot)
 
   const handleSubmit = () => {
     let presentation = presentationRef.current.value;
-    
+
     setSlotStatus((status) => {
-      console.log(status.blocked)
-      if (status.blocked) return status
+      if (status.blocked) return status;
 
       bookAppointment(slot.id, patient_id, presentation);
+
       setAppointment((prev) => ({
         ...prev,
         presentation: presentation,
         patient_name: patient_name,
       }));
-      return ({ ...status, booked: true, empty: false })});
 
+      return { ...status, booked: true, empty: false };
+    });
+
+    // needs refctoring to update the session in the context 
+
+    // setSessions((prev) => {
+    //   const a = prev.map((session) => {
+
+    //     if (session.id === slot.session) {
+    //       session.slot_set.map((originalSLot) => {
+    //         if (originalSLot.id === slot.id) {
+    //           originalSLot.appointment = {};
+    //         }
+    //         return originalSLot
+    //       });
+    //     }
+
+    //     return session
+    //   });
+    //   return a;
+    // });
+    
+    
     handleClose();
   };
 

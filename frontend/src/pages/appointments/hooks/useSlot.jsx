@@ -34,7 +34,7 @@ function useSlot(slotDetails) {
       }
     );
 
-    setAppointmentDetails({});
+    setAppointmentDetails(null);
   };
 
   const blockSlot = () => {

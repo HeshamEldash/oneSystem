@@ -5,7 +5,6 @@ import { AppointmentsContextProvider } from "./AppointmentsContext";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 
-
 function AppointmentsWrapper() {
   let location = useLocation();
   const getPath = () => {
@@ -19,11 +18,9 @@ function AppointmentsWrapper() {
   };
   return (
     <LocalizationProvider dateAdapter={AdapterDateFns}>
-      <AppointmentsContextProvider>
-        <div className={getPath() === "panel" ? null : "main_page_under_nav"}>
-          <Outlet />
-        </div>
-      </AppointmentsContextProvider>
+      <div className={getPath() === "panel" ? null : "main_page_under_nav"}>
+        <Outlet />
+      </div>
     </LocalizationProvider>
   );
 }

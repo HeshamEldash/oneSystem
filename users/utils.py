@@ -9,18 +9,21 @@ def create_staff(email, password, **kwargs):
     Should be user with staff account serializer to create an account and profile 
     
     """
+    
+    # TODO Needs refactoring so the numbers are not accessed like this, it has to passed as a single line 
+    
     telephone_num = kwargs["staff"].pop("phone_nums")
 
-    try:
+    try: 
         staff_account = Account.objects.get(email=email)
     except ObjectDoesNotExist:
         staff_account = Account.objects.create_user(email=email, password=password)
 
     staff = Staff(account=staff_account, **kwargs["staff"])
     staff.save()
-
-    TelephoneNumber.objects.create(telephone_number=telephone_num, owner_staff=staff)
-
+    number = telephone_num[0]["telephone_number"]
+    TelephoneNumber.objects.create(telephone_number=number, owner_staff=staff)
+  
     return staff_account
 #FInal
 def update_staff(instance, **kwargs ):

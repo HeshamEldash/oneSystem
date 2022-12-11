@@ -8,7 +8,6 @@ import "./registration.css";
 import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 import { useNavigate } from "react-router-dom";
-import { useOutletContext } from "react-router-dom";
 
 import APIENDPOINT from "../../utils/api_calls/apiEndpoint";
 
@@ -17,6 +16,8 @@ function RegistrationStaffMultiStep() {
   const navigate = useNavigate();
   const { t } = useTranslation();
   let { loginUser } = useContext(AuthContext);
+
+  
   let onSubmit = async (values, actions) => {
     let res = await fetch(`${APIENDPOINT}/users/staff-create/`, {
       method: "POST",
