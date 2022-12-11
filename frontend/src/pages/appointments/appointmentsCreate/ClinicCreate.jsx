@@ -1,6 +1,6 @@
 import React, { useState, useContext, useRef } from "react";
 import FormControl from "@mui/material/FormControl";
-import Select, { SelectChangeEvent } from "@mui/material/Select";
+import Select from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
 import InputLabel from "@mui/material/InputLabel";
 import { ProviderContext } from "../../provider/context/ProviderContext";
@@ -110,7 +110,7 @@ function ClinicCreate() {
 
         {clinics?.map((clinic) => {
           return (
-            <>
+  
             <div className="inner-page-box margin_bottom_small clinic" key={clinic.id} id={clinic.id}>
               <div>
                 <span>Dr {clinic?.clinican_details?.first_name}</span>
@@ -121,7 +121,7 @@ function ClinicCreate() {
               <input type="button" className="secondry-button clinic_button" onClick={()=>handleDelete(clinic.id)} value={t("delete")}/>
             </div>
 
-           </>
+
           );
         })}
       </div>

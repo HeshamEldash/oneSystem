@@ -447,7 +447,7 @@ function MedicationPrescribePanel({showMedicationPanel, setParent}) {
           <span className="medName" key={index}>{medication.name} </span>
           <span className="closeBox">
           <ClearIcon 
-          sx={{width:20, position:"relative", cursor:"pointer", height:"auto", position:"absolute"}}
+          sx={{width:20, cursor:"pointer", height:"auto", position:"absolute"}}
             onClick={()=>{
               setPrescribedList(()=>
               prescribedList.filter((med, medIndex)=>{

@@ -93,7 +93,7 @@ const updatePatinetProfile = async (data, profileId) => {
       last_name: data.last_name,
       gender: data.gender,
       date_of_birth: data.date_of_birth,
-      gender: data.gender,
+
     }),
   });
 };

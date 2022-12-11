@@ -170,7 +170,7 @@ function ProviderPatientRegistration() {
           }
           dateFormat="yyyy/MM/dd"
           selected={startDate}
-          onChange={(date: Date) => setStartDate(date)}
+          onChange={(date) => setStartDate(date)}
         />
 
         <label>{t("telephone_number")}</label>

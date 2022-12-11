@@ -202,7 +202,7 @@ function PatientRegistration() {
             name="dateOfBirth"
             dateFormat="yyyy/MM/dd"
             selected={startDate}
-            onChange={(date: Date) => setStartDate(date)}
+            onChange={(date) => setStartDate(date)}
           />
           {/* {errors.lastName && touched.lastName && (
             <p className="error">{errors.lastName}</p>

@@ -5,7 +5,6 @@ function MedicationPresetPanel({setPrescribedList,isRegular}) {
   const [presets, setPresets] = useState([]);
   const getPresetData = async () => {
     const prests = await getUserMedicationPresets();
-    console.log(prests);
     setPresets(prests);
   };
 
@@ -21,9 +20,11 @@ function MedicationPresetPanel({setPrescribedList,isRegular}) {
       {presets?.map((preset, index) => {
         return (
           <div 
-          key={index}
+          // key={index}
           onClick={()=>setPrescribedList((prev)=>[...prev, {...preset.medication, is_regular:isRegular}])}
-          className="medication_main padding_inline-small cursor_pointer light_border_bottom shallow_shadow padding_block_small margin_bottom_small" key={preset.id}>
+          className="medication_main padding_inline-small cursor_pointer light_border_bottom shallow_shadow padding_block_small margin_bottom_small" 
+          key={preset.id ? preset.id :index}
+          >
             <div>
               <span style={{paddingInlineEnd:"0.5rem"}}>Medication:</span>
               <span>{preset.medication.name}</span>
