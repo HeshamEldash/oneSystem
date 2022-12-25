@@ -8,7 +8,7 @@ const searchPatients = async (values, provider_id) => {
   provider_id && params.append("provider", provider_id);
 
   const response = await fetch(
-    `${APIENDPOINT}/users/testing/?` + new URLSearchParams(params),
+    `${APIENDPOINT}/users/search-patients/?` + new URLSearchParams(params),
     {
       method: "GET",
       headers: {
@@ -47,6 +47,8 @@ let getProfile = async (provider_id) => {
     method: "GET",
     headers: {
       "Content-type": "application/json",
+      Authorization: "Bearer " + String(token.access),
+
     },
   });
 

@@ -1,5 +1,6 @@
 from django.urls import path
 from .views import  *
+from .newViews import *
 from rest_framework_simplejwt.views import TokenRefreshView
 
 
@@ -43,9 +44,58 @@ urlpatterns = [
     
     path("staff-login/<int:provider_pk>/<int:staff_pk>/", LoginToProviderEventView.as_view(), name="staff_logins"),
     path("staff-logins-list/<int:provider_pk>/<int:staff_pk>/", LoginToProviderEventViewList.as_view(), name="staff_logins"),
-   
-    path('test/', StaffCreateViewNew.as_view(), name='test'),
+    
+
+    
+    
+    
+    
+    
+    path('search-patients/', SearchPatientView.as_view(), name='search_patients'),
+    path('test/', ProviderCreateApi.as_view(), name='test'),
    
     path('token/', MyTokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
+    
+    # // new urls VVVVVVVV:
+    
+    path('provider-create-api/', ProviderCreateApi.as_view(), name='test'),
+    path('provider-detail-api/', ProviderDetailApi.as_view(), name='test'),
+    path('provider-update-api/', ProviderUpdateApi.as_view(), name='test'),
+    
+    path('branch-detail-api/', BranchDetailApi.as_view(), name='test'),
+    path('branch-create-api/', BranchCreateApi.as_view(), name='test'),
+    path('branch-delete-api/', BranchDeleteApi.as_view(), name='test'),
+    path('branch-update-api/', BranchUpdateApi.as_view(), name='test'),
+    path('branch-list-api/', BranchListApi.as_view(), name='test'),
+    
+    
+    path('staff-create-api/', StaffCreateApi.as_view(), name='test'),
+    path('staff-detail-api/', StaffDetailApi.as_view(), name='test'),
+    path('staff-update-api/', StaffUpdateApi.as_view(), name='test'),
+    
+    
+    path('address-list-api/', AddressListApi.as_view(), name='test'),
+    path('address-detail-api/', AddressDetailApi.as_view(), name='test'),
+    path('address-delete-api/', AddressDeleteApi.as_view(), name='test'),
+    path('address-update-api/', AddressUpdateApi.as_view(), name='test'),
+    
+    path("employment-create-api/", EmploymentCreateApi.as_view()),
+    path("employment-update-api/", EmploymentUpdateApi.as_view()),
+    path("employment-provider-list-api/", EmploymentProviderListApi.as_view()),
+    path("employment-staff-list-api/", EmploymentStaffListApi.as_view()),
+    path("employment-deactivate-api/", EmploymentDeactivateApi.as_view()),
+    path("employment-detail-api/", EmploymentDetailApiApi.as_view()),
+    
+    
+    
+    path("patient-provider-detail-api/", PatientProfileProviderDetailApi.as_view()),
+    path("patient-provider-create-api/", PatientProfileProviderCreateApi.as_view()),
+    
+    
+    
+    
+    
+    
+    
 ]

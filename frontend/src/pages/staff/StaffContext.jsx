@@ -1,6 +1,7 @@
 import react, { createContext, useState, useEffect, useContext } from "react";
 import AuthContext from "../../context/AuthContext";
 import APIENDPOINT from "../../utils/api_calls/apiEndpoint";
+const token = JSON.parse(localStorage.getItem("authTokens"));
 
 export const StaffContext = createContext();
 
@@ -19,6 +20,8 @@ export default function StaffContextProvider(props) {
             method: "GET",
             headers: {
               "Content-type": "application/json",
+             Authorization: "Bearer " + String(token.access),
+
             },
           }
         );
@@ -40,6 +43,8 @@ export default function StaffContextProvider(props) {
             method: "GET",
             headers: {
               "Content-type": "application/json",
+               Authorization: "Bearer " + String(token.access),
+
             },
           }
         );

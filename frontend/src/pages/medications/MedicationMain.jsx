@@ -25,17 +25,20 @@ function MedicationMain() {
           {newMeds?.map((medication) => {
             return (
               medication.is_regular && (
-                <RegularMedication medication={medication} />
+                <RegularMedication 
+                key={medication.id}
+                medication={medication} />
               )
             );
           })}
         </div>
       ) : (
         <>
+               <h2>Prescriptions</h2>
           {allPrescriptions?.map((px) => {
             return (
               <div key ={px.id} className="prescription_box">
-              <h2>Prescriptions</h2>
+       
               <span>Date: </span>{new Date(px.date_created).toJSON().slice(0,10).replace(/-/g,'/')}
                 {px.medications?.map((med, index) => {
                   return (

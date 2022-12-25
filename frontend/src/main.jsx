@@ -15,5 +15,4 @@ root.render(
 
 );
 
-
 serviceWorkerRegistration.register()

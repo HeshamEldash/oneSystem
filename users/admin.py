@@ -5,8 +5,7 @@ from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from django.contrib.auth.forms import ReadOnlyPasswordHashField
 from django.core.exceptions import ValidationError
 
-from .models import Account, Employment, Patient, Provider, Staff, TelephoneNumber, Address
-
+from .models import *
 
 class UserCreationForm(forms.ModelForm):
     """A form for creating new users. Includes all the required
@@ -114,10 +113,19 @@ admin.site.register(Account)
 admin.site.register(Patient)
 admin.site.register(Staff)
 # # admin.site.register(UserProfile, UserProfileAdmin)
+admin.site.register(Branch)
 admin.site.register(Provider)
 admin.site.register(TelephoneNumber)
 admin.site.register(Address)
 admin.site.register(Employment)
+admin.site.register(Registration)
+admin.site.register(PatientTelephoneNumbers)
+admin.site.register(StaffTelephoneNumbers)
+admin.site.register(BranchTelephoneNumbers)
+admin.site.register(ProviderTelephoneNumbers)
+admin.site.register(PatientAddress)
+admin.site.register(BranchAddress)
+
 
 
 

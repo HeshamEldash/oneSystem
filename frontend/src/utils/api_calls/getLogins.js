@@ -1,4 +1,5 @@
 import APIENDPOINT from "./apiEndpoint";
+const token = JSON.parse(localStorage.getItem("authTokens"));
 
 const getLastLogin = async (staff_id, provider_id) => {
     const response = await fetch(
@@ -7,6 +8,8 @@ const getLastLogin = async (staff_id, provider_id) => {
         method: "GET",
         headers: {
           "Content-type": "application/json",
+        Authorization: "Bearer " + String(token.access),
+
         },
       }
     );
@@ -21,6 +24,8 @@ const getLogins = async (staff_id, provider_id) => {
         method: "GET",
         headers: {
           "Content-type": "application/json",
+        Authorization: "Bearer " + String(token.access),
+
         },
       }
     );
@@ -36,6 +41,8 @@ const createLogin = async (staff_id, provider_id) => {
         method: "POST",
         headers: {
           "Content-type": "application/json",
+        Authorization: "Bearer " + String(token.access),
+
         },
         body:JSON.stringify({
             staff:staff_id,
@@ -52,6 +59,8 @@ const endLogin = async (staff_id, provider_id) => {
         method: "PUT",
         headers: {
           "Content-type": "application/json",
+        Authorization: "Bearer " + String(token.access),
+
         }
       }
     );

@@ -59,7 +59,7 @@ function ResultsBox(props) {
           </StyledTableRow>
         </TableHead>
         <TableBody>
-               {props.children.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)}
+               {props?.children?.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)}
             
 
         </TableBody>

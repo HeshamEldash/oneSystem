@@ -10,7 +10,7 @@ from django.shortcuts import get_object_or_404
 from django.utils.translation import gettext_lazy as _
 from rest_framework.response import Response
 from rest_framework import status
-
+from .services import provider_create
 
 class MyTokenObtainPairView(TokenObtainPairView):
     serializer_class = MyTokenObtainPairSerializer
@@ -29,37 +29,7 @@ class MyTokenObtainPairView(TokenObtainPairView):
 #     # serializer_class = ChangePasswordSerializer
 
 
-class StaffCreateViewNew(APIView, mixins.CreateModelMixin):
-    class InputSerializer(serializers.Serializer):
-        DOCTOR = "DR"
-        NURSE = "NR"
-        MANAGER = "MG"
-        ADMIN = "AD"
-        PRACTITIONER = "PC"
-        ROLE_CHOICES = (
-        (DOCTOR, _('Doctor')),
-        (NURSE, _('Nurse')),
-        (MANAGER, _('Manger')),
-        (PRACTITIONER, _('Practitioner')),
-        (ADMIN, _('Admin')),
-        )
-        id = serializers.CharField(read_only=True)
-        email = serializers.EmailField()
-        password = serializers.CharField(
-            write_only=True, style={'input_type': 'password'})
-        first_name = serializers.CharField(max_length=100)
-        middle_names = serializers.CharField(max_length=100)
-        last_name = serializers.CharField(max_length=100)
-        staff_role = serializers.ChoiceField(ROLE_CHOICES)
-        telephone_numbers = serializers.CharField(max_length=100)
 
-    # serializer_class = InputSerializer
-    def post(self, request, *args, **kwargs):
-        serializer = self.InputSerializer(data=request.data) 
-        serializer.is_valid(raise_exception=True)
-        return Response(status=status.HTTP_200_OK )   
-    
-    
     
     
 class AccountStatusView(generics.GenericAPIView, mixins.RetrieveModelMixin, mixins.CreateModelMixin):
@@ -275,6 +245,10 @@ class ProviderCreateView (generics.GenericAPIView, mixins.CreateModelMixin):
 
     def post(self, request, *args, **kwargs):
         return self.create(request, *args, **kwargs)
+
+
+
+
 
 
 class EmploymentDetailView(generics.GenericAPIView,

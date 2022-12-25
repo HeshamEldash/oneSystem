@@ -47,7 +47,9 @@ function Icd() {
 
   useEffect(() => {
     ECT.Handler.configure(mySettings, myCallbacks);
+    return 
   }, []);
+
   useEffect(() => {
     ECT.Handler.bind("1");
   }, [entity]);
