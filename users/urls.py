@@ -72,6 +72,7 @@ urlpatterns = [
     
     path('staff-create-api/', StaffCreateApi.as_view(), name='test'),
     path('staff-detail-api/', StaffDetailApi.as_view(), name='test'),
+    path('staff-account-detail-api/', StaffAccountDetail.as_view(), name='test'),
     path('staff-update-api/', StaffUpdateApi.as_view(), name='test'),
     
     
@@ -91,10 +92,11 @@ urlpatterns = [
     
     path("patient-provider-detail-api/", PatientProfileProviderDetailApi.as_view()),
     path("patient-provider-create-api/", PatientProfileProviderCreateApi.as_view()),
+    path("patient-provider-update-api/", PatientProfileProviderUpdateApi.as_view()),
     
-    
-    
-    
+    path("registration-detail-api/",ProviderRegistrationDetailApi.as_view() ),
+    path("registration-list-api/",ProviderRegistrationListApi.as_view() ),
+    path("registration-create-api/",ProviderRegistrationCreateApi.as_view() ),
     
     
     

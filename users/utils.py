@@ -244,12 +244,11 @@ def create_registration(**kwargs):
     """
     patient = kwargs.get("patient")
     provider = kwargs.get("provider") 
-    new_registration = Registration.objects.get_or_create(
+    new_registration, created = Registration.objects.get_or_create(
         patient=patient, 
         provider=provider
         )
-    print(new_registration)
-    return new_registration[0]
+    return new_registration
 
 #Final
 def end_registration(instance):

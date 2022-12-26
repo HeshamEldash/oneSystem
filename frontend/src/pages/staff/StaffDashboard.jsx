@@ -1,25 +1,15 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useState } from "react";
 import Navbar from "../../components/ui/Navbar";
 import StaffProfiles from "./StaffProfiles";
-import SideBar from "../../components/ui/SideBar";
 import "./staff.css";
-import {
-  BrowserRouter as Router,
-  Route,
-  Routes,
-  Link,
-  NavLink,
-  useNavigate,
-} from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import AuthContext from "../../context/AuthContext";
 import StaffProfileItem from "./StaffProfileItem";
 import DeleteIcon from "@mui/icons-material/Delete";
 import {
   deletePhoneNumber,
   updatePhoneNumber,
 } from "../../utils/api_calls/telephoneApi";
-import addSVG from "../../assets/images/add2.svg"
 import APIENDPOINT from "../../utils/api_calls/apiEndpoint";
 import { StaffContext } from "./StaffContext";
 
@@ -32,37 +22,33 @@ function StaffDashboard() {
   const [updating, setUpdating] = useState(false);
   const [newPhone, setNewPhone] = useState("");
 
-  const {ownedProvider,staffProfile, telephoneNumbers, setTelephoneNumbers} = useContext(StaffContext)
-
-
-
-
+  const { ownedProvider, staffProfile, telephoneNumbers, setTelephoneNumbers } =
+    useContext(StaffContext);
 
   const addPhone = async () => {
     setTelephoneNumbers((prev) => [...prev, { telephone_number: newPhone }]);
-    const response = await fetch(`${APIENDPOINT}/users/staff-profile-detail/${staffProfile.staff_profile.id}/`, {
-      method: "PATCH",
-      headers: {
-        "Content-type": "application/json",
-        Authorization: "Bearer " + String(token.access),
-      },
-      body: JSON.stringify({
-        telephone_numbers: [...telephoneNumbers, 
-          { telephone_number: newPhone }
-        ],
-      }),
-    });
-
+    const response = await fetch(
+      `${APIENDPOINT}/users/staff-profile-detail/${staffProfile.staff_profile.id}/`,
+      {
+        method: "PATCH",
+        headers: {
+          "Content-type": "application/json",
+          Authorization: "Bearer " + String(token.access),
+        },
+        body: JSON.stringify({
+          telephone_numbers: [
+            ...telephoneNumbers,
+            { telephone_number: newPhone },
+          ],
+        }),
+      }
+    );
   };
-
 
   const handlePhoneChange = (event) => {
     const num = event.target.value;
     setNewPhone(num);
   };
-
-
-
 
   return (
     <>
@@ -101,16 +87,17 @@ function StaffDashboard() {
                   addPhone();
                 }}
                 type="button"
-                value={ "Add"}
+                value={"Add"}
               />
-          
             </div>
           )}
-
-
           {telephoneNumbers?.map((num, index) => {
             return (
-              <div key={num.id || index} className={"inner-page-box--flex-row"} style={{ padding: "0.4rem" }}>
+              <div
+                key={num.id || index}
+                className={"inner-page-box--flex-row"}
+                style={{ padding: "0.4rem" }}
+              >
                 {!updating ? (
                   <> {num.telephone_number}</>
                 ) : (
@@ -156,8 +143,6 @@ function StaffDashboard() {
               </div>
             );
           })}
-
-          
           <input
             type="button"
             className="page_button page_button-width-small-fixed "
@@ -167,14 +152,11 @@ function StaffDashboard() {
               // updating && updateProfile()
             }}
           />
-
-
-          
         </div>
 
         {!!ownedProvider ? (
           <div className="primary--page-box">
-          <h2 className="margin_bottom_small"> {t("your_clinic")}</h2>
+            <h2 className="margin_bottom_small"> {t("your_clinic")}</h2>
 
             {/* <h3>{t("my_clinic")}</h3> */}
             <StaffProfileItem
@@ -199,7 +181,7 @@ function StaffDashboard() {
         )}
 
         <div className="primary--page-box">
-        <h2 className="margin_bottom_small"> {t("your_profiles")}</h2>
+          <h2 className="margin_bottom_small"> {t("your_profiles")}</h2>
 
           <StaffProfiles />
         </div>

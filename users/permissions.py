@@ -142,7 +142,14 @@ class IsAddressOwner(BasePermission):
 #         return False
 
 class ProviderActionPermissionMixin:
-    
+    """
+        A Mixin to be used in the views to 1) ensure that any view that belongs to a provider related action has 
+        provider_id in the quesry_params 
+        2) to get that proivder object
+        3) that provider object can then be passed to the check_object_permission method to check if the user 
+        is allowed to enteract with that provider data 
+
+    """
     def get_provider(self):
         provider_pk = self.request.query_params.get("provider_id", None)
         assert provider_pk is not None, ("any action related to a provider should have the provider_id in the query params")

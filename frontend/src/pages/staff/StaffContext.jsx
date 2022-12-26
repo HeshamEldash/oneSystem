@@ -14,7 +14,7 @@ export default function StaffContextProvider(props) {
 
     const getOwnedProvider = async () => {
         const response = await fetch(
-          `${APIENDPOINT}/users/provider/${user.user_id}?` +
+          `${APIENDPOINT}/users/provider-detail-api/?` +
             new URLSearchParams({ owner_id: user.user_id }),
           {
             method: "GET",
@@ -38,7 +38,8 @@ export default function StaffContextProvider(props) {
 
       const getProfileDetails = async () => {
         const response = await fetch(
-          `${APIENDPOINT}/users/staff-account-detail/${user.user_id}/`,
+          `${APIENDPOINT}/users/staff-account-detail-api/?` +
+          new URLSearchParams({ account_id: user.user_id }),
           {
             method: "GET",
             headers: {

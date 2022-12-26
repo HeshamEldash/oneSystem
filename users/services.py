@@ -158,6 +158,13 @@ def provider_update(instance, **kwargs ):
         
         return instance
 
+def get_provider_registration_list(provider_pk:int):
+    
+    provider_obj = get_object_or_404(Provider, pk=provider_pk)
+    regsitration_list = provider_obj.registration_set.all()
+    return regsitration_list
+    
+    
 
 
 def check_employment_exists(provider:Provider, staff:Staff):
@@ -252,8 +259,6 @@ class StaffService:
         
         instance.save()
         
-        
-
 def create_employment(staff:int, provider:int, salary:float, employment_role:str):
     provider = get_object_or_404(Provider,pk = provider)
     staff = get_object_or_404(Staff,pk =staff)
@@ -288,7 +293,6 @@ def end_employment(instance):
     instance.date_employment_end = timezone.now().date()
     instance.save()
     return instance 
-
 
 class PatientProviderService:
     
@@ -329,19 +333,7 @@ class PatientProviderService:
     ):
         """_summary_
             checks if an object with these values exists, if not will create a new object
-        Args:
-            first_name (str): _description_
-            middle_names (str): _description_
-            last_name (str): _description_
-            date_of_birth (str): _description_
-            gender (str): _description_
-            telephone_number (str): _description_
-            unit_number (str, optional): _description_. Defaults to "".
-            first_line (str, optional): _description_. Defaults to "".
-            second_line (str, optional): _description_. Defaults to "".
-            city (str, optional): _description_. Defaults to "".
-            governorate (str, optional): _description_. Defaults to "".
-
+        
         Returns:
             _type_: a tuple of patient object and a boolean of created or not 
         """
@@ -381,9 +373,30 @@ class PatientProviderService:
         else:
             raise IntegrityError
 
-  
+    def update_patient(self, instance, **kwargs):
+        if hasattr(instance, "account"):
+            raise PermissionDenied
+        if not self.check_provider_patient_relationship(patient=instance):
+            raise PermissionDenied   
+        instance.first_name = kwargs.get('first_name', instance.first_name)
+        instance.middle_names = kwargs.get('middle_names', instance.middle_names)
+        instance.last_name = kwargs.get('last_name', instance.last_name)
+        instance.gender = kwargs.get('gender', instance.gender)
         
-               
+        instance.save()
+        return instance
+        
+    def get_registration(self, patient_id:int):
+        
+        registration = get_object_or_404(Registration , patient= patient_id, provider=self.provider )
+
+        return registration
+    
+    def create_registration(self, patient_id:int):
+        patient = get_object_or_404(Patient, pk =patient_id)
+        new_registration = Registration.objects.create(patient = patient, provider=self.provider)
+        
+        return new_registration
     
     def emergency_access():
         # TODO 1: register an un authorized access event (date, time, user, provider)

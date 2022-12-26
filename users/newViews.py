@@ -122,6 +122,13 @@ class AddressUpdateApi(APIView):
       
     
 # //////////////////////// Staff APIS \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+class StaffAccountDetail(APIView, GetObjectMixn):
+    look_up = "account_id"
+    look_up_model = Account.objects.exclude(staff=None)
+    serializer = StaffAccountSerializer
+
+    
+    
 class StaffCreateApi(APIView):
     permission_classes = [AllowAny]
     class InputSerializer(serializers.Serializer):
@@ -274,6 +281,15 @@ class ProviderDetailApi(APIView, GetObjectMixn):
     look_up = "provider_id"
     look_up_model = Provider
     serializer = NewProviderDetailSerializer
+    
+    def get_object(self):
+        owner_id = self.request.query_params.get("owner_id", None)
+        if owner_id:
+            owned_provider = get_object_or_404(Provider, owner__pk = owner_id)
+            print(owned_provider)
+            return owned_provider
+            
+        return super().get_object()
 
 class ProviderUpdateApi(APIView, UpdateObjectApiMixin):
     permission_classes = [IsProviderOwnerOrManagerPermission]
@@ -332,7 +348,7 @@ class EmploymentProviderListApi(APIView, ProviderActionPermissionMixin):
         self.check_object_permissions(request, provider)
         provider_list = get_provider_employment_list(provider_pk=provider_id)    
         data = EmploymentReadSerializer(provider_list, many=True).data
-        return Response(data)
+        return Response(status=status.HTTP_200_OK, data= data)
 
 class EmploymentUpdateApi(APIView,UpdateObjectApiMixin, ProviderActionPermissionMixin):
     permission_classes = [IsProviderOwnerOrManagerPermission]
@@ -461,13 +477,79 @@ class PatientProfileProviderCreateApi(APIView, ProviderActionPermissionMixin):
     
         return Response(status=status.HTTP_201_CREATED, data=NewPatientProfileDetailSerializer(patient_obj).data )    
           
-class PatientProfileProviderUpdateApi():
-    pass     
+class PatientProfileProviderUpdateApi(APIView, UpdateObjectApiMixin, ProviderActionPermissionMixin):
+    permission_classes = [IsProviderAdmin, IsProviderClinican]  
+    class InputSerializer(serializers.Serializer):
+        MALE = "MALE"
+        FEMALE = "FEMALE"
+        GENDER_CHOICES = (
+            (MALE, _('Male')),
+            (FEMALE, _('Female'))
+        )
         
+        first_name = serializers.CharField(max_length=100, required=False)
+        middle_names = serializers.CharField(max_length=100, required=False)
+        last_name = serializers.CharField(max_length=100, required=False)
+        date_of_birth = serializers.DateField(required=False)
+        gender= serializers.ChoiceField(GENDER_CHOICES, required=False)
     
+    look_up = "patient_id"
+    look_up_model = Patient
+    serializer = InputSerializer
+    
+
+    def patch(self, request, *args, **kwargs):
+        serializer = self.serializer(data= request.data)
+        serializer.is_valid(raise_exception=True)
+        instance = self.get_object()
+        provider = self.get_provider()
+        self.check_object_permissions(request, provider)
+        updated_patient = PatientProviderService(provider=provider).update_patient(instance, **serializer.validated_data )
+
+        return Response(status=status.HTTP_200_OK, data=NewPatientProfileDetailSerializer(updated_patient).data)  
+
+
+
 # //////////////////////// Registration APIS \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
     
+class ProviderRegistrationDetailApi(APIView,ProviderActionPermissionMixin ):
+    permission_classes = [IsProviderAdmin, IsProviderClinican]    
+    def get(self, request, *args, **kwargs):
+        patient_id = request.query_params.get("patient_pk")
+        provider = self.get_provider()
+        self.check_object_permissions(request, provider )
+        registration = PatientProviderService(provider=provider).get_registration(patient_id=patient_id)
+        return Response(status=status.HTTP_200_OK, data=RegistrationSerializer(registration).data )
     
+class ProviderRegistrationListApi(APIView,ProviderActionPermissionMixin ): 
+    permission_classes = [IsProviderAdmin, IsProviderClinican]    
+    
+    def get(self, request):
+        provider_id = request.query_params.get("provider_id")
+        provider = self.get_provider()
+        self.check_object_permissions(request, provider)
+        registration_list = get_provider_registration_list(provider_pk=provider_id)    
+        data = RegistrationSerializer(registration_list, many=True).data
+        return Response(data)
+    
+    
+class ProviderRegistrationUpdateApi(APIView,UpdateObjectApiMixin,ProviderActionPermissionMixin ):
+    pass
+
+class ProviderRegistrationEndApi(APIView,GetObjectMixn,ProviderActionPermissionMixin ):
+    pass
+
+class ProviderRegistrationCreateApi(APIView,ProviderActionPermissionMixin ):
+    permission_classes = [IsProviderAdmin, IsProviderClinican]    
+
+    def post(self, request, *args, **kwargs):
+        provider= self.get_provider()
+        patient_id = request.query_params.get("patient_id")
+        self.check_object_permissions(request, provider)
+        new_registration =PatientProviderService(provider=provider).create_registration(patient_id=patient_id)
+        data = RegistrationSerializer(new_registration).data
+        return Response(status=status.HTTP_201_CREATED, data=data)
+        
     
 # //////////////////////// Model APIS \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 # //////////////////////// Model APIS \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
