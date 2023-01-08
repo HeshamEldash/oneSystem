@@ -19,10 +19,11 @@ class AddressSerializer(serializers.Serializer):
     city = serializers.CharField()
     governorate = serializers.CharField()
 
-class BranchDetailSerializer(serializers.ModelSerializer):
-    telephone_numbers = TelephoneNumberSerializer(source='phone_nums',many=True, read_only=True)
+class BranchDetailSerializer(serializers.Serializer):
+    
+    telephone_numbers = TelephoneNumberSerializer(source='branchtelephonenumbers_set',many=True, read_only=True)
     provider_name = serializers.CharField(source="provider")
-    branchaddress = serializers.StringRelatedField(many=False)
+    branchaddress   = AddressSerializer(many=False)
     branchaddress_pk = serializers.PrimaryKeyRelatedField(source="branchaddress",many=False, read_only=True)
     class Meta:
         model = Branch
@@ -50,7 +51,7 @@ class NewPatientProfileDetailSerializer(serializers.Serializer):
     address = AddressSerializer(source='patientaddress')
    
    
-    pass
+    
 
 class NewProviderDetailSerializer(serializers.Serializer):
     id = serializers.CharField(read_only = True)

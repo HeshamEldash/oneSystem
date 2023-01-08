@@ -28,7 +28,6 @@ export default function StaffContextProvider(props) {
     
         if (response.ok) {
           const data = await response.json();
-    
           setOwnedProvider(data);
         }
       };

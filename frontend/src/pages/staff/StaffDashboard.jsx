@@ -149,7 +149,6 @@ function StaffDashboard() {
             value={updating ? t("save") : t("update")}
             onClick={() => {
               setUpdating((prev) => !prev);
-              // updating && updateProfile()
             }}
           />
         </div>

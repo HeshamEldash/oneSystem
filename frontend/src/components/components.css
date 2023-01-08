@@ -173,3 +173,9 @@
 .ddUpload--button:hover{
   background-color: #F082AC;
 }
+
+.input_container{
+  display: flex; 
+  align-items: center; 
+  gap: 1rem;
+}

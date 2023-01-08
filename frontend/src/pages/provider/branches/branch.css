@@ -1,0 +1,24 @@
+.branch__box_title_main{
+    font-size: 1.7em;
+    font-weight: bold;
+    color: (--color-gray-dark);
+}
+
+.branch__box_title{
+    font-weight: bold;
+    font-size: larger;
+    color: (--color-gray-dark);
+
+}
+.branch__box_address{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    align-items: center;
+}
+
+.branch__box_footer{
+    display: flex;
+    justify-content: flex-end;
+    padding-inline-end: 3rem;
+}

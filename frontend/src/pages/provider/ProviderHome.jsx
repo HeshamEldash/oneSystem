@@ -3,12 +3,14 @@ import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router";
 import Circle from "../../components/Circle";
 import { AppointmentContext } from "../appointments/AppointmentsContext";
+import BranchDisplayBox from "./branches/BranchDisplayBox";
+import UpdateBranchDetails from "./branches/UpdateBranchDetails";
 import { ProviderContext } from "./context/ProviderContext";
 import "./provider.css";
 
 function ProviderHome() {
   const { t } = useTranslation();
-  const { profile } = useContext(ProviderContext);
+  const { profile, branches } = useContext(ProviderContext);
   const { todayAppts } = useContext(AppointmentContext);
   const navigate = useNavigate();
 
@@ -28,6 +30,12 @@ function ProviderHome() {
             className="page_button page_button-width-small-fixed page_button-padding-inline-small "
           />
         </div>
+      </div>
+      <div className="primary--page-box">
+        <h2>bracnhes</h2>
+        {branches?.map((branch) => {
+          return <BranchDisplayBox key={branch.id} branch={branch} />;
+        })}
       </div>
     </div>
   );

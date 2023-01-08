@@ -67,6 +67,7 @@ urlpatterns = [
     path('branch-create-api/', BranchCreateApi.as_view(), name='test'),
     path('branch-delete-api/', BranchDeleteApi.as_view(), name='test'),
     path('branch-update-api/', BranchUpdateApi.as_view(), name='test'),
+    path('branch-telephone-update-api/', BranchTelephoneUpdateApi.as_view(), name='test'),
     path('branch-list-api/', BranchListApi.as_view(), name='test'),
     
     
@@ -75,8 +76,11 @@ urlpatterns = [
     path('staff-account-detail-api/', StaffAccountDetail.as_view(), name='test'),
     path('staff-update-api/', StaffUpdateApi.as_view(), name='test'),
     
+    path('telephone-add-api/', AddTelephoneNumberApi.as_view(), name='test'),
+    path('telephone-update-api/', UpdateTelephoneNumberApi.as_view(), name='test'),
     
-    path('address-list-api/', AddressListApi.as_view(), name='test'),
+    
+    # path('address-list-api/', AddressListApi.as_view(), name='test'),
     path('address-detail-api/', AddressDetailApi.as_view(), name='test'),
     path('address-delete-api/', AddressDeleteApi.as_view(), name='test'),
     path('address-update-api/', AddressUpdateApi.as_view(), name='test'),

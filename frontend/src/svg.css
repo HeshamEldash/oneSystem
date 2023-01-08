@@ -17,3 +17,9 @@
     width: 10px;
 
 }
+
+.svg_white > * {
+    /* background-color:blue; */
+    fill:red;
+ 
+}

@@ -10,7 +10,7 @@ function ProviderRegistration() {
   const { loginUse , user } = useContext(AuthContext);
   const navigate= useNavigate()
   const onSubmit = async (values, actions)=>{
-    console.log(user)
+
     const providerData = await createProvider(values, user.user_id)
     // actions.resetForm();
 

@@ -198,10 +198,10 @@ class AccountDetailSerializer(serializers.ModelSerializer):
 
 
 class BranchDetailSerializer(serializers.ModelSerializer):
-    telephone_numbers = TelephoneNumberSerializer(source='phone_nums',many=True, read_only=True)
+    telephone_numbers = TelephoneNumberSerializer(source='branchtelephonenumbers_set',many=True, read_only=True)
     address = AddressSerializer(many=False, read_only=True)
     provider_name = serializers.CharField(source="provider")
-    branchaddress = serializers.StringRelatedField(many=False)
+    branchaddress = AddressSerializer(many=False)
     branchaddress_pk = serializers.PrimaryKeyRelatedField(source="branchaddress",many=False, read_only=True)
     class Meta:
         model = Branch

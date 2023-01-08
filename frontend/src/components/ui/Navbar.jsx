@@ -1,11 +1,13 @@
 import React, { useState } from "react";
 import Backdrop from "@mui/material/Backdrop";
+import "../ui/ui.css"
+
 
 function Navbar({ children }) {
   const [isNavExpanded, setIsNavExpanded] = useState(false);
 
   return (
-    <div className="main-navbar">
+    <div className="main-navbar " >
       <div className="main-navbar__links">
 
 

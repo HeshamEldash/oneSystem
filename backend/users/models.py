@@ -21,6 +21,7 @@ from django.core.mail import send_mail
 #
 
 
+
 class AccountManager(BaseUserManager):
     def create_user(self, email, password, **extra_fields):
         """
@@ -329,25 +330,25 @@ class Address(models.Model):
 
 class PatientTelephoneNumbers(models.Model):
     telephone_number = models.CharField(_("telephone number"), max_length=100, unique=False, null=False)
-    patient = models.ForeignKey("Patient", on_delete=models.CASCADE, null=True)
+    owner = models.ForeignKey("Patient", on_delete=models.CASCADE, null=True)
     def __str__(self):
         return self.telephone_number
     
 class StaffTelephoneNumbers(models.Model):
     telephone_number = models.CharField(_("telephone number"), max_length=100, unique=False, null=False)
-    staff = models.ForeignKey("Staff", on_delete=models.CASCADE, null=True)
+    owner = models.ForeignKey("Staff", on_delete=models.CASCADE, null=True)
     def __str__(self):
         return self.telephone_number
     
 class BranchTelephoneNumbers(models.Model):
     telephone_number = models.CharField(_("telephone number"), max_length=100, unique=False, null=False)
-    branch = models.ForeignKey("Branch", on_delete=models.CASCADE, null=True)
+    owner = models.ForeignKey("Branch", on_delete=models.CASCADE, null=True)
     def __str__(self):
         return self.telephone_number
     
 class ProviderTelephoneNumbers(models.Model):
     telephone_number = models.CharField(_("telephone number"), max_length=100, unique=False, null=False)
-    provider = models.ForeignKey("Provider", on_delete=models.CASCADE, null=True)
+    owner = models.ForeignKey("Provider", on_delete=models.CASCADE, null=True)
     def __str__(self):
         return self.telephone_number
 

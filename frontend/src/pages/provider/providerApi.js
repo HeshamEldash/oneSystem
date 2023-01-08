@@ -2,6 +2,12 @@ import APIENDPOINT from "../../utils/api_calls/apiEndpoint";
 const token = JSON.parse(localStorage.getItem("authTokens"));
 
 // const { user, authTokens } = useContext(AuthContext);
+function handleErrors(response) {
+  if (!response.ok) {
+    throw Error(response.statusText);
+  }
+  return response;
+}
 
 const searchPatients = async (values, provider_id) => {
   const params = new URLSearchParams(values);
@@ -24,9 +30,8 @@ const searchPatients = async (values, provider_id) => {
 };
 
 const getAllPatients = async (provider_id) => {
-
   const response = await fetch(
-    `${APIENDPOINT}/users/registration-list/${provider_id}` ,
+    `${APIENDPOINT}/users/registration-list/${provider_id}`,
     {
       method: "GET",
       headers: {
@@ -40,7 +45,78 @@ const getAllPatients = async (provider_id) => {
     return response.json();
   }
 };
+const deleteBranch = async (provider_id, branch_id)=>{
+  return await fetch(
+    `${APIENDPOINT}/users/branch-delete-api//?` +
+      new URLSearchParams({  branch_id: branch_id,provider_id: provider_id }),
+    {
+      method: "GET",
+      headers: {
+        "Content-type": "application/json",
+        Authorization: "Bearer " + String(token.access),
+      },
+    }
+  )
+    .then(handleErrors)
+    .then((response) => response.json())
+    .catch((error) => console.log(error));
+}
+const getBranches = async (provider_id) => {
+  return await fetch(
+    `${APIENDPOINT}/users/branch-list-api/?` +
+      new URLSearchParams({ provider_id: provider_id }),
+    {
+      method: "GET",
+      headers: {
+        "Content-type": "application/json",
+        Authorization: "Bearer " + String(token.access),
+      },
+    }
+  )
+    .then(handleErrors)
+    .then((response) => response.json())
+    .catch((error) => console.log(error));
+};
 
+const updateBranchTelephoneList = async ({ branch_id, provider_id, data }) => {
+  return await fetch(
+    `${APIENDPOINT}/users/branch-telephone-update-api/?` +
+      new URLSearchParams({ branch_id: branch_id, provider_id: provider_id }),
+    {
+      method: "PATCH",
+      headers: {
+        "Content-type": "application/json",
+        Authorization: "Bearer " + String(token.access),
+      },
+      body: JSON.stringify({
+        telephone_numbers: data,
+      }),
+    }
+  )
+    .then(handleErrors)
+    .then((response) => response.json())
+    .catch((error) => console.log(error));
+};
+
+const updateBranchAddress = async ({ branch_id, provider_id, data }) => {
+  return await fetch(
+    `${APIENDPOINT}/users/branch-update-api/?` +
+      new URLSearchParams({ branch_id: branch_id, provider_id: provider_id }),
+    {
+      method: "PATCH",
+      headers: {
+        "Content-type": "application/json",
+        Authorization: "Bearer " + String(token.access),
+      },
+      body: JSON.stringify({
+        branchaddress: data,
+      }),
+    }
+  )
+    .then(handleErrors)
+    .then((response) => response.json())
+    .catch((error) => console.log(error));
+};
 
 let getProfile = async (provider_id) => {
   let response = await fetch(`${APIENDPOINT}/users/provider/${provider_id}/`, {
@@ -48,7 +124,6 @@ let getProfile = async (provider_id) => {
     headers: {
       "Content-type": "application/json",
       Authorization: "Bearer " + String(token.access),
-
     },
   });
 
@@ -82,16 +157,12 @@ const createProvider = async (data, user_id) => {
     }),
   });
 
-  if(response.ok){
-    const data = response.json()
-    console.log(data)
-    return data
+  if (response.ok) {
+    const data = response.json();
+    console.log(data);
+    return data;
   }
-
-
-
 };
-
 
 const endEmployment = async (employmentId) => {
   const response = await fetch(
@@ -111,7 +182,8 @@ const endEmployment = async (employmentId) => {
 
 const getAllEmployments = async (provider_id) => {
   const response = await fetch(
-    `${APIENDPOINT}/users/employment-provider-list/${provider_id}`,
+    `${APIENDPOINT}/users/employment-provider-list-api/?` +
+      new URLSearchParams({ provider_id: provider_id }),
     {
       method: "GET",
       headers: {
@@ -128,6 +200,7 @@ const getAllEmployments = async (provider_id) => {
     throw "An error has happened";
   }
 };
+
 const createEmployment = async (staff_email, provider_id) => {
   const response = await fetch(`${APIENDPOINT}/users/employment-create/`, {
     method: "POST",
@@ -185,5 +258,9 @@ export {
   createProvider,
   getAllEmployments,
   endEmployment,
-  getAllPatients
+  getAllPatients,
+  getBranches,
+  updateBranchAddress,
+  updateBranchTelephoneList,
+  deleteBranch
 };
