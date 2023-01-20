@@ -5,15 +5,9 @@ import { useTranslation } from "react-i18next";
 function UpdateBranchDetails({ branch }) {
   const { t } = useTranslation();
 
-  const onSubmit = (values) => {
-    console.log(values);
-  };
 
   const {
     values,
-    errors,
-    touched,
-    isSubmitting,
     handleBlur,
     handleChange,
     handleSubmit,
@@ -30,11 +24,8 @@ function UpdateBranchDetails({ branch }) {
       },
 
       telephone_numbers: branch?.telephone_numbers,
-    },
-    onSubmit,
+    }
   });
-
-  const addPhone = () => {};
 
   return (
     <div className="primary--page-box">

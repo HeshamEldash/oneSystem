@@ -1,7 +1,7 @@
 import APIENDPOINT from "../../utils/api_calls/apiEndpoint";
-const token = JSON.parse(localStorage.getItem("authTokens"));
 
-// const { user, authTokens } = useContext(AuthContext);
+let token = JSON.parse(localStorage.getItem("authTokens"));
+
 function handleErrors(response) {
   if (!response.ok) {
     throw Error(response.statusText);
@@ -45,12 +45,13 @@ const getAllPatients = async (provider_id) => {
     return response.json();
   }
 };
-const deleteBranch = async (provider_id, branch_id)=>{
+const deleteBranch = async ({provider_id, branch_id}) => {
+  console.log(branch_id, provider_id)
   return await fetch(
-    `${APIENDPOINT}/users/branch-delete-api//?` +
-      new URLSearchParams({  branch_id: branch_id,provider_id: provider_id }),
+    `${APIENDPOINT}/users/branch-delete-api/?` +
+      new URLSearchParams({ branch_id: branch_id, provider_id: provider_id }),
     {
-      method: "GET",
+      method: "DELETE",
       headers: {
         "Content-type": "application/json",
         Authorization: "Bearer " + String(token.access),
@@ -60,7 +61,7 @@ const deleteBranch = async (provider_id, branch_id)=>{
     .then(handleErrors)
     .then((response) => response.json())
     .catch((error) => console.log(error));
-}
+};
 const getBranches = async (provider_id) => {
   return await fetch(
     `${APIENDPOINT}/users/branch-list-api/?` +
@@ -76,6 +77,30 @@ const getBranches = async (provider_id) => {
     .then(handleErrors)
     .then((response) => response.json())
     .catch((error) => console.log(error));
+};
+
+const createBranch = async (data) => {
+  const response = await fetch(`${APIENDPOINT}/users/branch-create-api/`, {
+    method: "POST",
+    headers: {
+      "Content-type": "application/json",
+      Authorization: "Bearer " + String(token.access),
+    },
+    body: JSON.stringify({
+      provider: data.provider,
+      branch_name: data.branch_name,
+      unit_number: data.unit_number,
+      first_line: data.first_line,
+      second_line: data.second_line,
+      city: data.city,
+      governorate: data.governorate,
+      telephone_number: data.telephone_number,
+    }),
+  })
+   if (response.ok){
+    return response.json()
+   }
+   
 };
 
 const updateBranchTelephoneList = async ({ branch_id, provider_id, data }) => {
@@ -118,14 +143,38 @@ const updateBranchAddress = async ({ branch_id, provider_id, data }) => {
     .catch((error) => console.log(error));
 };
 
+const updateProviderProfile = async ({ provider_id, data }) => {
+  return await fetch(
+    `${APIENDPOINT}/users/provider-update-api/?` +
+      new URLSearchParams({ provider_id: provider_id }),
+    {
+      method: "PATCH",
+      headers: {
+        "Content-type": "application/json",
+        Authorization: "Bearer " + String(token.access),
+      },
+      body: JSON.stringify({
+        name: data,
+      }),
+    }
+  )
+    .then(handleErrors)
+    .then((response) => response.json())
+    .catch((error) => console.log(error));
+};
+
 let getProfile = async (provider_id) => {
-  let response = await fetch(`${APIENDPOINT}/users/provider/${provider_id}/`, {
-    method: "GET",
-    headers: {
-      "Content-type": "application/json",
-      Authorization: "Bearer " + String(token.access),
-    },
-  });
+  let response = await fetch(
+    `${APIENDPOINT}/users/provider-detail-api/?` +
+      new URLSearchParams({ provider_id: provider_id }),
+    {
+      method: "GET",
+      headers: {
+        "Content-type": "application/json",
+        Authorization: "Bearer " + String(token.access),
+      },
+    }
+  );
 
   if (response.ok) {
     const data = response.json();
@@ -133,6 +182,26 @@ let getProfile = async (provider_id) => {
   } else {
     throw "An error has happened";
   }
+};
+
+const updateProviderTelephoneList = async ({ provider_id, data }) => {
+  return await fetch(
+    `${APIENDPOINT}/users/branch-telephone-update-api/?` +
+      new URLSearchParams({ provider_id: provider_id }),
+    {
+      method: "PATCH",
+      headers: {
+        "Content-type": "application/json",
+        Authorization: "Bearer " + String(token.access),
+      },
+      body: JSON.stringify({
+        telephone_numbers: data,
+      }),
+    }
+  )
+    .then(handleErrors)
+    .then((response) => response.json())
+    .catch((error) => console.log(error));
 };
 
 const createProvider = async (data, user_id) => {
@@ -159,7 +228,7 @@ const createProvider = async (data, user_id) => {
 
   if (response.ok) {
     const data = response.json();
-    console.log(data);
+
     return data;
   }
 };
@@ -262,5 +331,7 @@ export {
   getBranches,
   updateBranchAddress,
   updateBranchTelephoneList,
-  deleteBranch
+  deleteBranch,
+  updateProviderProfile,
+  createBranch,
 };

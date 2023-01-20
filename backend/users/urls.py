@@ -75,6 +75,7 @@ urlpatterns = [
     path('staff-detail-api/', StaffDetailApi.as_view(), name='test'),
     path('staff-account-detail-api/', StaffAccountDetail.as_view(), name='test'),
     path('staff-update-api/', StaffUpdateApi.as_view(), name='test'),
+    path('staff-telephone-update-api/', StaffTelephoneUpdateApi.as_view(), name='test'),
     
     path('telephone-add-api/', AddTelephoneNumberApi.as_view(), name='test'),
     path('telephone-update-api/', UpdateTelephoneNumberApi.as_view(), name='test'),

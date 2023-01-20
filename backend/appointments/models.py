@@ -1,11 +1,12 @@
 from django.db import models
-from users.models import Account, Patient, Staff, Provider
+from users.models import Account, Patient, Staff, Provider, Branch
 from django.utils.translation import gettext_lazy as _
 import datetime
 
 
 class Clinic(models.Model):
     provider = models.ForeignKey(Provider, on_delete=models.CASCADE)
+    branch = models.ForeignKey(Branch , on_delete=models.CASCADE)
     speciality = models.CharField(max_length=1000, blank=True, null=True)
     clinican = models.ForeignKey(Staff, on_delete=models.CASCADE)
 

@@ -4,7 +4,6 @@ import { useNavigate } from "react-router";
 import Circle from "../../components/Circle";
 import { AppointmentContext } from "../appointments/AppointmentsContext";
 import BranchDisplayBox from "./branches/BranchDisplayBox";
-import UpdateBranchDetails from "./branches/UpdateBranchDetails";
 import { ProviderContext } from "./context/ProviderContext";
 import "./provider.css";
 

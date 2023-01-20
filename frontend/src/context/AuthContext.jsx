@@ -7,6 +7,8 @@ const AuthContext = createContext({});
 export default AuthContext;
 
 export const AuthProvider = ({ children }) => {
+
+
   let [authTokens, setAuthTokens] = useState(() =>
     localStorage.getItem("authTokens")
       ? JSON.parse(localStorage.getItem("authTokens"))
@@ -18,7 +20,6 @@ export const AuthProvider = ({ children }) => {
       : null
   );
   const [loading, setLoading] = useState(true);
-  const [userDetails, setUserDetails] = useState({});
 
   const navigate = useNavigate();
   const [error, setError] = useState(false);
@@ -43,10 +44,21 @@ export const AuthProvider = ({ children }) => {
       let data = await response.json();
       let decoded = jwt_decode(data.access);
       setAuthTokens(data);
-      setUser(decoded);
       localStorage.setItem("authTokens", JSON.stringify(data));
+      setUser(decoded);
       return true
     } 
+  
+    else{
+      throw false 
+    }
+
+
+
+
+
+
+
   };
 
   let logoutUser = () => {
@@ -60,7 +72,6 @@ export const AuthProvider = ({ children }) => {
   const contextData = {
     authTokens: authTokens,
     user: user,
-
     loginUser: loginUser,
     logoutUser: logoutUser,
     erorr: error,

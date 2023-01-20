@@ -13,7 +13,7 @@ from rest_framework.response import Response
 from rest_framework import status
 from .services import *
 from .permissions import *
-from .newSerializer import NewProviderDetailSerializer, NewPatientProfileDetailSerializer
+from .newSerializer import NewProviderDetailSerializer, NewStaffAccountSerializer, NewPatientProfileDetailSerializer
 # //////////////////////// MIXINS \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 
 # TODO: staff profile update
@@ -158,7 +158,7 @@ class AddressUpdateApi(APIView):
 class StaffAccountDetail(APIView, GetObjectMixn):
     look_up = "account_id"
     look_up_model = Account.objects.exclude(staff=None)
-    serializer = StaffAccountSerializer
+    serializer = NewStaffAccountSerializer
 
 
 class StaffCreateApi(APIView):
@@ -227,6 +227,20 @@ class StaffUpdateApi(APIView, UpdateObjectApiMixin):
     def perform_update(self, instance, request, **serializer_data):
         return StaffService().update_staff(instance, **serializer_data)
 
+class StaffTelephoneUpdateApi(APIView, UpdateObjectApiMixin):
+    permission_classes = [ViewOrEditStaff]
+
+
+    class InputSerializer(serializers.Serializer):
+        telephone_numbers = serializers.ListField(child=serializers.CharField(), allow_empty=True)
+
+    look_up = "staff_id"
+    look_up_model = Staff
+    serializer = InputSerializer
+
+    def perform_update(self, instance, request, **serializer_data):
+        return StaffService().update_telephone_numbers(instance, **serializer_data)
+
 
 class StaffDetailApi(APIView, GetObjectMixn):
 
@@ -264,8 +278,8 @@ class BranchCreateApi(APIView):
     def post(self, request, *args, **kwargs):
         serializer = self.InputSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
-        BranchService().create(**serializer.validated_data)
-        return Response(status=status.HTTP_200_OK)
+        branch = BranchService().create(**serializer.validated_data)
+        return Response(status=status.HTTP_200_OK, data=BranchDetailSerializer(branch).data)
 
 
 class BranchDeleteApi(APIView , ProviderActionPermissionMixin):
@@ -367,10 +381,10 @@ class ProviderDetailApi(APIView, GetObjectMixn):
         owner_id = self.request.query_params.get("owner_id", None)
         if owner_id:
             owned_provider = get_object_or_404(Provider, owner__pk=owner_id)
-            print(owned_provider)
             return owned_provider
 
         return super().get_object()
+
 
 
 class ProviderUpdateApi(APIView, UpdateObjectApiMixin):
@@ -390,7 +404,7 @@ class ProviderUpdateApi(APIView, UpdateObjectApiMixin):
         serializer.is_valid(raise_exception=True)
         instance = self.get_object()
         self.check_object_permissions(request, instance)
-        self.perform_update(instance, request, **serializer.validated_data)
+        provider_update(instance, **serializer.validated_data)
         return Response(status=status.HTTP_200_OK, data=serializer.data)
 
 # //////////////////////// Employment APIS \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\

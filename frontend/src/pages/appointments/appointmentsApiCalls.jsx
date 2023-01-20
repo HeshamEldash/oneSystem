@@ -1,7 +1,5 @@
 import APIENDPOINT from "../../utils/api_calls/apiEndpoint";
-const token = JSON.parse(localStorage.getItem("authTokens"));
-
-
+let token = JSON.parse(localStorage.getItem("authTokens"));
 
 const getSessionData = async (provider_id) => {
   let response = await fetch(

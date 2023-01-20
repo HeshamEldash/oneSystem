@@ -1,11 +1,15 @@
 import React from "react";
 
+// css in form.css
+
 function MediumInput({ type, value, label, onChange, name, handleBlur }) {
   return (
-    <div>
+    <div className="medium_input">
       <label className="label">
         {label}:
-        <input
+       
+      </label>
+      <input
         className="form-fields"
           type="text"
           value={value}
@@ -13,7 +17,6 @@ function MediumInput({ type, value, label, onChange, name, handleBlur }) {
           onBlur={handleBlur}
           name={name}
         />
-      </label>
     </div>
   );
 }

@@ -5,6 +5,7 @@ import Header from "./components/Header.jsx";
 import "./app.css";
 import "./newapp.css";
 import "./utility.css";
+import "./components/components.css"
 import Login from "./pages/Login/Login.jsx";
 import Home from "./pages/Home.jsx";
 import { AuthProvider } from "./context/AuthContext.jsx";

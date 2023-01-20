@@ -61,3 +61,35 @@ class NewProviderDetailSerializer(serializers.Serializer):
     date_created = serializers.DateTimeField(read_only=True)
     telephone_numbers = TelephoneNumberSerializer(source="providertelephonenumbers_set", many=True, read_only=True)
     branches = BranchDetailSerializer(source="branch_set", many =True, read_only=True)
+    
+    
+class NewStaffSerializer(serializers.Serializer):
+    DOCTOR = "DR"
+    NURSE = "NR"
+    MANAGER = "MG"
+    ADMIN = "AD"
+    PRACTITIONER = "PC"
+    ROLE_CHOICES = (
+        (DOCTOR, _('Doctor')),
+        (NURSE, _('Nurse')),
+        (MANAGER, _('Manger')),
+        (PRACTITIONER, _('Practitioner')),
+        (ADMIN, _('Admin')),
+    )
+
+    id = serializers.CharField(read_only = True)
+    first_name = serializers.CharField(max_length=100)
+    middle_names = serializers.CharField(max_length=100)
+    last_name = serializers.CharField(max_length=100)
+    staff_role = serializers.ChoiceField(ROLE_CHOICES)
+    professional_number = serializers.CharField()
+    telephone_numbers = TelephoneNumberSerializer(source='stafftelephonenumbers_set',many=True)
+    staff_email = serializers.EmailField(source="account" ,read_only=True)
+
+   
+class NewStaffAccountSerializer(serializers.Serializer):
+    id = serializers.CharField(read_only = True)
+    email =serializers.EmailField()
+    password = serializers.CharField(write_only=True, style={'input_type': 'password'})
+    is_active = serializers.BooleanField(read_only=True)
+    staff_profile = NewStaffSerializer(source="staff", many=False)

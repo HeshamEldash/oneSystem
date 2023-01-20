@@ -318,6 +318,35 @@ class StaffService:
 
         return staff
 
+    def update_telephone_numbers(self, instance, **kwargs):
+        telephone_numbers = kwargs.pop("telephone_numbers", None)
+   
+        old_nums = instance.stafftelephonenumbers_set.all()
+        new_nums = []
+        
+        if telephone_numbers:
+            for num in telephone_numbers:
+                try:
+                    obj = StaffTelephoneNumbers.objects.get(
+                        owner=instance,
+                        telephone_number=num
+                    )
+                except:
+                    obj = StaffTelephoneNumbers.objects.create(
+                        owner=instance,
+                        telephone_number=num
+                    )
+                new_nums.append(obj)
+
+            for num_obj in old_nums:
+                if num_obj not in new_nums:
+                    num_obj.delete()
+
+        instance.stafftelephonenumbers_set.set(new_nums)
+        
+        instance.save()
+        return instance
+    
     @staticmethod
     def update_staff(instance, **kwargs):
         """

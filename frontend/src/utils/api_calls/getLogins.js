@@ -8,7 +8,7 @@ const getLastLogin = async (staff_id, provider_id) => {
         method: "GET",
         headers: {
           "Content-type": "application/json",
-        Authorization: "Bearer " + String(token.access),
+        Authorization: "Bearer " + String(JSON.parse(localStorage.getItem("authTokens"))?.access),
 
         },
       }
@@ -24,7 +24,7 @@ const getLogins = async (staff_id, provider_id) => {
         method: "GET",
         headers: {
           "Content-type": "application/json",
-        Authorization: "Bearer " + String(token.access),
+        Authorization: "Bearer " + String(JSON.parse(localStorage.getItem("authTokens"))?.access),
 
         },
       }
@@ -41,7 +41,7 @@ const createLogin = async (staff_id, provider_id) => {
         method: "POST",
         headers: {
           "Content-type": "application/json",
-        Authorization: "Bearer " + String(token.access),
+        Authorization: "Bearer " + String(JSON.parse(localStorage.getItem("authTokens"))?.access),
 
         },
         body:JSON.stringify({
@@ -59,7 +59,7 @@ const endLogin = async (staff_id, provider_id) => {
         method: "PUT",
         headers: {
           "Content-type": "application/json",
-        Authorization: "Bearer " + String(token.access),
+        Authorization: "Bearer " + String(JSON.parse(localStorage.getItem("authTokens"))?.access),
 
         }
       }

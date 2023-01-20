@@ -1,5 +1,6 @@
 import APIENDPOINT from "../../../utils/api_calls/apiEndpoint";
-const token = JSON.parse(localStorage.getItem("authTokens"));
+let token = JSON.parse(localStorage.getItem("authTokens"));
+
 
 const getPatientProfile = async (patient_id) => {
   let response = await fetch(
@@ -93,7 +94,6 @@ const updatePatinetProfile = async (data, profileId) => {
       last_name: data.last_name,
       gender: data.gender,
       date_of_birth: data.date_of_birth,
-
     }),
   });
 };
@@ -118,7 +118,7 @@ const createPastCodition = async (patient_id, values) => {
   );
 };
 
-const getIcdList = async (patient_id) =>{
+const getIcdList = async (patient_id) => {
   let response = await fetch(
     `${APIENDPOINT}/records/patients-icd-codes/?` +
       new URLSearchParams({ patient_id: patient_id }),
@@ -131,15 +131,13 @@ const getIcdList = async (patient_id) =>{
     }
   );
 
-
   if (response.ok) {
     const data = response.json();
     return data;
   } else {
     throw "An error has happened";
   }
-
-}
+};
 
 const getPastCoditions = async (patient_id) => {
   let response = await fetch(
@@ -176,7 +174,7 @@ const deletePastCodition = async (patient_id, condition_id) => {
   );
 };
 
-const getRecordFiles = async (patient_id)=>{
+const getRecordFiles = async (patient_id) => {
   const response = await fetch(
     `${APIENDPOINT}/records/patients-records-files/${patient_id}/`,
     {
@@ -189,10 +187,9 @@ const getRecordFiles = async (patient_id)=>{
   );
   if (response.ok) {
     const data = await response.json();
-    return data
+    return data;
   }
-
-}
+};
 
 export {
   getPatientProfile,
@@ -205,5 +202,4 @@ export {
   deletePastCodition,
   getRecordFiles,
   getIcdList,
-
 };

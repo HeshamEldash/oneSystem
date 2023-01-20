@@ -1,28 +1,11 @@
-import React, { useContext, useEffect, useState } from "react";
-import AuthContext from "../../context/AuthContext";
+import React from "react";
+
 import StaffProfileItem from "./StaffProfileItem";
-import {
-  getLogins,
-  createLogin,
-  endLogin,
-} from "../../utils/api_calls/getLogins";
+
 import { useTranslation } from "react-i18next";
 
-import { getStaffProfile } from "./staffApi";
-
-function StaffProfiles() {
+function StaffProfiles({ profiles }) {
   const { t } = useTranslation();
-
-  const [profiles, setProfiles] = useState([]);
-
-  const getDetails = async () => {
-    const staffProfiles = await getStaffProfile();
-    setProfiles(staffProfiles);
-  };
-
-  useEffect(() => {
-    getDetails();
-  }, []);
 
   return (
     <div className="inner-page-box--flex">
@@ -34,7 +17,6 @@ function StaffProfiles() {
         </span>
       ) : (
         <>
-          {/* <h3>{t("my_profiles")}</h3> */}
           <div className="inner-page-box--flex-row">
             {profiles?.map((profile) => (
               <StaffProfileItem
