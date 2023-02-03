@@ -14,12 +14,12 @@ function AppointmentsContextProvider(props) {
   const { id } = useParams();
 
   const getTodayAppointments = () => {
-    const todaySessions = sessions.filter((session) => {
+    const todaySessions = sessions?.filter((session) => {
       if (builtInIsToday(session?.start)) return session;
     });
 
     const appts = todaySessions.reduce((appts, tSession) => {
-      return tSession.slot_set.filter((slot) => {
+      return tSession.slot_set?.filter((slot) => {
         return slot.appointment != null;
       });
     }, []);

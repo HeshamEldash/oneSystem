@@ -48,10 +48,12 @@ INSTALLED_APPS = [
     'rest_framework_simplejwt',
 
    # project apps
+   "website",
     'users',
     "records.apps.RecordsConfig",
     "medicines",
     "appointments",
+    "error_handler"
     
 
 
@@ -59,6 +61,8 @@ INSTALLED_APPS = [
 
 
 REST_FRAMEWORK = {
+     'EXCEPTION_HANDLER': 'error_handler.api_error_handler.exception_errors_format_handler',
+     
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_simplejwt.authentication.JWTAuthentication',
     ),

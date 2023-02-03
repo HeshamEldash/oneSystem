@@ -1,18 +1,27 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import App from './App';
+import React from "react";
+import ReactDOM from "react-dom/client";
+import App from "./App";
 import { BrowserRouter as Router } from "react-router-dom";
 import "./i18nextInit";
-import * as serviceWorkerRegistration from './serviceWorkerRegistration';
+import * as serviceWorkerRegistration from "./serviceWorkerRegistration";
+import {
+  QueryClient,
+  QueryClientProvider,
+} from "@tanstack/react-query";
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
+
+const queryClient = new QueryClient();
+const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-  <Router>
-    <App />
-  </Router>
+    <QueryClientProvider client={queryClient}>
+      <Router>
+        <App />
+      </Router>
+      <ReactQueryDevtools initialIsOpen={true} />
+    </QueryClientProvider>
   </React.StrictMode>
-
 );
 
-serviceWorkerRegistration.register()
+serviceWorkerRegistration.register();

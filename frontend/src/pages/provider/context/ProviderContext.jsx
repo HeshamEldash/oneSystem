@@ -1,18 +1,31 @@
 import react, { createContext, useState, useEffect } from "react";
 import { useParams } from "react-router";
 import { getAllEmployments, getBranches, getProfile } from "../providerApi";
+import { useQuery } from "@tanstack/react-query";
+import { useGetBranches } from "../useBranchDataApi";
+
 export const ProviderContext = createContext();
 
 export default function ProviderContextProvider(props) {
   const { id } = useParams();
   const [listOfEmployments, setListOfEmployments] = useState([]);
   const [profile, setProfile] = useState({});
-  const [branches, setBranches] = useState([]);
+  // const [branches, setBranches] = useState([]);
 
-  const retreiveBranches = async () => {
-    const branches = await getBranches(id);
-    setBranches(branches);
-  };
+
+  // const { isLoading, isError, data:branches, error } = useQuery({
+  //   queryKey: ['branches', id],
+  //   queryFn: () => getBranches(id),
+  // })
+  
+  const { isLoading, isError, data:branches, error } = useGetBranches(id)
+
+  // const retreiveBranches = async () => {
+  //   const branches = await getBranches(id);
+  //   setBranches(branches);
+  // };
+
+
 
   const getEmployments = async () => {
     const employments = await getAllEmployments(id);
@@ -27,7 +40,7 @@ export default function ProviderContextProvider(props) {
   useEffect(() => {
     getEmployments();
     retreiveProfile();
-    retreiveBranches();
+    // retreiveBranches();
     localStorage.setItem("provider", JSON.stringify(id));
   }, []);
 
@@ -37,7 +50,7 @@ export default function ProviderContextProvider(props) {
     profile: profile,
     setProfile: setProfile,
     branches: branches,
-    setBranches:setBranches,
+    // setBranches:setBranches,
   };
 
   return (

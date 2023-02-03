@@ -1,17 +1,533 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="One place that holds the patient records">
-    <link rel="stylesheet" href="static/styles.css" />
-    <title>Health records in one place by oneSystem</title>
-</head>
-<body>
-    <section class="home-sec intro"></section>
-    <section class="home-sec features"></section>
-    <section class="home-sec prices"></section>
+{% extends "base_hp.html" %}
+{% load static%}
 
-    {% include "footer.html" %}
-</body>
-</html>
+{%block content%}
+
+<div id="wrapper" class=" hide-title-section no-mobile-animation btn-hover-2">
+   
+  
+	<div id="primary" class="content-area" style="padding-bottom:0px;">
+<main id="main" class="site-main">
+
+<section id="home-software" class="section" >
+   <div class="container"  >
+      <div class="row" >
+         <div  style="background-color:#734597" data-vc-full-width="true" data-vc-full-width-init="false" class="vc_row wpb_row vc_row-fluid vc_custom_1648983328577 vc_custom_1648983328579 vc_custom_1648983328580 vc_row-has-fill vc_row-has-padding-top vc_row-has-padding-bottom vc_row-bg-position-top">
+          <div class="wpb_column vc_column_container vc_col-sm-12">
+            <div class="vc_column-inner">
+              <div class="wpb_wrapper">
+                <header class="kd-section-title col-lg-12 text-center  subtitle-below-title kd-animated fadeIn   vc_custom_1648488383642" data-animation-delay=200>
+                  <h2 class="separator_off" style="color: #ffffff;font-size: 40px;line-height: 60px;margin-bottom:30px;">Connecting Doctors & Patients<br />
+          Make Your Healthcare Journy Smoother & Safer</h2>
+          <h6 class="subtitle" style="color: #f2f2f2;">A medical health record system that gives both doctor and patient access to <br />
+            an easy, user friendly system that makes the healthcare journy safer.</h6>
+          </header>
+            <div class="vc_row wpb_row vc_inner vc_row-fluid vc_custom_1648983565685 vc_custom_1648983565686 vc_custom_1648983565687 vc_row-bg-position-top vc_row-o-content-middle vc_row-flex">
+              <div class="wpb_column vc_column_container vc_col-sm-3">
+                <div class="vc_column-inner">
+                  <div class="wpb_wrapper">
+
+                  </div>
+                </div>
+              </div>
+              <div class="wpb_column vc_column_container vc_col-sm-6">
+                <div class="vc_column-inner">
+                  <div class="wpb_wrapper">
+                    <a  href="#"  target="_self"   style="background-color:black" class="tt_button tt_primary_button btn_primary_color  button-center button-action-link" >
+                      <span class="prim_text">join Now</span>
+                    </a>
+                  </div>
+                </div>
+              </div>
+              <div class="wpb_column vc_column_container vc_col-sm-3">
+                <div class="vc_column-inner">
+                  <div class="wpb_wrapper">
+
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+
+          <div class="vc_row wpb_row vc_inner vc_row-fluid vc_row-bg-position-top">
+            <div class="wpb_column vc_column_container vc_col-sm-12">
+              <div class="vc_column-inner">
+                <div class="wpb_wrapper">
+                  <div class="video-container play-button-center big-video-btn  no-shadow kd-animated fadeInUp" data-animation-delay=400>
+      
+              <img width="2369" height="1084" src="{% static "imgs/feature.png" %}" class="attachment-full" alt="" decoding="async" loading="lazy" title="DocNect Presentation"  sizes="(max-width: 2369px) 100vw, 2369px" />
+      <a data-toggle="modal" data-target="#video-modal-kd-video-modal-63cd0c7515f4e" data-src="https://youtu.be/ujxc1rpVjEM" data-backdrop="true" class="play-btn-secondary-color "></a>
+    </div>
+
+
+      <div class="modal fade video-modal" id="video-modal-kd-video-modal-63cd0c7515f4e" role="dialog">
+                        <div class="modal-content">
+                            <button type="button" class="close" data-dismiss="modal">×</button>
+                            <div class="row">
+                              <iframe width="1024" height="576" allow="autoplay; fullscreen"></iframe>
+                            </div>
+                            </div> 
+                        </div> 
+                      
+                      </div> 
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+        <div class="vc_row-full-width vc_clearfix">
+        </div>
+
+
+        <div data-vc-full-width="true" data-vc-full-width-init="false" class="vc_row wpb_row vc_row-fluid vc_row-bg-position-top">
+          <div class="wpb_column vc_column_container vc_col-sm-12">
+            <div class="vc_column-inner">
+              <div class="wpb_wrapper">
+
+	<div  class="wpb_single_image wpb_content_element vc_align_center  vc_custom_1648406283045">
+		
+		<figure class="wpb_wrapper vc_figure">
+			<div class="vc_single_image-wrapper   vc_box_border_grey">
+                <img width="150" height="150" src="{% static "imgs/feature2.png" %}"  class="vc_single_image-img attachment-thumbnail" alt="" title="DocNect"  sizes="(max-width: 150px) 100vw, 150px" />
+              </div>
+		</figure>
+	</div>
+
+
+<header class="kd-section-title col-lg-12 text-center solid-line sep-border-width-2  subtitle-below-title kd-animated fadeIn   vc_custom_1648488265448" data-animation-delay=200>
+  <h2 class="separator_on" style="color: #734597">Clinics run smoother with DocNect</h2>
+  <div class="kd-separator below_title" >
+    <div class="kd-separator-line" >
+
+  </div>
+</div>
+<h6 class="subtitle" >We gathered    #s, developers, financials, patients, along with a huge market research and we have come out together with DocNect!</p>
+<p>A medical health record system that gives both doctor and patient access to an easy, user friendly system that makes the healthcare journy safer .</h6>
+</header>
+<a  href="https://DocNect.com/wp-content/uploads/2023/01/DocNect-Brochure.pdf"  target="_blank"  title="" style="background-color:black" class="tt_button tt_primary_button btn_primary_color hover_solid_secondary button-center button-action-link   vc_custom_1673519511523" >
+  <span class="prim_text">Features</span>
+</a>
+</div>
+</div>
+</div>
+</div>
+
+<div class="vc_row-full-width vc_clearfix">
+
+</div>
+<div class="vc_row wpb_row vc_row-fluid vc_custom_1598372323510 vc_row-bg-position-top">
+  <div class="wpb_column vc_column_container vc_col-sm-12">
+    <div class="vc_column-inner">
+      <div class="wpb_wrapper">
+        <div class="feature-sections-wrapper navigation-icons kd-fsp-63cd0c7516839">
+
+            
+<section id="practice" class="featured-right">
+  <li class="nav-label">
+    <a class="feature-tabs-scroll" href="#practice">
+      <span class="nav-number"> </span>
+      <i
+        class="iconsmind-Optimization iconsmind-Seo-Icons fss-nav-icon"
+        style=""
+      >
+      </i>
+      Smother Practice
+    </a>
+  </li>
+
+  <div class="container" style="padding-inline: 4rem">
+    <div
+      class="side-content-wrapper kd-animated fadeInLeft"
+      data-animation-delay="200"
+    >
+      <span class="side-content-title-label">THE SOLUTION FOR</span>
+      <h2 class="side-content-title">Clinic Managment</h2>
+      <h6 class="side-content-subtitle">
+        DocNect has developed multiple tools to help your run your clinic .
+      </h6>
+      <div class="side-content-text">
+        <ul>
+          <li>Appointment System</li>
+          <li>Patient Record System</li>
+          <li>Electronic Prescribing</li>
+          <li>Coding System</li>
+          <li>Dashboard</li>
+        </ul>
+      </div>
+    </div>
+    <div
+      class="side-featured-wrapper fss-rectangle kd-animated fadeInRight"
+      data-animation-delay="200"
+    >
+      <div class="featured-image">
+        <img width="1213" height="680" src="{% static "imgs/feature2.png" %}"
+        class="attachment-full" alt="" sizes="(max-width: 1213px) 100vw, 1213px"
+        />
+      </div>
+    </div>
+  </div>
+</section>
+            
+
+
+
+<section id="patients" class="featured-left">
+  <li class="nav-label">
+    <a class="feature-tabs-scroll" href="#patients">
+      <span class="nav-number"> </span>
+      <i class="iconsmind-Love-User iconsmind-People fss-nav-icon" style="">
+      </i>
+      Happier Patients</a
+    >
+  </li>
+
+  <div class="container" style="padding-inline: 4rem">
+    <div
+      class="side-content-wrapper kd-animated fadeInRight"
+      data-animation-delay="200"
+    >
+      <span class="side-content-title-label">THE SOLUTION FOR</span>
+      <h2 class="side-content-title">Happier Patients</h2>
+      <h6 class="side-content-subtitle">
+        DocNect has developed multiple tools to help you manage your patients,
+        better communicate with them, and make them happy.
+      </h6>
+      <div class="side-content-text">
+        <ul>
+          <li>WhatsApp-BOT</li>
+          <li>Online Reservation</li>
+          <li>Patients Feedback</li>
+          <li>QR-Code</li>
+          <li>Patient Reminder</li>
+        </ul>
+
+      </div>
+    </div>
+    <div
+      class="side-featured-wrapper fss-rectangle kd-animated fadeInLeft"
+      data-animation-delay="200"
+    >
+      <div class="featured-image">
+        <img width="1212" height="790" src="{% static "imgs/feature3.png" %}"
+        class="attachment-full" alt="" sizes="(max-width: 1212px) 100vw, 1212px"
+        />
+      </div>
+    </div>
+  </div>
+</section>
+            
+
+
+
+<section id="associates" class="featured-right">
+  <li class="nav-label">
+    <a class="feature-tabs-scroll" href="#associates">
+      <span class="nav-number"> </span>
+      <i
+        class="iconsmind-Handshake iconsmind-Business-Finance fss-nav-icon"
+        style=""
+      >
+      </i>
+      Closer Associates</a
+    >
+  </li>
+
+  <div class="container" style="padding-inline: 4rem">
+    <div
+      class="side-content-wrapper kd-animated fadeInLeft"
+      data-animation-delay="200"
+    >
+      <span class="side-content-title-label">THE SOLUTION FOR</span>
+      <h2 class="side-content-title">Closer Associates</h2>
+      <h6 class="side-content-subtitle">
+        DocNect has developed a couple of tools to help you manage your
+        Insurance Companies, Suppliers, and Lab Orders. DocNect has also linked
+        that all to its billing system to enable you tracking your accounts with
+        all associates, and build a successful relationship with them.
+      </h6>
+      <div class="side-content-text">
+        <ul>
+          <li>Insurance Companies</li>
+          <li>Suppliers</li>
+          <li>Labs</li>
+        </ul>
+        <p></p>
+      </div>
+    </div>
+    <div
+      class="side-featured-wrapper fss-rectangle kd-animated fadeInRight"
+      data-animation-delay="200"
+    >
+      <div class="featured-image">
+        <img width="1224" height="780" src="{% static "imgs/feature3.png" %}"
+        class="attachment-full" alt="" sizes="(max-width: 1224px) 100vw, 1224px"
+        />
+      </div>
+    </div>
+  </div>
+</section>
+            
+
+            </div>
+            <style>.feature-sections-wrapper.kd-fsp-63cd0c7516839 .feature-sections-tabs { background-color: #f0f6fc; }</style>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="vc_row wpb_row vc_row-fluid vc_custom_1598372323510 vc_row-bg-position-top">
+      <div class="wpb_column vc_column_container vc_col-sm-12">
+        <div class="vc_column-inner">
+          <div class="wpb_wrapper">
+            <div class="feature-sections-wrapper navigation-icons kd-fsp-63cd0c7517778">
+            <div class="feature-sections-tabs with-sticky-topbar ">
+              <nav class="kd-feature-tabs">
+                <ul class="nav nav-tabs sticky-tabs container">
+                </ul>
+              </nav>
+            </div>
+
+
+
+
+
+
+
+
+
+
+<section id="management" class="featured-left">
+  <li class="nav-label">
+    <a class="feature-tabs-scroll" href="#management"
+      ><span class="nav-number"></span
+      ><i
+        class="iconsmind-Museum iconsmind-Buildings-Landmarks fss-nav-icon"
+        style=""
+      ></i>
+      Better Management</a
+    >
+  </li>
+  <div class="container">
+    <div
+      class="side-content-wrapper kd-animated fadeInRight"
+      data-animation-delay="200"
+    >
+      <span class="side-content-title-label">THE SOLUTION FOR</span>
+      <h2 class="side-content-title">Better Management</h2>
+      <h6 class="side-content-subtitle">
+        DocNect has developed multiple tools to help you manage your staff and
+        the clinic with full control.
+      </h6>
+      <div class="side-content-text">
+        <ul>
+          <li>Staff Performance</li>
+          <li>Attendance System</li>
+          <li>Permission System</li>
+          <li>Multiple Branches</li>
+          <li>Patients Grouping</li>
+        </ul>
+      </div>
+    </div>
+
+    <div
+      class="side-featured-wrapper fss-rectangle kd-animated fadeInLeft"
+      data-animation-delay="200"
+    >
+      <div class="featured-image">
+        <img width="1259" height="636" src="{% static "imgs/feature4.png" %}"
+        class="attachment-full" alt="" sizes="(max-width: 1259px) 100vw, 1259px"
+        />
+      </div>
+    </div>
+  </div>
+</section>
+            
+
+
+<section id="finance" class="featured-right">
+  <li class="nav-label">
+    <a class="feature-tabs-scroll" href="#finance">
+      <span class="nav-number"></span>
+      <i
+        class="iconsmind-Coin iconsmind-Business-Finance fss-nav-icon"
+        style=""
+      >
+      </i>
+      Simpler Finances</a
+    >
+  </li>
+
+  <div class="container" style="padding-inline: 4rem">
+    <div
+      class="side-content-wrapper kd-animated fadeInLeft"
+      data-animation-delay="200"
+    >
+      <span class="side-content-title-label">THE SOLUTION FOR</span>
+      <h2 class="side-content-title">Simpler Finances</h2>
+      <h6 class="side-content-subtitle">
+        DocNect has developed very powerful tools with a vision of making
+        finance simpler for ########s and deliver you a consistent, relevant
+        experience, across every stage in your financial journey.
+      </h6>
+      <div class="side-content-text">
+        <ul>
+          <li>Inventory Management</li>
+          <li>Billing System</li>
+          <li>Invoicing Tool</li>
+          <li>Invoice Builder</li>
+          <li>Expenses Control</li>
+          <li>Analytics &amp; Reports</li>
+        </ul>
+      </div>
+    </div>
+
+    <div
+      class="side-featured-wrapper fss-rectangle kd-animated fadeInRight"
+      data-animation-delay="200"
+    >
+      <div class="featured-image">
+        <img width="1213" height="760" src="{% static "imgs/feature4.png" %}"
+        sizes="(max-width: 1213px) 100vw, 1213px" />
+      </div>
+    </div>
+  </div>
+</section>
+            
+
+            
+<section id="accessibility" class="featured-left">
+  <li class="nav-label">
+    <a class="feature-tabs-scroll" href="#accessibility">
+      <span class="nav-number"> </span>
+      <i class="iconsmind-Tactic iconsmind-Chess fss-nav-icon" style=""> </i>
+      Easier Accessibility</a
+    >
+  </li>
+
+  <div class="container" style="padding-inline: 4rem">
+    <div
+      class="side-content-wrapper kd-animated fadeInRight"
+      data-animation-delay="200"
+    >
+      <span class="side-content-title-label">THE SOLUTION FOR</span>
+      <h2 class="side-content-title">Easier Accessibility</h2>
+      <h6 class="side-content-subtitle">
+        DocNect has Developed many tools maximize your accessibility and enable
+        you to customize the system the way that suits your practice method.
+      </h6>
+      <div class="side-content-text">
+        <ul>
+          <li>Shortcut Buttons</li>
+          <li>Notification System</li>
+          <li>Easy Customization</li>
+          <li>Attaching Documents</li>
+          <li>Offline Support</li>
+          <li>Migration In &amp; Out</li>
+        </ul>
+      </div>
+    </div>
+
+    <div
+      class="side-featured-wrapper fss-rectangle kd-animated fadeInLeft"
+      data-animation-delay="200"
+    >
+      <div class="featured-image">
+        <img width="1213" height="761"src="{% static "imgs/feature4.png" %}"
+        class="attachment-full" alt=""sizes="(max-width: 1213px) 100vw, 1213px"
+        />
+      </div>
+    </div>
+  </div>
+</section>
+
+            
+</div>
+
+</div>
+</div>
+</div>
+</div>
+
+
+
+<div  style="background-color:#734597 !important" data-vc-full-width="true" data-vc-full-width-init="false" class="vc_row wpb_row vc_row-fluid vc_custom_1647530020597 vc_row-has-fill vc_row-has-padding-top vc_row-has-padding-bottom vc_row-bg-position-top">
+  <div class="wpb_column vc_column_container vc_col-sm-12 vc_col-lg-12">
+    <div class="vc_column-inner">
+      <div class="wpb_wrapper">
+        <div class="vc_row wpb_row vc_inner vc_row-fluid vc_row-bg-position-top">
+          <div class="wpb_column vc_column_container vc_col-sm-12">
+            <div class="vc_column-inner vc_custom_1541587014310">
+              <div class="wpb_wrapper">
+                <header class="kd-section-title col-lg-12 text-center  subtitle-below-title kd-animated fadeIn  " data-animation-delay=200>
+                  <h3 class="separator_off" style="color: #ffffff;">DocNect is created with a ######## mindset,</h3>
+                  <h6 class="subtitle" style="color: #dddddd;">and a vision of giving you the maximum control over your businesses, saving your time &amp; money, and giving you the optimum experience of working with a Practice Management Solution. This could be attained by making your Practice quite smoother, your Management much better, your Patients much happier, your Finance exceptionally simpler, your Associates way closer, and your accessibility extremely easier than ever before. And this all without the need for additional systems or software.</h6>
+                </header>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <a  href="https://DocNect.com/demo/"  target="_self"  title="Demo Request" style="background-color:black" class="tt_button tt_primary_button btn_primary_color  button-center button-action-link   vc_custom_1672658699687" >
+          <span class="prim_text">Request a Demo</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="vc_row-full-width vc_clearfix">
+
+</div>
+<div data-vc-full-width="true" data-vc-full-width-init="false" class="vc_row wpb_row vc_row-fluid zindex0 vc_custom_1602766330164 vc_custom_1602766330165 vc_row-has-padding-top vc_row-has-padding-bottom vc_row-bg-position-top vc_row-main-color-overlay">
+  <div class="wpb_column vc_column_container vc_col-sm-12">
+    <div class="vc_column-inner vc_custom_1515677064675">
+      <div class="wpb_wrapper">
+        <header class="kd-section-title col-lg-12 text-center solid-line sep-border-width-1  subtitle-below-title kd-animated fadeIn  " data-animation-delay=200><div class="kd-separator above_title" >
+          <div class="kd-separator-line" >
+
+          </div>
+        </div>
+        <h2 class="separator_on" style="font-size: 42px;">DocNect Is The Solution For<br />
+  Your Successful \\\\\\ Practice Management</h2>
+</header>
+</div>
+</div>
+</div>
+
+<div class="kd-row-separator kd-row-separator-bottom separator-height-large">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 140" preserveAspectRatio="none" style="fill: #ffffff;"><path d="M320 28c320 0 320 84 640 84 160 0 240-21 320-42v70H0V70c80-21 160-42 320-42z"/></svg>
+
+</div>
+<div class="kd-row-separator-clear">
+
+</div>
+</div>
+<div class="vc_row-full-width vc_clearfix">
+
+</div>
+
+{% include "features.html" %}
+
+<div  class="wpb_single_image wpb_content_element vc_align_center  wpb_animate_when_almost_visible wpb_fadeInUp fadeInUp vc_custom_1649172582404">
+		
+		<figure class="wpb_wrapper vc_figure">
+			<div class="vc_single_image-wrapper   vc_box_border_grey"><img width="1024" height="427" src="https://DocNect.com/wp-content/uploads/2022/04/mob-App-1024x427.png" class="vc_single_image-img attachment-large" alt="" decoding="async" loading="lazy" title="mob-App" srcset="https://DocNect.com/wp-content/uploads/2022/04/mob-App-1024x427.png 1024w, https://DocNect.com/wp-content/uploads/2022/04/mob-App-800x334.png 800w, https://DocNect.com/wp-content/uploads/2022/04/mob-App-300x125.png 300w, https://DocNect.com/wp-content/uploads/2022/04/mob-App-768x320.png 768w, https://DocNect.com/wp-content/uploads/2022/04/mob-App.png 1158w" sizes="(max-width: 1024px) 100vw, 1024px" /></div>
+		</figure>
+	</div>
+
+</div>
+</section>
+</main><!-- #main -->
+
+
+</div><!-- #primary -->
+
+
+</div>
+</div>
+
+{%endblock content%}

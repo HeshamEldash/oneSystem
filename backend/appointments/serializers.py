@@ -101,5 +101,5 @@ class ClinicSerializer(serializers.ModelSerializer):
     clinican_details = StaffSerializer(source ="clinican" ,read_only = True)
     class Meta:
         model= Clinic
-        fields = ["id", "speciality", "provider", "clinican", "clinican_details"]
+        fields = ["id", "speciality", "provider", "branch","clinican", "clinican_details"]
         # depth = 1

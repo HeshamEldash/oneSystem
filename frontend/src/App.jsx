@@ -38,6 +38,9 @@ import ClinicCreate from "./pages/appointments/appointmentsCreate/ClinicCreate.j
 import AppointmentsSchedulerFormik from "./pages/appointments/appointmentsCreate/AppointmentSchedulerFormik.jsx";
 import StaffWrapper from "./pages/staff/StaffWrapper.jsx";
 
+
+
+
 function App() {
   return (
     <div className="App {i18n.language === 'en' ? 'english': 'arabic'}">

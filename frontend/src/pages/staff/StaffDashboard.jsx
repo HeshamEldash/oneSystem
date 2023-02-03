@@ -17,11 +17,15 @@ function StaffDashboard() {
 
   const [updating, setUpdating] = useState(false);
 
-  const {profiles, ownedProvider, staffProfile, telephoneNumbers } =
-    useContext(StaffContext);
+  const {staffId, profiles, ownedProvider, staffProfile, telephoneNumbers } =
+  
+  useContext(StaffContext);
+
+
+
 
   return (
-    <>
+      <>
       <div className="main_page_under_nav">
         <h1 className="page_header">{t("My Dashboard")}</h1>
 
@@ -70,6 +74,7 @@ function StaffDashboard() {
             <StaffProfileItem
               providerID={ownedProvider?.id}
               provider={ownedProvider?.name}
+              staffId={staffId}
             />
           </div>
         ) : (

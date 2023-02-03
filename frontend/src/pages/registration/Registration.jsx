@@ -23,10 +23,11 @@ function RegisterationPage() {
     });
   const navigate = useNavigate();
   const { t } = useTranslation();
-  let { loginUser } = useContext(AuthContext);
+  let { loginUser } = useContext(AuthContext)
+
   let onSubmit = async (values, actions) => {
-    console.log("fasdgfdas")
-    let res = await fetch(`${APIENDPOINT}/users/staff-create/`, {
+ 
+    let res = await fetch(`${APIENDPOINT}/users/staff-create-api/`, {
       method: "POST",
       headers: {
         "Content-type": "application/json",
@@ -34,18 +35,15 @@ function RegisterationPage() {
       body: JSON.stringify({
         email: values.email,
         password: values.password,
-        staff_profile: {
+   
           first_name: values.firstName,
           middle_names: values.middleNames,
           last_name: values.lastName,
           professional_number: values.professionalNumber,
-          telephone_numbers: [
-            {
-              telephone_number: values.telephoneNumber,
-            },
-          ],
+      
+          telephone_number: values.telephoneNumber,
+   
           staff_role: values.staffRole,
-        },
       }),
     })
       .then((response) => {
@@ -53,13 +51,12 @@ function RegisterationPage() {
           throw Error(
             "This_account_already_exists,_please_use_a_different_email"
           );
-        } else if (!response.ok) {
+        } else if (!response?.ok) {
           throw Error("An_error_has_occured");
         }
       })
       .catch((err) => {
-        // notify(err.msg);
-        console.log(err)
+        notify(err.msg);
         return { msg: err.message };
       });
 

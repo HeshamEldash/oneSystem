@@ -14,6 +14,12 @@ from rest_framework import status
 from .services import *
 from .permissions import *
 from .newSerializer import NewProviderDetailSerializer, NewStaffAccountSerializer, NewPatientProfileDetailSerializer
+
+from error_handler.api_error_handler import  ApiErrorsMixin
+
+
+
+
 # //////////////////////// MIXINS \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 
 # TODO: staff profile update
@@ -161,7 +167,9 @@ class StaffAccountDetail(APIView, GetObjectMixn):
     serializer = NewStaffAccountSerializer
 
 
-class StaffCreateApi(APIView):
+
+    
+class StaffCreateApi(ApiErrorsMixin , APIView ):
     permission_classes = [AllowAny]
 
     class InputSerializer(serializers.Serializer):
@@ -189,12 +197,12 @@ class StaffCreateApi(APIView):
         telephone_number = serializers.CharField(max_length=100)
 
     def post(self, request, *args, **kwargs):
+        print(dir(self))
         serializer = self.InputSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         staff = StaffService().staff_create(**serializer.validated_data)
         return Response(status=status.HTTP_200_OK)
-
-
+        
 class StaffUpdateApi(APIView, UpdateObjectApiMixin):
     # authenticated >  yes
     permission_classes = [ViewOrEditStaff]

@@ -1,3 +1,4 @@
+import axios from "axios";
 import APIENDPOINT from "../../utils/api_calls/apiEndpoint";
 
 let token = JSON.parse(localStorage.getItem("authTokens"));
@@ -19,7 +20,9 @@ const searchPatients = async (values, provider_id) => {
       method: "GET",
       headers: {
         "Content-type": "application/json",
-        Authorization: "Bearer " + String(token.access),
+        Authorization:
+          "Bearer " +
+          String(JSON.parse(localStorage.getItem("authTokens"))?.access),
       },
     }
   );
@@ -36,7 +39,9 @@ const getAllPatients = async (provider_id) => {
       method: "GET",
       headers: {
         "Content-type": "application/json",
-        Authorization: "Bearer " + String(token.access),
+        Authorization:
+          "Bearer " +
+          String(JSON.parse(localStorage.getItem("authTokens"))?.access),
       },
     }
   );
@@ -45,8 +50,8 @@ const getAllPatients = async (provider_id) => {
     return response.json();
   }
 };
-const deleteBranch = async ({provider_id, branch_id}) => {
-  console.log(branch_id, provider_id)
+const deleteBranch = async ({ provider_id, branch_id }) => {
+  console.log(branch_id, provider_id);
   return await fetch(
     `${APIENDPOINT}/users/branch-delete-api/?` +
       new URLSearchParams({ branch_id: branch_id, provider_id: provider_id }),
@@ -54,23 +59,9 @@ const deleteBranch = async ({provider_id, branch_id}) => {
       method: "DELETE",
       headers: {
         "Content-type": "application/json",
-        Authorization: "Bearer " + String(token.access),
-      },
-    }
-  )
-    .then(handleErrors)
-    .then((response) => response.json())
-    .catch((error) => console.log(error));
-};
-const getBranches = async (provider_id) => {
-  return await fetch(
-    `${APIENDPOINT}/users/branch-list-api/?` +
-      new URLSearchParams({ provider_id: provider_id }),
-    {
-      method: "GET",
-      headers: {
-        "Content-type": "application/json",
-        Authorization: "Bearer " + String(token.access),
+        Authorization:
+          "Bearer " +
+          String(JSON.parse(localStorage.getItem("authTokens"))?.access),
       },
     }
   )
@@ -79,12 +70,32 @@ const getBranches = async (provider_id) => {
     .catch((error) => console.log(error));
 };
 
+
+const getBranches = async ({provider_id}) => {
+  try {
+    const { data } = await axios.get(`${APIENDPOINT}/users/branch-list-api/?`, {
+      params: { provider_id: provider_id },
+      headers: {
+        "Content-type": "application/json",
+        Authorization:
+          "Bearer " +
+          String(JSON.parse(localStorage.getItem("authTokens"))?.access),
+      },
+    });
+    return data;
+  } catch (err) {
+      throw err
+  }
+};
+
 const createBranch = async (data) => {
   const response = await fetch(`${APIENDPOINT}/users/branch-create-api/`, {
     method: "POST",
     headers: {
       "Content-type": "application/json",
-      Authorization: "Bearer " + String(token.access),
+      Authorization:
+        "Bearer " +
+        String(JSON.parse(localStorage.getItem("authTokens"))?.access),
     },
     body: JSON.stringify({
       provider: data.provider,
@@ -96,12 +107,12 @@ const createBranch = async (data) => {
       governorate: data.governorate,
       telephone_number: data.telephone_number,
     }),
-  })
-   if (response.ok){
-    return response.json()
-   }
-   
+  });
+  if (response.ok) {
+    return response.json();
+  }
 };
+
 
 const updateBranchTelephoneList = async ({ branch_id, provider_id, data }) => {
   return await fetch(
@@ -111,14 +122,15 @@ const updateBranchTelephoneList = async ({ branch_id, provider_id, data }) => {
       method: "PATCH",
       headers: {
         "Content-type": "application/json",
-        Authorization: "Bearer " + String(token.access),
+        Authorization:
+          "Bearer " +
+          String(JSON.parse(localStorage.getItem("authTokens"))?.access),
       },
       body: JSON.stringify({
         telephone_numbers: data,
       }),
     }
   )
-    .then(handleErrors)
     .then((response) => response.json())
     .catch((error) => console.log(error));
 };
@@ -131,7 +143,9 @@ const updateBranchAddress = async ({ branch_id, provider_id, data }) => {
       method: "PATCH",
       headers: {
         "Content-type": "application/json",
-        Authorization: "Bearer " + String(token.access),
+        Authorization:
+          "Bearer " +
+          String(JSON.parse(localStorage.getItem("authTokens"))?.access),
       },
       body: JSON.stringify({
         branchaddress: data,
@@ -151,7 +165,9 @@ const updateProviderProfile = async ({ provider_id, data }) => {
       method: "PATCH",
       headers: {
         "Content-type": "application/json",
-        Authorization: "Bearer " + String(token.access),
+        Authorization:
+          "Bearer " +
+          String(JSON.parse(localStorage.getItem("authTokens"))?.access),
       },
       body: JSON.stringify({
         name: data,
@@ -171,7 +187,9 @@ let getProfile = async (provider_id) => {
       method: "GET",
       headers: {
         "Content-type": "application/json",
-        Authorization: "Bearer " + String(token.access),
+        Authorization:
+          "Bearer " +
+          String(JSON.parse(localStorage.getItem("authTokens"))?.access),
       },
     }
   );
@@ -192,7 +210,9 @@ const updateProviderTelephoneList = async ({ provider_id, data }) => {
       method: "PATCH",
       headers: {
         "Content-type": "application/json",
-        Authorization: "Bearer " + String(token.access),
+        Authorization:
+          "Bearer " +
+          String(JSON.parse(localStorage.getItem("authTokens"))?.access),
       },
       body: JSON.stringify({
         telephone_numbers: data,
@@ -240,7 +260,9 @@ const endEmployment = async (employmentId) => {
       method: "PATCH",
       headers: {
         "Content-type": "application/json",
-        Authorization: "Bearer " + String(token.access),
+        Authorization:
+          "Bearer " +
+          String(JSON.parse(localStorage.getItem("authTokens"))?.access),
       },
       body: JSON.stringify({
         is_active: false,
@@ -257,7 +279,9 @@ const getAllEmployments = async (provider_id) => {
       method: "GET",
       headers: {
         "Content-type": "application/json",
-        Authorization: "Bearer " + String(token.access),
+        Authorization:
+          "Bearer " +
+          String(JSON.parse(localStorage.getItem("authTokens"))?.access),
       },
     }
   );
@@ -275,7 +299,9 @@ const createEmployment = async (staff_email, provider_id) => {
     method: "POST",
     headers: {
       "Content-type": "application/json",
-      Authorization: "Bearer " + String(token.access),
+      Authorization:
+        "Bearer " +
+        String(JSON.parse(localStorage.getItem("authTokens"))?.access),
     },
     body: JSON.stringify({
       staff: staff_email,
@@ -311,7 +337,9 @@ const createRegistration = async (provider_id, patient) => {
       method: "POST",
       headers: {
         "Content-type": "application/json",
-        Authorization: "Bearer " + String(token.access),
+        Authorization:
+          "Bearer " +
+          String(JSON.parse(localStorage.getItem("authTokens"))?.access),
       },
       body: JSON.stringify({
         // staff: staff_email,

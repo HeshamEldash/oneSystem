@@ -5,6 +5,7 @@ import AuthContext from "../../context/AuthContext";
 import clinic from "../../assets/images/clinic.svg";
 import doctor from "../../assets/images/doctor3.svg";
 import usersvg from "../../assets/images/user2.svg";
+import RegCard from "./components/RegCard";
 
 function RegistrationChoice() {
   const { t } = useTranslation();
@@ -16,43 +17,46 @@ function RegistrationChoice() {
         navigate("/")
       ) : (
         <div>
-        <div className="registration-choice spacer seperator">
-          <div>
-            <div className="page_top">
-              <h1 className="page_title">
-                All your healthcare records in one place
-              </h1>
-              <h3 className="page_subtitle">
-                Make your healthcare journy smoother and safer
-              </h3>
+          <div className="registration-choice spacer seperator">
+            <div>
+              <div className="page_top">
+                <h1 className="page_title">
+                  All your healthcare records in one place
+                </h1>
+                <h3 className="page_subtitle">
+                  Make your healthcare journy smoother and safer
+                </h3>
+              </div>
+
+              <div className="cards_section">
+                <RegCard
+                  title={t("Register a clinic")}
+                  img={clinic}
+                  link={"/register/staff"}
+                  text={"Register a clinic"}
+                />
+                <RegCard
+                  title={t("Register an individual")}
+                  img={doctor}
+                  link={"/registration/staff"}
+                  text={"Register an individual"}
+                />
+              </div>
             </div>
+          </div>
+          <div className="regsitration_choice--footer"></div>
+        </div>
+      )}
+    </>
+  );
+}
 
-            <div className="cards_section">
-              <div className="card">
-                <h3>{t("Register a clinic")}</h3>
-                <img src={clinic} />
+export default RegistrationChoice;
 
-                <Link
-                  className="registration_page_button"
-                  to="/register/staff"
-                  style={{ display: "block" }}
-                >
-                  {t("Register a clinic")}
-                </Link>
-              </div>
-              <div className="card">
-                <h3>{t("Register an individual")}</h3>
-                <img src={doctor} />
+//  pt registraction card
 
-                <Link
-                  className="registration_page_button"
-                  to="/registration/staff"
-                  style={{ display: "block" }}
-                >
-                  {t("Register an individual")}
-                </Link>
-              </div>
-              <div className="card">
+{
+  /* <div className="card">
                 <h3>{t("Register a user")}</h3>
                 <img src={usersvg} />
 
@@ -63,18 +67,5 @@ function RegistrationChoice() {
                 >
                   {t("Register a user")}
                 </Link>
-              </div>
-            </div>
-          </div>
-          
-        </div>
-        <div className="regsitration_choice--footer">
-
-        </div>
-        </div>
-      )}
-    </>
-  );
+              </div> */
 }
-
-export default RegistrationChoice;

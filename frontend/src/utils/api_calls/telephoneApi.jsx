@@ -8,7 +8,7 @@ const deletePhoneNumber = async (phone_id) => {
         method: "DELETE",
         headers: {
           "Content-type": "application/json",
-          Authorization: "Bearer " + String(token.access),
+          Authorization: "Bearer " + String(JSON.parse(localStorage.getItem("authTokens"))?.access),
         },
       }
     );
@@ -21,7 +21,7 @@ const deletePhoneNumber = async (phone_id) => {
         method: "PATCH",
         headers: {
           "Content-type": "application/json",
-          Authorization: "Bearer " + String(token.access),
+          Authorization: "Bearer " + String(JSON.parse(localStorage.getItem("authTokens"))?.access),
         },
         body: JSON.stringify({
           telephone_number: phone_num

@@ -9,9 +9,13 @@ import {
 } from "../providerApi";
 import DeleteButton from "../../../components/ui/buttons/DeleteButton";
 import { ProviderContext } from "../context/ProviderContext";
+import { useUpdateBranchAddress } from "../useBranchDataApi";
 
 function BranchDisplayBox({ branch }) {
   const { setBranches } = useContext(ProviderContext);
+
+const branchUpdater = useUpdateBranchAddress(branch.provider)
+
   const handleDelete = () => {
     if (window.confirm("Are you sure you want to delete this Branch")) {
       deleteBranch({
@@ -34,8 +38,15 @@ function BranchDisplayBox({ branch }) {
       <div className="branch__box_address">
         <span className="branch__box_title">Address </span>
         <AddressDisplay
+          // apiUpdate={(data) =>
+          //   updateBranchAddress({
+          //     provider_id: branch.provider,
+          //     branch_id: branch.id,
+          //     data: data,
+          //   })
+          // }
           apiUpdate={(data) =>
-            updateBranchAddress({
+            branchUpdater.mutate({
               provider_id: branch.provider,
               branch_id: branch.id,
               data: data,

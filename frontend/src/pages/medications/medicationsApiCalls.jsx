@@ -11,7 +11,7 @@ const getPrescriptionList = async (patient_id)=>{
           method: "GET",
           headers: {
             "Content-type": "application/json",
-            Authorization: "Bearer " + String(token.access),
+            Authorization: "Bearer " + String(JSON.parse(localStorage.getItem("authTokens"))?.access),
           },
         }
       );
@@ -30,7 +30,7 @@ const getRegularMedications = async (patient_id)=>{
       method: "GET",
       headers: {
         "Content-type": "application/json",
-        Authorization: "Bearer " + String(token.access),
+        Authorization: "Bearer " + String(JSON.parse(localStorage.getItem("authTokens"))?.access),
       },
     }
   );
@@ -47,7 +47,7 @@ const getUserMedicationPresets = async ()=>{
       method: "GET",
       headers: {
         "Content-type": "application/json",
-        Authorization: "Bearer " + String(token.access),
+        Authorization: "Bearer " + String(JSON.parse(localStorage.getItem("authTokens"))?.access),
       },
     }
   );
@@ -68,7 +68,7 @@ const createPrescription = async (patient_id,providerId, prescriptionData)=>{
           method: "POST",
           headers: {
             "Content-type": "application/json",
-            Authorization: "Bearer " + String(token.access),
+            Authorization: "Bearer " + String(JSON.parse(localStorage.getItem("authTokens"))?.access),
           },
           body:JSON.stringify({
             medications:prescriptionData,

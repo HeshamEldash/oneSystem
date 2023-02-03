@@ -73,6 +73,7 @@ export default function StaffContextProvider(props) {
     telephoneNumbers: telephoneNumbers,
     setTelephoneNumbers: setTelephoneNumbers,
     profiles:profiles,
+    staffId:staffProfile?.staff_profile?.id
   };
 
   return (

@@ -1,25 +1,23 @@
-import React, {useContext } from "react";
+import React, { useContext } from "react";
 import AuthContext from "../../context/AuthContext";
 import { Link } from "react-router-dom";
 import { useFormik } from "formik";
 import { registrationSchema } from "./RegistrationSchema";
 import { useTranslation } from "react-i18next";
 import "./registration.css";
-import Select from '@mui/material/Select';
-import MenuItem from '@mui/material/MenuItem';
+import Select from "@mui/material/Select";
+import MenuItem from "@mui/material/MenuItem";
 import { useNavigate } from "react-router-dom";
 
 import APIENDPOINT from "../../utils/api_calls/apiEndpoint";
 
 function RegistrationStaffMultiStep() {
-  
   const navigate = useNavigate();
   const { t } = useTranslation();
   let { loginUser } = useContext(AuthContext);
 
-  
   let onSubmit = async (values, actions) => {
-    let res = await fetch(`${APIENDPOINT}/users/staff-create/`, {
+    let res = await fetch(`${APIENDPOINT}/users/staff-create-api/`, {
       method: "POST",
       headers: {
         "Content-type": "application/json",
@@ -27,25 +25,19 @@ function RegistrationStaffMultiStep() {
       body: JSON.stringify({
         email: values.email,
         password: values.password,
-        staff_profile: {
-          first_name: values.firstName,
-          middle_names: values.middleNames,
-          last_name: values.lastName,
-          professional_number: values.professionalNumber,
-          telephone_numbers: [
-            {
-              telephone_number: values.telephoneNumber,
-            },
-          ],
-          staff_role: values.staffRole,
-        },
+
+        first_name: values.firstName,
+        middle_names: values.middleNames,
+        last_name: values.lastName,
+        professional_number: values.professionalNumber,
+        telephone_number: values.telephoneNumber,
+        staff_role: values.staffRole,
       }),
     });
 
-
     if (res.ok) {
       loginUser(values);
-      navigate("/register/provider")
+      navigate("/register/provider");
     }
     actions.resetForm();
   };
@@ -76,10 +68,9 @@ function RegistrationStaffMultiStep() {
 
   return (
     <div className="registration-page">
-    <div className="form-sidebar">
-        
+      <div className="form-sidebar">
         <span className="form-header"> {t("Register")}</span>
-        </div>
+      </div>
       <div className="user-form-container">
         <form className="user-form" type="submit" onSubmit={handleSubmit}>
           <label> {t("first_name")}</label>
@@ -120,7 +111,6 @@ function RegistrationStaffMultiStep() {
           {errors.middleNames && touched.middleNames && (
             <p className="error">{errors.middleNames}</p>
           )}
-
 
           <label>{t("last_name")}</label>
           <input
@@ -171,9 +161,7 @@ function RegistrationStaffMultiStep() {
             <MenuItem value={"MG"}>{t("manager")}</MenuItem>
             <MenuItem value={"AD"}>{t("admin")}</MenuItem>
             <MenuItem value={"PC"}>{t("practitioner")}</MenuItem>
-
           </Select>
-
 
           <label>{t("telephone_number")}</label>
           <input

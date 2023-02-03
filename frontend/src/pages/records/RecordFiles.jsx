@@ -20,7 +20,7 @@ const {patientId} = useRecordContext()
     const response = await fetch(`${APIENDPOINT}/records/patients-records-files/${patientId}/`, {
       method: "POST",
       headers: {
-        Authorization: "Bearer " + String(token.access),
+        Authorization: "Bearer " + String(JSON.parse(localStorage.getItem("authTokens"))?.access),
       },
       body: fileData,
     }).then(response =>{

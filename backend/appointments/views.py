@@ -6,9 +6,27 @@ from rest_framework import mixins
 from .models import *
 from rest_framework.response import Response
 from rest_framework import serializers
-
+from rest_framework.views import APIView
+from .services import ClinicService
 # Create your views here.
 from rest_framework import status
+
+class ClinicCreateView(APIView):
+    class InputSerializer(serializers.Serializer):
+        provider = serializers.IntegerField()
+        branch = serializers.IntegerField()
+        speciality = serializers.CharField()
+        clinican = serializers.IntegerField()
+
+    def post(self, request,*args, **kwargs ):
+        serializer = self.InputSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        print(serializer.validated_data)
+        clinic = ClinicService().create(**serializer.validated_data)
+        if clinic:
+            return Response(status=status.HTTP_201_CREATED, data=ClinicSerializer(clinic).data)
+        else:
+            return Response(status=status.HTTP_404_NOT_FOUND)
 
 class ClinicView(generics.GenericAPIView, mixins.DestroyModelMixin, mixins.ListModelMixin, mixins.CreateModelMixin):
 
@@ -18,8 +36,6 @@ class ClinicView(generics.GenericAPIView, mixins.DestroyModelMixin, mixins.ListM
         provider = self.request.query_params.get("provider_id")
         qs = Clinic.objects.filter(provider_id=provider)
         return qs
-
-
 
     def get(self, request, *args, **kwargs):
         return self.list(request, *args,**kwargs)  

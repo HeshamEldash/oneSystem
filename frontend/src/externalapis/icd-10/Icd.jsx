@@ -17,7 +17,7 @@ function Icd() {
         method: "POST",
         headers: {
           "Content-type": "application/json",
-          Authorization: "Bearer " + String(token.access),
+          Authorization: "Bearer " + String(JSON.parse(localStorage.getItem("authTokens"))?.access),
         },
         body: JSON.stringify({
           code: entity.code,

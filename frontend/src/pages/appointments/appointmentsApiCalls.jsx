@@ -10,7 +10,7 @@ const getSessionData = async (provider_id) => {
       method: "GET",
       headers: {
         "Content-type": "application/json",
-        Authorization: "Bearer " + String(token.access),
+        Authorization: "Bearer " + String(JSON.parse(localStorage.getItem("authTokens"))?.access),
       },
     }
   )
@@ -19,6 +19,7 @@ const getSessionData = async (provider_id) => {
 
   return response;
 };
+
 
 
 
@@ -44,7 +45,7 @@ const postSessionData = async (provider_id, listOfData) => {
       method: "POST",
       headers: {
         "Content-type": "application/json",
-        Authorization: "Bearer " + String(token.access),
+        Authorization: "Bearer " + String(JSON.parse(localStorage.getItem("authTokens"))?.access),
       },
       body:JSON.stringify(listOfData)
     }
@@ -63,7 +64,7 @@ const deleteClinic = async( clinic_id)=>{
       method: "DELETE",
       headers: {
         "Content-type": "application/json",
-        Authorization: "Bearer " + String(token.access),
+        Authorization: "Bearer " + String(JSON.parse(localStorage.getItem("authTokens"))?.access),
       }
     }
   )
@@ -76,7 +77,7 @@ const getClinicData = async (provider_id) => {
         method: "GET",
         headers: {
           "Content-type": "application/json",
-          Authorization: "Bearer " + String(token.access),
+          Authorization: "Bearer " + String(JSON.parse(localStorage.getItem("authTokens"))?.access),
         },
       }
     )
@@ -86,18 +87,19 @@ const getClinicData = async (provider_id) => {
     return response;
   };
 
-  const postClinicData = async (provider_id, selectedStaff, speciality) => {
+  const postClinicData = async (provider_id,branch_id, selectedStaff, speciality) => {
     let response = await fetch(
-      `${APIENDPOINT}/appointments/clinics/?` + new URLSearchParams({ provider_id:provider_id}),
+      `${APIENDPOINT}/appointments/clinic-create/?` + new URLSearchParams({ provider_id:provider_id}),
       {
         method: "POST",
         headers: {
           "Content-type": "application/json",
-          Authorization: "Bearer " + String(token.access),
+          Authorization: "Bearer " + String(JSON.parse(localStorage.getItem("authTokens"))?.access),
         },
         body:JSON.stringify({
           speciality: speciality,
           provider: provider_id,
+          branch:branch_id,
           clinican: selectedStaff,
         })
       }
@@ -117,7 +119,7 @@ const getClinicData = async (provider_id) => {
         method: "GET",
         headers: {
           "Content-type": "application/json",
-          Authorization: "Bearer " + String(token.access),
+          Authorization: "Bearer " + String(JSON.parse(localStorage.getItem("authTokens"))?.access),
         },
       }
     )
@@ -134,7 +136,7 @@ const getClinicData = async (provider_id) => {
         method: "POST",
         headers: {
           "Content-type": "application/json",
-          Authorization: "Bearer " + String(token.access),
+          Authorization: "Bearer " + String(JSON.parse(localStorage.getItem("authTokens"))?.access),
         },
         body:JSON.stringify({
           patient: patient_id,
@@ -156,7 +158,7 @@ const getClinicData = async (provider_id) => {
         method: "PATCH",
         headers: {
           "Content-type": "application/json",
-          Authorization: "Bearer " + String(token.access),
+          Authorization: "Bearer " + String(JSON.parse(localStorage.getItem("authTokens"))?.access),
         },
         body:JSON.stringify({
             status:status

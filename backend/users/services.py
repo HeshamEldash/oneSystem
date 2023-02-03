@@ -1,5 +1,5 @@
 from .models import *
-from django.core.exceptions import ObjectDoesNotExist, PermissionDenied
+from django.core.exceptions import ObjectDoesNotExist, PermissionDenied, ValidationError
 from django.utils import timezone
 from django.shortcuts import get_object_or_404
 from django.http import Http404
@@ -240,7 +240,7 @@ def check_employment_exists(provider: Provider, staff: Staff):
     try:
         employment = provider.employment_set.get(staff=staff)
         return employment
-
+        
     except Employment.DoesNotExist:
         return False
 
@@ -304,9 +304,11 @@ class StaffService:
         try:
             staff_account = Account.objects.get(email=email)
         except ObjectDoesNotExist:
-            staff_account = Account.objects.create_user(
-                email=email, password=password)
-
+            try:
+                staff_account = Account.objects.create_user(
+                    email=email, password=password)
+            except IntegrityError:
+                raise ValidationError
         staff = Staff.objects.create(account=staff_account,
                                      first_name=first_name, middle_names=middle_names, last_name=last_name, staff_role=staff_role, professional_number=professional_number
                                      )

@@ -9,7 +9,7 @@ const getPatientProfile = async (patient_id) => {
       method: "GET",
       headers: {
         "Content-type": "application/json",
-        Authorization: "Bearer " + String(token.access),
+        Authorization: "Bearer " + String(JSON.parse(localStorage.getItem("authTokens"))?.access),
       },
     }
   );
@@ -30,7 +30,7 @@ const getPatientRecords = async (patient_id) => {
       method: "GET",
       headers: {
         "Content-type": "application/json",
-        Authorization: "Bearer " + String(token.access),
+        Authorization: "Bearer " + String(JSON.parse(localStorage.getItem("authTokens"))?.access),
       },
     }
   );
@@ -48,7 +48,7 @@ const createRecord = async (patient_id, recordEntry, is_public) => {
     method: "POST",
     headers: {
       "Content-type": "application/json",
-      Authorization: "Bearer " + String(token.access),
+      Authorization: "Bearer " + String(JSON.parse(localStorage.getItem("authTokens"))?.access),
     },
     body: JSON.stringify({
       history: recordEntry.history,
@@ -68,7 +68,7 @@ const updateRecord = async (record_id, recordEntry, is_public) => {
       method: "PATCH",
       headers: {
         "Content-type": "application/json",
-        Authorization: "Bearer " + String(token.access),
+        Authorization: "Bearer " + String(JSON.parse(localStorage.getItem("authTokens"))?.access),
       },
       body: JSON.stringify({
         history: recordEntry.history,
@@ -86,7 +86,7 @@ const updatePatinetProfile = async (data, profileId) => {
     method: "PATCH",
     headers: {
       "Content-type": "application/json",
-      Authorization: "Bearer " + String(token.access),
+      Authorization: "Bearer " + String(JSON.parse(localStorage.getItem("authTokens"))?.access),
     },
     body: JSON.stringify({
       first_name: data.first_name,
@@ -106,7 +106,7 @@ const createPastCodition = async (patient_id, values) => {
       method: "POST",
       headers: {
         "Content-type": "application/json",
-        Authorization: "Bearer " + String(token.access),
+        Authorization: "Bearer " + String(JSON.parse(localStorage.getItem("authTokens"))?.access),
       },
       body: JSON.stringify({
         condition: values.condition,
@@ -126,7 +126,7 @@ const getIcdList = async (patient_id) => {
       method: "GET",
       headers: {
         "Content-type": "application/json",
-        Authorization: "Bearer " + String(token.access),
+        Authorization: "Bearer " + String(JSON.parse(localStorage.getItem("authTokens"))?.access),
       },
     }
   );
@@ -147,7 +147,7 @@ const getPastCoditions = async (patient_id) => {
       method: "GET",
       headers: {
         "Content-type": "application/json",
-        Authorization: "Bearer " + String(token.access),
+        Authorization: "Bearer " + String(JSON.parse(localStorage.getItem("authTokens"))?.access),
       },
     }
   );
@@ -168,7 +168,7 @@ const deletePastCodition = async (patient_id, condition_id) => {
       method: "DELETE",
       headers: {
         "Content-type": "application/json",
-        Authorization: "Bearer " + String(token.access),
+        Authorization: "Bearer " + String(JSON.parse(localStorage.getItem("authTokens"))?.access),
       },
     }
   );
@@ -181,7 +181,7 @@ const getRecordFiles = async (patient_id) => {
       method: "GET",
       headers: {
         "Content-type": "application/json",
-        Authorization: "Bearer " + String(token.access),
+        Authorization: "Bearer " + String(JSON.parse(localStorage.getItem("authTokens"))?.access),
       },
     }
   );

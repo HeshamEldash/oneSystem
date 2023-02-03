@@ -40,6 +40,7 @@
     width: 99.999999%;
 }
 
+
 .main_page_under_nav {
   background-color: var(--color-gray-lightest);
   min-height: calc(100% - var(--nav-header-height));

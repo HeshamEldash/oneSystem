@@ -10,5 +10,6 @@ urlpatterns = [
     path("slot/", SlotView.as_view(), name= "slot"),
     path("appointment/", AppointmentView.as_view(), name= "appointment"),
 
+    path("clinic-create/", ClinicCreateView.as_view(), name= "clinic"),
 
 ]

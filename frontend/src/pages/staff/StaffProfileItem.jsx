@@ -8,10 +8,7 @@ function StaffProfileItem(props) {
 const[login, setLogin]= useState()
 
 
-const { t,i18n } = useTranslation();
-// const formattedTime = DateTime
-// .fromFormat(props.lastLogin, "yyyy-MM-dd HH:mm:ss")
-// .toFormat('MM/dd/yyyy h:mm a');
+const { t } = useTranslation();
 
 const getLogin = async ()=>{
     if(props.staffId) { 
@@ -22,7 +19,6 @@ const getLogin = async ()=>{
 
   useEffect(() => {
     getLogin(); 
-
   }, []);
 
 
@@ -33,9 +29,7 @@ const getLogin = async ()=>{
     <span>{login && "last login: " + new Date(login.start_time).toLocaleString() }</span>
     
     <Link onClick={()=>{
-      console.log(props.staffId)
-      createLogin(props.staffId,props.providerID)
-      
+      createLogin(props.staffId,props.providerID)  
       }} className="page_button page_button-width-medium " to={`/provider/${props.providerID}`} style={{"display": "block"}}>
         {t("go_to_profile")}
       </Link>

@@ -12,10 +12,12 @@ import ContextMenu from "../../../components/ContextMenu";
 import ContextMenuItem from "../../../components/ContextMenuItem";
 
 function ClinicCreate() {
-  const { listOfEmployments, providerId } = useContext(ProviderContext);
+  const { listOfEmployments, providerId, branches } =
+    useContext(ProviderContext);
   const { clinics, setClinics } = useContext(AppointmentContext);
   const { t } = useTranslation();
   const [selectedStaff, setSelectedStaff] = useState("");
+  const [selectedBranch, setSelectedBranch] = useState("");
   const specialityRef = useRef();
   const notify = () =>
     toast(t("clinic created succesfuly"), {
@@ -25,25 +27,32 @@ function ClinicCreate() {
     });
 
   const handleChange = (e) => {
-    setSelectedStaff(e.target.value);
+    if (e.target.name === "staff") {
+      setSelectedStaff(e.target.value);
+    }
+    if (e.target.name === "branch") {
+      setSelectedBranch(e.target.value);
+    }
   };
 
-  const handleDelete = (clinicId) =>{
-    alert(t("Do yo really want to delete the clinic "))
+  const handleDelete = (clinicId) => {
+    alert(t("Do yo really want to delete the clinic "));
 
-    setClinics((prev)=>{
-      return prev.filter((clinic)=>{
-        return clinic.id != clinicId
-      })
-    })
+    setClinics((prev) => {
+      return prev.filter((clinic) => {
+        return clinic.id != clinicId;
+      });
+    });
 
-    deleteClinic(clinicId)
+    deleteClinic(clinicId);
+  };
 
-  }
   const handleSubmit = async () => {
+
     const speciality = specialityRef.current.value;
     const clinicDetails = await postClinicData(
       providerId,
+      selectedBranch,
       selectedStaff,
       speciality
     );
@@ -51,6 +60,8 @@ function ClinicCreate() {
     setClinics((prev) => [...prev, clinicDetails]);
 
     setSelectedStaff("");
+    setSelectedBranch("");
+
 
     specialityRef.current.value = "";
 
@@ -74,6 +85,27 @@ function ClinicCreate() {
         />
 
         <h2 style={{ marginBottom: "2rem" }}>{t("create clinic")}</h2>
+
+        <FormControl fullWidth>
+          <InputLabel id="branch-label">{t("Branch")}</InputLabel>
+          <Select
+            labelId="branch-label"
+            id="branch-select"
+            value={selectedBranch}
+            label="Branch"
+            name="branch"
+            onChange={handleChange}
+          >
+            {branches?.map((branch) => {
+              return (
+                <MenuItem value={branch.id} key={branch.id}>
+                  {branch.branch_name}
+                </MenuItem>
+              );
+            })}
+          </Select>
+        </FormControl>
+            <br/>
         <FormControl fullWidth>
           <InputLabel id="select-staff-label">{t("Staff")}</InputLabel>
           <Select
@@ -82,6 +114,7 @@ function ClinicCreate() {
             value={selectedStaff}
             label="Staff"
             onChange={handleChange}
+            name="staff"
           >
             {listOfEmployments?.map((employment) => {
               if (employment.is_active)
@@ -92,10 +125,12 @@ function ClinicCreate() {
                 );
             })}
           </Select>
+
           <label id="">{t("Speciality")}</label>
 
           <input type="text" className="form-fields" ref={specialityRef} />
         </FormControl>
+
         <input
           type="button"
           className="page_button page_button-width-medium page_button-width-medium-fixed"
@@ -110,18 +145,27 @@ function ClinicCreate() {
 
         {clinics?.map((clinic) => {
           return (
-  
-            <div className="inner-page-box margin_bottom_small clinic" key={clinic.id} id={clinic.id}>
+            <div
+              className="inner-page-box margin_bottom_small clinic"
+              key={clinic.id}
+              id={clinic.id}
+            >
               <div>
                 <span>Dr {clinic?.clinican_details?.first_name}</span>
                 <span>{clinic?.clinican_details?.last_name}</span>
+
               </div>
+              <span>{clinic.branch}</span>
+
               <span>{clinic.speciality}</span>
-              
-              <input type="button" className="secondry-button clinic_button" onClick={()=>handleDelete(clinic.id)} value={t("delete")}/>
+
+              <input
+                type="button"
+                className="secondry-button clinic_button"
+                onClick={() => handleDelete(clinic.id)}
+                value={t("delete")}
+              />
             </div>
-
-
           );
         })}
       </div>

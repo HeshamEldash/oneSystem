@@ -24,7 +24,7 @@ function TelephoneUpdate({
         method: "DELETE",
         headers: {
           "Content-type": "application/json",
-          Authorization: "Bearer " + String(token.access),
+          Authorization: "Bearer " + String(JSON.parse(localStorage.getItem("authTokens"))?.access),
         },
       }
     );
@@ -36,7 +36,7 @@ function TelephoneUpdate({
         method: "PUT",
         headers: {
           "Content-type": "application/json",
-          Authorization: "Bearer " + String(token.access),
+          Authorization: "Bearer " + String(JSON.parse(localStorage.getItem("authTokens"))?.access),
         },
         body: JSON.stringify({
           telephone_number: telephone_number,
@@ -52,7 +52,7 @@ function TelephoneUpdate({
         method: "POST",
         headers: {
           "Content-type": "application/json",
-          Authorization: "Bearer " + String(token.access),
+          Authorization: "Bearer " + String(JSON.parse(localStorage.getItem("authTokens"))?.access),
         },
         body: JSON.stringify({
           telephone_number: telephone_number,

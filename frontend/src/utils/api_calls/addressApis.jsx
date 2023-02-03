@@ -9,7 +9,7 @@ const createAddress = async (owner_id, values, owner_type) => {
       method: "post",
       headers: {
         "Content-type": "application/json",
-        Authorization: "Bearer " + String(token.access),
+        Authorization: "Bearer " + String(JSON.parse(localStorage.getItem("authTokens"))?.access),
       },
       body: JSON.stringify({
         unit_number: values.unit_number,
@@ -30,7 +30,7 @@ const updateAddress = async (address_id, values) => {
       method: "PUT",
       headers: {
         "Content-type": "application/json",
-        Authorization: "Bearer " + String(token.access),
+        Authorization: "Bearer " + String(JSON.parse(localStorage.getItem("authTokens"))?.access),
       },
       body: JSON.stringify({
         unit_number: values.unit_number,
@@ -50,7 +50,7 @@ const deleteAddress = async (address_id) => {
       method: "DELETE",
       headers: {
         "Content-type": "application/json",
-        Authorization: "Bearer " + String(token.access),
+        Authorization: "Bearer " + String(JSON.parse(localStorage.getItem("authTokens"))?.access),
       },
     }
   );
@@ -63,7 +63,7 @@ const getAddress = async (address_id) => {
       method: "DELETE",
       headers: {
         "Content-type": "application/json",
-        Authorization: "Bearer " + String(token.access),
+        Authorization: "Bearer " + String(JSON.parse(localStorage.getItem("authTokens"))?.access),
       },
     }
   );
