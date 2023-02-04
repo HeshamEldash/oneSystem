@@ -32,6 +32,9 @@ DEBUG = True
 ALLOWED_HOSTS=['*']
 
 
+# FRONT_ENDPOINT = "127.0.0.1" if DEBUG else os.environ["FRONT_ENDPOINT"]
+
+
 # Application definition
 
 INSTALLED_APPS = [

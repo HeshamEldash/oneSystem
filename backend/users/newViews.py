@@ -2,7 +2,7 @@ from multiprocessing import context
 from .models import Account, Patient, TelephoneNumber
 from .serializers import *
 from rest_framework_simplejwt.views import TokenObtainPairView
-from rest_framework.views import APIView
+from rest_framework.views import   APIView
 from rest_framework import generics
 from rest_framework import mixins
 from rest_framework.permissions import AllowAny, IsAuthenticated
@@ -87,7 +87,7 @@ class GetObjectMixn:
 
 
 # //////////////////////// TelephoneNumberApi APIS \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
-class AddTelephoneNumberApi(APIView):
+class AddTelephoneNumberApi(ApiErrorsMixin , APIView):
     class InputSerializer(serializers.Serializer):
         telephone_number = serializers.CharField(required=False)
 
@@ -101,7 +101,7 @@ class AddTelephoneNumberApi(APIView):
         return Response(status=status.HTTP_200_OK, data=TelephoneNumberSerializer(new_num).data)
 
 
-class UpdateTelephoneNumberApi(APIView):
+class UpdateTelephoneNumberApi(ApiErrorsMixin , APIView):
     class InputSerializer(serializers.Serializer):
         telephone_number = serializers.CharField(required=False)
 
@@ -119,13 +119,13 @@ class UpdateTelephoneNumberApi(APIView):
 # //////////////////////// Address APIS \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 
 
-class AddressDetailApi(APIView, GetObjectMixn):
+class AddressDetailApi(ApiErrorsMixin , APIView, GetObjectMixn):
     look_up = "address_id"
     look_up_model = Address
     serializer = AddressSerializer
 
 
-class AddressDeleteApi(APIView):
+class AddressDeleteApi(ApiErrorsMixin , APIView):
     permission_classes = [IsAddressOwner]
 
     def delete(self, request, *args, **kwargs):
@@ -136,7 +136,7 @@ class AddressDeleteApi(APIView):
         return Response(status=status.HTTP_200_OK)
 
 
-class AddressUpdateApi(APIView):
+class AddressUpdateApi(ApiErrorsMixin , APIView):
     class InputSerializer(serializers.Serializer):
         unit_number = serializers.CharField(required=False)
         first_line = serializers.CharField(required=False)
@@ -161,7 +161,7 @@ class AddressUpdateApi(APIView):
 
 
 # //////////////////////// Staff APIS \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
-class StaffAccountDetail(APIView, GetObjectMixn):
+class StaffAccountDetail(ApiErrorsMixin , APIView, GetObjectMixn):
     look_up = "account_id"
     look_up_model = Account.objects.exclude(staff=None)
     serializer = NewStaffAccountSerializer
@@ -169,7 +169,7 @@ class StaffAccountDetail(APIView, GetObjectMixn):
 
 
     
-class StaffCreateApi(ApiErrorsMixin , APIView ):
+class StaffCreateApi( ApiErrorsMixin , APIView ):
     permission_classes = [AllowAny]
 
     class InputSerializer(serializers.Serializer):
@@ -203,7 +203,7 @@ class StaffCreateApi(ApiErrorsMixin , APIView ):
         staff = StaffService().staff_create(**serializer.validated_data)
         return Response(status=status.HTTP_200_OK)
         
-class StaffUpdateApi(APIView, UpdateObjectApiMixin):
+class StaffUpdateApi(ApiErrorsMixin , APIView, UpdateObjectApiMixin):
     # authenticated >  yes
     permission_classes = [ViewOrEditStaff]
 
@@ -235,7 +235,7 @@ class StaffUpdateApi(APIView, UpdateObjectApiMixin):
     def perform_update(self, instance, request, **serializer_data):
         return StaffService().update_staff(instance, **serializer_data)
 
-class StaffTelephoneUpdateApi(APIView, UpdateObjectApiMixin):
+class StaffTelephoneUpdateApi(ApiErrorsMixin , APIView, UpdateObjectApiMixin):
     permission_classes = [ViewOrEditStaff]
 
 
@@ -250,7 +250,7 @@ class StaffTelephoneUpdateApi(APIView, UpdateObjectApiMixin):
         return StaffService().update_telephone_numbers(instance, **serializer_data)
 
 
-class StaffDetailApi(APIView, GetObjectMixn):
+class StaffDetailApi(ApiErrorsMixin , APIView, GetObjectMixn):
 
     permission_classes = [ViewOrEditStaff]
 
@@ -260,7 +260,7 @@ class StaffDetailApi(APIView, GetObjectMixn):
 
 
 # //////////////////////// Branch APIS \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
-class BranchDetailApi(APIView, GetObjectMixn):
+class BranchDetailApi(ApiErrorsMixin , APIView, GetObjectMixn):
     # authenticated >  no
     permission_classes = [AllowAny]
     look_up = "branch_id"
@@ -268,7 +268,7 @@ class BranchDetailApi(APIView, GetObjectMixn):
     serializer = BranchDetailSerializer
 
 
-class BranchCreateApi(APIView):
+class BranchCreateApi(ApiErrorsMixin , APIView):
 
     permission_classes = [IsProviderOwnerOrManagerPermission]
 
@@ -290,7 +290,7 @@ class BranchCreateApi(APIView):
         return Response(status=status.HTTP_200_OK, data=BranchDetailSerializer(branch).data)
 
 
-class BranchDeleteApi(APIView , ProviderActionPermissionMixin):
+class BranchDeleteApi(ApiErrorsMixin , APIView , ProviderActionPermissionMixin):
     permission_classes = [IsProviderOwnerOrManagerPermission]
 
     def delete(self, request, *args, **kwargs):
@@ -301,7 +301,7 @@ class BranchDeleteApi(APIView , ProviderActionPermissionMixin):
         branch_obj.delete()
         return Response(status=status.HTTP_200_OK)
 
-class BranchTelephoneUpdateApi(APIView, UpdateObjectApiMixin, ProviderActionPermissionMixin):
+class BranchTelephoneUpdateApi(ApiErrorsMixin , APIView, UpdateObjectApiMixin, ProviderActionPermissionMixin):
 
     permission_classes = [IsProviderOwnerOrManagerPermission]
 
@@ -322,7 +322,7 @@ class BranchTelephoneUpdateApi(APIView, UpdateObjectApiMixin, ProviderActionPerm
         return Response(status=status.HTTP_200_OK, data=BranchDetailSerializer(updated_branch).data)
 
 
-class BranchUpdateApi(APIView, UpdateObjectApiMixin, ProviderActionPermissionMixin):
+class BranchUpdateApi(ApiErrorsMixin , APIView, UpdateObjectApiMixin, ProviderActionPermissionMixin):
 
     permission_classes = [IsProviderOwnerOrManagerPermission]
 
@@ -345,7 +345,7 @@ class BranchUpdateApi(APIView, UpdateObjectApiMixin, ProviderActionPermissionMix
         return Response(status=status.HTTP_200_OK, data=BranchDetailSerializer(updated_branch).data)
 
 
-class BranchListApi(APIView):
+class BranchListApi(ApiErrorsMixin , APIView):
 
     permission_classes = [AllowAny]
 
@@ -358,7 +358,7 @@ class BranchListApi(APIView):
 # //////////////////////// Provider APIS \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 
 
-class ProviderCreateApi(APIView):
+class ProviderCreateApi(ApiErrorsMixin , APIView):
     permission_classes = [IsAuthenticated]
 
     class InputSerializer(serializers.Serializer):
@@ -379,7 +379,7 @@ class ProviderCreateApi(APIView):
         return Response(status=status.HTTP_200_OK)
 
 
-class ProviderDetailApi(APIView, GetObjectMixn):
+class ProviderDetailApi(ApiErrorsMixin , APIView, GetObjectMixn):
     permission_classes = [AllowAny]
     look_up = "provider_id"
     look_up_model = Provider
@@ -395,7 +395,7 @@ class ProviderDetailApi(APIView, GetObjectMixn):
 
 
 
-class ProviderUpdateApi(APIView, UpdateObjectApiMixin):
+class ProviderUpdateApi(ApiErrorsMixin , APIView, UpdateObjectApiMixin):
     permission_classes = [IsProviderOwnerOrManagerPermission]
 
     class InputSerializer(serializers.Serializer):
@@ -418,7 +418,7 @@ class ProviderUpdateApi(APIView, UpdateObjectApiMixin):
 # //////////////////////// Employment APIS \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 
 
-class EmploymentDetailApiApi(APIView, GetObjectMixn, ProviderActionPermissionMixin):
+class EmploymentDetailApiApi(ApiErrorsMixin , APIView, GetObjectMixn, ProviderActionPermissionMixin):
     permission_classes = [IsProviderOwnerOrManagerPermission]
     look_up = "employment_id"
     look_up_model = Employment
@@ -432,7 +432,7 @@ class EmploymentDetailApiApi(APIView, GetObjectMixn, ProviderActionPermissionMix
         return Response(serializer.data)
 
 
-class EmploymentDeactivateApi(APIView, ProviderActionPermissionMixin):
+class EmploymentDeactivateApi(ApiErrorsMixin , APIView, ProviderActionPermissionMixin):
     permission_classes = [IsProviderOwnerOrManagerPermission]
 
     def get_object(self):
@@ -448,7 +448,7 @@ class EmploymentDeactivateApi(APIView, ProviderActionPermissionMixin):
         return Response(status=status.HTTP_200_OK, data=EmploymentReadSerializer(ended_empoyment).data)
 
 
-class EmploymentProviderListApi(APIView, ProviderActionPermissionMixin):
+class EmploymentProviderListApi(ApiErrorsMixin , APIView, ProviderActionPermissionMixin):
     permission_classes = [IsProviderOwnerOrManagerPermission]
 
     def get(self, request):
@@ -460,7 +460,7 @@ class EmploymentProviderListApi(APIView, ProviderActionPermissionMixin):
         return Response(status=status.HTTP_200_OK, data=data)
 
 
-class EmploymentUpdateApi(APIView, UpdateObjectApiMixin, ProviderActionPermissionMixin):
+class EmploymentUpdateApi(ApiErrorsMixin , APIView, UpdateObjectApiMixin, ProviderActionPermissionMixin):
     permission_classes = [IsProviderOwnerOrManagerPermission]
 
     class InputSerializer(serializers.Serializer):
@@ -496,7 +496,7 @@ class EmploymentUpdateApi(APIView, UpdateObjectApiMixin, ProviderActionPermissio
         return Response(status=status.HTTP_200_OK, data=EmploymentReadSerializer(updated_employment).data)
 
 
-class EmploymentCreateApi(APIView):
+class EmploymentCreateApi(ApiErrorsMixin , APIView):
     permission_classes = [IsProviderOwnerOrManagerPermission]
 
     class InputSerializer(serializers.Serializer):
@@ -529,7 +529,7 @@ class EmploymentCreateApi(APIView):
         return Response(status=status.HTTP_404_NOT_FOUND,  data="There was an error creating this employment")
 
 
-class EmploymentStaffListApi(APIView):
+class EmploymentStaffListApi(ApiErrorsMixin , APIView):
     permission_classes = [IsAuthenticated]
 
     def get(self, request):
@@ -543,7 +543,7 @@ class EmploymentStaffListApi(APIView):
 
 # //////////////////////// Patient APIS \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 
-class PatientProfileProviderDetailApi(APIView, ProviderActionPermissionMixin):
+class PatientProfileProviderDetailApi(ApiErrorsMixin , APIView, ProviderActionPermissionMixin):
     permission_classes = [IsProviderAdmin, IsProviderClinican]
 
     def get(self, request, *args, **kwargs):
@@ -566,7 +566,7 @@ class PatientProfileProviderDetailApi(APIView, ProviderActionPermissionMixin):
         return Response(status=status.HTTP_200_OK, data=data)
 
 
-class PatientProfileProviderCreateApi(APIView, ProviderActionPermissionMixin):
+class PatientProfileProviderCreateApi(ApiErrorsMixin , APIView, ProviderActionPermissionMixin):
     permission_classes = [IsProviderAdmin, IsProviderClinican]
 
     class InputSerializer(serializers.Serializer):
@@ -600,7 +600,7 @@ class PatientProfileProviderCreateApi(APIView, ProviderActionPermissionMixin):
         return Response(status=status.HTTP_201_CREATED, data=NewPatientProfileDetailSerializer(patient_obj).data)
 
 
-class PatientProfileProviderUpdateApi(APIView, UpdateObjectApiMixin, ProviderActionPermissionMixin):
+class PatientProfileProviderUpdateApi(ApiErrorsMixin , APIView, UpdateObjectApiMixin, ProviderActionPermissionMixin):
     permission_classes = [IsProviderAdmin,
                           IsProviderClinican, IsProviderOwnerOrManagerPermission]
 
@@ -639,7 +639,7 @@ class PatientProfileProviderUpdateApi(APIView, UpdateObjectApiMixin, ProviderAct
 
 # //////////////////////// Registration APIS \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 
-class ProviderRegistrationDetailApi(APIView, ProviderActionPermissionMixin):
+class ProviderRegistrationDetailApi(ApiErrorsMixin , APIView, ProviderActionPermissionMixin):
     permission_classes = [IsProviderAdmin, IsProviderClinican]
 
     def get(self, request, *args, **kwargs):
@@ -651,7 +651,7 @@ class ProviderRegistrationDetailApi(APIView, ProviderActionPermissionMixin):
         return Response(status=status.HTTP_200_OK, data=RegistrationSerializer(registration).data)
 
 
-class ProviderRegistrationListApi(APIView, ProviderActionPermissionMixin):
+class ProviderRegistrationListApi(ApiErrorsMixin , APIView, ProviderActionPermissionMixin):
     permission_classes = [IsProviderAdmin, IsProviderClinican]
 
     def get(self, request):
@@ -664,15 +664,15 @@ class ProviderRegistrationListApi(APIView, ProviderActionPermissionMixin):
         return Response(data)
 
 
-class ProviderRegistrationUpdateApi(APIView, UpdateObjectApiMixin, ProviderActionPermissionMixin):
+class ProviderRegistrationUpdateApi(ApiErrorsMixin , APIView, UpdateObjectApiMixin, ProviderActionPermissionMixin):
     pass
 
 
-class ProviderRegistrationEndApi(APIView, GetObjectMixn, ProviderActionPermissionMixin):
+class ProviderRegistrationEndApi(ApiErrorsMixin , APIView, GetObjectMixn, ProviderActionPermissionMixin):
     pass
 
 
-class ProviderRegistrationCreateApi(APIView, ProviderActionPermissionMixin):
+class ProviderRegistrationCreateApi(ApiErrorsMixin , APIView, ProviderActionPermissionMixin):
     permission_classes = [IsProviderAdmin, IsProviderClinican]
 
     def post(self, request, *args, **kwargs):

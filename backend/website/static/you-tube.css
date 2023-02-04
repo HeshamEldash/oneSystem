@@ -1,0 +1,22 @@
+.you-tube-you-tube {
+  width: 240px;
+  height: 120px;
+  display: flex;
+  align-items: center;
+  border-radius: 200px;
+  flex-direction: row;
+  justify-content: center;
+  background-color: var(--dl-color-gray-white);
+}
+.you-tube-image {
+  width: 58px;
+  height: 37px;
+  object-fit: cover;
+}
+@media(max-width: 479px) {
+  .you-tube-you-tube {
+    width: 120px;
+    height: 60px;
+    align-items: center;
+  }
+}
