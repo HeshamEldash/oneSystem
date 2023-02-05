@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import APIENDPOINT from "../../../utils/api_calls/apiEndpoint";
+import APIENDPOINT from "../../../api/apiEndpoint.jsx";
 import { updateAppointmentStatus } from "../appointmentsApiCalls";
 
 function useSlot(slotDetails) {

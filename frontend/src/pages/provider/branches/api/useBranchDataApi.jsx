@@ -1,6 +1,8 @@
 import React from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-import { createBranch, getBranches, updateBranchAddress } from "./providerApi";
+import { createBranch, deleteBranch, getBranches, updateBranchAddress } from "../../api/providerApi";
+import {usePost, useDelete, useGet, useUpdate } from "../../../../api/reactQuery"
+
 
 /*
     From top to Bottom:
@@ -16,26 +18,9 @@ import { createBranch, getBranches, updateBranchAddress } from "./providerApi";
 
 */
 
-export const usePost = (updaterFunc, qKey) => {
-  const queryClient = useQueryClient();
-  return useMutation({
-    mutationFn: (data) => updaterFunc(data),
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: qKey });
-    },
-  });
+export const useDeleteBranch = () => {
+  return useDelete(deleteBranch, ["branches"]);
 };
-
-export const useGet = (qKey, getterFunc, params) => {
-  const context = useQuery({
-    queryKey: qKey,
-    queryFn: () => getterFunc(params),
-  });
-  return context;
-};
-
-
-
 
 export const usePostBranch = () => {
   return usePost(createBranch, ["branches"]);
@@ -45,12 +30,7 @@ export const useGetBranches = (id) => {
   return useGet(["branches"], getBranches, { provider_id: id });
 };
 
+
 export const useUpdateBranchAddress = (id)=>{
-    const queryClient = useQueryClient();
-    return useMutation({
-      mutationFn: (data) => updateBranchAddress(data),
-      onSuccess: () => {
-        queryClient.invalidateQueries({ queryKey: ["nnndr"] });
-      },
-    });
+ return useUpdate(["branches", id] , updateBranchAddress)
 }

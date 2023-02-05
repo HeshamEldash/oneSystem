@@ -8,7 +8,7 @@ import StaffProfileItem from "./StaffProfileItem";
 
 import { StaffContext } from "./StaffContext";
 import TelephoneDisplay from "../../components/telephoneNew/TelephoneDisplay";
-import { updateStaffTelephoneList } from "./staffApi";
+import { updateStaffTelephoneList } from "./api/staffApi";
 
 function StaffDashboard() {
 

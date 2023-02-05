@@ -3,7 +3,11 @@
   --color-lighter-purple: #a384e2;
   --light-purple: #a9459a;
 
-  --color-dark-purple: #734597;
+  --color-dark-purple: rgb(67, 22, 102);
+  --dark-blue: #271359;
+
+
+
 
   --color-gray-darkest: #34383c;
   --color-gray-darkest: #565b62;
@@ -133,6 +137,7 @@ margin-block: 1rem;
   color: #ffffff;
   /* max-width: 60rem; */
   background-color: #a9459a;
+  background-color: rgb(67, 22, 102)  ;
   box-shadow: 4px 4px 9px -2px rgb(0 0 0 / 48%);
   text-decoration: none;
   text-align: center;

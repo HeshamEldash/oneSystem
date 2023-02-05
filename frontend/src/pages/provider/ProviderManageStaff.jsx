@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from "react";
 import Employment from "./components/Employment";
-import { getAllEmployments } from "./providerApi";
+import { getAllEmployments } from "./api/providerApi";
 import { useParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import Skeleton from "@mui/material/Skeleton";

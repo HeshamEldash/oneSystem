@@ -21,12 +21,7 @@
     z-index: 1000;
     box-shadow:var(--shallowShadow);
     background-color: var(--color-dark-purple);
-    /* background-color: #4A4597;
-    background: rgb(74,69,151);
-background: linear-gradient(152deg, rgba(74,69,151,1) 16%, rgba(119,40,202,1) 42%, rgba(115,69,151,1) 70%);
-
-background: rgb(74,69,151);
-background: linear-gradient(152deg, rgba(74,69,151,1) 16%, rgba(115,69,151,1) 70%); */
+    /* background: linear-gradient(135deg, rgb(76, 6, 67) 0.00%,rgb(67, 22, 102) 33.00%,rgb(67, 22, 102) 62.00%,rgb(97, 44, 138) 84.00%) */
 
 }
 .white{

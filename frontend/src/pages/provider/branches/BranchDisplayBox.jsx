@@ -1,32 +1,20 @@
-import React, { useContext } from "react";
+import React from "react";
 import "./branch.css";
 import AddressDisplay from "../../../components/addressNew/AddressDisplay";
 import TelephoneDisplay from "../../../components/telephoneNew/TelephoneDisplay";
-import {
-  deleteBranch,
-  updateBranchAddress,
-  updateBranchTelephoneList,
-} from "../providerApi";
+import { updateBranchTelephoneList } from "../api/providerApi";
 import DeleteButton from "../../../components/ui/buttons/DeleteButton";
-import { ProviderContext } from "../context/ProviderContext";
-import { useUpdateBranchAddress } from "../useBranchDataApi";
+import { useDeleteBranch, useUpdateBranchAddress } from "./api/useBranchDataApi";
 
 function BranchDisplayBox({ branch }) {
-  const { setBranches } = useContext(ProviderContext);
-
-const branchUpdater = useUpdateBranchAddress(branch.provider)
+  const branchUpdater = useUpdateBranchAddress(branch.provider);
+  const branchDeleter = useDeleteBranch();
 
   const handleDelete = () => {
     if (window.confirm("Are you sure you want to delete this Branch")) {
-      deleteBranch({
+      branchDeleter.mutate({
         provider_id: branch.provider,
         branch_id: branch.id,
-      });
-
-      setBranches((branches) => {
-        return branches.filter((oldBranch) => {
-          return oldBranch != branch;
-        });
       });
     }
   };
@@ -38,13 +26,6 @@ const branchUpdater = useUpdateBranchAddress(branch.provider)
       <div className="branch__box_address">
         <span className="branch__box_title">Address </span>
         <AddressDisplay
-          // apiUpdate={(data) =>
-          //   updateBranchAddress({
-          //     provider_id: branch.provider,
-          //     branch_id: branch.id,
-          //     data: data,
-          //   })
-          // }
           apiUpdate={(data) =>
             branchUpdater.mutate({
               provider_id: branch.provider,

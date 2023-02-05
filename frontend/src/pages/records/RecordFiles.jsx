@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useRef } from "react";
 import { useOutletContext } from "react-router";
-import APIENDPOINT from "../../utils/api_calls/apiEndpoint";
+import APIENDPOINT from "../../api/apiEndpoint.jsx";
 import { getRecordFiles } from "./apiCalls/recordsApiCalls";
 import { useRecordContext } from "./context/RecordContextHook";
 import DocumentElement from "./recordDocuments/DocumentElement";

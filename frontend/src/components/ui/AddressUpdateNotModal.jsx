@@ -2,7 +2,7 @@ import React, { useState, useContext } from "react";
 import { useFormik } from "formik";
 import { useTranslation } from "react-i18next";
 import { Link, Navigate, useLocation, useParams} from "react-router-dom";
-import { createAddress, updateAddress } from "../../utils/api_calls/addressApis";
+import { createAddress, updateAddress } from "../../api/addressApis.jsx";
 
 
 function AddressUpdate({address, closeModal}) {

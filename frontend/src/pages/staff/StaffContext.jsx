@@ -1,71 +1,22 @@
 import react, { createContext, useState, useEffect, useContext } from "react";
 import AuthContext from "../../context/AuthContext";
-import APIENDPOINT from "../../utils/api_calls/apiEndpoint";
-import { getStaffProfile } from "./staffApi";
-
-let token ;
+import { useGetOwnedProvider, useGetStaffEmployments, useGetStaffProfile } from "./api/useStaffDataApi";
 
 export const StaffContext = createContext();
 
 export default function StaffContextProvider(props) {
-  const { user, authTokens } = useContext(AuthContext);
-  const [ownedProvider, setOwnedProvider] = useState();
-  const [staffProfile, setStaffProfile] = useState();
+  const { user} = useContext(AuthContext);
+  
   const [telephoneNumbers, setTelephoneNumbers] = useState([]);
-  const [profiles, setProfiles] = useState([]);
+  const { data:staffProfile}= useGetStaffProfile(user?.user_id)
 
+  const {data:profiles} = useGetStaffEmployments(user?.user_id)
 
-  const getDetails = async () => {
-    const staffProfiles = await getStaffProfile();
-    setProfiles(staffProfiles);
-  };
+  const {data:ownedProvider} = useGetOwnedProvider(user?.user_id)
 
-  const getOwnedProvider = async () => {
-    
-    const response = await fetch(
-      `${APIENDPOINT}/users/provider-detail-api/?` +
-        new URLSearchParams({ owner_id: user.user_id }),
-      {
-        method: "GET",
-        headers: {
-          "Content-type": "application/json",
-          Authorization: "Bearer " + String(token?.access),
-        },
-      }
-    );
-
-    if (response.ok) {
-      const data = await response.json();
-      setOwnedProvider(data);
-    }
-  };
-
-  const getProfileDetails = async () => {
-    const response = await fetch(
-      `${APIENDPOINT}/users/staff-account-detail-api/?` +
-        new URLSearchParams({ account_id: user.user_id }),
-      {
-        method: "GET",
-        headers: {
-          "Content-type": "application/json",
-          Authorization: "Bearer " + String(token?.access),
-        },
-      }
-    );
-
-    if (response.ok) {
-      const data = await response.json();
-      setStaffProfile(data);
-      setTelephoneNumbers(data.staff_profile.telephone_numbers);
-    }
-  };
-
-  useEffect(() => {
-      token = JSON.parse(localStorage.getItem("authTokens"))
-      getOwnedProvider();
-      getProfileDetails();
-      getDetails();
-  }, [authTokens]);
+  useEffect(() => {   
+    setTelephoneNumbers(staffProfile?.staff_profile.telephone_numbers)
+  }, [staffProfile]);
 
   const contextData = {
     ownedProvider: ownedProvider,

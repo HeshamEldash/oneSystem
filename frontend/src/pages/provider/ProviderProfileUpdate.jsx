@@ -1,21 +1,25 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useRef } from "react";
 import { useTranslation } from "react-i18next";
-import { updateProviderProfile } from "./providerApi";
+import { updateProviderProfile } from "./api/providerApi";
 import BranchDisplayBox from "./branches/BranchDisplayBox";
 import { ProviderContext } from "./context/ProviderContext";
 import BranchCreate from "./branches/BranchCreate";
+import { useUpdateProvider } from "./api/useProviderDataApi";
 
 function ProviderProfileUpdate() {
-  const { profile, branches, setProfile } = useContext(ProviderContext);
+  const { profile, branches } = useContext(ProviderContext);
 
   const { t } = useTranslation();
 
   const [updating, setUpdating] = useState(false);
+  const profileUpdater= useUpdateProvider()
 
+  const  nameRef = useRef()
   const updateProfile = async () => {
-    updateProviderProfile({
+ 
+    profileUpdater.mutate({
       provider_id: profile.id,
-      data: profile.name,
+      data: nameRef.current.value,
     });
   };
 
@@ -27,13 +31,10 @@ function ProviderProfileUpdate() {
           <h4 className="subtitle">{t("name")}: </h4>
           {updating ? (
             <input
+              ref={nameRef}
               className="form-fields"
-              onChange={(e) => {
-                setProfile((prev) => {
-                  return { ...prev, name: e.target.value };
-                });
-              }}
-              value={profile?.name}
+              value={nameRef.current}
+              
             />
           ) : (
             profile?.name

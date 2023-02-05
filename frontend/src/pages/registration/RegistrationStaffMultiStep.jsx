@@ -9,7 +9,7 @@ import Select from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
 import { useNavigate } from "react-router-dom";
 
-import APIENDPOINT from "../../utils/api_calls/apiEndpoint";
+import APIENDPOINT from "../../api/apiEndpoint.jsx";
 
 function RegistrationStaffMultiStep() {
   const navigate = useNavigate();

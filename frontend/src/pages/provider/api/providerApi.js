@@ -1,62 +1,104 @@
 import axios from "axios";
-import APIENDPOINT from "../../utils/api_calls/apiEndpoint";
+import APIENDPOINT from "../../../api/apiEndpoint.jsx";
 
-let token = JSON.parse(localStorage.getItem("authTokens"));
 
-function handleErrors(response) {
-  if (!response.ok) {
-    throw Error(response.statusText);
-  }
-  return response;
-}
 
 const searchPatients = async (values, provider_id) => {
-  const params = new URLSearchParams(values);
-  provider_id && params.append("provider", provider_id);
+  try {
+    const params = new URLSearchParams(values);
+    provider_id && params.append("provider", provider_id);
 
-  const response = await fetch(
-    `${APIENDPOINT}/users/search-patients/?` + new URLSearchParams(params),
-    {
-      method: "GET",
-      headers: {
-        "Content-type": "application/json",
-        Authorization:
-          "Bearer " +
-          String(JSON.parse(localStorage.getItem("authTokens"))?.access),
-      },
-    }
-  );
-
-  if (response.ok) {
-    return response.json();
+    const response = await axios.get(
+      `${APIENDPOINT}/users/search-patients/`,
+      {
+        headers: {
+          "Content-type": "application/json",
+          Authorization:
+            "Bearer " +
+            String(JSON.parse(localStorage.getItem("authTokens"))?.access),
+        },
+        params: params,
+      }
+    );
+    return response.data;
+  } catch (error) {
+    console.error(error);
+    throw error;
   }
 };
 
-const getAllPatients = async (provider_id) => {
-  const response = await fetch(
-    `${APIENDPOINT}/users/registration-list/${provider_id}`,
-    {
-      method: "GET",
-      headers: {
-        "Content-type": "application/json",
-        Authorization:
-          "Bearer " +
-          String(JSON.parse(localStorage.getItem("authTokens"))?.access),
-      },
-    }
-  );
 
-  if (response.ok) {
-    return response.json();
+// const searchPatients = async (values, provider_id) => {
+//   const params = new URLSearchParams(values);
+//   provider_id && params.append("provider", provider_id);
+
+//   const response = await fetch(
+//     `${APIENDPOINT}/users/search-patients/?` + new URLSearchParams(params),
+//     {
+//       method: "GET",
+//       headers: {
+//         "Content-type": "application/json",
+//         Authorization:
+//           "Bearer " +
+//           String(JSON.parse(localStorage.getItem("authTokens"))?.access),
+//       },
+//     }
+//   );
+
+//   if (response.ok) {
+//     return response.json();
+//   }
+// };
+
+
+
+
+
+const getAllPatients = async (provider_id, params) => {
+  try {
+    const response = await axios.get(
+      `${APIENDPOINT}/users/registration-list/${provider_id}`,
+      {
+        headers: {
+          "Content-type": "application/json",
+          Authorization:
+            "Bearer " +
+            String(JSON.parse(localStorage.getItem("authTokens"))?.access),
+        },
+        params: params,
+      }
+    );
+    return response.data;
+
+  } catch (error) {
+    throw error;
   }
 };
+
+
+// const getAllPatients = async (provider_id) => {
+//   const response = await fetch(
+//     `${APIENDPOINT}/users/registration-list/${provider_id}`,
+//     {
+//       method: "GET",
+//       headers: {
+//         "Content-type": "application/json",
+//         Authorization:
+//           "Bearer " +
+//           String(JSON.parse(localStorage.getItem("authTokens"))?.access),
+//       },
+//     }
+//   );
+
+//   if (response.ok) {
+//     return response.json();
+//   }
+// };
+
 const deleteBranch = async ({ provider_id, branch_id }) => {
-  console.log(branch_id, provider_id);
-  return await fetch(
-    `${APIENDPOINT}/users/branch-delete-api/?` +
-      new URLSearchParams({ branch_id: branch_id, provider_id: provider_id }),
-    {
-      method: "DELETE",
+  try{
+    const { data } = await axios.delete(`${APIENDPOINT}/users/branch-delete-api/?`,{
+      params:{ branch_id: branch_id, provider_id: provider_id },
       headers: {
         "Content-type": "application/json",
         Authorization:
@@ -64,11 +106,17 @@ const deleteBranch = async ({ provider_id, branch_id }) => {
           String(JSON.parse(localStorage.getItem("authTokens"))?.access),
       },
     }
-  )
-    .then(handleErrors)
-    .then((response) => response.json())
-    .catch((error) => console.log(error));
+    )
+    return data;
+  }
+  catch  (err) {
+    throw err
+  }
 };
+
+
+
+
 
 
 const getBranches = async ({provider_id}) => {
@@ -88,16 +136,12 @@ const getBranches = async ({provider_id}) => {
   }
 };
 
+
+
+
 const createBranch = async (data) => {
-  const response = await fetch(`${APIENDPOINT}/users/branch-create-api/`, {
-    method: "POST",
-    headers: {
-      "Content-type": "application/json",
-      Authorization:
-        "Bearer " +
-        String(JSON.parse(localStorage.getItem("authTokens"))?.access),
-    },
-    body: JSON.stringify({
+  try {
+    const response = await axios.post(`${APIENDPOINT}/users/branch-create-api/`, {
       provider: data.provider,
       branch_name: data.branch_name,
       unit_number: data.unit_number,
@@ -106,12 +150,47 @@ const createBranch = async (data) => {
       city: data.city,
       governorate: data.governorate,
       telephone_number: data.telephone_number,
-    }),
-  });
-  if (response.ok) {
-    return response.json();
+    }, {
+      headers: {
+        "Content-type": "application/json",
+        Authorization:
+          "Bearer " +
+          String(JSON.parse(localStorage.getItem("authTokens"))?.access),
+      },
+    });
+    return response.data;
+  } catch (error) {
+    console.error(error);
+    throw error;
   }
 };
+
+
+
+// const createBranch = async (data) => {
+//   const response = await fetch(`${APIENDPOINT}/users/branch-create-api/`, {
+//     method: "POST",
+//     headers: {
+//       "Content-type": "application/json",
+//       Authorization:
+//         "Bearer " +
+//         String(JSON.parse(localStorage.getItem("authTokens"))?.access),
+//     },
+//     body: JSON.stringify({
+//       provider: data.provider,
+//       branch_name: data.branch_name,
+//       unit_number: data.unit_number,
+//       first_line: data.first_line,
+//       second_line: data.second_line,
+//       city: data.city,
+//       governorate: data.governorate,
+//       telephone_number: data.telephone_number,
+//     }),
+//   });
+//   if (response.ok) {
+//     return response.json();
+//   }
+// };
 
 
 const updateBranchTelephoneList = async ({ branch_id, provider_id, data }) => {
@@ -124,7 +203,7 @@ const updateBranchTelephoneList = async ({ branch_id, provider_id, data }) => {
         "Content-type": "application/json",
         Authorization:
           "Bearer " +
-          String(JSON.parse(localStorage.getItem("authTokens"))?.access),
+          String(JSON.parse(localStorage.getItem("authTokdens"))?.access),
       },
       body: JSON.stringify({
         telephone_numbers: data,
@@ -132,7 +211,10 @@ const updateBranchTelephoneList = async ({ branch_id, provider_id, data }) => {
     }
   )
     .then((response) => response.json())
-    .catch((error) => console.log(error));
+    .catch((error) => {
+      console.log(error)
+      throw error
+    });
 };
 
 const updateBranchAddress = async ({ branch_id, provider_id, data }) => {
@@ -152,7 +234,7 @@ const updateBranchAddress = async ({ branch_id, provider_id, data }) => {
       }),
     }
   )
-    .then(handleErrors)
+
     .then((response) => response.json())
     .catch((error) => console.log(error));
 };
@@ -174,12 +256,11 @@ const updateProviderProfile = async ({ provider_id, data }) => {
       }),
     }
   )
-    .then(handleErrors)
     .then((response) => response.json())
     .catch((error) => console.log(error));
 };
 
-let getProfile = async (provider_id) => {
+let getProfile = async ({ provider_id: provider_id }  ) => {
   let response = await fetch(
     `${APIENDPOINT}/users/provider-detail-api/?` +
       new URLSearchParams({ provider_id: provider_id }),
@@ -219,7 +300,6 @@ const updateProviderTelephoneList = async ({ provider_id, data }) => {
       }),
     }
   )
-    .then(handleErrors)
     .then((response) => response.json())
     .catch((error) => console.log(error));
 };

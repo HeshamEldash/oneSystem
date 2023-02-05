@@ -4,7 +4,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import TableCell, { tableCellClasses } from "@mui/material/TableCell";
 import TableRow from "@mui/material/TableRow";
 import { styled } from "@mui/material/styles";
-import { getAllPatients } from "../providerApi";
+import { getAllPatients } from "../api/providerApi";
 
 
 function GetAllRegisteredPatients({setNumberOfPatients}) {

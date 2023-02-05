@@ -1,4 +1,4 @@
-import APIENDPOINT from "../../utils/api_calls/apiEndpoint";
+import APIENDPOINT from "../../api/apiEndpoint.jsx";
 const token = JSON.parse(localStorage.getItem("authTokens"));
 
 

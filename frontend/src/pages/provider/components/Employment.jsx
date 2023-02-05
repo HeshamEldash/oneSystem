@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { getLogins } from "../../../utils/api_calls/getLogins";
-import { getStaffProfile } from "../../staff/staffApi";
+import { getLogins } from "../../../api/getLogins.js";
+import { getStaffEmployments as getStaffProfile } from "../../staff/api/staffApi";
 import { useParams } from "react-router-dom";
 import Table from "@mui/material/Table";
 import TableHead from "@mui/material/TableHead";
@@ -10,7 +10,7 @@ import TableBody from "@mui/material/TableBody";
 import { TableContainer } from "@mui/material";
 import TablePagination from "@mui/material/TablePagination";
 import Paper from "@mui/material/Paper";
-import { endEmployment } from "../providerApi";
+import { endEmployment } from "../api/providerApi";
 
 function Employment(props) {
   const [staff, setStaff] = useState({});

@@ -1,6 +1,6 @@
 import React, { useState, useContext, useRef } from "react";
 import { useFormik } from "formik";
-import APIENDPOINT from "../../utils/api_calls/apiEndpoint";
+import APIENDPOINT from "../../api/apiEndpoint.jsx";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { useTranslation } from "react-i18next";
 

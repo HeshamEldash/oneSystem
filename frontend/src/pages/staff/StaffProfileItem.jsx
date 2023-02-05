@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState }  from 'react'
 import { BrowserRouter as Router, Route, Routes, Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { DateTime } from "luxon";
-import { getLogins, createLogin,getLastLogin } from "../../utils/api_calls/getLogins"
+import { getLogins, createLogin,getLastLogin } from "../../api/getLogins.js"
 
 function StaffProfileItem(props) {
 const[login, setLogin]= useState()

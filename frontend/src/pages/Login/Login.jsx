@@ -10,7 +10,7 @@ import "react-toastify/dist/ReactToastify.css";
 
 import "./login.css";
 
-import APIENDPOINT from "../../utils/api_calls/apiEndpoint";
+import APIENDPOINT from "../../api/apiEndpoint.jsx";
 
 function Login() {
   const navigate = useNavigate();

@@ -4,7 +4,7 @@ import { Link, Navigate, useParams } from "react-router-dom";
 
 import { useTranslation } from "react-i18next";
 import { useFormik } from "formik";
-import APIENDPOINT from '../../utils/api_calls/apiEndpoint';
+import APIENDPOINT from '../../api/apiEndpoint.jsx';
 import DatePicker from "react-datepicker";
 
 

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import * as ECT from "@whoicd/icd11ect";
 import "@whoicd/icd11ect/style.css";
 import { useRecordContext } from "../../pages/records/context/RecordContextHook";
-import APIENDPOINT from "../../utils/api_calls/apiEndpoint";
+import APIENDPOINT from "../../api/apiEndpoint.jsx";
 
 function Icd() {
   const [entity, setEntity] = useState();

@@ -1,29 +1,23 @@
 import react, { createContext, useState, useEffect } from "react";
 import { useParams } from "react-router";
-import { getAllEmployments, getBranches, getProfile } from "../providerApi";
+import { getAllEmployments, getBranches, getProfile } from "../api/providerApi";
 import { useQuery } from "@tanstack/react-query";
-import { useGetBranches } from "../useBranchDataApi";
+import { useGetBranches } from "../branches/api/useBranchDataApi";
+import { useGetProvider } from "../api/useProviderDataApi";
 
 export const ProviderContext = createContext();
 
 export default function ProviderContextProvider(props) {
   const { id } = useParams();
   const [listOfEmployments, setListOfEmployments] = useState([]);
-  const [profile, setProfile] = useState({});
-  // const [branches, setBranches] = useState([]);
+  // const [profile, setProfile] = useState({});
 
 
-  // const { isLoading, isError, data:branches, error } = useQuery({
-  //   queryKey: ['branches', id],
-  //   queryFn: () => getBranches(id),
-  // })
-  
+
   const { isLoading, isError, data:branches, error } = useGetBranches(id)
+  const { isLoading:providerLoading, isError:providerError, data:profile } = useGetProvider(id)
 
-  // const retreiveBranches = async () => {
-  //   const branches = await getBranches(id);
-  //   setBranches(branches);
-  // };
+
 
 
 
@@ -32,15 +26,10 @@ export default function ProviderContextProvider(props) {
     setListOfEmployments(employments);
   };
 
-  const retreiveProfile = async () => {
-    const profile = await getProfile(id);
-    setProfile(profile);
-  };
+
 
   useEffect(() => {
     getEmployments();
-    retreiveProfile();
-    // retreiveBranches();
     localStorage.setItem("provider", JSON.stringify(id));
   }, []);
 
@@ -48,9 +37,9 @@ export default function ProviderContextProvider(props) {
     listOfEmployments: listOfEmployments,
     providerId: id,
     profile: profile,
-    setProfile: setProfile,
+    // setProfile: setProfile,
     branches: branches,
-    // setBranches:setBranches,
+
   };
 
   return (

@@ -5,7 +5,7 @@ import { Link, Navigate, useLocation, useParams } from "react-router-dom";
 import {
   createAddress,
   updateAddress,
-} from "../../utils/api_calls/addressApis";
+} from "../../api/addressApis.jsx";
 
 function AddressUpdate({ address, closeModal,addressFormSubmitRef, updateParent, addressId, ownerType, ownerId }) {
 

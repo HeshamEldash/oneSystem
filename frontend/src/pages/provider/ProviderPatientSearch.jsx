@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { useFormik } from "formik";
 import { initReactI18next, useTranslation } from "react-i18next";
-import APIENDPOINT from "../../utils/api_calls/apiEndpoint";
+import APIENDPOINT from "../../api/apiEndpoint.jsx";
 import ResultsBox from "../../components/ResultsBox";
-import { searchPatients } from "./providerApi";
+import { searchPatients } from "./api/providerApi";
 import { useParams, useNavigate } from "react-router-dom";
 import TableCell, { tableCellClasses } from "@mui/material/TableCell";
 import TableRow from "@mui/material/TableRow";

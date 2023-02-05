@@ -8,7 +8,7 @@ import { useNavigate } from "react-router-dom";
 import AuthContext from "../../context/AuthContext";
 import { accountFormSchema } from "./AccountFormSchema";
 
-import APIENDPOINT from "../../utils/api_calls/apiEndpoint";
+import APIENDPOINT from "../../api/apiEndpoint.jsx";
 
 
 function AccountRegistration() {

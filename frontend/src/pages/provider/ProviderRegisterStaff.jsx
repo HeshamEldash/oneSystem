@@ -6,11 +6,11 @@ import { useTranslation } from "react-i18next";
 import Select from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
 import { useNavigate } from "react-router-dom";
-import { createEmployment } from "./providerApi";
+import { createEmployment } from "./api/providerApi";
 import { ToastContainer, toast } from "react-toastify";
 import { ProviderRegisterStaffSchema } from "./formSchemas/ProviderRegisterStaffSchema";
 
-import APIENDPOINT from "../../utils/api_calls/apiEndpoint";
+import APIENDPOINT from "../../api/apiEndpoint.jsx";
 
 function ProviderRegisterStaff() {
   const notify = (msg) =>

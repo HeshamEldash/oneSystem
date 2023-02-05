@@ -1,5 +1,5 @@
 import React from "react";
-import { updateBranchTelephoneList } from "../../pages/provider/providerApi";
+import { updateBranchTelephoneList } from "../../pages/provider/api/providerApi";
 import MediumInput from "../ui/inputs/MediumInput";
 import SmallButton from "../ui/SmallButton";
 import TelephoneBox from "./TelephoneBox";

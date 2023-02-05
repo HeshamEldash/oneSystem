@@ -6,7 +6,7 @@ import Select from "@mui/material/Select";
 
 import { useTranslation } from "react-i18next";
 import { useFormik } from "formik";
-import APIENDPOINT from "../../utils/api_calls/apiEndpoint";
+import APIENDPOINT from "../../api/apiEndpoint.jsx";
 import DatePicker from "react-datepicker";
 
 function ProviderPatientRegistration() {

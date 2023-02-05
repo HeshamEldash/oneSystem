@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useRef } from "react";
 import DocViewer, { DocViewerRenderers } from "react-doc-viewer";
-import APIENDPOINT from "../../../utils/api_calls/apiEndpoint";
+import APIENDPOINT from "../../../api/apiEndpoint.jsx";
 import { Upload } from "antd";
 
 import "antd/dist/antd.css";

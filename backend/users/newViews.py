@@ -412,8 +412,8 @@ class ProviderUpdateApi(ApiErrorsMixin , APIView, UpdateObjectApiMixin):
         serializer.is_valid(raise_exception=True)
         instance = self.get_object()
         self.check_object_permissions(request, instance)
-        provider_update(instance, **serializer.validated_data)
-        return Response(status=status.HTTP_200_OK, data=serializer.data)
+        provider = provider_update(instance, **serializer.validated_data)
+        return Response(status=status.HTTP_200_OK, data= NewProviderDetailSerializer(provider).data)
 
 # //////////////////////// Employment APIS \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 

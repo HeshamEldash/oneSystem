@@ -4,8 +4,8 @@ import { Link, Navigate, useNavigate } from "react-router-dom";
 import DeleteIcon from "@mui/icons-material/Delete";
 
 import "./components.css";
-import { deleteAddress } from "../utils/api_calls/addressApis";
-import APIENDPOINT from "../utils/api_calls/apiEndpoint";
+import { deleteAddress } from "../api/addressApis.jsx";
+import APIENDPOINT from "../api/apiEndpoint.jsx";
 export function Address({ address, children, deleteFromParent }) {
   // addrrss is the current address being displayed
   // deleteFromParentProp is used to remove the item from the parent list

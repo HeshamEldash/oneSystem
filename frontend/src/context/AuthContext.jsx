@@ -67,7 +67,8 @@ export const AuthProvider = ({ children }) => {
     localStorage.removeItem("authTokens");
     localStorage.removeItem("provider");
     localStorage.removeItem("patient_id")
-    navigate("/");
+    
+    location.href = 'http://127.0.0.1:8000/';
   };
   const contextData = {
     authTokens: authTokens,

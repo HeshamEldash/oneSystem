@@ -2,7 +2,7 @@ import React, { useState, useContext } from "react";
 import { Link, Navigate, useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
 import { useTranslation } from "react-i18next";
-import { createProvider } from "./providerApi";
+import { createProvider } from "./api/providerApi";
 import AuthContext from "../../context/AuthContext";
 
 function ProviderRegistration() {

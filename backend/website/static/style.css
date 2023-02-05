@@ -35,9 +35,14 @@
   --dl-space-space-sevenunits: 112px;
   --dl-space-space-threeunits: 48px;
   --dl-color-template-3ry_brand: #271359ff;
-  --dl-color-template-brand_purple: #7f41afff;
+  --dl-color-template-brand_purple: #5f4aaf;
   --dl-space-space-oneandhalfunits: 24px;
-  --dl-color-template-2ry_brand_purple: #8b3dffff;
+  --dl-color-template-2ry_brand_purple: #5f4aaf;
+
+  --purple-1: rgb(67, 22, 102);
+  --dark-blue: #271359;
+
+
 }
 .button {
   color: var(--dl-color-gray-black);

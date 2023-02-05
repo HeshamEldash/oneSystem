@@ -4,24 +4,22 @@ import { useTranslation } from "react-i18next";
 import { ProviderContext } from "../context/ProviderContext";
 import MediumInput from "../../../components/ui/inputs/MediumInput";
 import SmallButton from "../../../components/ui/SmallButton";
-import { createBranch } from "../providerApi";
-import { usePostBranch } from "../useBranchDataApi";
+import { createBranch } from "../api/providerApi";
+import { usePostBranch } from "./api/useBranchDataApi";
 
 function BranchCreate() {
   const { t } = useTranslation();
-  const { providerId, setBranches, func } = useContext(ProviderContext);
+  const { providerId } = useContext(ProviderContext);
   const [open, setOpen] = useState(false);
 
   const addBranch = usePostBranch()
   
   const onSubmit = async (values, actions) => {
-    // func (values)
+
     addBranch.mutate(values)
-    // await createBranch(values).then((branch) => {
-    //   setBranches((branches) => [...branches, branch]);
-    //   actions.resetForm();
-    //   setOpen(false)
-    // });
+      actions.resetForm();
+
+
   };
 
   const { values, handleBlur, handleChange, handleSubmit } = useFormik({
