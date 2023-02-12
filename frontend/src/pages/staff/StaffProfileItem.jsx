@@ -11,10 +11,12 @@ const[login, setLogin]= useState()
 const { t } = useTranslation();
 
 const getLogin = async ()=>{
+
     if(props.staffId) { 
-    const log= await getLastLogin(props.staffId,props.providerID )
+        const log = await getLastLogin(props.staffId, props.providerID )
     setLogin(log)
     }
+
   }
 
   useEffect(() => {
@@ -29,10 +31,10 @@ const getLogin = async ()=>{
     <span>{login && "last login: " + new Date(login.start_time).toLocaleString() }</span>
     
     <Link onClick={()=>{
-      createLogin(props.staffId,props.providerID)  
-      }} className="page_button page_button-width-medium " to={`/provider/${props.providerID}`} style={{"display": "block"}}>
-        {t("go_to_profile")}
-      </Link>
+        createLogin(props.staffId,props.providerID)  
+        }} className="page_button page_button-width-medium " to={`/app/provider/${props.providerID}`} style={{"display": "block"}}>
+          {t("go_to_profile")}
+    </Link>
     
     </div>
   )

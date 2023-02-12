@@ -8,6 +8,8 @@ import "./registration.css";
 import Select from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
 import { useNavigate } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
+import axios from "axios";
 
 import APIENDPOINT from "../../api/apiEndpoint.jsx";
 
@@ -15,31 +17,49 @@ function RegistrationStaffMultiStep() {
   const navigate = useNavigate();
   const { t } = useTranslation();
   let { loginUser } = useContext(AuthContext);
+  const notify = (msg) =>
+  toast(t(msg), {
+    toastId: "customId",
+    className: "black-background",
+    bodyClassName: "grow-font-size",
+  });
 
   let onSubmit = async (values, actions) => {
-    let res = await fetch(`${APIENDPOINT}/users/staff-create-api/`, {
-      method: "POST",
-      headers: {
-        "Content-type": "application/json",
-      },
-      body: JSON.stringify({
-        email: values.email,
-        password: values.password,
-
-        first_name: values.firstName,
-        middle_names: values.middleNames,
-        last_name: values.lastName,
-        professional_number: values.professionalNumber,
-        telephone_number: values.telephoneNumber,
-        staff_role: values.staffRole,
-      }),
-    });
-
-    if (res.ok) {
-      loginUser(values);
-      navigate("/register/provider");
+    try {
+      const res = await axios.post(
+        `${APIENDPOINT}/users/staff-create-api/`, {
+          email: values.email,
+          password: values.password,
+     
+            first_name: values.firstName,
+            middle_names: values.middleNames,
+            last_name: values.lastName,
+            professional_number: values.professionalNumber,
+        
+            telephone_number: values.telephoneNumber,
+     
+            staff_role: values.staffRole,
+        },
+        {  headers: {
+          "Content-type": "application/json",
+        }
+      }
+    )
+    
+    loginUser(values);
+    navigate("/register/provider");
+      actions.resetForm();
     }
-    actions.resetForm();
+  catch (error){
+
+    if (error.response.status === 409){
+      notify("This email is already in use ")
+    }else {
+      console.log(error.response.data.errors[0].message)
+      notify(error.response.data.errors[0].message)
+    }
+
+  }
   };
 
   const {
@@ -68,6 +88,19 @@ function RegistrationStaffMultiStep() {
 
   return (
     <div className="registration-page">
+          <ToastContainer
+        position="bottom-center"
+        autoClose={5000}
+        hideProgressBar
+        newestOnTop={false}
+        closeOnClick
+        rtl
+        pauseOnFocusLoss
+        draggable={false}
+        pauseOnHover
+        style={{ width: "100%" }}
+      />
+
       <div className="form-sidebar">
         <span className="form-header"> {t("Register")}</span>
       </div>

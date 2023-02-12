@@ -24,6 +24,7 @@ export const AuthProvider = ({ children }) => {
   const navigate = useNavigate();
   const [error, setError] = useState(false);
 
+  const [isLoggingOut, setIsLoggingOut] = useState(false  )
   const APIENDPOINT = "http://127.0.0.1:8000/users"
 
 
@@ -63,11 +64,11 @@ export const AuthProvider = ({ children }) => {
 
   let logoutUser = () => {
     setUser(null);
+    setIsLoggingOut(true )
     setAuthTokens(null);
     localStorage.removeItem("authTokens");
     localStorage.removeItem("provider");
     localStorage.removeItem("patient_id")
-    
     location.href = 'http://127.0.0.1:8000/';
   };
   const contextData = {
@@ -76,6 +77,7 @@ export const AuthProvider = ({ children }) => {
     loginUser: loginUser,
     logoutUser: logoutUser,
     erorr: error,
+    isLoggingOut:isLoggingOut
   };
 
   const rotateTokens = async () => {

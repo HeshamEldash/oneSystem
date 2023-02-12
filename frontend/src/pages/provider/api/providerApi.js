@@ -260,28 +260,47 @@ const updateProviderProfile = async ({ provider_id, data }) => {
     .catch((error) => console.log(error));
 };
 
-let getProfile = async ({ provider_id: provider_id }  ) => {
-  let response = await fetch(
-    `${APIENDPOINT}/users/provider-detail-api/?` +
-      new URLSearchParams({ provider_id: provider_id }),
-    {
-      method: "GET",
+// let getProfile = async ({ provider_id: provider_id }  ) => {
+//   let response = await fetch(
+//     `${APIENDPOINT}/users/provider-detail-api/?` +
+//       new URLSearchParams({ provider_id: provider_id }),
+//     {
+//       method: "GET",
+//       headers: {
+//         "Content-type": "application/json",
+//         Authorization:
+//           "Bearer " +
+//           String(JSON.parse(localStorage.getItem("authTokens"))?.access),
+//       },
+//     }
+//   );
+
+//   if (response.ok) {
+//     const data = response.json();
+//     return data;
+//   } else {
+//     throw "An error has happened";
+//   }
+// };
+
+const getProfile = async ({provider_id: provider_id})=>{
+  try{
+    const response = await axios.get(`${APIENDPOINT}/users/provider-detail-api/`, {
       headers: {
         "Content-type": "application/json",
         Authorization:
           "Bearer " +
           String(JSON.parse(localStorage.getItem("authTokens"))?.access),
       },
-    }
-  );
 
-  if (response.ok) {
-    const data = response.json();
-    return data;
-  } else {
-    throw "An error has happened";
+      params:{ provider_id: provider_id }
+    })
+    return response.data
+
+  }catch (error){
+         console.log(error)
   }
-};
+}
 
 const updateProviderTelephoneList = async ({ provider_id, data }) => {
   return await fetch(
@@ -305,29 +324,30 @@ const updateProviderTelephoneList = async ({ provider_id, data }) => {
 };
 
 const createProvider = async (data, user_id) => {
-  const response = await fetch(`${APIENDPOINT}/users/provider/`, {
+  const response = await fetch(`${APIENDPOINT}/users/provider-create-api/`, {
     method: "POST",
     headers: {
       "Content-type": "application/json",
+      Authorization:
+          "Bearer " +
+          String(JSON.parse(localStorage.getItem("authTokens"))?.access),
+
     },
-    body: JSON.stringify({
-      name: data.name,
-      owner: user_id,
-      address: {
-        unit_number: data.address.unit_number,
-        first_line: data.address.first_line,
-        second_line: data.address.second_line,
-        city: data.address.city,
-        governorate: data.address.governorate,
-      },
-      telephone: {
-        telephone_number: data.telephone_numbers.telephone_number,
-      },
-    }),
+      body: JSON.stringify({
+        name: data.name,
+        owner: user_id,
+        branch_name:data.name,
+        unit_number: data.unit_number,
+        first_line: data.first_line,
+        second_line: data.second_line,
+        city: data.city,
+        governorate: data.governorate,
+        telephone_number: data.telephone_number
+      }),
   });
 
   if (response.ok) {
-    const data = response.json();
+    const data =  response.json();
 
     return data;
   }
@@ -351,10 +371,37 @@ const endEmployment = async (employmentId) => {
   );
 };
 
-const getAllEmployments = async (provider_id) => {
-  const response = await fetch(
-    `${APIENDPOINT}/users/employment-provider-list-api/?` +
-      new URLSearchParams({ provider_id: provider_id }),
+
+// const getAllEmployments = async (provider_id) => {
+//   const response = await fetch(
+//     `${APIENDPOINT}/users/employment-provider-list-api/?` +
+//       new URLSearchParams({ provider_id: provider_id }),
+//     {
+//       method: "GET",
+//       headers: {
+//         "Content-type": "application/json",
+//         Authorization:
+//           "Bearer " +
+//           String(JSON.parse(localStorage.getItem("authTokens"))?.access),
+//       },
+//     }
+//   );
+
+//   if (response.ok) {
+//     const data = response.json();
+//     return data;
+//   } else {
+//     throw "An error has happened";
+//   }
+
+
+// };
+
+
+const getAllEmployments = async ({provider_id:provider_id}) => {
+  const response = await axios.get(
+    `${APIENDPOINT}/users/employment-provider-list-api/`,
+  
     {
       method: "GET",
       headers: {
@@ -363,16 +410,13 @@ const getAllEmployments = async (provider_id) => {
           "Bearer " +
           String(JSON.parse(localStorage.getItem("authTokens"))?.access),
       },
+      params:{ provider_id: provider_id }
     }
   );
+  return response.data
 
-  if (response.ok) {
-    const data = response.json();
-    return data;
-  } else {
-    throw "An error has happened";
-  }
 };
+
 
 const createEmployment = async (staff_email, provider_id) => {
   const response = await fetch(`${APIENDPOINT}/users/employment-create/`, {

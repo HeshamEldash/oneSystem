@@ -212,6 +212,7 @@ class Employment(models.Model):
     MANAGER = "MG"
     ADMIN = "AD"
     PRACTITIONER = "PC"
+    OWNER = "OW"
 
     ROLE_CHOICES = (
         (DOCTOR, _('Doctor')),
@@ -219,6 +220,7 @@ class Employment(models.Model):
         (MANAGER, _('Manger')),
         (PRACTITIONER, _('Practitioner')),
         (ADMIN, _('Admin')),
+        (OWNER, _('Owner')),
     )
     
 
@@ -229,6 +231,8 @@ class Employment(models.Model):
     salary = models.DecimalField(max_digits=6, decimal_places=2, null=True)
     is_active = models.BooleanField(default=True)
     employment_role = models.CharField(_("user role"), max_length=2, choices=ROLE_CHOICES)
+    
+    
     class Meta:
         constraints = [
             models.UniqueConstraint(fields=['provider', 'staff'], condition=Q(is_active=True),

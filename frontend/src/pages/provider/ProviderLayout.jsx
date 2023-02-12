@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useTranslation } from "react-i18next";
 import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
 import {
@@ -11,10 +11,15 @@ import {
 import Navbar from "../../components/ui/Navbar";
 import NavMenu from "../../components/ui/NavMenu";
 import home from "../../assets/images/home3.svg";
+import { ProviderContext } from "./context/ProviderContext";
+import useUserRoles from "./useUserRoles";
 
 function ProviderLayout() {
   const { t } = useTranslation();
   const { id } = useParams();
+  const {user_perms} = useContext(ProviderContext)
+
+
   const navigate = useNavigate();
   let location = useLocation();
   const getPath = () => {
@@ -35,13 +40,13 @@ function ProviderLayout() {
         {getPath() != "home" && (
           <NavLink
             className="page_button-padding-inline-small"
-            to={`/provider/${id}`}
+            to={`/app/provider/${id}`}
           >
             <img style={{ fill: "white" }} src={home} alt={t("home")} />
           </NavLink>
         )}
 
-        <NavLink className="" to={`/provider/${id}/search-patient`}>
+        <NavLink className="" to={`/app/provider/${id}/search-patient`}>
           <div className="nav_content">
             {/* <SearchOutlinedIcon /> */}
             {t("search_patients")}
@@ -51,7 +56,7 @@ function ProviderLayout() {
         {localStorage.getItem("patient_id") && (
           <NavLink
             className=""
-            to={`/provider/${id}/patient-record/${localStorage.getItem(
+            to={`/app/provider/${id}/patient-record/${localStorage.getItem(
               "patient_id"
             )}`}
           >
@@ -65,44 +70,48 @@ function ProviderLayout() {
             {
               name: t("register_a_patient"),
               func: () => {
-                navigate(`/provider/${id}/patient-registration`);
+                navigate(`/app/provider/${id}/patient-registration`);
               },
             },
             {
               name: t("search_patients"),
 
               func: () => {
-                navigate(`/provider/${id}/search-patient`);
+                navigate(`/app/provider/${id}/search-patient`);
               },
             },
             {
               name: t("manage_patients"),
 
               func: () => {
-                navigate(`/provider/${id}/manage-patients`);
+                navigate(`/app/provider/${id}/manage-patients`);
               },
             },
           ]}
         ></NavMenu>
 
-        <NavMenu
+
+        {user_perms.isManager && <NavMenu
           buttonName={t("Settings")}
           menuItems={[
             {
               name: t("update_profile"),
               func: () => {
-                navigate(`/provider/${id}/profile-update`);
+                navigate(`/app/provider/${id}/profile-update`);
               },
             },
             {
               name: t("manage_staff"),
 
               func: () => {
-                navigate(`/provider/${id}/manage-staff`);
+                navigate(`/app/provider/${id}/manage-staff`);
               },
             },
           ]}
         ></NavMenu>
+        }
+
+
 
         <NavMenu
           buttonName={t("appointments")}
@@ -110,21 +119,21 @@ function ProviderLayout() {
             {
               name: t("appointments_panel"),
               func: () => {
-                navigate(`/provider/${id}/appointments`);
+                navigate(`/app/provider/${id}/appointments`);
               },
             },
             {
               name: t("clinic-create"),
 
               func: () => {
-                navigate(`/provider/${id}/appointments/clinic-create`);
+                navigate(`/app/provider/${id}/appointments/clinic-create`);
               },
             },
             {
               name: t("scheduler"),
 
               func: () => {
-                navigate(`/provider/${id}/appointments/appointment-scheduler`);
+                navigate(`/app/provider/${id}/appointments/appointment-scheduler`);
               },
             },
           ]}

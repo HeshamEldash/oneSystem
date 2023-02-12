@@ -7,15 +7,13 @@ import AuthContext from "../../context/AuthContext";
 
 function ProviderRegistration() {
   const { t } = useTranslation();
-  const { loginUse , user } = useContext(AuthContext);
-  const navigate= useNavigate()
-  const onSubmit = async (values, actions)=>{
-
-    const providerData = await createProvider(values, user.user_id)
+  const { loginUse, user } = useContext(AuthContext);
+  const navigate = useNavigate();
+  const onSubmit = async (values, actions) => {
+    const providerData = await createProvider(values, user.user_id);
     // actions.resetForm();
-
-    navigate(`/provider/${providerData.id}`)
-  }
+    navigate(`/app/provider/${providerData.id}`);
+  };
   const {
     values,
     errors,
@@ -26,24 +24,22 @@ function ProviderRegistration() {
     handleSubmit,
   } = useFormik({
     initialValues: {
-      name:"",
-      address: {
-        unit_number: "",
-        first_line: "",
-        second_line: "",
-        city: "",
-        governorate: "",
-      },
-      telephone_numbers: {
-        telephone_number: ""
-      },
+      name: "",
+      unit_number: "",
+      first_line: "",
+      second_line: "",
+      city: "",
+      governorate:"",
+      telephone_number: ""
     },
     onSubmit,
   });
 
   return (
     <section className="provider-home-main">
-    <h1 className="provider-home-main__headers">{t("Register your clinic...")}</h1>
+      <h1 className="provider-home-main__headers">
+        {t("Register your clinic...")}
+      </h1>
       <form className="user-form" type="submit" onSubmit={handleSubmit}>
         <label> {t("provider-name")}</label>
 
@@ -72,10 +68,10 @@ function ProviderRegistration() {
           onChange={handleChange}
           onBlur={handleBlur}
           type="text"
-          name="address.unit_number"
+          name="unit_number"
           placeholder={t("unit_number")}
         />
-         <label> {t("first_line")}</label>
+        <label> {t("first_line")}</label>
         <input
           className={
             errors.first_line && touched.first_line
@@ -85,8 +81,8 @@ function ProviderRegistration() {
           value={values.first_line}
           onChange={handleChange}
           onBlur={handleBlur}
-          type="text"first_line
-          name="address.first_line"
+          type="text"
+          name="first_line"
           placeholder={t("first_line")}
         />
         {/* {errors.email && touched.email && (
@@ -104,7 +100,7 @@ function ProviderRegistration() {
           onChange={handleChange}
           onBlur={handleBlur}
           type="text"
-          name="address.second_line"
+          name="second_line"
           placeholder={t("second_line")}
         />
         {/* {errors.email && touched.email && (
@@ -122,7 +118,7 @@ function ProviderRegistration() {
           onChange={handleChange}
           onBlur={handleBlur}
           type="text"
-          name="address.city"
+          name="city"
           placeholder={t("city")}
         />
         {/* {errors.email && touched.email && (
@@ -140,7 +136,7 @@ function ProviderRegistration() {
           onChange={handleChange}
           onBlur={handleBlur}
           type="text"
-          name="address.governorate"
+          name="governorate"
           placeholder={t("governorate")}
         />
         {/* {errors.email && touched.email && (
@@ -150,15 +146,15 @@ function ProviderRegistration() {
         <label> {t("telephone_number")}</label>
         <input
           className={
-            errors.governorate && touched.governorate
+            errors.telephone_number && touched.telephone_number
               ? "input-error form-fields"
               : "form-fields"
           }
-          value={values.governorate}
+          value={values.telephone_number}
           onChange={handleChange}
           onBlur={handleBlur}
           type="text"
-          name="telephone_numbers.telephone_number"
+          name="telephone_number"
           placeholder={t("telephone_number")}
         />
         <input

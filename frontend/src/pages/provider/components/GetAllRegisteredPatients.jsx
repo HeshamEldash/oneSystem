@@ -60,7 +60,7 @@ function GetAllRegisteredPatients({setNumberOfPatients}) {
             <StyledTableRow
               key={patient.id}
               onDoubleClick={() => {
-                navigate(`/provider/${id}/patient-record/${patient.patient_detial.id}`)
+                navigate(`/app/provider/${id}/patient-record/${patient.patient_detial.id}`)
               }}
             >
               <StyledTableCell>{patient.patient_detial.first_name}</StyledTableCell>

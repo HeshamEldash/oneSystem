@@ -232,7 +232,7 @@ function ProviderPatientSearch() {
             <StyledTableRow
               key={patient.id}
               onDoubleClick={() => {
-                navigate(`/provider/${id}/patient-record/${patient.id}`)
+                navigate(`/app/provider/${id}/patient-record/${patient.id}`)
               }}
             >
               <StyledTableCell>{patient.first_name}</StyledTableCell>

@@ -84,7 +84,7 @@ class ViewedRecordEvent(models.Model):
 
 
 class PastConditions(models.Model):
-    date_diagnosed = models.DateField(default=timezone.now().date(), blank=True)
+    date_diagnosed = models.DateField(default=timezone.now, blank=True)
     condition = models.CharField(max_length=600)
     patient = models.ForeignKey(Patient, on_delete=models.CASCADE)
     recorded_by = models.ForeignKey(Account, on_delete= models.DO_NOTHING)

@@ -20,6 +20,9 @@ function ProviderPatientRegistration() {
       method: "POST",
       headers: {
         "Content-type": "application/json",
+        Authorization:
+          "Bearer " +
+          String(JSON.parse(localStorage.getItem("authTokens"))?.access),
       },
       body: JSON.stringify({
         provider: id,
@@ -48,7 +51,7 @@ function ProviderPatientRegistration() {
     });
 
     if (newPatient){
-      navigate(`/provider/${id}/patient-record/${newPatient.id}`)
+      navigate(`/app/provider/${id}/patient-record/${newPatient.id}`)
   }
 
     // actions.resetForm();

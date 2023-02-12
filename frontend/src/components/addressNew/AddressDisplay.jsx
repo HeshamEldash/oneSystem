@@ -1,4 +1,5 @@
 import React from "react";
+import NoShadowContainer from "../ui/containers/NoShadowContainer";
 import SmallButton from "../ui/SmallButton";
 
 import AddressBox from "./AddressBox";
@@ -21,8 +22,7 @@ function AddressDisplay({ address, apiUpdate }) {
   );
 
   return (
-    <div className="inner-page-box inner-page-box--flex box_mins_width">
- 
+      <NoShadowContainer>
       {update ? (
         <AddressUpdate
           values={values}
@@ -39,8 +39,7 @@ function AddressDisplay({ address, apiUpdate }) {
           value="update"
         />
       }
-        
-    </div>
+      </NoShadowContainer>
   );
 }
 

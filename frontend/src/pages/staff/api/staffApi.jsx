@@ -1,32 +1,27 @@
 import axios from "axios";
 import APIENDPOINT from "../../../api/apiEndpoint.jsx";
 
-const getOwnedProvider = async ({ user_id }) => {
-  const response = await fetch(
-    `${APIENDPOINT}/users/provider-detail-api/?` +
-      new URLSearchParams({ owner_id: user_id }),
-    {
-      method: "GET",
-      headers: {
-        "Content-type": "application/json",
-        Authorization:
-          "Bearer " +
-          String(JSON.parse(localStorage.getItem("authTokens"))?.access),
-      },
-    }
-  );
-
-  if (response.ok) {
-    const data = await response.json();
-    return data;
+const getOwnedProvider = async ({user_id}) =>{
+   const response = await axios.get( `${APIENDPOINT}/users/provider-detail-api/`, 
+  {
+    headers: {
+      "Content-type": "application/json",
+      Authorization:
+        "Bearer " +
+        String(JSON.parse(localStorage.getItem("authTokens"))?.access),
+    },
+    params:{ owner_id: user_id }
   }
-};
+  )
+  return response.data 
+
+}
 
 let getStaffEmployments = async () => {
-  let response = await fetch(
-    `${APIENDPOINT}/users/employment-staff-list-api/`,
+
+  
+  const response = await axios.get(`${APIENDPOINT}/users/employment-staff-list-api/`,
     {
-      method: "GET",
       headers: {
         "Content-type": "application/json",
         Authorization:
@@ -36,13 +31,10 @@ let getStaffEmployments = async () => {
     }
   );
 
-  if (response.ok) {
-    const data = response.json();
-    return data;
-  } else {
-    throw "An error has happened";
-  }
+  return response.data
+    
 };
+
 
 const updateStaffTelephoneList = async ({ staff_id, data }) => {
   return await fetch(

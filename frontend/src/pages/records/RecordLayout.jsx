@@ -12,10 +12,11 @@ import pills from "../../assets/images/pills.svg";
 export default function RecordLayout() {
   const { t } = useTranslation();
   const [showConsultationBox, setShowConsultationBox] = useState(true);
-  const [showAddMedicalConditionBox, setShowAddMedicalConditionBox] =useState(false);
+  const [showAddMedicalConditionBox, setShowAddMedicalConditionBox] =
+    useState(false);
   const [upload, setUpload] = useState(false);
   const [showMedicationPanel, setShowMedicationPanel] = useState(false);
-  const [showPresciptions, setShowPrescriptions] = useState(false)
+  const [showPresciptions, setShowPrescriptions] = useState(false);
 
   const navigate = useNavigate();
   const [newRecords, setNewRecords] = useState([]);
@@ -23,7 +24,7 @@ export default function RecordLayout() {
   const { id } = useParams();
 
   const handleCloseRecord = () => {
-    navigate(`/provider/${id}`);
+    navigate(`/app/provider/${id}`);
     localStorage.removeItem("patient_id");
     localStorage.removeItem("patient_name");
   };
@@ -31,78 +32,81 @@ export default function RecordLayout() {
   return (
     <RecordContextProvider>
       <div className="record_layout">
-        <RecordPatientDetailsBox />
-        <RecordsClinicalTree 
-          setShowPrescriptions= {setShowPrescriptions}
-        />
+        <div className="record_body_container">
+          <div className="record_side-content">
+            <RecordPatientDetailsBox />
+            <RecordsClinicalTree setShowPrescriptions={setShowPrescriptions} />
+          </div>
 
-        <main className="content">
-          <RecordActionBar
-            items={[
-              {
-                name: t("close record"),
-                func: () => handleCloseRecord(),
-              },
-            ]}
-          >
-            {path === "record" && (
-              <div
-                className="action_bar__element"
-                onClick={() => setShowConsultationBox((prev) => !prev)}
-              >
-                {t("consultation")}
-              </div>
-            )}
+          <div className="content">
+          
+            <RecordActionBar
+              items={[
+                {
+                  name: t("close record"),
+                  func: () => handleCloseRecord(),
+                },
+              ]}
+            >
+              {path === "record" && (
+                <div
+                  className="action_bar__element"
+                  onClick={() => setShowConsultationBox((prev) => !prev)}
+                >
+                  {t("consultation")}
+                </div>
+              )}
 
-            {path === "past-history" && (
-              <div
-                className="action_bar__element"
-                onClick={() => setShowAddMedicalConditionBox((prev) => !prev)}
-              >
-                {t("add_pmh")}
-              </div>
-            )}
+              {path === "past-history" && (
+                <div
+                  className="action_bar__element"
+                  onClick={() => setShowAddMedicalConditionBox((prev) => !prev)}
+                >
+                  {t("add_pmh")}
+                </div>
+              )}
 
-            {path === "files" && (
-              <div
-                className="action_bar__element"
-                onClick={() => setUpload((prev) => !prev)}
-              >
-                {t("Add File")}
-              </div>
-            )}
+              {path === "files" && (
+                <div
+                  className="action_bar__element"
+                  onClick={() => setUpload((prev) => !prev)}
+                >
+                  {t("Add File")}
+                </div>
+              )}
 
-            {path === "medications" && (
-              <div className="action_bar__element" onClick={() => setShowMedicationPanel((prev)=>!prev)}>
+              {path === "medications" && (
+                <div
+                  className="action_bar__element"
+                  onClick={() => setShowMedicationPanel((prev) => !prev)}
+                >
+                  <Tooltip title="Prescribe">
+                    <img
+                      className="svg20 margin_inline-small "
+                      src={pills}
+                      alt="medications Logo"
+                    />
+                  </Tooltip>
+                </div>
+              )}
+            </RecordActionBar>
 
-                <Tooltip title="Prescribe">
-                    <img className="svg20 margin_inline-small " src={pills} alt="medications Logo" />
-                </Tooltip>
-              </div>
-            )}
-
-  
-
-
-
-          </RecordActionBar>
-
-
-
-          <Outlet
-            context={{
-              showConsultationBox,
-              setNewRecords,
-              newRecords,
-              showAddMedicalConditionBox,
-              upload,
-              showMedicationPanel,
-              showPresciptions,
-              setShowPrescriptions
-            }}
-          />
-        
-        </main>
+            <main className="">
+              <Outlet
+                context={{
+                  showConsultationBox,
+                  setNewRecords,
+                  newRecords,
+                  showAddMedicalConditionBox,
+                  upload,
+                  showMedicationPanel,
+                  showPresciptions,
+                  setShowPrescriptions,
+                }}
+              />
+            </main>
+          </div>
+        </div>
       </div>
     </RecordContextProvider>
   );

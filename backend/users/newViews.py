@@ -236,9 +236,8 @@ class StaffUpdateApi(ApiErrorsMixin , APIView, UpdateObjectApiMixin):
         return StaffService().update_staff(instance, **serializer_data)
 
 class StaffTelephoneUpdateApi(ApiErrorsMixin , APIView, UpdateObjectApiMixin):
+    
     permission_classes = [ViewOrEditStaff]
-
-
     class InputSerializer(serializers.Serializer):
         telephone_numbers = serializers.ListField(child=serializers.CharField(), allow_empty=True)
 
@@ -375,8 +374,8 @@ class ProviderCreateApi(ApiErrorsMixin , APIView):
         serializer = self.InputSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         user = self.request.user
-        provider_create(owner=user, **serializer.validated_data)
-        return Response(status=status.HTTP_200_OK)
+        provider = provider_create(owner=user, **serializer.validated_data)
+        return Response(status=status.HTTP_200_OK, data= NewProviderDetailSerializer(provider).data)
 
 
 class ProviderDetailApi(ApiErrorsMixin , APIView, GetObjectMixn):

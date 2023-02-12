@@ -1,7 +1,7 @@
 import React, { useContext, useState } from "react";
 
 import StaffProfiles from "./StaffProfiles";
-import "./staff.css";
+// import "./staff.css";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import StaffProfileItem from "./StaffProfileItem";
@@ -9,6 +9,8 @@ import StaffProfileItem from "./StaffProfileItem";
 import { StaffContext } from "./StaffContext";
 import TelephoneDisplay from "../../components/telephoneNew/TelephoneDisplay";
 import { updateStaffTelephoneList } from "./api/staffApi";
+import SmallButton from "../../components/ui/SmallButton";
+import FlexibleButton from "../../components/ui/buttons/FlexibleButton";
 
 function StaffDashboard() {
 
@@ -17,11 +19,7 @@ function StaffDashboard() {
 
   const [updating, setUpdating] = useState(false);
 
-  const {staffId, profiles, ownedProvider, staffProfile, telephoneNumbers } =
-  
-  useContext(StaffContext);
-
-
+  const {staffId, profiles, ownedProvider, staffProfile, telephoneNumbers } = useContext(StaffContext);
 
 
   return (
@@ -59,7 +57,7 @@ function StaffDashboard() {
         <TelephoneDisplay
           apiUpdate={(data) => {
             updateStaffTelephoneList({
-              staff_id: 1,
+              staff_id: staffId,
               data: data,
             });
           }}
@@ -82,14 +80,15 @@ function StaffDashboard() {
             <span className="call-to-action__header">
               {t("would you like to register a clinic to your account?")}
             </span>
-            <input
-              type="button"
+
+
+            <FlexibleButton              
+              value={t("register_a_provider")}
+              width = {200}
               onClick={() => {
                 navigate("/register/provider");
-              }}
-              className="bd"
-              value={t("register_a_provider")}
-            />
+              }}/>
+
           </div>
         )}
 

@@ -17,6 +17,7 @@ export const usePost = (posterFunc, qKey) => {
     const context = useQuery({
       queryKey: qKey,
       queryFn: () => getterFunc(params),
+      
     });
     return context;
   };

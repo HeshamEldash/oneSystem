@@ -12,6 +12,7 @@ import { useOutletContext } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 
 import APIENDPOINT from "../../api/apiEndpoint.jsx";
+import axios from "axios";
 
 
 function RegisterationPage() {
@@ -26,13 +27,9 @@ function RegisterationPage() {
   let { loginUser } = useContext(AuthContext)
 
   let onSubmit = async (values, actions) => {
- 
-    let res = await fetch(`${APIENDPOINT}/users/staff-create-api/`, {
-      method: "POST",
-      headers: {
-        "Content-type": "application/json",
-      },
-      body: JSON.stringify({
+    try {
+    const res = await axios.post(
+      `${APIENDPOINT}/users/staff-create-api/`, {
         email: values.email,
         password: values.password,
    
@@ -44,28 +41,29 @@ function RegisterationPage() {
           telephone_number: values.telephoneNumber,
    
           staff_role: values.staffRole,
-      }),
-    })
-      .then((response) => {
-        if (response.status === 500) {
-          throw Error(
-            "This_account_already_exists,_please_use_a_different_email"
-          );
-        } else if (!response?.ok) {
-          throw Error("An_error_has_occured");
-        }
-      })
-      .catch((err) => {
-        notify(err.msg);
-        return { msg: err.message };
-      });
-
-    if (res.ok) {
-      
-      loginUser(values);
-      navigate("/staff-dashboard");
+      },
+      {  headers: {
+        "Content-type": "application/json",
+      }
     }
+  )
+  
+  loginUser(values);
+  navigate("/app/staff-dashboard");
     actions.resetForm();
+    
+  
+  }
+    catch (error){
+
+      if (error.response.status === 409){
+        notify("This email is already in use ")
+      }else {
+        console.log(error.response.data.errors[0].message)
+        notify(error.response.data.errors[0].message)
+      }
+
+    }
   };
 
   const {

@@ -13,7 +13,10 @@ export const useGetStaffEmployments = () =>{
 }
 
 export const useGetOwnedProvider = (user_id)=>{
-    return useGet(["staff", "ownedProvider"],getOwnedProvider, {user_id:user_id})
+    return useConfigQuery(["staff", "ownedProvider"],getOwnedProvider, {user_id:user_id}, {
+        retry:0,
+        
+    })
     
 }
 

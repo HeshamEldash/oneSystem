@@ -1,5 +1,6 @@
 import React from "react";
 import { updateBranchTelephoneList } from "../../pages/provider/api/providerApi";
+import NoShadowContainer from "../ui/containers/NoShadowContainer";
 import MediumInput from "../ui/inputs/MediumInput";
 import SmallButton from "../ui/SmallButton";
 import TelephoneBox from "./TelephoneBox";
@@ -22,7 +23,7 @@ function TelephoneDisplay({ telephone_numbers_list, apiUpdate }) {
 
 
   return (
-    <div className="inner-page-box inner-page-box--flex box_mins_width">
+    <NoShadowContainer>
       {update ? (
         <TelephoneUpdate
           values={values}
@@ -48,7 +49,8 @@ function TelephoneDisplay({ telephone_numbers_list, apiUpdate }) {
       {!update && (
         <SmallButton onClick={() => setUpdate(true)} value="update" />
       )}
-    </div>
+      </NoShadowContainer>
+
   );
 }
 

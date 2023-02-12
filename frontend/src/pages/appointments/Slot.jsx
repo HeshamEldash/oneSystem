@@ -31,7 +31,7 @@ function Slot({ slotDetails, session }) {
         appointmentDetails?.patient
           ? () => {
               navigate(
-                `/provider/${providerId}/patient-record/${appointmentDetails.patient}`
+                `/app/provider/${providerId}/patient-record/${appointmentDetails.patient}`
               );
             }
           : null

@@ -1,36 +1,54 @@
 import React, { useContext } from "react";
 import {
-  BrowserRouter as Router,
-  useLocation,
-  Route,
-  Routes,
-  Link,
-  NavLink,
+  NavLink, useLocation,
 } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import LanguageSelect from "./LanguageSelect.jsx";
 import "./header.css";
-import logo from "../assets/logo.png";
 import LogoutIcon from "@mui/icons-material/Logout";
 import AuthContext from "../context/AuthContext.jsx";
+import logo from "../assets/images/logo.png";
+
 
 function Header() {
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
   const { logoutUser, user } = useContext(AuthContext);
-  const location = useLocation();
+  const  {pathname} =useLocation()
+  console.log(pathname)
+
+  const headerClassName = ()=>{
+    if (pathname.includes("app/provider")   ){
+      return "header header--small"
+    }
+    else {
+      return "header"
+    }
+
+
+  }
 
   return (
     // <div className={i18n.language === 'en' ?  'header english': 'header arabic'} >
-    <div className={user ? "header header--small" : "header"}>
-      {!!user && <h1>{user.email}</h1>}
-      <LanguageSelect />
+    <div className={headerClassName()}>
+      <div className="header_logo"
 
+      > 
+        <img src={logo}
+
+    
+          onClick={()=>location.href = 'http://127.0.0.1:8000/' }
+        />
+      </div>
+
+
+      <LanguageSelect />
+        
       {user ? (
         <>
           <div className="header-content">
             <NavLink
               className="header-coddntent"
-              to="/staff-dashboard"
+              to="/app/staff-dashboard"
               style={{ display: "block" }}
             >
               {t("staff_dashboard")}

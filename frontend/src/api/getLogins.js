@@ -14,7 +14,7 @@ const getLastLogin = async (staff_id, provider_id) => {
       }
     );
     const data = await response.json();
-    return await data
+    return data
   };
 
 const getLogins = async (staff_id, provider_id) => {

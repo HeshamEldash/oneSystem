@@ -1,6 +1,6 @@
 
 .staff-dashboard-main{
-    /* background-color: #eee; */
+    background-color: #eee;
     padding: 2rem;
     color: #808080;
 
@@ -91,3 +91,4 @@
         gap:0.9rem
 }
 }
+

@@ -3,7 +3,7 @@
   --color-lighter-purple: #a384e2;
   --light-purple: #a9459a;
 
-  --color-dark-purple: rgb(67, 22, 102);
+  --color-dark-purple: #431666;
   --dark-blue: #271359;
 
 
@@ -87,12 +87,12 @@
   } */
   
    *::-webkit-scrollbar-track {
-    background: #ffffff;
+    background: #ded8d8;
     border-radius: 9px;
 
   }
    *::-webkit-scrollbar-thumb {
-    background-color: var(--color-lighter-purple);
+    background-color: var(--color-dark-purple);
     border-radius: 5px;
     border: 3px solid #ffffff;
   }
@@ -223,6 +223,13 @@ margin-block: 1rem;
 
 }
 
+
+.call-to-action__header{
+  
+ font-size: 1.3em;
+ font-weight: bold;
+ color: var(--color-gray-darkest);
+}
 
 
 /* 

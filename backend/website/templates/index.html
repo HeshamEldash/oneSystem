@@ -3,8 +3,8 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>Active Online Software Page</title>
-    <meta property="og:title" content="Active Online Software Page" />
+    <title>DocNet Online Software Page</title>
+    <meta property="og:title" content="DocNet Online Software Page" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta charset="utf-8" />
     <meta property="twitter:card" content="summary_large_image" />
@@ -48,7 +48,57 @@
          box-shadow:0 -100vh 0 100vh #5128f5;//magic
        }
     </style>
+
+
+
+
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+
+      // Check if local storage is empty
+      if (!localStorage.length) {
+        var isLocalStorageEmpty = true;
+      } else {
+        var isLocalStorageEmpty = false;
+      }
+  
+      // Send AJAX request
+      $.ajax({
+        type: 'POST',
+        url: 'http://127.0.0.1:8000',
+        data: {
+          local_storage_token: localStorage.getItem("authTokens"),
+          csrfmiddlewaretoken: '{{ csrf_token }}'
+        },
+        success: function(response) {
+          $("#auth").html(response.auth);
+          console.log( localStorage.getItem("authTokens"));
+        }
+      });
+    </script> 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     <link rel="stylesheet" href="{% static "style.css" %}" />
+
+
+
   </head>
   <body>
     <div>
@@ -64,7 +114,7 @@
             <div id="mobile-menu" class="home-mobile-navigation">
               <img
                 alt="pastedImage"
-                src="{% static "playground_assets/pastedimage-no9b-1500h.png" %}"
+                src="{% static "playground_assets/logoN.png" %}"
                 class="home-logo"
               />
               <div class="home-links">
@@ -85,7 +135,8 @@
                 <div class="home-left">
                   <img
                     alt="pastedImage"
-                    src="{% static "playground_assets/pastedimage-no9b-1500h.png" %}"
+                src="{% static "playground_assets/logoN.png" %}"
+
                     class="home-logo1"
                   />
                   <div class="home-links1">
@@ -94,18 +145,25 @@
                     <span class="Link">Prices</span>
                   </div>
                 </div>
-                <div class="home-right">
-                  <a href = "http://localhost:3000/login">
-                    
-                    <span class="home-sign-in Link">
 
-                    Sign in</span>
+
+
+                <div id="login"  class="home-right">
+                
+                  <a class="login-link" href = "http://localhost:3000/login">   
+                      <span class="home-sign-in Link">
+                      Sign in
+                      </span>
                   </a>
-                    
-             
+
                   <div class="home-get-started">
-                    <span class="home-text006">Try It Free</span>
+                    <a class="registration-link" href = "http://localhost:3000/register-choice">
+                         <span class="home-text006">
+                          Try It Free
+                          </span>
+                    </a>
                   </div>
+
                   <div id="open-mobile-menu" class="home-burger-menu">
                     <img
                       alt="pastedImage"
@@ -113,7 +171,40 @@
                       class="home-mobile-menu-button"
                     />
                   </div>
+
+
                 </div>
+
+                <script>
+                  const tokens = localStorage.getItem("authTokens");
+                
+                  if (tokens) {
+                    const loginText = document.querySelector('.home-sign-in.Link');
+                    const loginLink = document.querySelector('.login-link');
+                    loginText.innerText = 'Go to Dashboard';
+                    loginLink.href = 'http://localhost:3000/dashboard';
+                
+                    const tryItFreeSpanText = document.querySelector('.home-text006');
+                    const registrationLink = document.querySelector('.registration-link');
+                    tryItFreeSpanText.innerText = 'Logout';
+                    registrationLink.href = 'http://localhost:3000/logout';
+                  }
+                  
+                </script>
+                
+                
+                
+                
+
+                {% comment %} <script >
+                  const tokens = localStorage.getItem("authTokens")
+                  if (tokens){
+                    document.getElementById("login").innerHTML =  `
+                    <a href="http://localhost:3000/dashboard">Dashboard</a> |
+                    <a href="http://localhost:3000/logout">Logout</a>
+                  `;
+                  }
+                </script>  {% endcomment %}
               </nav>
             </div>
             <div>
@@ -648,7 +739,7 @@ closeButton.addEventListener('click', function() {
         <section class="home-testimonals">
           <div class="home-left3">
             <span class="home-text085">Testimonals</span>
-            <span class="home-text086 title">What people say about Active</span>
+            <span class="home-text086 title">What people say about DocNet</span>
           </div>
           <div class="home-right2">
             <div class="home-column">
@@ -977,10 +1068,10 @@ Here's what the above is doing:
               <div class="home-contact">
                 <span class="home-text114">Contact</span>
                 <a
-                  href="mailto:use@active-app.com?subject=Support"
+                  href="mailto:use@DocNet-app.com?subject=Support"
                   class="home-link"
                 >
-                  use@active-app.com
+                  use@DocNet-app.com
                 </a>
               </div>
             </div>
@@ -1011,10 +1102,10 @@ Here's what the above is doing:
           <div class="home-bottom">
             <img
               alt="pastedImage"
-              src= "{% static "playground_assets/pastedimage-no9b-1500h.png" %}"
+              src= "{% static "playground_assets/logoN.png" %}"
               class="home-branding"
             />
-            <span class="home-text128">Copyright © Active - 2022</span>
+            <span class="home-text128">Copyright © DocNet - 2022</span>
           </div>
         </footer>
       </div>

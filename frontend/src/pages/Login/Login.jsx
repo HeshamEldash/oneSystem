@@ -27,7 +27,7 @@ function Login() {
   const onSubmit = async (values) => {
     loginUser(values)
     .then(success =>{
-      success && navigate("/staff-dashboard")
+      success && navigate("/app/staff-dashboard")
     })
     .catch(()=> notify())
 
@@ -53,7 +53,7 @@ function Login() {
   return (
     <>
       {user  ? (
-        navigate("/staff-dashboard")
+        navigate("/app/staff-dashboard")
       ) : (
         <div className="login-page">
           <div className="form-sidebar">
@@ -119,7 +119,7 @@ function Login() {
             </form>
             <span className="form-text">
               {t("dont_have_an_account")}
-              <Link to="/register" className="form-link">
+              <Link to="/registration-choice" className="form-link">
                 {" "}
                 {t("register")}{" "}
               </Link>

@@ -210,12 +210,18 @@ def provider_create(name: str, owner: Account, branch_name: str, unit_number: st
         owner=owner,
         name=name
     )
+    Employment.objects.create(
+            provider=provider, staff=owner.staff, employment_role="OWNER", salary=0)
+    
     branch_create(provider=provider,
                   branch_name=branch_name,
                   unit_number=unit_number, first_line=first_line, second_line=second_line, city=city, governorate=governorate,
                   telephone_number=telephone_number
                   )
+    
 
+    
+    
     return provider
 
 
