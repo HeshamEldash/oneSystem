@@ -90,7 +90,6 @@ function ProviderLayout() {
           ]}
         ></NavMenu>
 
-
         {user_perms.isManager && <NavMenu
           buttonName={t("Settings")}
           menuItems={[

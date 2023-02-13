@@ -12,6 +12,7 @@ import { ToastContainer, toast } from "react-toastify";
 import axios from "axios";
 
 import APIENDPOINT from "../../api/apiEndpoint.jsx";
+import RegistrationFormWrapper from "./RegistrationFormWrapper";
 
 function RegistrationStaffMultiStep() {
   const navigate = useNavigate();
@@ -87,8 +88,14 @@ function RegistrationStaffMultiStep() {
   });
 
   return (
-    <div className="registration-page">
-          <ToastContainer
+    <RegistrationFormWrapper>
+      <div className="form-header-container">
+        <h1 className="provider-home-mauin__headers">
+          {t("Register your account")}
+        </h1>
+      </div>
+    
+    <ToastContainer
         position="bottom-center"
         autoClose={5000}
         hideProgressBar
@@ -101,10 +108,8 @@ function RegistrationStaffMultiStep() {
         style={{ width: "100%" }}
       />
 
-      <div className="form-sidebar">
-        <span className="form-header"> {t("Register")}</span>
-      </div>
-      <div className="user-form-container">
+
+
         <form className="user-form" type="submit" onSubmit={handleSubmit}>
           <label> {t("first_name")}</label>
 
@@ -183,10 +188,11 @@ function RegistrationStaffMultiStep() {
 
           <label>{t("staff_role")}</label>
           <Select
+            
             value={values.staffRole}
             name="staffRole"
             onChange={handleChange}
-            displayEmpty
+
             className="form-fields"
           >
             <MenuItem value={"DR"}>{t("doctor")}</MenuItem>
@@ -195,7 +201,7 @@ function RegistrationStaffMultiStep() {
             <MenuItem value={"AD"}>{t("admin")}</MenuItem>
             <MenuItem value={"PC"}>{t("practitioner")}</MenuItem>
           </Select>
-
+   
           <label>{t("telephone_number")}</label>
           <input
             type="text"
@@ -284,8 +290,12 @@ function RegistrationStaffMultiStep() {
             {t("login")}{" "}
           </Link>
         </span>
-      </div>
-    </div>
+
+
+            
+
+      </RegistrationFormWrapper>
+          
   );
 }
 

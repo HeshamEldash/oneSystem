@@ -15,15 +15,16 @@ export default function ProviderContextProvider(props) {
   const navigate = useNavigate()
   const queryClient = useQueryClient()
  
-  const {data:staffEmployments} = useGetStaffEmployments()
+  // const {data:staffEmployments} = useGetStaffEmployments()
 
-  const current_user_roles = staffEmployments?.filter(emp=>{
-    if(emp?.provider_id == id){
-      return emp
-       }
-    }).map(emp=> emp?.employment_role)
+  // const current_user_roles = staffEmployments?.filter(emp=>{
+  //   if(emp?.provider_id == id){
+  //     return emp
+  //      }
+  //   }).map(emp=> emp?.employment_role)
 
-  const user_perms = useUserRoles(current_user_roles)
+  const user_perms = useUserRoles(id)
+
   
   const { status,isLoading:employmentListIsLoading, isError:employmentListIsError, error:employmentListError, data:listOfEmployments } = 
   useGetProviderEmployments(id)
@@ -48,7 +49,7 @@ export default function ProviderContextProvider(props) {
     providerId: id,
     profile: profile,
     branches: branches,
-    current_user_roles:current_user_roles,
+    // current_user_roles:current_user_roles,
     user_perms:user_perms,
   };
 

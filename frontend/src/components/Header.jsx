@@ -14,7 +14,7 @@ function Header() {
   const { t } = useTranslation();
   const { logoutUser, user } = useContext(AuthContext);
   const  {pathname} =useLocation()
-  console.log(pathname)
+
 
   const headerClassName = ()=>{
     if (pathname.includes("app/provider")   ){
@@ -64,7 +64,7 @@ function Header() {
           <div className="header-content">
             <NavLink
               className="header-coddntent"
-              to="/registration-choice"
+              to="/register/staff"
               style={{ display: "block" }}
             >
               {t("Register")}

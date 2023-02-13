@@ -4,6 +4,9 @@ import { useFormik } from "formik";
 import { useTranslation } from "react-i18next";
 import { createProvider } from "./api/providerApi";
 import AuthContext from "../../context/AuthContext";
+import RegistrationFormWrapper from "../registration/RegistrationFormWrapper";
+import MediumInput from "../../components/ui/inputs/MediumInput";
+import SmallButton from "../../components/ui/SmallButton";
 
 function ProviderRegistration() {
   const { t } = useTranslation();
@@ -36,10 +39,14 @@ function ProviderRegistration() {
   });
 
   return (
-    <section className="provider-home-main">
-      <h1 className="provider-home-main__headers">
-        {t("Register your clinic...")}
-      </h1>
+    <RegistrationFormWrapper>
+    <div className="form-header-container">
+        <h1 className="provider-home-mauin__headers">
+          {t("Register your clinic")}
+        </h1>
+      </div>
+
+
       <form className="user-form" type="submit" onSubmit={handleSubmit}>
         <label> {t("provider-name")}</label>
 
@@ -164,7 +171,14 @@ function ProviderRegistration() {
           value={t("submit")}
         />
       </form>
-    </section>
+        <div style={{width:"100%", marginInlineStart:"80%"}}>
+          <SmallButton
+            className="form-button"
+            value={t("skip")}
+            onClick= {()=>navigate("/app/staff-dashboard")}
+          />
+      </div>
+</RegistrationFormWrapper>
   );
 }
 

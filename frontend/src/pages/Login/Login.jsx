@@ -119,7 +119,7 @@ function Login() {
             </form>
             <span className="form-text">
               {t("dont_have_an_account")}
-              <Link to="/registration-choice" className="form-link">
+              <Link to="/register/staff" className="form-link">
                 {" "}
                 {t("register")}{" "}
               </Link>

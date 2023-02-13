@@ -20,7 +20,7 @@ function AccountRegistration() {
   const [emailExist, setEmailExist] = useState(false);
 
   let onSubmit = async (values, actions) => {
-    console.log("submitted");
+
 
     let res = await fetch(`${APIENDPOINT}users/account-create/`, {
       method: "POST",
@@ -74,7 +74,7 @@ function AccountRegistration() {
     });
 
     if (response.ok) {
-      console.dir(response);
+
       setEmailExist((prev) => (prev = true));
     }
     if (!response.ok) {

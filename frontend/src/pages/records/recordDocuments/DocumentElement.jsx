@@ -41,12 +41,13 @@ function DocumentElement(props) {
       <span className="recordElement">{uploadDate}</span>
 
       <span className="recordElement"> {props.uploadedBy}</span>
+
       <span className="recordElement">
-        <img
+        {/* <img
           className="svg20 svg_cursor"
           src={externalLink}
           onClick={() => handleOpen()}
-        />
+        /> */}
         <a
           href={props.file}
           without="true"
@@ -62,6 +63,7 @@ function DocumentElement(props) {
           />
         </a>
       </span>
+      
 
       <span className="recordElement"> {fileType}</span>
 

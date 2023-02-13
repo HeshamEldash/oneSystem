@@ -1,32 +1,26 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
+import { useGetStaffEmployments } from '../staff/api/useStaffDataApi'
 
-function useUserRoles(current_user_roles = [] ) {
+function useUserRoles(provider_id) {
 
-    console.log(current_user_roles)
-    const  [isManager,setIsManager] = useState(false)
-    const  [isAdmin,setIsAdmin] = useState(false)
-    const  [isOwner,setIsOwner] = useState(false)
-    const  [isNurse,setIsNurse] = useState(false)
-    const  [isDoctor,setIsDoctor] = useState(false)
+    const {data:staffEmployments} = useGetStaffEmployments()
 
-    if (current_user_roles.includes("MG")){
-    setIsManager(true)
-    }
-    if (current_user_roles.includes("AD")){
-        setIsAdmin(true)
+    const current_user_roles = staffEmployments?.filter(emp=>{
+      if(emp?.provider_id == provider_id){
+        return emp
+         }
+      }).map(emp=> emp?.employment_role)
 
-    }
-    if (current_user_roles.includes("OW")){
-        setIsOwner(true)
-    }
-    if (current_user_roles.includes("DR")){
-        setIsDoctor(true)
+
+    const user_perms = {
+      isManager: current_user_roles?.includes("MG"),
+      isAdmin: current_user_roles?.includes("AD"),
+      isOwner:current_user_roles?.includes("OW"),
+      isDoctor: current_user_roles?.includes("DR"),
+
     }
 
-
-  return (
-    [isManager,isAdmin, isOwner, isNurse, isDoctor]
-  )
+  return user_perms
 }
 
 export default useUserRoles

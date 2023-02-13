@@ -39,8 +39,9 @@ import ProviderNotAuthPage from "./pages/provider/ProviderNotAuthPage.jsx";
 
 
 
-
 function App() {
+
+
   return (
     <div className="App {i18n.language === 'en' ? 'english': 'arabic'}">
       <AuthProvider>
@@ -108,8 +109,8 @@ function App() {
 
           <Route element={<Login />} path="/login" />
 
-          <Route element={<RegistrationChoice />} path="/registration-choice" />
-          <Route element={<RegisterationPage />} path="/registration/staff" />
+          {/* <Route element={<RegistrationChoice />} path="/registration-choice" /> */}
+          {/* <Route element={<RegisterationPage />} path="/registration/staff" /> */}
 
           <Route element={<RegistrationLayout />} path="/register">
             <Route element={<RegistrationStaffMultiStep />} path="staff" />
