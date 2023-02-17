@@ -1,20 +1,23 @@
-import React, { useContext, useRef } from "react";
+import React, { useContext, useRef, useState } from "react";
 import Modal from "@mui/material/Modal";
 import { Box } from "@mui/system";
 import { formatDate, formatMinutes } from "./utils/datetimeUtils";
 import { useTranslation } from "react-i18next";
 import { bookAppointment } from "./appointmentsApiCalls";
 import { AppointmentContext } from "./AppointmentsContext";
-
-function BookAppointment({ slot, session, setAppointment, setSlotStatus }) {
+import { ProviderPatientSearch } from "../provider/ProviderPatientSearch";
+function BookAppointment({ slot, session, setAppointment, setSlotStatus , closeSlot}) {
   const patient_id = localStorage.getItem("patient_id");
   const patient_name = localStorage.getItem("patient_name");
+
   const { t } = useTranslation();
   const [open, setOpen] = React.useState(true);
+  const [openSearch, setOpenSearch] = React.useState(false);
   const presentationRef = useRef();
-  const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
-  const { sessions, setSessions } = useContext(AppointmentContext);
+  const handleCloseSearch = () => setOpenSearch(false);
+  const { setSessions } = useContext(AppointmentContext);
+  const [searchedPt, setSearchedPt] = useState(null);
 
   const style = {
     position: "absolute",
@@ -23,49 +26,50 @@ function BookAppointment({ slot, session, setAppointment, setSlotStatus }) {
     transform: "translate(-50%, -50%)",
     width: 1000,
     bgcolor: "white",
-    borderRadius: "4++++px",
+    borderRadius: "4px",
     boxShadow: 10,
     p: 3,
   };
-  // console.log(slot)
 
   const handleSubmit = () => {
+    let book_pt_id = searchedPt ? searchedPt.id : patient_id;
+    let book_pt_name = searchedPt
+      ? searchedPt.first_name + searchedPt.middle_names + searchedPt.last_name
+      : patient_name;
     let presentation = presentationRef.current.value;
 
     setSlotStatus((status) => {
       if (status.blocked) return status;
 
-      bookAppointment(slot.id, patient_id, presentation);
+      bookAppointment(slot.id, book_pt_id, presentation);
 
       setAppointment((prev) => ({
         ...prev,
         presentation: presentation,
-        patient_name: patient_name,
+        patient_name: book_pt_name,
       }));
 
       return { ...status, booked: true, empty: false };
     });
 
-    // needs refctoring to update the session in the context 
+    setSessions((prev) => {
+      const a = prev.map((session) => {
+        if (session.id === slot.session) {
+          session.slot_set.map((originalSLot) => {
+            if (originalSLot.id === slot.id) {
+              originalSLot.appointment = {};
+            }
+            return originalSLot;
+          });
+        }
 
-    // setSessions((prev) => {
-    //   const a = prev.map((session) => {
+        return session;
+      });
+      return a;
+    });
 
-    //     if (session.id === slot.session) {
-    //       session.slot_set.map((originalSLot) => {
-    //         if (originalSLot.id === slot.id) {
-    //           originalSLot.appointment = {};
-    //         }
-    //         return originalSLot
-    //       });
-    //     }
 
-    //     return session
-    //   });
-    //   return a;
-    // });
-    
-    
+
     handleClose();
   };
 
@@ -78,9 +82,23 @@ function BookAppointment({ slot, session, setAppointment, setSlotStatus }) {
             <label className="book_appt_label">
               Patient:
               <span className="form-fields">
-                {" "}
-                {patient_id && patient_name}{" "}
+                {patient_id && patient_name}
+                {searchedPt &&
+                  searchedPt.first_name +
+                    searchedPt.middle_names +
+                    searchedPt.last_name}
               </span>
+              <div onClick={() => setOpenSearch(true)}>search</div>
+              <Modal open={openSearch} onClose={handleCloseSearch}>
+                <Box sx={style}>
+                  <ProviderPatientSearch
+                    exportPt={(searched_pt) => {
+                      setSearchedPt(searched_pt);
+                      handleCloseSearch();
+                    }}
+                  />
+                </Box>
+              </Modal>
             </label>
           </div>
 

@@ -98,6 +98,7 @@ urlpatterns = [
     path("patient-provider-detail-api/", PatientProfileProviderDetailApi.as_view()),
     path("patient-provider-create-api/", PatientProfileProviderCreateApi.as_view()),
     path("patient-provider-update-api/", PatientProfileProviderUpdateApi.as_view()),
+    path("patient-provider-count-api/", ProviderRegistrationCountApi.as_view()),
     
     path("registration-detail-api/",ProviderRegistrationDetailApi.as_view() ),
     path("registration-list-api/",ProviderRegistrationListApi.as_view() ),

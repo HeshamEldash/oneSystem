@@ -11,19 +11,18 @@ import { styled } from "@mui/material/styles";
 import DatePicker from "react-datepicker";
 import Checkbox from "@mui/material/Checkbox";
 
-import FormControlLabel from '@mui/material/FormControlLabel';
+import FormControlLabel from "@mui/material/FormControlLabel";
 import "react-datepicker/dist/react-datepicker.css";
 
-function ProviderPatientSearch() {
+export function ProviderPatientSearch({ exportPt }) {
   const token = JSON.parse(localStorage.getItem("authTokens"));
   const [startDate, setStartDate] = useState(new Date());
   const [advancedSearch, setAdvancedSearch] = useState(false);
   const { id } = useParams();
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const { t } = useTranslation();
   const [patients, setPatients] = useState([]);
 
-  
   const handleBoxChange = (event) => {
     setAdvancedSearch(event.target.checked);
   };
@@ -47,8 +46,9 @@ function ProviderPatientSearch() {
   const onSubmit = async (values) => {
     values.dateOfBirth = startDate.toISOString().split("T")[0];
 
-    const patients =advancedSearch? await searchPatients(values):await searchPatients(values, id) ;
-
+    const patients = advancedSearch
+      ? await searchPatients(values)
+      : await searchPatients(values, id);
 
     setPatients(patients);
   };
@@ -74,12 +74,16 @@ function ProviderPatientSearch() {
 
     onSubmit,
   });
- 
+
   return (
     <>
       <h1>search a patient</h1>
 
-      <form className="search-form primary--page-bdox" type="submit" onSubmit={handleSubmit}>
+      <form
+        className="search-form primary--page-bdox"
+        type="submit"
+        onSubmit={handleSubmit}
+      >
         <div className="search-form__inputs">
           <div className="form-input--group">
             <label> {t("email")}</label>
@@ -190,26 +194,26 @@ function ProviderPatientSearch() {
               selected={startDate}
               onChange={(date) => setStartDate(date)}
             />
-
           </div>
         </div>
         <div>
-        <input
-          className="form-button"
-          disabled={isSubmitting}
-          type="submit"
-          value={t("search")}
-        />
-        <FormControlLabel control={ <Checkbox
-          checked={advancedSearch}
-          onChange={handleBoxChange}
-
-          sx={{ "& .MuiSvgIcon-root": { fontSize: 28 } }}
-        />} label={t("search_patients_not_registered_with_you")} />
-
-       
-    </div>
-
+          <input
+            className="form-button"
+            disabled={isSubmitting}
+            type="submit"
+            value={t("search")}
+          />
+          <FormControlLabel
+            control={
+              <Checkbox
+                checked={advancedSearch}
+                onChange={handleBoxChange}
+                sx={{ "& .MuiSvgIcon-root": { fontSize: 28 } }}
+              />
+            }
+            label={t("search_patients_not_registered_with_you")}
+          />
+        </div>
       </form>
 
       <ResultsBox
@@ -232,7 +236,12 @@ function ProviderPatientSearch() {
             <StyledTableRow
               key={patient.id}
               onDoubleClick={() => {
-                navigate(`/app/provider/${id}/patient-record/${patient.id}`)
+                if (exportPt) {
+                  exportPt(patient);
+                  return;
+                }
+
+                navigate(`/app/provider/${id}/patient-record/${patient.id}`);
               }}
             >
               <StyledTableCell>{patient.first_name}</StyledTableCell>

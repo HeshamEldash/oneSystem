@@ -6,6 +6,7 @@ import { Outlet, NavLink, useParams } from "react-router-dom";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import Divider from "@mui/material/Divider";
 import register from "../../assets/images/register.svg"
+import { Collapse, Grow } from "@mui/material";
 
 function NavMenu(props) {
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -22,6 +23,7 @@ function NavMenu(props) {
   return (
     <div>
       <Button
+
         id="basic-button"
         aria-controls={open ? "basic-menu" : undefined}
         aria-haspopup="true"
@@ -29,9 +31,11 @@ function NavMenu(props) {
         onClick={handleClick}
         endIcon={<KeyboardArrowDownIcon />}
         sx={{ color: "white" }}
+
       >
         {props?.buttonName}
       </Button>
+      
       <Menu
         id="basic-menu"
         anchorEl={anchorEl}
@@ -40,6 +44,13 @@ function NavMenu(props) {
         MenuListProps={{
           "aria-labelledby": "basic-button",
         }}
+        transitionDuration={2}
+        // disableAutoFocusItem={false}
+        // // TransitionProps={Grow}
+        // hideBackdrop = {false}
+        // disableScrollLock={true}
+        // disablePortal={true}
+
       >
         {props?.menuItems?.map((item) => {
           return (

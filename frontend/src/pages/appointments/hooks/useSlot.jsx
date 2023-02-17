@@ -7,7 +7,6 @@ function useSlot(slotDetails) {
   const AVAILBLE = "AV";
   const BLOCKED = "BLC";
 
-  const token = JSON.parse(localStorage.getItem("authTokens"));
   const [appointmentDetails, setAppointmentDetails] = useState(
     slotDetails.appointment ? slotDetails.appointment : null
   );

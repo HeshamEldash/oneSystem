@@ -1,5 +1,5 @@
 import { useConfigQuery, useDelete, useDirectMutation, useFlexMutation, useGet, usePost, useUpdate } from "../../../api/reactQuery";
-import { getAllEmployments, getProfile, updateProviderProfile } from "./providerApi";
+import { getAllEmployments, getNumberOfPatients, getProfile, updateProviderProfile } from "./providerApi";
 
 
 export const useGetProvider = (id)=>{
@@ -21,4 +21,10 @@ export const useGetProviderEmployments = (id)=>{
            }
         }
     })
+ }
+
+
+ export const useGetNumberOfRegisteredPatients = (id)=>{
+
+     return useGet(["registration_count"], getNumberOfPatients, { provider_id: id })
  }

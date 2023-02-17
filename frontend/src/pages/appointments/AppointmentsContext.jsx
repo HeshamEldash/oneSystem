@@ -9,25 +9,19 @@ function AppointmentsContextProvider(props) {
   const [clinics, setClinics] = useState([]);
   const [sessions, setSessions] = useState([]);
   const [displayDate, setDisplayDate] = useState();
-  const [todayAppts, setTodayAppts] = useState([]);
 
   const { id } = useParams();
 
-  const getTodayAppointments = () => {
-    const todaySessions = sessions?.filter((session) => {
-      if (builtInIsToday(session?.start)) return session;
-    });
+  const todaySessions = sessions?.filter((session) => {
+    if (builtInIsToday(session?.start)) return session;
+  });
 
-    const appts = todaySessions.reduce((appts, tSession) => {
-      return tSession.slot_set?.filter((slot) => {
-        return slot.appointment != null;
-      });
-    }, []);
 
-    setTodayAppts(appts);
-  };
+  const appts = todaySessions
+    .map(tSession => tSession.slot_set)
+    .flat()
+    .filter(slot => slot.appointment != null)
 
-  
 
   const getClinicDataCall = async () => {
     const clinicData = await getClinicData(id);
@@ -44,10 +38,6 @@ function AppointmentsContextProvider(props) {
     getSessions();
   }, []);
 
-  useEffect(() => {
-    getTodayAppointments();
-  }, [sessions]);
-
   const contextData = {
     provider_id: id,
     clinics: clinics,
@@ -57,7 +47,7 @@ function AppointmentsContextProvider(props) {
     dateToShow: "10-10-120",
     setDisplayDate: (d) => setDisplayDate(d),
     displayDate: displayDate,
-    todayAppts: todayAppts,
+    todayAppts: appts,
   };
 
   return (

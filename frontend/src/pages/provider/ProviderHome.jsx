@@ -13,6 +13,7 @@ function ProviderHome() {
   const { todayAppts } = useContext(AppointmentContext);
   const navigate = useNavigate();
 
+
   return (
     <div className="provider-home-mhain">
       <div className="primary--page-box">

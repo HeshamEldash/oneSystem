@@ -16,8 +16,10 @@ function RecordPastHistory() {
   const { patient } = useRecordContext();
   const { showAddMedicalConditionBox } = useOutletContext();
   const [conditions, setCondition] = useState([]);
+  
 
   const getConditions = async () => {
+    if(patient.id === undefined ) return 
     const data = await getPastCoditions(patient.id);
     setCondition(data);
   };

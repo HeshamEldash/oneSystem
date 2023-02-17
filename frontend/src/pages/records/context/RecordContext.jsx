@@ -1,58 +1,26 @@
-import react, { createContext, useState, useEffect } from "react";
+import  { createContext, useState } from "react";
 import { useParams } from "react-router";
-import {
-  getPrescriptionList,
-  getRegularMedications,
-} from "../../medications/medicationsApiCalls";
-import {
-  getPatientProfile,
-  getPatientRecords,
-} from "../apiCalls/recordsApiCalls";
+
+import { useGetAllPrescriptions, useGetRegularMedicationsData } from "../../medications/useMedicationDataApi";
+import { useGetPatinetProfile, useGetRecordsData } from "../apiCalls/useRecordDataApi";
 
 const RecordContext = createContext();
 
 function RecordContextProvider(props) {
-  const [patientProfile, setPatientProfile] = useState({});
-  const [patientRecords, setPatientRecords] = useState([]);
-  const [allPresciptions, setAllPrescriptions] = useState([]);
-  const [regularMedications, setRegularMedications] = useState([]);
-
   const { patient_id } = useParams("patient_id");
+
   const [contextPrescribedList, setContextPrescribedList] = useState([]);
 
-  const getProfileData = async () => {
-    const profileData = await getPatientProfile(patient_id);
-    setPatientProfile(profileData);
-    localStorage.setItem("patient_name", `${profileData.first_name} ${profileData.middle_names} ${profileData.last_name}`);
-
-  };
-  const getRecordsData = async () => {
-    const recordsData = await getPatientRecords(patient_id);
-    setPatientRecords(recordsData);
-  };
-
-  const getAllPrescriptions = async () => {
-    const prescriptionData = await getPrescriptionList(patient_id);
-    setAllPrescriptions(prescriptionData);
-  };
-
-  const getRegularMedicationsData = async () => {
-    const regularMedicationsData = await getRegularMedications(patient_id);
-    setRegularMedications(regularMedicationsData);
-  };
-
-  useEffect(() => {
-    getProfileData();
-    getRecordsData();
-    getAllPrescriptions();
-    getRegularMedicationsData();
-    localStorage.setItem("patient_id", patient_id);
-
-  }, []);
-
-
+  const {data:patientProfile}= useGetPatinetProfile(patient_id)
+  const {data:patientRecords}= useGetRecordsData(patient_id)
+  const {data:allPresciptions}= useGetAllPrescriptions(patient_id)
+  const {data:regularMedications}= useGetRegularMedicationsData(patient_id)
+  
+  localStorage.setItem("patient_name", `${patientProfile?.first_name} ${patientProfile?.middle_names} ${patientProfile?.last_name}`);
+  localStorage.setItem("patient_id", patient_id);
+  
   const contextData = {
-    patientId: patientProfile.id,
+    patientId: patientProfile?.id,
     patient: patientProfile,
     records: patientRecords,
     contextPrescribedList: contextPrescribedList,
@@ -60,8 +28,6 @@ function RecordContextProvider(props) {
     allPrescriptions: allPresciptions,
     regularMedications: regularMedications,
   };
-
-
 
   return (
     <RecordContext.Provider value={{ contextData }}>

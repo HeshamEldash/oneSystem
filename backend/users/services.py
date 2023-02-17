@@ -241,6 +241,12 @@ def get_provider_registration_list(provider_pk: int):
     regsitration_list = provider_obj.registration_set.all()
     return regsitration_list
 
+def get_provider_registration_count(provider_pk: int):
+
+    provider_obj = get_object_or_404(Provider, pk=provider_pk)
+    regsitration_list_count = provider_obj.registration_set.count()
+    return regsitration_list_count
+
 
 def check_employment_exists(provider: Provider, staff: Staff):
     try:
@@ -259,7 +265,7 @@ def check_provider_patient_relationship(provider: Provider, patient: Patient):
         return False
 
 
-def check_patient_clinican_relationship(provider: Provider, staff: Staff, patient: Patient):
+def check_patient_clinican_relationship( staff: Staff, patient: Patient, provider =  None):
     """_summary_
         checks if a relationship between a clinican and patinet exists 
         can be used to decide if a patient record should be viewed 

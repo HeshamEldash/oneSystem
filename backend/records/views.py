@@ -6,16 +6,20 @@ from .serializers import *
 from rest_framework import generics
 from rest_framework import mixins
 from django.shortcuts import get_object_or_404
+from .permessions import *
 
 
 
-
-class PatientIcdCodeView(generics.GenericAPIView, mixins.ListModelMixin,mixins.CreateModelMixin):
+class PatientIcdCodeView(generics.GenericAPIView, mixins.ListModelMixin,mixins.CreateModelMixin, PatientPermissionMixin):
 
     serializer_class = PatientIcdCodeSerializer
+    permission_classes = [CanViewMedicalRecords]
+    
     def get_queryset(self):
         patient_pk =  self.request.query_params.get('patient_id')
         qs = PatientIcdCode.objects.filter(patient= patient_pk)
+        patient_obj = self.get_patient()
+        self.check_object_permissions(self.request, patient_obj)
         return qs
 
     def get(self, request, *args, **kwargs):
@@ -25,13 +29,16 @@ class PatientIcdCodeView(generics.GenericAPIView, mixins.ListModelMixin,mixins.C
     def post(self, request, *args, **kwargs):
         return self.create(request, *args, **kwargs)
 
-class RecordFilesView(generics.GenericAPIView, mixins.ListModelMixin,mixins.CreateModelMixin):
-
+class RecordFilesView(generics.GenericAPIView, mixins.ListModelMixin,mixins.CreateModelMixin, PatientPermissionMixin):
+    permission_classes = [CanViewMedicalRecords]
+    
     serializer_class = RecordFileSerializer
     def get_queryset(self):
         patient_pk = self.kwargs.get('patient_pk')
-        
+        patient_obj = self.get_patient()
+        self.check_object_permissions(self.request, patient_obj)
         qs = RecordFile.objects.filter(patient= patient_pk)
+        
         return qs
 
     def get(self, request, *args, **kwargs):
@@ -60,13 +67,17 @@ class PastConditionView(generics.GenericAPIView,  mixins.RetrieveModelMixin, mix
     def delete(self, *args, **kwargs):
         return self.destroy(*args, **kwargs)
 
-class PastConditionsView(generics.GenericAPIView, mixins.ListModelMixin, mixins.CreateModelMixin):
+class PastConditionsView(generics.GenericAPIView, mixins.ListModelMixin, 
+                         mixins.CreateModelMixin, PatientPermissionMixin):
 
     serializer_class = PastConditionsSerializer
+    permission_classes = [CanViewMedicalRecords]
     
     def get_queryset(self):
         patient_id = self.request.query_params.get('patient_id')
         qs = PastConditions.objects.filter(patient=patient_id)
+        patient = self.get_patient()
+        self.check_object_permissions(request=self.request, obj=patient)
         return qs   
 
     def get(self, request, *args, **kwargs):
@@ -80,12 +91,18 @@ class PastConditionsView(generics.GenericAPIView, mixins.ListModelMixin, mixins.
 
 class RecordListView(generics.GenericAPIView, 
                     mixins.ListModelMixin,
-                     mixins.CreateModelMixin):
+                     mixins.CreateModelMixin,
+                     PatientPermissionMixin
+                     ):
     serializer_class = RecordSerializer
+    permission_classes = [CanViewMedicalRecords]
     
     def get_queryset(self):
         patient_id = self.request.query_params.get('patient_id')
         qs = Record.objects.filter(patient=patient_id)
+        patient_obj = self.get_patient()
+        self.check_object_permissions(self.request, patient_obj)
+        
         return qs
 
     def get(self, request, *args, **kwargs):
@@ -101,7 +118,9 @@ class RecordListView(generics.GenericAPIView,
 class RecordView(generics.GenericAPIView,
                 mixins.RetrieveModelMixin, 
                 mixins.UpdateModelMixin):
+    
     serializer_class = RecordSerializer
+    permission_classes = [CanViewMedicalRecords]
 
     def get_queryset(self):
         patient_id = self.request.query_params.get('patient_id')
@@ -111,10 +130,11 @@ class RecordView(generics.GenericAPIView,
     def get_object(self):
         record_pk = self.kwargs['record_pk']
         obj = get_object_or_404(Record, pk=record_pk)
+        patient_obj = obj.patient
         return obj
 
     def get(self, request, *args, **kwargs):
-        return self.retrieve(request, *args,**
-        kwargs)
+        
+        return self.retrieve(request, *args,**kwargs)
     def patch(self, request, *args, **kwargs):
         return self.partial_update(request, *args, **kwargs)

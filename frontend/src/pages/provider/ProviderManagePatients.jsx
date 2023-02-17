@@ -1,10 +1,19 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import Circle from "../../components/Circle";
+import { useGetNumberOfRegisteredPatients } from "./api/useProviderDataApi";
 import GetAllRegisteredPatients from "./components/GetAllRegisteredPatients";
+import { ProviderContext } from "./context/ProviderContext";
 
 function ProviderManagePatients() {
+
+  const {providerId}= useContext(ProviderContext)
   const [openAllPatients, setOpenAllPatients] = useState(false);
-  const [numberOfPatinets, setNumberOfPatients] = useState();
+
+  const [numberOfPatinetds, setNumberOfPatients] = useState();
+
+ const  { isLoading, isError, data:numberOfPatinets, error } = useGetNumberOfRegisteredPatients(providerId)
+
+
   return (
     <div className="primary--page-box">
       <div className="inner-page-box--flex-row align-items-center space_between margin_bottom_medium">
@@ -15,7 +24,7 @@ function ProviderManagePatients() {
           value={"get_all_patients"}
         />
         <div>
-          <Circle>{numberOfPatinets && numberOfPatinets}</Circle>
+          <Circle>{numberOfPatinets && numberOfPatinets?.patient_count}</Circle>
         </div>
       </div>
       {!!openAllPatients && (

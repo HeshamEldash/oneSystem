@@ -19,6 +19,7 @@ function Login() {
       toastId: "customId",
       className: "black-background",
       bodyClassName: "grow-font-size",
+  
     });
 
   const { t } = useTranslation();
@@ -63,7 +64,7 @@ function Login() {
           <div className="user-form-container">
             <ToastContainer
               position="bottom-center"
-              autoClose={50000}
+              autoClose={3000}
               hideProgressBar
               newestOnTop={false}
               closeOnClick

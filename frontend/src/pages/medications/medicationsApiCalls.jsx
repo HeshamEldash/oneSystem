@@ -1,45 +1,66 @@
+import axios from "axios";
 import APIENDPOINT from "../../api/apiEndpoint.jsx";
 const token = JSON.parse(localStorage.getItem("authTokens"));
 
 
 
-const getPrescriptionList = async (patient_id)=>{
-    let response = await fetch(
-        `${APIENDPOINT}/medicines/prescription-list/?` +
-          new URLSearchParams({ patient_id: patient_id }),
-        {
-          method: "GET",
-          headers: {
-            "Content-type": "application/json",
-            Authorization: "Bearer " + String(JSON.parse(localStorage.getItem("authTokens"))?.access),
-          },
-        }
-      );
-    
-      if (response.ok){
-        return response.json()
+const getPrescriptionList = async ({ patient_id: patient_id })=>{
+  let response = await axios.get(
+      `${APIENDPOINT}/medicines/prescription-list/`,
+      {
+        headers: {
+          "Content-type": "application/json",
+          Authorization: "Bearer " + String(JSON.parse(localStorage.getItem("authTokens"))?.access),
+        },
+        params: { patient_id: patient_id }
       }
+    );
+  
+      return response.data
 
 }
 
-const getRegularMedications = async (patient_id)=>{
-  let response = await fetch(
-    `${APIENDPOINT}/medicines/regular-prescription-list/?` +
-      new URLSearchParams({ patient_id: patient_id }),
+
+
+// const getRegularMedications = async (patient_id)=>{
+//   let response = await fetch(
+//     `${APIENDPOINT}/medicines/regular-prescription-list/?` +
+//       new URLSearchParams({ patient_id: patient_id }),
+//     {
+//       method: "GET",
+//       headers: {
+//         "Content-type": "application/json",
+//         Authorization: "Bearer " + String(JSON.parse(localStorage.getItem("authTokens"))?.access),
+//       },
+//     }
+//   );
+
+//   if (response.ok){
+//     return response.json()
+//   }
+
+// }
+
+const getRegularMedications = async ({ patient_id: patient_id })=>{
+  let response = await axios.get(
+    `${APIENDPOINT}/medicines/regular-prescription-list/`,
+     
     {
-      method: "GET",
+
       headers: {
         "Content-type": "application/json",
         Authorization: "Bearer " + String(JSON.parse(localStorage.getItem("authTokens"))?.access),
       },
+      params:{ patient_id: patient_id }
     }
   );
-
-  if (response.ok){
-    return response.json()
-  }
+    return response.data
 
 }
+
+
+
+
 const getUserMedicationPresets = async ()=>{
   let response = await fetch(
     `${APIENDPOINT}/medicines/user-medication-preset/?`, 

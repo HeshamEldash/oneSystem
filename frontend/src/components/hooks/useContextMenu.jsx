@@ -22,7 +22,6 @@ function useContextMenu(targetId) {
         event.preventDefault();
 
         setContextData({ ...contextData, visible: false });
-
       } else if (targetElement && targetElement.contains(event.target)) {
         event.preventDefault();
 
@@ -31,27 +30,23 @@ function useContextMenu(targetId) {
           posX: event.clientX,
           posY: event.clientY,
         });
-        console.log(event.clientX)
       } else if (
         contextRef.current &&
         !contextRef.current.contains(event.target)
       ) {
         setContextData({ ...contextData, visible: false });
-
       }
     },
-    
+
     [contextData]
   );
 
   const offClickHandler = useCallback(
     (event) => {
-    setContextData({ ...contextData, visible: false });
+      setContextData({ ...contextData, visible: false });
     },
     [contextData]
   );
-
-
 
   useEffect(() => {
     document.addEventListener("contextmenu", contextMenuEventHandler);
@@ -85,34 +80,6 @@ function useContextMenu(targetId) {
   }, [contextData]);
 
   return { contextData, contextRef };
-
-  // const [anchorPoint, setAnchorPoint] = useState({ x: 0, y: 0 });
-  // const [show, setShow] = useState(false);
-  // const handleClick = useCallback(() => (show ? setShow(false) : null), [show]);
-
-  // const handleContextMenu = useCallback(
-  //   (event) => {
-  //     console.log(event)
-  //     event.preventDefault();
-  //     setAnchorPoint({ x: event.pageX, y: event.pageY });
-  //     setShow(true);
-
-  //   },
-  //   [setAnchorPoint, setShow]
-  // );
-
-  // useEffect(() => {
-
-  //   document.addEventListener("contextmenu", handleContextMenu);
-  //   document.addEventListener("click", handleClick);
-
-  //   return () => {
-  //     document.removeEventListener("contextmenu", handleContextMenu);
-  //     document.removeEventListener("click", handleClick);
-  //   };
-  // }, []);
-
-  // return { anchorPoint, show };
 }
 
 export default useContextMenu;

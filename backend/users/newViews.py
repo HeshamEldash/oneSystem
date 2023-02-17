@@ -662,6 +662,21 @@ class ProviderRegistrationListApi(ApiErrorsMixin , APIView, ProviderActionPermis
         data = RegistrationSerializer(registration_list, many=True).data
         return Response(data)
 
+class ProviderRegistrationCountApi(ApiErrorsMixin , APIView, ProviderActionPermissionMixin):
+    
+    permission_classes = [IsProviderAdmin, IsProviderClinican]
+    
+    class OutputSerializer(serializers.Serializer):
+        number = serializers.IntegerField()
+        
+    def get(self, request):
+        provider_id = request.query_params.get("provider_id")
+        provider = self.get_provider()
+        
+        self.check_object_permissions(request, provider) 
+        
+        registration_list_count = get_provider_registration_count(provider_id)
+        return Response({"patient_count":registration_list_count})
 
 class ProviderRegistrationUpdateApi(ApiErrorsMixin , APIView, UpdateObjectApiMixin, ProviderActionPermissionMixin):
     pass
@@ -682,6 +697,11 @@ class ProviderRegistrationCreateApi(ApiErrorsMixin , APIView, ProviderActionPerm
             provider=provider).create_registration(patient_id=patient_id)
         data = RegistrationSerializer(new_registration).data
         return Response(status=status.HTTP_201_CREATED, data=data)
+
+
+
+
+
 
 
 # //////////////////////// Model APIS \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\

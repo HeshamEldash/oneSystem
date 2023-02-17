@@ -472,6 +472,32 @@ const createRegistration = async (provider_id, patient) => {
     }
   );
 };
+
+
+
+const getNumberOfPatients = async ({provider_id : provider_id}) => {
+  console.log(provider_id)
+  const response = await axios.get(
+    `${APIENDPOINT}/users/patient-provider-count-api/`,
+    {
+      method: "GET",
+      headers: {
+        "Content-type": "application/json",
+        Authorization:
+          "Bearer " +
+          String(JSON.parse(localStorage.getItem("authTokens"))?.access),
+        },
+        params: {provider_id: provider_id }
+    }
+  );
+  return response.data
+
+};
+
+
+
+
+
 export {
   searchPatients,
   getProfile,
@@ -486,4 +512,6 @@ export {
   deleteBranch,
   updateProviderProfile,
   createBranch,
+  getNumberOfPatients,
+
 };
