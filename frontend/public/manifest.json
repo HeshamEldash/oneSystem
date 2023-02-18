@@ -1,10 +1,10 @@
 {
- "name": "OneRecord",
- "short_name": "OneRecord",
+ "name": "DocNect",
+ "short_name": "DocNect",
  "start_url": "/",
  "scope":"/",
  "display": "standalone",
- "theme_color": "#000000",
+ "theme_color": "#431666",
  "background_color": "#ffffff",
  
  "icons": [

@@ -3,7 +3,6 @@ import ReactDOM from "react-dom/client";
 import App from "./App";
 import { BrowserRouter as Router } from "react-router-dom";
 import "./i18nextInit";
-import * as serviceWorkerRegistration from "./serviceWorkerRegistration";
 import {
   QueryClient,
   QueryClientProvider,
@@ -24,4 +23,9 @@ root.render(
   </React.StrictMode>
 );
 
-serviceWorkerRegistration.register();
+if ("serviceWorker" in navigator)
+  navigator.serviceWorker.register("./dev-sw.js?dev-sw", {
+    scope: "/",
+    type: "classic",
+  });
+
