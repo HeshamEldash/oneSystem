@@ -47,7 +47,8 @@
     "start": "vite",
     "build": "vite build",
     "serve": "vite preview",
-    "watch": "vite build -w"
+    "watch": "vite build -w",
+    "preview": "vite preview"
     
   },
   "engines": {

@@ -17,7 +17,7 @@ function AppointmentPanel() {
 
       </AppointmentSideBar>
       <div className="clinics_panel">
-        {clinics.map((clincData) => {
+        {clinics?.map((clincData) => {
           const sessionData = sessions.filter((session) => {
             return (
               session.clinic_id === clincData.id &&

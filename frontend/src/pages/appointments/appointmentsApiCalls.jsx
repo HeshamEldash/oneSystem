@@ -1,5 +1,5 @@
+import axios from "axios";
 import APIENDPOINT from "../../api/apiEndpoint.jsx";
-let token = JSON.parse(localStorage.getItem("authTokens"));
 
 const getSessionData = async (provider_id) => {
   let response = await fetch(
@@ -21,24 +21,60 @@ const getSessionData = async (provider_id) => {
 };
 
 
+// const getClinicData = async (provider_id) => {
+//   let response = await fetch(
+//     `${APIENDPOINT}/appointments/clinics/?` + new URLSearchParams({provider_id: provider_id}),
+//     {
+//       method: "GET",
+//       headers: {
+//         "Content-type": "application/json",
+//         Authorization: "Bearer " + String(JSON.parse(localStorage.getItem("authTokens"))?.access),
+//       },
+//     }
+//   )
+//     .then((response) => response.json())
+//     .then((data) => data);
+
+//   return response;
+// };
+
+
+
+// const getSessionData = async ({provider_id:provider_id}) => {
+//   let response = await axios.get(
+//     `${APIENDPOINT}/appointments/sessions/`,
+//     {
+//       headers: {
+//         "Content-type": "application/json",
+//         Authorization: "Bearer " + String(JSON.parse(localStorage.getItem("authTokens"))?.access),
+//       },
+//       params:{provider_id:provider_id}
+//     }
+//   )
+//   console.log(response)
+
+//   return response.data;
+// };
+
+
+const getClinicData = async ({provider_id:provider_id}) => {
+  let response = await axios.get(
+    `${APIENDPOINT}/appointments/clinics/` ,
+    {
+      headers: {
+        "Content-type": "application/json",
+        Authorization: "Bearer " + String(JSON.parse(localStorage.getItem("authTokens"))?.access),
+      },
+      params:{provider_id:provider_id},
+    }
+  )
+  // console.log(response.data)
+  return response.data;
+};
+
 
 
 const postSessionData = async (provider_id, listOfData) => {
-  /**
-    [{
-      "start": "2022-11-20T15:12:30Z",
-      "end": "2022-11-20T18:00:00Z",
-      "clinic_id": 1,
-      "slot_duration": 5
-          },
-      {
-      "start": "2022-11-20T15:12:30Z",
-      "end": "2022-11-20T18:00:00Z",
-      "clinic_id": 1,
-      "slot_duration": 5
-      }
-      ]  
-       */
   let response = await fetch(
     `${APIENDPOINT}/appointments/sessions/?` + new URLSearchParams({ provider_id:provider_id}),
     {
@@ -58,57 +94,69 @@ const postSessionData = async (provider_id, listOfData) => {
 
 
 const deleteClinic = async( clinic_id)=>{
-  let response = await fetch(
-    `${APIENDPOINT}/appointments/clinic/?` + new URLSearchParams({ clinic_id:clinic_id}),
+
+   await axios.delete(
+    `${APIENDPOINT}/appointments/clinic/` ,
     {
-      method: "DELETE",
       headers: {
         "Content-type": "application/json",
         Authorization: "Bearer " + String(JSON.parse(localStorage.getItem("authTokens"))?.access),
-      }
+      },
+      params:{ clinic_id:clinic_id}
     }
   )
+  .then(response => {
+     return response.data
+  })
+  
+
 }
 
-const getClinicData = async (provider_id) => {
-    let response = await fetch(
-      `${APIENDPOINT}/appointments/clinics/?` + new URLSearchParams({provider_id: provider_id}),
+
+
+  const postClinicData = async ({providerId,selectedBranch, selectedStaff, speciality}) => {
+    let response = await axios.post(
+      `${APIENDPOINT}/appointments/clinic-create/` ,
       {
-        method: "GET",
+        speciality: speciality,
+        provider: providerId,
+        branch:selectedBranch,
+        clinican: selectedStaff,
+      },
+      {
         headers: {
           "Content-type": "application/json",
           Authorization: "Bearer " + String(JSON.parse(localStorage.getItem("authTokens"))?.access),
         },
+        params:{ provider_id:providerId},
       }
     )
-      .then((response) => response.json())
-      .then((data) => data);
-  
-    return response;
+    return response.data 
   };
 
-  const postClinicData = async (provider_id,branch_id, selectedStaff, speciality) => {
-    let response = await fetch(
-      `${APIENDPOINT}/appointments/clinic-create/?` + new URLSearchParams({ provider_id:provider_id}),
-      {
-        method: "POST",
-        headers: {
-          "Content-type": "application/json",
-          Authorization: "Bearer " + String(JSON.parse(localStorage.getItem("authTokens"))?.access),
-        },
-        body:JSON.stringify({
-          speciality: speciality,
-          provider: provider_id,
-          branch:branch_id,
-          clinican: selectedStaff,
-        })
-      }
-    )
-      .then((response) => response.json())
-      .then((data) => data);
+
+  // const postClinicData = async ({providerId,selectedBranch, selectedStaff, speciality}) => {
+  //   let response = await fetch(
+  //     `${APIENDPOINT}/appointments/clinic-create/?` + new URLSearchParams({ provider_id:providerId}),
+  //     {
+  //       method: "POST",
+  //       headers: {
+  //         "Content-type": "application/json",
+  //         Authorization: "Bearer " + String(JSON.parse(localStorage.getItem("authTokens"))?.access),
+  //       },
+  //       body:JSON.stringify({
+  //         speciality: speciality,
+  //         provider: providerId,
+  //         branch:selectedBranch,
+  //         clinican: selectedStaff,
+  //       })
+  //     }
+  //   )
+  //     .then((response) => response.json())
+  //     .then((data) => data);
   
-    return response;
-  };
+  //   return response;
+  // };
 
 
   
@@ -173,4 +221,4 @@ const getClinicData = async (provider_id) => {
 
 
 
-  export { bookAppointment, updateAppointmentStatus, deleteClinic, getClinicData,getSessionData,postClinicData,postSessionData,  }
+  export { bookAppointment, updateAppointmentStatus, deleteClinic, getClinicData,getSessionData,postClinicData,postSessionData}

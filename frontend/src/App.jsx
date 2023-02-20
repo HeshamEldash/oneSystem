@@ -36,6 +36,7 @@ import AppointmentsSchedulerFormik from "./pages/appointments/appointmentsCreate
 import StaffWrapper from "./pages/staff/StaffWrapper.jsx";
 import NotFound from "./pages/NotFound.jsx";
 import ProviderNotAuthPage from "./pages/provider/ProviderNotAuthPage.jsx";
+import Home from "./pages/Home.jsx";
 
 
 
@@ -46,13 +47,10 @@ function App() {
     <div className="App {i18n.language === 'en' ? 'english': 'arabic'}">
       <AuthProvider>
         <Header />
-
         <Routes>
           <Route element={<ProtectedUserRoutes/> } >
             <Route path="/app">
-
                 <Route element={<StaffWrapper />} path="staff-dashboard" />
-
                 <Route element={<ProviderMainContainer />} path="provider/:id">
                   <Route index element={<ProviderHome />} />
 
@@ -101,17 +99,12 @@ function App() {
                     <Route element={<ClinicCreate />} path="clinic-create" />
                   </Route>
                 </Route>
-
             </Route>
           </Route>
           
           <Route element={<ProviderNotAuthPage />} path="/ProviderNotAuthPage" />
 
           <Route element={<Login />} path="/login" />
-
-          {/* <Route element={<RegistrationChoice />} path="/registration-choice" /> */}
-          {/* <Route element={<RegisterationPage />} path="/registration/staff" /> */}
-
           <Route element={<RegistrationLayout />} path="/register">
             <Route element={<RegistrationStaffMultiStep />} path="staff" />
             <Route element={<ProviderRegistration />} path="provider" />
@@ -119,6 +112,7 @@ function App() {
           </Route>
 
           <Route element={<NotFound/>} path="*" />
+          <Route element={<Home/>} path="/" />
         </Routes>
       </AuthProvider>
     </div>

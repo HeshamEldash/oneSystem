@@ -3,11 +3,11 @@ import react from "@vitejs/plugin-react";
 import tsconfigPaths from "vite-tsconfig-paths";
 import jsconfigPaths from "vite-jsconfig-paths";
 import svgrPlugin from "vite-plugin-svgr";
-import { VitePWA } from 'vite-plugin-pwa'
+import { VitePWA } from "vite-plugin-pwa";
 
 export default defineConfig({
   server: {
-    host:true,
+    host: true,
     port: 3000,
   },
   build: {
@@ -26,66 +26,76 @@ export default defineConfig({
       jsxRuntime: "classic",
     }),
 
-    VitePWA(
-      { 
-        registerType: 'autoUpdate',
+    VitePWA({
+      registerType: "autoUpdate",
 
-        devOptions: {
-          enabled: true,
+      // devOptions: {
+      //   enabled: false,
 
-        },
+      // },
 
-        injectRegister: 'auto',
+      injectRegister: "auto",
 
-        workbox: {
-          globPatterns: ['**/*.{js,css,html,ico,png,svg}'],
-          runtimeCaching:[
-            {
-              urlPattern:({url})=>{
-                  return url.pathname.startsWith("/app-api")
-              },
-              handler:"StaleWhileRevalidate",
-              options:{
-                cacheName:"api-cache",
-                cacheableResponse:{
-                  statuses:[0, 200]
-                }
-              }
-              
+      workbox: {
+        globPatterns: ["**/*.{js,jsx,css,html,ico,png,svg}"],
+        maximumFileSizeToCacheInBytes: 100000000,
+        runtimeCaching: [
+          {
+            urlPattern: ({ url }) => {
+              return url.pathname.startsWith("/app-api");
             },
-          ],
-
-        },
-
-        strategies:"generateSW",
-
-
-
-
-        // includeAssets: ['favicon.ico', 'apple-touch-icon.png', 'masked-icon.svg'],
-        // manifest: {
-        //   name: 'My Awesome App',
-        //   short_name: 'MyApp',
-        //   description: 'My Awesome App description',
-        //   theme_color: '#ffffff',
-        //   icons: [
-        //     {
-        //       src: 'pwa-192x192.png',
-        //       sizes: '192x192',
-        //       type: 'image/png'
-        //     },
-        //     {
-        //       src: 'pwa-512x512.png',
-        //       sizes: '512x512',
-        //       type: 'image/png'
-        //     }
-        //   ]
-        // }
-
-
+            handler: "StaleWhileRevalidate",
+            options: {
+              cacheName: "api-cache",
+              cacheableResponse: {
+                statuses: [0, 200],
+              },
+            },
+          },
+        ],
       },
 
-      ),
+      strategies: "generateSW",
+
+      // includeAssets: ['favicon.ico', 'apple-touch-icon.png', 'masked-icon.svg'],
+      manifest: {
+        name: "DocNect",
+        short_name: "DocNect",
+        description: "Connecting Patients and Doctors",
+        scope: "/",
+        start_url: "app/staff-dashboard",
+        display: "standalone",
+        theme_color: "#431666",
+        background_color: "#ffffff",
+
+        icons: [
+          {
+            src: "icons/manifest-icon-192.maskable.png",
+            sizes: "192x192",
+            type: "image/png",
+            purpose: "any",
+          },
+          {
+            src: "icons/manifest-icon-192.maskable.png",
+            sizes: "192x192",
+            type: "image/png",
+            purpose: "maskable",
+          },
+          {
+            src: "icons/manifest-icon-512.maskable.png",
+            sizes: "512x512",
+            type: "image/png",
+            purpose: "any",
+          },
+          {
+            src: "icons/manifest-icon-512.maskable.png",
+            sizes: "512x512",
+            type: "image/png",
+            purpose: "maskable",
+          },
+        ],
+      },
+    }),
 
     svgrPlugin(),
     jsconfigPaths(),

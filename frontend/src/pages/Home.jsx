@@ -1,11 +1,19 @@
-import React from 'react'
+import React, { useContext } from 'react'
+import { Navigate } from 'react-router';
+import AuthContext from '../context/AuthContext';
 
 function Home() {
-  return (
-    <div>
-      <h1>THIS IS THE HOME PAGE</h1>
-    </div>
-  )
+const {user , isLoggingOut }= useContext(AuthContext)
+if (!user) {
+  if (isLoggingOut){
+      return 
+  }
+  return <Navigate to={'/login'} replace />;
+}
+
+return <Navigate to={'/app/staff-dashboard'} replace />;
+
+
 }
 
 export default Home

@@ -32,15 +32,10 @@ export default function ProviderContextProvider(props) {
   const { isLoading:providerLoading, isError:providerError, data:profile } = useGetProvider(id)
 
   useEffect(() => {
-
     if(employmentListError?.response?.status === 403){
       queryClient.removeQueries({queryKey:["provider, employments-list"], exact:true})
       navigate("/ProviderNotAuthPage")
     }
-
-    
-
-
     localStorage.setItem("provider", JSON.stringify(id));
   }, [employmentListError]);
 

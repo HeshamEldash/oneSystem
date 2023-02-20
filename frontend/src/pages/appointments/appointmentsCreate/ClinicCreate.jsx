@@ -5,11 +5,9 @@ import MenuItem from "@mui/material/MenuItem";
 import InputLabel from "@mui/material/InputLabel";
 import { ProviderContext } from "../../provider/context/ProviderContext";
 import { useTranslation } from "react-i18next";
-import { deleteClinic, postClinicData } from "../appointmentsApiCalls";
 import { AppointmentContext } from "../AppointmentsContext";
 import { ToastContainer, toast } from "react-toastify";
-import ContextMenu from "../../../components/ContextMenu";
-import ContextMenuItem from "../../../components/ContextMenuItem";
+import { useCreateClinic, useDeleteClinic } from "../api/useAppointmentDataApi";
 
 function ClinicCreate() {
   const { listOfEmployments, providerId, branches } =
@@ -18,6 +16,11 @@ function ClinicCreate() {
   const { t } = useTranslation();
   const [selectedStaff, setSelectedStaff] = useState("");
   const [selectedBranch, setSelectedBranch] = useState("");
+
+  const { mutate: deleteClinic } = useDeleteClinic();
+
+  const { mutate: createClinic, isSuccess, isError } = useCreateClinic();
+
   const specialityRef = useRef();
   const notify = () =>
     toast(t("clinic created succesfuly"), {
@@ -38,34 +41,31 @@ function ClinicCreate() {
   const handleDelete = (clinicId) => {
     alert(t("Do yo really want to delete the clinic "));
 
-    setClinics((prev) => {
-      return prev.filter((clinic) => {
-        return clinic.id != clinicId;
-      });
-    });
-
     deleteClinic(clinicId);
   };
 
   const handleSubmit = async () => {
-
     const speciality = specialityRef.current.value;
-    const clinicDetails = await postClinicData(
-      providerId,
-      selectedBranch,
-      selectedStaff,
-      speciality
+
+    createClinic(
+      {
+        providerId,
+        selectedBranch,
+        selectedStaff,
+        speciality,
+      },
+      {
+        onSuccess: () => {
+          notify();
+          setSelectedStaff("");
+          setSelectedBranch("");
+          specialityRef.current.value = "";
+        },
+        onError: (error)=>{
+          notify("an error has occured")
+        }
+      }
     );
-
-    setClinics((prev) => [...prev, clinicDetails]);
-
-    setSelectedStaff("");
-    setSelectedBranch("");
-
-
-    specialityRef.current.value = "";
-
-    notify();
   };
 
   return (
@@ -105,7 +105,7 @@ function ClinicCreate() {
             })}
           </Select>
         </FormControl>
-            <br/>
+        <br />
         <FormControl fullWidth>
           <InputLabel id="select-staff-label">{t("Staff")}</InputLabel>
           <Select
@@ -143,17 +143,16 @@ function ClinicCreate() {
       <div className=" primary--page-box ">
         <h2>{t("all clinics")}</h2>
 
-        {clinics?.map((clinic) => {
+        {clinics?.map((clinic, index) => {
           return (
             <div
               className="inner-page-box margin_bottom_small clinic"
-              key={clinic.id}
+              key={clinic.id ? clinic.id : index + clinic.speciality}
               id={clinic.id}
             >
               <div>
                 <span>Dr {clinic?.clinican_details?.first_name}</span>
                 <span>{clinic?.clinican_details?.last_name}</span>
-
               </div>
               <span>{clinic.branch}</span>
 
