@@ -8,9 +8,8 @@ function RegistrationLayout() {
 
 
   return (
-    <div style={{backgroundColor:"#f1f1f142", minHeight:"100vh", display:"flex", justifyContent:"center",
-      // background:"linear-gradient(135deg, rgb(76, 6, 67) 0.00%,rgb(67, 22, 102) 33.00%,rgb(67, 22, 102) 62.00%,rgb(97, 44, 138) 84.00%)",
-      backgroundColor:"#EFF0F2",
+    <div style={{minHeight:"100vh", display:"flex", justifyContent:"center",
+        backgroundColor:"#EFF0F2",
       flexDirection:"column", alignItems:"center", paddingBlock : "8%",
   
      }}>

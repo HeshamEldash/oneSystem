@@ -29,10 +29,10 @@ export default defineConfig({
     VitePWA({
       registerType: "autoUpdate",
 
-      // devOptions: {
-      //   enabled: false,
+      devOptions: {
+        enabled: false,
 
-      // },
+      },
 
       injectRegister: "auto",
 
@@ -50,6 +50,20 @@ export default defineConfig({
               cacheableResponse: {
                 statuses: [0, 200],
               },
+            },
+          },
+          {
+            urlPattern: ({ url }) => {
+              return url.pathname.startsWith("/app-api");
+            },
+            method:"POST",
+
+            handler: "NetworkFirst",
+            options: {
+              backgroundSync:{
+                name:"POST-sync",
+              }
+
             },
           },
         ],

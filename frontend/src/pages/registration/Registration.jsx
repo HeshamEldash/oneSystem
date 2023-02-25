@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useContext } from "react";
 import AuthContext from "../../context/AuthContext";
 import { Link } from "react-router-dom";
 import { useFormik } from "formik";
@@ -8,7 +8,6 @@ import "./registration.css";
 import Select from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
 import { useNavigate } from "react-router-dom";
-import { useOutletContext } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 
 import APIENDPOINT from "../../api/apiEndpoint.jsx";

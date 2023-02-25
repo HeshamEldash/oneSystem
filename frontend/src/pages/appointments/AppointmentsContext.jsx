@@ -7,7 +7,6 @@ import { builtInIsToday } from "./utils/datetimeUtils";
 
 const AppointmentContext = createContext();
 function AppointmentsContextProvider(props) {
-  const [clinicsdd, setClinics] = useState([]);
   const [sessions, setSessions] = useState([]);
   const [displayDate, setDisplayDate] = useState();
 
@@ -23,10 +22,7 @@ function AppointmentsContextProvider(props) {
     .flat()
     .filter(slot => slot.appointment != null)
 
-  const getClinicDataCall = async () => {
-    const clinicData = await getClinicData(id);
-    setClinics(clinicData);
-  };
+
 
 
   const {data:clinics}= useGetClinicData(id)
@@ -37,14 +33,12 @@ function AppointmentsContextProvider(props) {
   };
 
   useEffect(() => {
-    getClinicDataCall();
     getSessions();
   }, []);
 
   const contextData = {
     provider_id: id,
     clinics: clinics,
-    setClinics: setClinics,
     sessions: sessions,
     setSessions: setSessions,
     dateToShow: "10-10-120",

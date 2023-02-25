@@ -12,13 +12,11 @@ import Navbar from "../../components/ui/Navbar";
 import NavMenu from "../../components/ui/NavMenu";
 import home from "../../assets/images/home3.svg";
 import { ProviderContext } from "./context/ProviderContext";
-import useUserRoles from "./useUserRoles";
 
 function ProviderLayout() {
   const { t } = useTranslation();
   const { id } = useParams();
-  const {user_perms} = useContext(ProviderContext)
-
+  const { user_perms } = useContext(ProviderContext);
 
   const navigate = useNavigate();
   let location = useLocation();
@@ -90,27 +88,26 @@ function ProviderLayout() {
           ]}
         ></NavMenu>
 
-        {user_perms.isManager && <NavMenu
-          buttonName={t("Settings")}
-          menuItems={[
-            {
-              name: t("update_profile"),
-              func: () => {
-                navigate(`/app/provider/${id}/profile-update`);
+        {user_perms.isManager && (
+          <NavMenu
+            buttonName={t("Settings")}
+            menuItems={[
+              {
+                name: t("update_profile"),
+                func: () => {
+                  navigate(`/app/provider/${id}/profile-update`);
+                },
               },
-            },
-            {
-              name: t("manage_staff"),
+              {
+                name: t("manage_staff"),
 
-              func: () => {
-                navigate(`/app/provider/${id}/manage-staff`);
+                func: () => {
+                  navigate(`/app/provider/${id}/manage-staff`);
+                },
               },
-            },
-          ]}
-        ></NavMenu>
-        }
-
-
+            ]}
+          ></NavMenu>
+        )}
 
         <NavMenu
           buttonName={t("appointments")}
@@ -132,7 +129,9 @@ function ProviderLayout() {
               name: t("scheduler"),
 
               func: () => {
-                navigate(`/app/provider/${id}/appointments/appointment-scheduler`);
+                navigate(
+                  `/app/provider/${id}/appointments/appointment-scheduler`
+                );
               },
             },
           ]}

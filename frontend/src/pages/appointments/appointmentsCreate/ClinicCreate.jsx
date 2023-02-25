@@ -12,7 +12,7 @@ import { useCreateClinic, useDeleteClinic } from "../api/useAppointmentDataApi";
 function ClinicCreate() {
   const { listOfEmployments, providerId, branches } =
     useContext(ProviderContext);
-  const { clinics, setClinics } = useContext(AppointmentContext);
+  const { clinics} = useContext(AppointmentContext);
   const { t } = useTranslation();
   const [selectedStaff, setSelectedStaff] = useState("");
   const [selectedBranch, setSelectedBranch] = useState("");

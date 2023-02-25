@@ -51,7 +51,7 @@ function RecordProfile() {
                 <span>
                   {displayedProfile?.first_name
                     ? displayedProfile?.first_name
-                    : patient.first_name}
+                    : patient?.first_name}
                 </span>
               </div>
 
@@ -253,32 +253,6 @@ function RecordProfile() {
           <h2>{t("Email")}</h2>
           <div className="inpage-container_record">
             {patient.account_email}
-
-            {/* <div className="inpage-container_record__buttons">
-              {!updateTelephone ? (
-                <input
-                  className="b3 "
-                  type="button"
-                  value={"update"}
-                  onClick={() => setUpdateTelephone(true)}
-                />
-              ) : (
-                <>
-                  <input
-                    className="b3 "
-                    type="button"
-                    value={"submit"}
-                    onClick={() => console.log("submit")}
-                  />
-                  <input
-                    className="b3 r"
-                    type="button"
-                    value={"discard"}
-                    onClick={() => setUpdateTelephone((prev) => !prev)}
-                  />
-                </>
-              )}
-            </div> */}
           </div>
         </div>
       )}

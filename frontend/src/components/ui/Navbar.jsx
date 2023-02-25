@@ -1,19 +1,13 @@
 import React, { useContext, useState } from "react";
 import Backdrop from "@mui/material/Backdrop";
-import "../ui/ui.css"
-
+import "../ui/ui.css";
 
 function Navbar({ children }) {
   const [isNavExpanded, setIsNavExpanded] = useState(false);
 
-
-
-
   return (
-    <div className="main-navbar " >
+    <div className="main-navbar ">
       <div className="main-navbar__links">
-
-
         <button
           className="hamburger"
           onClick={() => {
@@ -35,19 +29,11 @@ function Navbar({ children }) {
           </svg>
         </button>
 
-
         <div
           className={
             isNavExpanded ? "navigation-menu expanded" : "navigation-menu"
           }
         >
-                {/* <Backdrop
-        sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
-        open={isNavExpanded}
-        // onClick={handleClose}
-      > */}
-
-
           <ul>
             {children?.map((item, index) => {
               return (
@@ -62,11 +48,7 @@ function Navbar({ children }) {
               );
             })}
           </ul>
-
-          
-        {/* </Backdrop> */}
         </div>
-
       </div>
     </div>
   );
