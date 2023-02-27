@@ -31,7 +31,6 @@ export default defineConfig({
 
       devOptions: {
         enabled: false,
-
       },
 
       injectRegister: "auto",
@@ -56,16 +55,55 @@ export default defineConfig({
             urlPattern: ({ url }) => {
               return url.pathname.startsWith("/app-api");
             },
-            method:"POST",
+            method: "POST",
 
             handler: "NetworkFirst",
             options: {
-              backgroundSync:{
-                name:"POST-sync",
-              }
-
+              backgroundSync: {
+                name: "POST-sync",
+              },
             },
           },
+          {
+            urlPattern: ({ url }) => {
+              return url.pathname.startsWith("/app-api");
+            },
+            method: "PATCH",
+
+            handler: "NetworkFirst",
+            options: {
+              backgroundSync: {
+                name: "PATCH-sync",
+              },
+            },
+          },
+          {
+            urlPattern: ({ url }) => {
+              return url.pathname.startsWith("/app-api");
+            },
+            method: "DELETE",
+
+            handler: "NetworkFirst",
+            options: {
+              backgroundSync: {
+                name: "DELETE-sync",
+              },
+            },
+          },
+          {
+            urlPattern: ({ url }) => {
+              return url.pathname.startsWith("/app-api");
+            },
+            method: "PUT",
+
+            handler: "NetworkFirst",
+            options: {
+              backgroundSync: {
+                name: "PUT-sync",
+              },
+            },
+          },
+
         ],
       },
 

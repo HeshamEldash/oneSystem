@@ -1,4 +1,7 @@
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import { openDB, deleteDB, wrap, unwrap } from 'idb';
+import { dbHandler } from "./dbFunc";
+import { v4 as uuidv4 } from 'uuid';
 
 export const usePost = (posterFunc, qKey) => {
   const queryClient = useQueryClient();
@@ -116,61 +119,26 @@ export const useFlexMutation = (
       if (directQueryUpdate) {
         queryClient.setQueryData(qKey, newData);
       } else {
+        console.log("invalidated........................")
         queryClient.invalidateQueries({ queryKey: qKey });
       }
     },
-    onError: (err, data, {qKey}) => {
-      console.log(err);
-      console.log(err.config.data);
-      console.log(data);
-      console.log(caches);
-      console.log(qKey);
+    // onError: (err, data, {qKey}) => {
+  
+    //   let nData = { id: uuidv4(), ...data };
+    //   let reqMethod = err.config.method
+      
 
-      let nData = { id: 222222, ...data };
-
-      caches.open("offline-mutate-cache").then((c) => {
-        
-
-        console.log("Cache opened");
-        c.match("http://127.0.0.1:8000/app-api/appointments/clinics/", {
-          ignoreVary: true,
-          ignoreMethod: true,
-          ignoreSearch: true,
-        })
-          .then((match) => {
-            console.log("old response", match);
-            return match.json();
-          })
-          .then((t) => {
-            // console.log("old data", t);
-            // console.log(nData);
-            // console.log([...t, nData]);
-            // console.log("new reponse");
-            // const newResponse =new Response(JSON.stringify([...t, nData]), {
-            //   headers: {
-            //     "Content-Type": "application/json",
-            //     'Access-Control-Allow-Origin': '*',
-            //     'Access-Control-Allow-Methods': 'GET, POST, PUT',
-            //     'Access-Control-Allow-Headers': 'Content-Type',
-            //   },
-            //   status: 200,
-            //   statusText: 'OK',
-            //   type: 'cors',
-            //   url: "http://127.0.0.1:8000/app-api/appointments/clinics/",
-            // })
-            // console.log("new response" , newResponse)
-            c.put("",newResponse )
-
-          });
-      });
-      if (err.code === "ERR_NETWORK") {
-        console.log(err);
-        // the async offline functionality will go here
-      } else {
-        // handling other errors
-        console.log(err);
-      }
-    },
+    //   dbHandler(reqMethod, qKey, nData)
+      
+    //   if (err.code === "ERR_NETWORK") {
+    //     // console.log(err);
+    //     // the async offline functionality will go here
+    //   } else {
+    //     // handling other errors
+    //     console.log(err);
+    //   }
+    // },
   });
 };
 

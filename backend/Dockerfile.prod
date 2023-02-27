@@ -1,5 +1,7 @@
 FROM python:3.9.6-alpine
-WORKDIR /app
+
+# set work directory
+WORKDIR /usr/src/backend
 
 ENV DEBUG  "True"
 ENV FRONT_ENDPOINT "127.0.0.1"

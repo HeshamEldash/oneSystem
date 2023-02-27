@@ -1,6 +1,8 @@
 import APIENDPOINT from "./apiEndpoint";
 const token = JSON.parse(localStorage.getItem("authTokens"));
 
+
+
 const deletePhoneNumber = async (phone_id) => {
     const response = await fetch(
       `${APIENDPOINT}/users/telephone-number-detail/${phone_id}/`,
