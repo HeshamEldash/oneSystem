@@ -8,8 +8,10 @@ environ.Env.read_env(env_file= os.path.join(BASE_DIR.parent, '.env'))
 DEBUG = True
 SECRET_KEY=env("SECRET_KEY")
 SIGNING_KEY = "VK15OxWDH8e1gw_cKrdD2Ktoqm4ozUvBxBtYMzkwAjc"
-ALLOWED_HOSTS=[]
+ALLOWED_HOSTS=["127.0.0.1", "localhost"]
 FRONT_ENDPOINT = env("FRONT_ENDPOINT")
+
+
 
 
 
@@ -46,12 +48,14 @@ SIMPLE_JWT = {
 }
 
 
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR.parent / 'oneSysDb.sqlite3',
     }
 }
+
 
 
 CORS_ALLOWED_ORIGINS = ["http://localhost:3000"]

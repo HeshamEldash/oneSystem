@@ -9,7 +9,6 @@ import StaffProfileItem from "./StaffProfileItem";
 import { StaffContext } from "./StaffContext";
 import TelephoneDisplay from "../../components/telephoneNew/TelephoneDisplay";
 import { updateStaffTelephoneList } from "./api/staffApi";
-import SmallButton from "../../components/ui/SmallButton";
 import FlexibleButton from "../../components/ui/buttons/FlexibleButton";
 
 function StaffDashboard() {
@@ -25,10 +24,11 @@ function StaffDashboard() {
   return (
       <>
       <div className="main_page_under_nav">
+      <div className="page_header_container">
         <h1 className="page_header">{t("My Dashboard")}</h1>
-
+      </div>
         <div className="primary--page-box">
-          <h2 className="margin_bottom_small"> {t("profile_information")}</h2>
+          <h2 className="margin_bottom_small"> {t("profile_information_personal")}</h2>
           <h4 className="subtitle">{t("Name")}:</h4>
           {staffProfile?.staff_profile?.first_name}{" "}
           {staffProfile?.staff_profile?.middle_names}{" "}

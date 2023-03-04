@@ -25,6 +25,7 @@ function StaffProfiles({ profiles }) {
                 staffId={profile?.staff_id}
                 providerID={profile?.provider_id}
                 provider={profile?.provider}
+                role={profile.employment_role}
               />
             ))}
           </div>

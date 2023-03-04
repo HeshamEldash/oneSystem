@@ -27,8 +27,13 @@ function NavMenu(props) {
         aria-haspopup="true"
         aria-expanded={open ? "true" : undefined}
         onClick={handleClick}
-        endIcon={<KeyboardArrowDownIcon />}
-        sx={{ color: "white" }}
+        endIcon={
+        <KeyboardArrowDownIcon
+        sx={{marginInlineStart:"8px"}}
+         />
+         }
+        sx={{ color: "white", paddingInline:"2px" }}
+        disableElevation={true}
       >
         {props?.buttonName}
       </Button>

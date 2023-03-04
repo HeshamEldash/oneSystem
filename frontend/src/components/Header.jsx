@@ -1,48 +1,40 @@
 import React, { useContext } from "react";
-import {
-  NavLink, useLocation,
-} from "react-router-dom";
+import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import LanguageSelect from "./LanguageSelect.jsx";
 import "./header.css";
 import LogoutIcon from "@mui/icons-material/Logout";
 import AuthContext from "../context/AuthContext.jsx";
-import logo from "../assets/images/logo.png";
-
+import logo from "../assets/images/logon.png";
 
 function Header() {
   const { t } = useTranslation();
   const { logoutUser, user } = useContext(AuthContext);
-  const  {pathname} =useLocation()
+  const { pathname } = useLocation();
+  const navigate = useNavigate()
 
-
-  const headerClassName = ()=>{
-    if (pathname.includes("app/provider")   ){
-      return "header header--small"
+  const headerClassName = () => {
+    if (pathname.includes("app/provider")) {
+      return "header header--small";
+    } else {
+      return "header";
     }
-    else {
-      return "header"
-    }
-
-
-  }
+  };
 
   return (
     // <div className={i18n.language === 'en' ?  'header english': 'header arabic'} >
     <div className={headerClassName()}>
-      <div className="header_logo"
+      <div className="header_logo">
+        <img
+          src={logo}
+          onClick={() =>navigate("/")}
+          style={{width:"150px" }}
 
-      > 
-        <img src={logo}
-
-    
-          onClick={()=>location.href = 'http://127.0.0.1:8000/' }
         />
       </div>
 
-
       <LanguageSelect />
-        
+
       {user ? (
         <>
           <div className="header-content">

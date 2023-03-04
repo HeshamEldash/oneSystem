@@ -1,10 +1,36 @@
+version: "1.0"
+
 services:
   frontend:
-    build: ./frontend
+    build: 
+      context: ./frontend
+      dockerfile: Dockerfile
     ports:
       - 3000:3000
-  
+    restart: unless-stopped
+
   backend:
-    build: ./backend  
+    build: 
+      context: ./backend
+      dockerfile: Dockerfile
+    volumes:
+      - ./backend/:/usr/src/backend/
     ports:
       - 8000:8000
+    restart: unless-stopped
+    env_file:
+      - ./backend/.env
+
+  db:
+    image: postgres:13.0-alpine
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+    environment:
+      - POSTGRES_USER=hello_django
+      - POSTGRES_PASSWORD=hello_django
+      - POSTGRES_DB=hello_django_dev
+
+volumes:
+  postgres_data:
+    
+ 

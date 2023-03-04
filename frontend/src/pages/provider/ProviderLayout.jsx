@@ -79,7 +79,7 @@ function ProviderLayout() {
               },
             },
             {
-              name: t("manage_patients"),
+              name: t(" "),
 
               func: () => {
                 navigate(`/app/provider/${id}/manage-patients`);
@@ -88,8 +88,8 @@ function ProviderLayout() {
           ]}
         ></NavMenu>
 
-        {user_perms.isManager && (
-          <NavMenu
+          {user_perms.isManager || user_perms.isOwner ?
+            <NavMenu
             buttonName={t("Settings")}
             menuItems={[
               {
@@ -106,8 +106,10 @@ function ProviderLayout() {
                 },
               },
             ]}
-          ></NavMenu>
-        )}
+          ></NavMenu> :
+          null
+          }
+        
 
         <NavMenu
           buttonName={t("appointments")}

@@ -105,9 +105,17 @@
 
 
 .page_header {
-  margin-bottom: 3rem;
   /* padding-inline: 4rem; */
+  color: #676c6f;
+  font-weight: 800;
+  
 
+
+}
+.page_header_container{
+  margin-inline: auto;
+  max-width: 100rem;
+  margin-bottom: 3rem;
 }
 .primary--page-box {
   background-color: white;

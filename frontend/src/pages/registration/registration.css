@@ -64,7 +64,7 @@
   flex-wrap: wrap;
   gap: 2rem;
 }
-.card {
+.cardr {
   z-index: 100;
   min-width: 290px;
 
@@ -81,7 +81,7 @@
   -webkit-box-shadow: 0px 0px 24px 5px rgba(40, 39, 39, 0.6);
   -moz-box-shadow: 0px 0px 24px 5px rgba(40, 39, 39, 0.6);
 }
-.card img{
+.cardr img{
     width: 150px;
 }
 

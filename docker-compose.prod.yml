@@ -1,38 +1,53 @@
 version: "1.0"
 
 services:
-
-
   frontend:
     build: 
       context: ./frontend
       dockerfile: Dockerfile.prod
     ports:
-      - 80:80
+      - 3000:80
     restart: unless-stopped
 
   backend:
     build: 
       context: ./backend
       dockerfile: Dockerfile.prod
+    command: gunicorn oneSystem_core.wsgi:application --bind 0.0.0.0:8000
+    
     volumes:
-      - ./backend/:/usr/src/backend/
-    ports:
-      - 8000:8000
-    restart: unless-stopped
+      - static_volume:/home/app/backend/staticfiles
+      - media_volume:/home/app/backend/media
+    expose:
+      - 8000
+    restart: unless-stopped 
     env_file:
-      - ./.env.prod
+      - ./backend/.env.prod
+    depends_on:
+      - db
 
   db:
     image: postgres:13.0-alpine
     volumes:
       - postgres_data:/var/lib/postgresql/data/
-    environment:
-      - POSTGRES_USER=hello_django
-      - POSTGRES_PASSWORD=hello_django
-      - POSTGRES_DB=hello_django_dev
+    env_file:
+      - ./backend/.env.prod.db
+
+
+  nginx:
+    build: ./nginx
+    volumes:
+      - static_volume:/home/app/backend/staticfiles
+      - media_volume:/home/app/backend/media
+    ports:
+      - 1337:80
+    depends_on:
+      - backend
+
 
 volumes:
   postgres_data:
+  static_volume:
+  media_volume:
     
  

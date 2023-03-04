@@ -1,11 +1,12 @@
 import React, { useContext, useState } from "react";
+import { useTranslation } from "react-i18next";
 import Circle from "../../components/Circle";
 import { useGetNumberOfRegisteredPatients } from "./api/useProviderDataApi";
 import GetAllRegisteredPatients from "./components/GetAllRegisteredPatients";
 import { ProviderContext } from "./context/ProviderContext";
 
 function ProviderManagePatients() {
-
+  const {t}= useTranslation()
   const {providerId}= useContext(ProviderContext)
   const [openAllPatients, setOpenAllPatients] = useState(false);
 
@@ -21,7 +22,7 @@ function ProviderManagePatients() {
           type="button"
           className="page_button page_button-padding-inline-small"
           onClick={() => setOpenAllPatients((prev) => !prev)}
-          value={"get_all_patients"}
+          value={t("Get all patients")}
         />
         <div>
           <Circle>{numberOfPatinets && numberOfPatinets?.patient_count}</Circle>

@@ -28,7 +28,8 @@ const getLogin = async ()=>{
     <div className='inner-page-box inner-page-box__small-width inner-page-box--flex'>
 
     <span className='staff-profile-item--name'>{props.provider}</span>
-    <span>{login && "last login: " + new Date(login.start_time).toLocaleString() }</span>
+    <span>{login && t("last login") + ": " + new Date(login.start_time).toLocaleString() }</span>
+    <span>{props.role}</span>
     
     <Link onClick={()=>{
         createLogin(props.staffId,props.providerID)  

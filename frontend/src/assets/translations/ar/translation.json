@@ -108,14 +108,27 @@
   "You cannot add an empty condition":"لا يمكن اضافة تشخيص خالي",
   "condition":"التشخيص",
   "No recorded medical conditions":"لا يوجد تشخيص مسجل",
-  "gwcxceeggd":"",
-  "gweg89gd":"",
-  "gwe9wui7ggd":"",
-  "gwe2ggd":"",
-  "gw908eggd":""
+  "My Dashboard":"الصفحة الشخصية",
+  "save":"حفظ",
+  "Phone":" رقم التليفون",
+  "profile_information_personal":"المعلومات الشخصية",
+  "Name":"الاسم",
+  "your_clinic":"العيادة الخاصة",
+  "your_profiles":"الوظائف",
+  "last login":"أخر دخول",
+  "role":"الدور الوظيفي",
+  "search_patients_not_registered_with_you":"بحث المرضى غير المسجلين مع المركز",
+  "search":"بحث",
+  "Settings":"الاعدادات",
+  "appointments":"الحجوزات",
+  "manage_patients":"المرضى",
+  "clinic-create":"تسجيل عيادة",
+  "appointments_panel":" لوحة الحجوزات",
+  "scheduler":" اعداد الحجوزات ",
+  "create_session":"انشاء سيشن",
+  "apurtupointments":"الحجوزات",
+  "apporuertuintments":"الحجوزات",
+  "appointurtments":"الحجوزات",
+  "appo45uintments":"الحجوزات"
 
-
-
-
-  
 }
