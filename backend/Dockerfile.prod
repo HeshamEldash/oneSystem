@@ -36,7 +36,7 @@ RUN addgroup -S app && adduser -S app -G app
 ENV HOME=/home/app
 ENV APP_HOME=/home/app/backend  
 
-RUN mkdir $APP_HOME 
+RUN mkdir $APP_HOME && chown -R app:app $APP_HOME
 RUN mkdir $APP_HOME/staticfiles
 RUN mkdir $APP_HOME/media
 WORKDIR $APP_HOME
@@ -53,5 +53,5 @@ RUN chown -R app:app $APP_HOME
 
 USER app
 
-# ENTRYPOINT ["/home/app/backend/entrypoint.prod.sh"]
+ENTRYPOINT ["/home/app/backend/entrypoint.prod.sh"]
 
