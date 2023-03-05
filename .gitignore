@@ -136,6 +136,8 @@ celerybeat.pid
 
 # Environments
 .env
+.env.prod
+.env.prod.db 
 .venv
 env/
 venv/
@@ -189,4 +191,8 @@ psd
 thumb
 sketch
 
+Dockerfile.prod 
+Dockerfile 
+docker-compose.yml 
+docker-compose.prod.yml
 # End of https://www.toptal.com/developers/gitignore/api/django,react
