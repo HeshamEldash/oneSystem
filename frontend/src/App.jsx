@@ -1,7 +1,7 @@
 import { BrowserRouter as Router, Route, Routes, useLocation } from "react-router-dom";
 import RegisterationPage from "./pages/registration/Registration.jsx";
 import Header from "./components/Header.jsx";
-import "./app.css";
+// import "./app.css";
 import "./newapp.css";
 import "./utility.css";
 import "./components/components.css";
