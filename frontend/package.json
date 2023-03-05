@@ -30,7 +30,6 @@
     "modclean": "^3.0.0-beta.1",
     "react": "^18.2.0",
     "react-datepicker": "^4.8.0",
-    "react-doc-viewer": "^0.1.5",
     "react-dom": "^18.2.0",
     "react-helmet": "^6.1.0",
     "react-i18next": "^11.18.3",
