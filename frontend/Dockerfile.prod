@@ -4,7 +4,7 @@ COPY package*.json /app/
 ENV NODE_OPTIONS="--max-old-space-size=2048"
 RUN npm install 
 COPY . /app/
-RUN npm run build
+RUN sudo npm run build
 
 FROM nginx:1.12-alpine AS production-stage
 # RUN addgroup app && adduser -S -G app app
