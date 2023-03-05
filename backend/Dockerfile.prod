@@ -53,6 +53,6 @@ RUN chown -R app:app $APP_HOME
 
 USER app
 
-RUN chmod +x entrypoint.prod.sh
-ENTRYPOINT ["/home/app/backend/entrypoint.prod.sh"]
+# RUN chmod +x entrypoint.prod.sh
+# ENTRYPOINT ["/home/app/backend/entrypoint.prod.sh"]
 
