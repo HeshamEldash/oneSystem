@@ -2,6 +2,9 @@ import { createContext, useState} from "react";
 import jwt_decode from "jwt-decode";
 import { useNavigate } from "react-router-dom";
 // import APIENDPOINT from "../api/apiEndpoint";
+import APIENDPOINT from "../api/apiEndpoint";
+
+const APIENDPOINT = `${APIENDPOINT}/users`
 
 const AuthContext = createContext({});
 
@@ -27,7 +30,6 @@ export const AuthProvider = ({ children }) => {
   const [error, setError] = useState(false);
 
   const [isLoggingOut, setIsLoggingOut] = useState(false  )
-  const APIENDPOINT = "http://127.0.0.1:8000/app-api/users"
 
 
 
