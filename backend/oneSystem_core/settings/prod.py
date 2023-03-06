@@ -66,5 +66,7 @@ DATABASES = {
 }
 
 
-CORS_ALLOWED_ORIGINS = ["http://157.245.44.13"]
+CORS_ALLOWED_ORIGINS = ["http://157.245.44.13", 
+                        "http://157.245.44.13:1337", 
+                        "http://157.245.44.13:3000"]
 CORS_ALLOW_ALL_ORIGINS = False
