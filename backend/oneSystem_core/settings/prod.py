@@ -9,6 +9,7 @@ SIGNING_KEY = os.environ.get("SIGNING_KEY")
 
 ALLOWED_HOSTS= os.environ.get("DJANGO_ALLOWED_HOSTS").split(" ")
 
+
 FRONT_ENDPOINT = os.environ.get("FRONT_ENDPOINT")
 
 
