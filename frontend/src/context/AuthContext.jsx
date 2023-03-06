@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 // import APIENDPOINT from "../api/apiEndpoint";
 import APIENDPOINT from "../api/apiEndpoint";
 
-const APIENDPOINT = `${APIENDPOINT}/users`
+
 
 const AuthContext = createContext({});
 
@@ -34,7 +34,7 @@ export const AuthProvider = ({ children }) => {
 
 
   let loginUser = async (e) => {
-    let response = await fetch(`${APIENDPOINT}/token/`, {
+    let response = await fetch(`${APIENDPOINT}/users/token/`, {
       method: "POST",
       headers: {
         "Content-type": "application/json",
@@ -86,7 +86,7 @@ export const AuthProvider = ({ children }) => {
 
   const rotateTokens = async () => {
 
-      let response = await fetch(`${APIENDPOINT}/token/refresh/`, {
+      let response = await fetch(`${APIENDPOINT}/users/token/refresh/`, {
       method: "POST",
       headers: {
         "Content-type": "application/json",
