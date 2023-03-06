@@ -8,7 +8,7 @@ SIGNING_KEY = os.environ.get("SIGNING_KEY")
 
 
 # ALLOWED_HOSTS= os.environ.get("DJANGO_ALLOWED_HOSTS").split(" ")
-ALLOWED_HOSTS= ["http://157.245.44.13/", "157.245.44.13", "127.0.0.1", "localhost"]
+ALLOWED_HOSTS= ["http://157.245.44.13/", "157.245.44.13","157.245.44.13:1337", "127.0.0.1", "localhost"]
 # ALLOWED_HOSTS= []
 
 
