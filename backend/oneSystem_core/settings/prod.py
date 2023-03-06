@@ -8,7 +8,7 @@ SIGNING_KEY = os.environ.get("SIGNING_KEY")
 
 
 # ALLOWED_HOSTS= os.environ.get("DJANGO_ALLOWED_HOSTS").split(" ")
-ALLOWED_HOSTS= ["*"]
+ALLOWED_HOSTS= ["http://157.245.44.13/", "157.245.44.13"]
 
 
 FRONT_ENDPOINT = os.environ.get("FRONT_ENDPOINT")
@@ -61,5 +61,5 @@ DATABASES = {
 }
 
 
-CORS_ALLOWED_ORIGINS = []
+CORS_ALLOWED_ORIGINS = ["http://157.245.44.13/"]
 CORS_ALLOW_ALL_ORIGINS = False
