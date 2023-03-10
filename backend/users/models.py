@@ -79,10 +79,10 @@ class Account(AbstractBaseUser, PermissionsMixin):
         """Send an email to this user."""
         send_mail(subject, message, from_email, [self.email], **kwargs)
 
-    @property
-    def is_staff(self):
-        if self.staff:
-            return self.staff.full_name
+    # @property
+    # def is_staff(self):
+    #     if self.staff:
+    #         return self.staff.full_name
 
     @property
     def is_patient(self):
