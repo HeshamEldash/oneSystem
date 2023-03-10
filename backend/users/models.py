@@ -226,7 +226,7 @@ class Employment(models.Model):
     date_employment_end = models.DateField(null=True)
     salary = models.DecimalField(max_digits=6, decimal_places=2, null=True)
     is_active = models.BooleanField(default=True)
-    employment_role = models.CharField(_("user role"), max_length=2, choices=ROLE_CHOICES)
+    employment_role = models.CharField(_("user role"), max_length=6, choices=ROLE_CHOICES)
     
     
     class Meta:
