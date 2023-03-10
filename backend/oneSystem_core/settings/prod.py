@@ -14,6 +14,7 @@ SIGNING_KEY = os.environ.get("SIGNING_KEY")
 #                 "http://157.245.44.13:1337/",
 #                 "127.0.0.1", "localhost"]
 ALLOWED_HOSTS= ["*"]
+CSRF_TRUSTED_ORIGINS =["http://157.245.44.13:1337"]
 
 
 FRONT_ENDPOINT = os.environ.get("FRONT_ENDPOINT")
@@ -67,11 +68,13 @@ DATABASES = {
 
 
 CORS_ALLOWED_ORIGINS = ["http://157.245.44.13", 
+                        "http://157.245.44.13:1337",
                         "http://157.245.44.13:1337", 
                         "http://157.245.44.13:3000",
                         "http://127.0.0.1:8000",
                         "http://127.0.0.1:1337",
                         "http://127.0.0.1:3000",
                         "http://localhost:3000"
+                        
                         ]
 CORS_ALLOW_ALL_ORIGINS = True
