@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import APIENDPOINT from "../api/apiEndpoint";
 
 
-
+// console.log(APIENDPOINT)
 const AuthContext = createContext({});
 
 

@@ -3,7 +3,7 @@ import RegisterationPage from "./pages/registration/Registration.jsx";
 import Header from "./components/Header.jsx";
 import "./application.css";
 import "./newapp.css";
-import "./utility.css";
+import "./utility.css"; 
 import "./components/components.css";
 import Login from "./pages/Login/Login.jsx";
 import { AuthProvider } from "./context/AuthContext.jsx";
@@ -39,10 +39,11 @@ import ProviderNotAuthPage from "./pages/provider/ProviderNotAuthPage.jsx";
 import Home from "./frontApp/views/home.jsx";
 
 
+console.log(import.meta.env.PROD)
 
 function App() {
+
   const {pathname} = useLocation()
-  console.log(pathname)
   return (
     <div className="App {i18n.language === 'en' ? 'english': 'arabic'}">
       <AuthProvider>

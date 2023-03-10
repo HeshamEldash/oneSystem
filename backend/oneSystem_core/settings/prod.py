@@ -1,6 +1,6 @@
 from .common import *
 import os
-DEBUG = False
+DEBUG = True
 
 SECRET_KEY = os.environ.get("SECRET_KEY")
 SIGNING_KEY = os.environ.get("SIGNING_KEY")
@@ -68,5 +68,10 @@ DATABASES = {
 
 CORS_ALLOWED_ORIGINS = ["http://157.245.44.13", 
                         "http://157.245.44.13:1337", 
-                        "http://157.245.44.13:3000"]
-CORS_ALLOW_ALL_ORIGINS = False
+                        "http://157.245.44.13:3000",
+                        "http://127.0.0.1:8000",
+                        "http://127.0.0.1:1337",
+                        "http://127.0.0.1:3000",
+                        "http://localhost:3000"
+                        ]
+CORS_ALLOW_ALL_ORIGINS = True

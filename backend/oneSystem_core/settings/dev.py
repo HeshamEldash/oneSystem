@@ -8,12 +8,12 @@ environ.Env.read_env(env_file= os.path.join(BASE_DIR.parent, '.env'))
 DEBUG = True
 SECRET_KEY=env("SECRET_KEY")
 SIGNING_KEY = "VK15OxWDH8e1gw_cKrdD2Ktoqm4ozUvBxBtYMzkwAjc"
-ALLOWED_HOSTS=["127.0.0.1", "localhost"]
+ALLOWED_HOSTS=["127.0.0.1"]
 
 
 FRONT_ENDPOINT = env("FRONT_ENDPOINT")
 
-print(ALLOWED_HOSTS)
+# print(ALLOWED_HOSTS)
 
 
 
