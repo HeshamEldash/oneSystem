@@ -81,7 +81,8 @@ class Account(AbstractBaseUser, PermissionsMixin):
 
     @property
     def is_staff(self):
-        return self.staff.full_name
+        if self.staff:
+            return self.staff.full_name
 
     @property
     def is_patient(self):
