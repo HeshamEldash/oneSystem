@@ -44,12 +44,14 @@ class AccountManager(BaseUserManager):
         Creates and saves a superuser with the given email, date of
         birth and password.
         """
+        
         user = self.create_user(
             email,
             password=password,
             is_superuser=True,
 
         )
+        user.is_staff = True 
         user.is_admin = True
         user.save(using=self._db)
         return user
@@ -60,7 +62,8 @@ class Account(AbstractBaseUser, PermissionsMixin):
     date_joined = models.DateTimeField(_("date joined"), auto_now_add=True)
     is_active = models.BooleanField(_("active"), default=True)
     is_admin = models.BooleanField(_("staff status"), default=False)
-
+    is_staff = models.BooleanField(default=False)
+    
     USERNAME_FIELD = 'email'
     EMAIL_FIELD = 'email'
     REQUIRED_FIELDS = []
@@ -79,14 +82,6 @@ class Account(AbstractBaseUser, PermissionsMixin):
         """Send an email to this user."""
         send_mail(subject, message, from_email, [self.email], **kwargs)
 
-    # @property
-    # def is_staff(self):
-    #     if self.staff:
-    #         return self.staff.full_name
-
-    @property
-    def is_patient(self):
-        return self.patient
 
     def __str__(self):
         return self.email
