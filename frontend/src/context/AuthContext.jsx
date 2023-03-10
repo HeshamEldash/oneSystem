@@ -1,19 +1,16 @@
-import { createContext, useState} from "react";
+import { createContext, useState } from "react";
 import jwt_decode from "jwt-decode";
 import { useNavigate } from "react-router-dom";
 // import APIENDPOINT from "../api/apiEndpoint";
 import APIENDPOINT from "../api/apiEndpoint";
 
-console.log(import.meta.env.PROD)
-console.log(APIENDPOINT)
+console.log(import.meta.env.PROD);
+console.log(APIENDPOINT);
 const AuthContext = createContext({});
-
 
 export default AuthContext;
 
 export const AuthProvider = ({ children }) => {
-
-
   let [authTokens, setAuthTokens] = useState(() =>
     localStorage.getItem("authTokens")
       ? JSON.parse(localStorage.getItem("authTokens"))
@@ -29,9 +26,7 @@ export const AuthProvider = ({ children }) => {
   const navigate = useNavigate();
   const [error, setError] = useState(false);
 
-  const [isLoggingOut, setIsLoggingOut] = useState(false  )
-
-
+  const [isLoggingOut, setIsLoggingOut] = useState(false);
 
   let loginUser = async (e) => {
     let response = await fetch(`${APIENDPOINT}/users/token/`, {
@@ -51,29 +46,20 @@ export const AuthProvider = ({ children }) => {
       setAuthTokens(data);
       localStorage.setItem("authTokens", JSON.stringify(data));
       setUser(decoded);
-      return true
-    } 
-  
-    else{
-      throw false 
+      return true;
+    } else {
+      throw false;
     }
-
-
-
-
-
-
-
   };
 
   let logoutUser = () => {
     setUser(null);
-    setIsLoggingOut(true )
+    setIsLoggingOut(true);
     setAuthTokens(null);
     localStorage.removeItem("authTokens");
     localStorage.removeItem("provider");
-    localStorage.removeItem("patient_id")
-    location.href = 'http://127.0.0.1:8000/';
+    localStorage.removeItem("patient_id");
+    navigate("/")
   };
   const contextData = {
     authTokens: authTokens,
@@ -81,12 +67,11 @@ export const AuthProvider = ({ children }) => {
     loginUser: loginUser,
     logoutUser: logoutUser,
     erorr: error,
-    isLoggingOut:isLoggingOut
+    isLoggingOut: isLoggingOut,
   };
 
   const rotateTokens = async () => {
-
-      let response = await fetch(`${APIENDPOINT}/users/token/refresh/`, {
+    let response = await fetch(`${APIENDPOINT}/users/token/refresh/`, {
       method: "POST",
       headers: {
         "Content-type": "application/json",
@@ -101,19 +86,18 @@ export const AuthProvider = ({ children }) => {
       setAuthTokens(data);
       setUser(decoded);
       localStorage.setItem("authTokens", JSON.stringify(data));
-
     } else {
       logoutUser();
     }
-    if (loading){
-      setLoading(false)
+    if (loading) {
+      setLoading(false);
     }
   };
 
   // useEffect(() => {
   //   if (loading){
   //     rotateTokens();
-    
+
   //   }
   //   let interval_id = setInterval(() => {
   //     if (authTokens) {
@@ -124,8 +108,7 @@ export const AuthProvider = ({ children }) => {
 
   // }, [authTokens, loading]);
 
-
   return (
-    <AuthContext.Provider value={contextData}>{ children}</AuthContext.Provider>
+    <AuthContext.Provider value={contextData}>{children}</AuthContext.Provider>
   );
 };
