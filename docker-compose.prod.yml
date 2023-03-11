@@ -5,9 +5,13 @@ services:
     build: 
       context: ./frontend
       dockerfile: Dockerfile.prod
+    volumes: 
+      - frontend_volume:/app/build
     ports:
       - 3000:80
+    
     restart: unless-stopped
+
 
   backend:
     build: 
@@ -26,6 +30,7 @@ services:
     depends_on:
       - db
 
+
   db:
     image: postgres:13.0-alpine
     volumes:
@@ -37,17 +42,20 @@ services:
   nginx:
     build: ./nginx
     volumes:
+      - frontend_volume:/usr/share/nginx/html
       - static_volume:/home/app/backend/staticfiles
       - media_volume:/home/app/backend/media
     ports:
       - 1337:80
     depends_on:
       - backend
+      - frontend
 
 
 volumes:
   postgres_data:
   static_volume:
   media_volume:
+  frontend_volume:
     
  
