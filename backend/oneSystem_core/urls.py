@@ -30,7 +30,6 @@ from rest_framework_simplejwt.views import (
 
 urlpatterns = [
 
-    path('', include('website.urls')),
     path('admin/', admin.site.urls),
     path('app-api/records/', include('records.urls')),
     path('app-api/users/', include('users.urls')),

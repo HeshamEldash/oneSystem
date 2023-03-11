@@ -9,3 +9,11 @@ login process if resources are not abailbe
 USER ROLES OWNER IN FRONTEND
 
 https://testdriven.io/blog/dockerizing-django-with-postgres-gunicorn-and-nginx/
+
+
+
+#>>>>>>>PROD<<<<<<<<<
+
+-creat drop down menu 
+-Database managment 
+-hosting 
