@@ -5,7 +5,7 @@ import LanguageSelect from "./LanguageSelect.jsx";
 import "./header.css";
 import LogoutIcon from "@mui/icons-material/Logout";
 import AuthContext from "../context/AuthContext.jsx";
-import logo from "../assets/images/logon.png";
+import logo from "../assets/images/logom.png";
 
 function Header() {
   const { t } = useTranslation();
@@ -41,7 +41,7 @@ function Header() {
             <NavLink
               className="header-coddntent"
               to="/app/staff-dashboard"
-              style={{ display: "block" }}
+              style={{ display: "block", color:"white"}}
             >
               {t("staff_dashboard")}
             </NavLink>

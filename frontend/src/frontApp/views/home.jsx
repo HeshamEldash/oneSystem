@@ -1,8 +1,9 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 // import DangerousHTML from 'dangerous-html/react'
 import { Helmet } from 'react-helmet'
 import { useNavigate } from 'react-router'
+import MobileMenu from '../components/mobileMenu'
 
 import './home.css'
 import './style.css'
@@ -11,6 +12,17 @@ import './style.css'
 const Home = (props) => {
 
   const navigate = useNavigate()
+  const [isOpened, setIsOpened]= useState(false)
+
+  const handleMobileMenu = ()=>{
+    setIsOpened(prev =>!prev)
+  }
+
+
+
+
+
+
   return (
     <div className="home-container">
       <Helmet>
@@ -68,15 +80,27 @@ const Home = (props) => {
                       onClick={()=>navigate("/register/staff")}
                   >Get started</span>
                 </div>
-                <div id="open-mobile-menu" className="home-burger-menu">
+
+
+                <div id="open-mobile-menu" className="home-burger-menu"
+                  onClick={()=>handleMobileMenu()}
+                >
                   <img
                     alt="pastedImage"
                     src="/playground_assets/pastedimage-yxbd.svg"
                     className="home-mobile-menu-button"
                   />
                 </div>
+
+
+
+
               </div>
             </nav>
+              
+
+
+                 {isOpened && <MobileMenu/>}
           </div>
           <div>
 
@@ -483,7 +507,7 @@ const Home = (props) => {
                 href="mailto:use@active-app.com?subject=Support"
                 className="home-link"
               >
-                info@docnet.com
+                info@el-tabeeb.com
               </a>
             </div>
           </div>
@@ -515,7 +539,7 @@ const Home = (props) => {
             src="/playground_assets/logon-200h.png"
             className="home-branding"
           />
-          <span className="home-text85">Copyright © DOCNET- 2022</span>
+          <span className="home-text85">Copyright © el-tabeeb- 2022</span>
         </div>
       </footer>
     </div>

@@ -53,7 +53,7 @@ function GetAllRegisteredPatients({setNumberOfPatients}) {
         paginationCount={patients?.length}
         tableSize=""
         stickyHeader={true}
-        headerBackground={"#a9459a"}
+        headerBackground={"#1890ff"}
       >
         {patients?.map((patient) => {
           return (

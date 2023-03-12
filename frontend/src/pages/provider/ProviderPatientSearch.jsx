@@ -229,7 +229,7 @@ export function ProviderPatientSearch({ exportPt }) {
         paginationCount={patients?.length}
         tableSize=""
         stickyHeader={true}
-        headerBackground={"rgba(225, 0, 120)"}
+        headerBackground={"#1890ff"}
       >
         {patients?.map((patient) => {
           return (

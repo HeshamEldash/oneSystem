@@ -16,11 +16,12 @@
     flex-direction: row;
     justify-content: flex-end;
     align-items: center;
-    gap:2rem;
+    gap:1rem;
     text-decoration: none;
     z-index: 1000;
     box-shadow:var(--shallowShadow);
     background-color: var(--color-dark-purple);
+    background-color: #06367a;
     
 }
 .header_logo{
@@ -35,6 +36,7 @@
 }
 .white{
     color: white;
+    text-transform: capitalize;
 }
 
 .logo{
@@ -47,11 +49,11 @@
     height: 70px;
 
     width: 100%;
-    padding: 20px;
+    /* padding: 20px; */
 }
 .header--small{
     height: 30px;
-    padding: 15px;
+    /* padding: 15px; */
 }
 }
 
@@ -62,15 +64,20 @@
     color:white;
     cursor: pointer;
     text-decoration: none;
-    gap:3px
-  
+    gap:3px;
+    text-transform: capitalize;
+    height: 100%;
+    padding-inline: 4px;
 }
+  
+
 .header-content  *{
     
     color:white;
     cursor: pointer;
     text-decoration: none;
 }
+
 
 .header-content:hover{
     /* padding-block: 0.8em; */

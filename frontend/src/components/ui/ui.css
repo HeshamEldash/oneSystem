@@ -9,6 +9,7 @@
     min-height: 2.7rem;
     max-height: 2.7rem;
     background-color: var(--color-dark-purple);
+    background-color: #06367a;
     align-items: normal;
     min-width: 270px;
     z-index: 150;
@@ -30,9 +31,12 @@
     display: flex;
     background-color: inherit;
     /* max-width: 6.5rem; */
+    font-size: large;
     cursor: pointer;
     align-items: center;
     justify-content: center;
+    padding-inline: 7px;
+    border-radius: 7px;
 }
 .navlink_item img{
   width: 20px;
@@ -44,7 +48,7 @@
     text-align: center;
 }
 .navlink_item:hover{
-    background-color: rgb(96, 110, 133);
+    background-color: #052a5e;
 
 }
 .navlink_item a:active{
@@ -62,7 +66,7 @@
 .navigation-menu li {
     /* removes default disc bullet for li tags and applies margin to left & right side */
     list-style-type: none;
-    margin: 0 0.5rem;
+
   }
 .navigation-menu li a {
     /* increases the surface area of the anchor tag to span more than just the anchor text */
@@ -92,7 +96,14 @@
     background-color: rgb(93, 125, 151);
   }
 
-  @media screen and (max-width: 650px) {
+  @media screen and (max-width: 800px) {
+
+    .main-navbar{
+      top:70px;
+    }
+    .nav_content{
+      justify-content: flex-start;
+    }
     .main-navbar__links{
         height: auto;
         float: none;
@@ -102,22 +113,18 @@
         display: block;
       }
       .navigation-menu ul {
-        /* // navigation menu is positioned to start 60px from the top of the document (which is directly below the navbar) */
-        /* position: absolute; */
         display: none;
         top: 100px;
-        right: 220;
-        /* // stacks the li tags vertically  */
+
         flex-direction: column;
-       /* // makes menu span full height and width */
         width: 100%;
-        background-color: rgb(232, 232, 232);
+        background-color: #fcfcfc;
         border-top: 1px solid black;
       }
       .navigation-menu.expanded ul {
-        /* display: block; */
+    
         display: flex;
-        align-items: center;
+        align-items: start;
    
 
       }
@@ -126,26 +133,53 @@
         background-color: inherit;
         text-decoration: none;
         color: rgba(255, 255, 255, 0.950);
-
         cursor: pointer;
         align-items: center;
+        padding-block: .6rem;
+        padding-inline-start: 3rem;
+
+        
     }
-      .navlink_item--expanded{
-        display: block;
-   
-      }
+    .navlink_item--expanded >* > button{
+      font-family: "IBM Plex Sans",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
+      font-weight: 700;
+      font-size: 1.1rem;
+      line-height: 1.5;
+      text-decoration: none;
+      border: none;
+      width: 100%;
+      letter-spacing: 0;
+      align-items: center;
+      padding: 10px;
+      border-radius: 10px;
+      color: #3E5060;
+    }
+
+    .navlink_item--expanded > a {
+      font-family: "IBM Plex Sans",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
+      font-weight: 700;
+      font-size: 1.1rem;
+      line-height: 1.5;
+      text-decoration: none;
+      border: none;
+      width: 100%;
+      letter-spacing: 0;
+      align-items: center;
+      padding: 10px;
+      border-radius: 10px;
+      color: #3E5060;
+    }
+
       .navigation-menu li {
         /* // centers link text and strips off margin */
-        text-align: center;
+        text-align: start;
         margin: 0;
         width: 100%;
 
       }
       .navigation-menu li a {
-        color: black;
         /* // increases the surface area of the anchor tag to span the full width of the menu */
         width: 100%;
-        padding: 1.5rem 0;
       }
       .navigation-menu li:hover {
         background-color: #eee;
@@ -204,7 +238,7 @@
   background-color: #F082AC;
 }
 
-@media screen and (max-width: 650px) {
+@media screen and (max-width: 800px) {
   .position{
     display: none;
   }

@@ -1,6 +1,5 @@
 import React, { useContext } from "react";
 import { useTranslation } from "react-i18next";
-import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
 import {
   Outlet,
   NavLink,
@@ -35,17 +34,19 @@ function ProviderLayout() {
   return (
     <>
       <Navbar>
+
         {getPath() != "home" && (
           <NavLink
             className="page_button-padding-inline-small"
             to={`/app/provider/${id}`}
           >
-            <img style={{ fill: "white" }} src={home} alt={t("home")} />
+            <img style={{ fill: "white" }} src={home} alt={t("home")} width={"20px"}/>
           </NavLink>
         )}
+        
 
         <NavLink className="" to={`/app/provider/${id}/search-patient`}>
-          <div className="nav_content">
+          <div className="">
             {/* <SearchOutlinedIcon /> */}
             {t("search_patients")}
           </div>
@@ -79,7 +80,7 @@ function ProviderLayout() {
               },
             },
             {
-              name: t(" "),
+              name: t("manage_patients"),
 
               func: () => {
                 navigate(`/app/provider/${id}/manage-patients`);

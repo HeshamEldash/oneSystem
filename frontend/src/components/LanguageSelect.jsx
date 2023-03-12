@@ -49,7 +49,7 @@ const LanguageSelect = () => {
   return (
     <div className="d-flex justify-content-end align-items-center language-select-root">
       <Button ref={anchorRef} onClick={handleToggle}>
-        <span className="white">{languageMap[selected]?.label} </span>
+        <span className="white">{languageMap[selected]?.label || "Language" } </span>
         <ArrowDropDown className="white" fontSize="small" />
       </Button>
       <Popper

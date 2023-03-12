@@ -32,7 +32,10 @@ function NavMenu(props) {
         sx={{marginInlineStart:"8px"}}
          />
          }
-        sx={{ color: "white", paddingInline:"2px" }}
+        sx={{ color: "white", paddingInline:"2px", textTransform:"capitalize", 
+        fontSize:"medium"
+
+        }}
         disableElevation={true}
       >
         {props?.buttonName}
