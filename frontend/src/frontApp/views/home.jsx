@@ -1,9 +1,8 @@
 import React, { useState } from 'react'
-
-// import DangerousHTML from 'dangerous-html/react'
 import { Helmet } from 'react-helmet'
 import { useNavigate } from 'react-router'
-import MobileMenu from '../components/mobileMenu'
+import MobileMenu from '../components/mobileMenu.jsx'
+
 
 import './home.css'
 import './style.css'
@@ -100,7 +99,7 @@ const Home = (props) => {
               
 
 
-                 {isOpened && <MobileMenu/>}
+            {isOpened && <MobileMenu/>}
           </div>
           <div>
 

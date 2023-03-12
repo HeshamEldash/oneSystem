@@ -21,7 +21,7 @@ function MobileMenu() {
         {user &&  <div className='manu_subitem' onClick={()=>navigate("/app/staff-dashboard")}> {t("staff_dashboard")}</div>}
     
         {user && <div className='manu_subitem' onClick={()=>logoutUser()}> {t("logout")}</div>}
-    
+        
     </div>
   )
 }
