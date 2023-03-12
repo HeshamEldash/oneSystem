@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { Helmet } from 'react-helmet'
 import { useNavigate } from 'react-router'
-import MobileMenu from '../components/mobileMenu.jsx'
+import MobileMenu from './MobileMenu.jsx'
 
 
 import './home.css'
