@@ -128,7 +128,13 @@ function AppointmentsSchedulerFormik() {
             onChange={handleChange}
             error={touched.selectedClinic && Boolean(errors.selectedClinic)}
           >
-            {clinics?.map((clinic) => {
+
+            { clinics.length === 0 ? 
+              <MenuItem value={1} key={1} disabled = {true}>
+                  You don't have any clinics. Create a clinic first.
+                </MenuItem>
+                : 
+              clinics?.map((clinic) => {
               return (
                 <MenuItem value={clinic.id} key={clinic.id}>
                   {"Dr "}
@@ -138,7 +144,10 @@ function AppointmentsSchedulerFormik() {
                   {clinic?.speciality}
                 </MenuItem>
               );
-            })}
+            })
+            
+            }
+
           </Select>
         </FormControl>
 

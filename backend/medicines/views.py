@@ -3,6 +3,8 @@ from .serializers import *
 from rest_framework import generics
 from rest_framework import mixins
 from .models import *
+from rest_framework.permissions import AllowAny, IsAuthenticated
+
 
 # Create your views here.
 

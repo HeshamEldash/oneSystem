@@ -39,7 +39,8 @@ INSTALLED_APPS = [
     "records.apps.RecordsConfig",
     "medicines",
     "appointments",
-    "error_handler"
+    "error_handler",
+    "patient"
     
 
 

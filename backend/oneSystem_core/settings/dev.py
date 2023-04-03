@@ -8,13 +8,10 @@ environ.Env.read_env(env_file= os.path.join(BASE_DIR.parent, '.env'))
 DEBUG = True
 SECRET_KEY=env("SECRET_KEY")
 SIGNING_KEY = "VK15OxWDH8e1gw_cKrdD2Ktoqm4ozUvBxBtYMzkwAjc"
-ALLOWED_HOSTS=["127.0.0.1"]
+ALLOWED_HOSTS=["*"]
 
 
 FRONT_ENDPOINT = env("FRONT_ENDPOINT")
-
-# print(ALLOWED_HOSTS)
-
 
 
 SIMPLE_JWT = {
@@ -60,5 +57,5 @@ DATABASES = {
 
 
 
-CORS_ALLOWED_ORIGINS = ["http://localhost:3000"]
+# CORS_ALLOWED_ORIGINS = ["http://localhost:3000"]
 CORS_ALLOW_ALL_ORIGINS = True

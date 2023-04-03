@@ -20,6 +20,9 @@ class PrescribedMedicationSerializer(serializers.ModelSerializer):
 
 class PrescriptionSerializer(serializers.ModelSerializer):
     medications = PrescribedMedicationSerializer(many=True)
+    prescriber_name = serializers.CharField(source="prescriber")
+    provider_name = serializers.CharField(source="provider")
+    
     class Meta:
         model = Prescription
         fields = "__all__"

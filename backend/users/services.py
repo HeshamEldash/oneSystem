@@ -321,6 +321,8 @@ class StaffService:
                     email=email, password=password)
             except IntegrityError:
                 raise ValidationError
+
+            
         staff = Staff.objects.create(account=staff_account,
                                      first_name=first_name, middle_names=middle_names, last_name=last_name, staff_role=staff_role, professional_number=professional_number
                                      )

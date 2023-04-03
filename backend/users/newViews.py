@@ -1,4 +1,3 @@
-from multiprocessing import context
 from .models import Account, Patient, TelephoneNumber
 from .serializers import *
 from rest_framework_simplejwt.views import TokenObtainPairView
@@ -197,7 +196,6 @@ class StaffCreateApi( ApiErrorsMixin , APIView ):
         telephone_number = serializers.CharField(max_length=100)
 
     def post(self, request, *args, **kwargs):
-        print(dir(self))
         serializer = self.InputSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         staff = StaffService().staff_create(**serializer.validated_data)

@@ -31,7 +31,7 @@ urlpatterns = [
 
     path("registration/<int:provider_pk>/<int:patient_pk>/",RegistrationDetailView.as_view(), name= "registration_detail"),
     path("registration-list/<int:provider_pk>/",RegistrationListView.as_view(), name= "registration_list"),
-    path("patient-create/",PatientAccountCreateView.as_view(), name= "patient_create"),
+    # path("patient-create/",PatientAccountCreateView.as_view(), name= "patient_create"),
     
     path("provider/", ProviderCreateView.as_view(), name = "provider"),
     path("provider/<int:pk>/", ProviderDetailView.as_view(), name = "provider_detail"),
