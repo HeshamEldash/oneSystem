@@ -1,10 +1,10 @@
-import { createContext, useState } from "react";
+import { createContext, useEffect, useState } from "react";
 import jwt_decode from "jwt-decode";
 import { useNavigate } from "react-router-dom";
-// import APIENDPOINT from "../api/apiEndpoint";
 import APIENDPOINT from "../api/apiEndpoint";
 
 
+const TOKEN_ROTATION_INTERVAL_IN_MINS = 1000 * 60 * 4
 const AuthContext = createContext({});
 
 export default AuthContext;
@@ -20,6 +20,13 @@ export const AuthProvider = ({ children }) => {
       ? jwt_decode(localStorage.getItem("authTokens"))
       : null
   );
+
+  const [refreshToken, setRefreshToken] = useState(() =>
+    localStorage.getItem("refreshToken")
+      ? JSON.parse(localStorage.getItem("refreshToken"))
+      : null
+  );
+
   const [loading, setLoading] = useState(true);
 
   const navigate = useNavigate();
@@ -42,8 +49,13 @@ export const AuthProvider = ({ children }) => {
     if (response.status === 200) {
       let data = await response.json();
       let decoded = jwt_decode(data.access);
+
       setAuthTokens(data);
       localStorage.setItem("authTokens", JSON.stringify(data));
+
+      setRefreshToken(data.refresh);
+      localStorage.setItem("refreshToken", JSON.stringify(data?.refresh));
+
       setUser(decoded);
       return true;
     } else {
@@ -58,7 +70,7 @@ export const AuthProvider = ({ children }) => {
     localStorage.removeItem("authTokens");
     localStorage.removeItem("provider");
     localStorage.removeItem("patient_id");
-    navigate("/")
+    navigate("/");
   };
   const contextData = {
     authTokens: authTokens,
@@ -75,7 +87,7 @@ export const AuthProvider = ({ children }) => {
       headers: {
         "Content-type": "application/json",
       },
-      body: JSON.stringify({ refresh: authTokens?.refresh }),
+      body: JSON.stringify({ refresh: refreshToken }),
     });
 
     let data = await response.json();
@@ -88,24 +100,25 @@ export const AuthProvider = ({ children }) => {
     } else {
       logoutUser();
     }
+
     if (loading) {
       setLoading(false);
     }
   };
 
-  // useEffect(() => {
-  //   if (loading){
-  //     rotateTokens();
+  useEffect(() => {
+    if (loading) {
+      rotateTokens();
+    }
 
-  //   }
-  //   let interval_id = setInterval(() => {
-  //     if (authTokens) {
-  //       rotateTokens();
-  //     }
-  //   }, 1000 * 60 * 3);
-  //   return () => clearInterval(interval_id);
+    let interval_id = setInterval(() => {
+      if (authTokens) {
+        rotateTokens();
+      }
+    }, TOKEN_ROTATION_INTERVAL_IN_MINS);
 
-  // }, [authTokens, loading]);
+    return () => clearInterval(interval_id);
+  }, [authTokens, loading, refreshToken]);
 
   return (
     <AuthContext.Provider value={contextData}>{children}</AuthContext.Provider>

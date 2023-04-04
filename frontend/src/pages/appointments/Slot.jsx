@@ -1,8 +1,4 @@
-
-import React, {
-  useState,
-  useContext,
-} from "react";
+import React, { useState, useContext } from "react";
 import ContextMenu from "../../components/ContextMenu";
 import ContextMenuItem from "../../components/ContextMenuItem";
 import useSlot from "./hooks/useSlot";
@@ -13,12 +9,17 @@ import BookAppointment from "./BookAppointment";
 
 function Slot({ slotDetails, session }) {
   const { providerId } = useContext(ProviderContext);
-  const { appointmentDetails, status,setStatus,  deleteAppointment, blockSlot,setAppointmentDetails, slotInfo, setSlotInfo } =
-    useSlot(slotDetails);
+  const {
+    appointmentDetails,
+    status,
+    setStatus,
+    deleteAppointment,
+    blockSlot,
+    setAppointmentDetails,
+    slotInfo,
+  } = useSlot(slotDetails);
   const navigate = useNavigate();
   const [openBookAppointment, setOpenBookAppointment] = useState(false);
-
-
 
   return (
     <div
@@ -37,18 +38,13 @@ function Slot({ slotDetails, session }) {
       <ContextMenu targetId={slotInfo.id}>
         <ContextMenuItem
           name={"Book appointment"}
-          func={() => setOpenBookAppointment(prev => true)}
+          func={() => setOpenBookAppointment((prev) => true)}
         />
         <ContextMenuItem name={"Cancel"} func={() => deleteAppointment()} />
         <ContextMenuItem
           name={status.blocked ? "unblock" : "block"}
           func={() => blockSlot()}
         />
-        {/* <ContextMenuItem name={"Status"} func={() => console.log("au KAlam")} />
-        <ContextMenuItem
-          name={"Information"}
-          func={() => console.log("au KAlam")}
-        /> */}
       </ContextMenu>
 
       <div className="slot__date-timebox">
@@ -70,10 +66,11 @@ function Slot({ slotDetails, session }) {
       </div>
 
       {openBookAppointment && (
-        <BookAppointment slot={slotInfo} session={session} 
-        setSlotStatus = {setStatus}
-        setAppointment ={setAppointmentDetails}
-
+        <BookAppointment
+          slot={slotInfo}
+          session={session}
+          setSlotStatus={setStatus}
+          setAppointment={setAppointmentDetails}
         />
       )}
     </div>
