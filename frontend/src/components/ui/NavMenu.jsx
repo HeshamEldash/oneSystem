@@ -51,7 +51,7 @@ function NavMenu(props) {
           vertical: "top",
           horizontal: "right",
         }}
-        sx={{ zIndex:"1000", width:"100%", marginInline:"auto"}}
+        sx={{ zIndex:"1000", width:{xs:"100%",sm:"100%",md:400,lg:400}, marginInline:"auto"}}
       >
         <Paper
           sx={{
