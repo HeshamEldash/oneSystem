@@ -63,6 +63,9 @@ class Account(AbstractBaseUser, PermissionsMixin):
     is_active = models.BooleanField(_("active"), default=True)
     is_admin = models.BooleanField(_("staff status"), default=False)
     is_staff = models.BooleanField(default=False)
+    is_patient = models.BooleanField(default=False)
+    
+    
     
     USERNAME_FIELD = 'email'
     EMAIL_FIELD = 'email'
