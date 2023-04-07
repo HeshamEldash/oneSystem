@@ -6,6 +6,7 @@ RUN npm install
 COPY . /app/
 RUN npm run build --max-old-space-size=2048
 
+
 FROM nginx:1.12-alpine AS production-stage
 # RUN addgroup app && adduser -S -G app app
 # USER app

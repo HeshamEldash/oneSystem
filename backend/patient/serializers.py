@@ -1,4 +1,22 @@
 from rest_framework import serializers
+from .models import *
+
+
+
+
+class WeightSerializer(serializers.ModelSerializer):
+    class Meta:
+        model= Weight
+        fields = "__all__"
+        extra_kwargs = {'patient': {'read_only': True}}
+
+class BloodPressureSerializer(serializers.ModelSerializer):
+    class Meta:
+        model= BloodPressure
+        fields = "__all__"
+        extra_kwargs = {'patient': {'read_only': True}}
+
+
 
 class TelephoneNumberSerializer(serializers.Serializer):
     id = serializers.IntegerField()

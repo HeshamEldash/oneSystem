@@ -3,6 +3,34 @@ from django.db import IntegrityError
 from django.shortcuts import get_object_or_404
 
 from users.models import Account, Patient, PatientTelephoneNumbers
+from .models import *
+
+
+class ProfileService:
+    
+    @staticmethod
+    def create_weight(patient_pk, weight:str):
+       patient =  get_object_or_404(Patient,pk=patient_pk)   
+       weight = Weight.objects.create(patient= patient, weight=weight) 
+       return weight
+   
+    @staticmethod
+    def get_weight_list(patient_pk):
+       patient =  get_object_or_404(Patient,pk=patient_pk)   
+       return patient.weight_set.all()
+   
+    @staticmethod    
+    def create_blood_pressure(patient_pk, **kwargs):
+        patient =  get_object_or_404(Patient,pk=patient_pk)   
+        blood_pressure = BloodPressure.objects.create(patient= patient, **kwargs) 
+        return blood_pressure
+    
+    
+        
+    @staticmethod
+    def get_bp_readings(patient_pk):
+        patient =  get_object_or_404(Patient,pk=patient_pk)   
+        return patient.bloodpressure_set.all()
 
 
 class PatinetService:

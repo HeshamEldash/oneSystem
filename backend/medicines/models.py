@@ -1,5 +1,3 @@
-from enum import unique
-from unittest.util import _MAX_LENGTH
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 from users.models import Account, Patient, Staff, Provider
@@ -20,6 +18,8 @@ class PrescribedMedication(Medication):
     
     def __str__(self):
         return self.name
+
+
 
 
 class Prescription(models.Model):

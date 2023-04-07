@@ -8,7 +8,6 @@ import DocumentsContainer from "./recordDocuments/DocumentsContainer";
 import FileUploader from "./recordDocuments/FileUploader";
 
 function RecordFiles() {
-  const token = JSON.parse(localStorage.getItem("authTokens"));
 
   const [files, setFiles] = useState([]);
   const { upload } = useOutletContext();

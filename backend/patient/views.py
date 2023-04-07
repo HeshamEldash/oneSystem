@@ -8,12 +8,12 @@ from rest_framework.permissions import AllowAny, IsAuthenticated
 
 from users.models import Patient
 from error_handler.api_error_handler import ApiErrorsMixin
-from .serializers import PatientProfileDetailSerializer
-from .services import PatinetService
+from .serializers import PatientProfileDetailSerializer, WeightSerializer, BloodPressureSerializer
+from .services import PatinetService, ProfileService
 
 
 class PatientAccountCreateView(ApiErrorsMixin, APIView):
-    permission_classes = [AllowAny]
+
 
     class InputSerializer(serializers.Serializer):
 
@@ -29,7 +29,7 @@ class PatientAccountCreateView(ApiErrorsMixin, APIView):
 
 
 class PatinetProfileCreateView(ApiErrorsMixin, APIView):
-    permission_classes = [AllowAny]
+
     
     class InputSerializer(serializers.Serializer):
         MALE = "MALE"
@@ -56,17 +56,43 @@ class PatinetProfileCreateView(ApiErrorsMixin, APIView):
     
     
 class PatientProfileGetView(ApiErrorsMixin, APIView):
-    # permission_classes = [IsAuthenticated]
-    permission_classes = [AllowAny]
+
     
     
     def get(self, request, *args, **kwargs):
-        print(request.user)
-        print(self.request.query_params)
         account_pk = self.request.query_params.get("patient_id")
-        print(account_pk)
         patient = PatinetService().get_profile(account_pk)
         return Response(status=status.HTTP_200_OK, data=PatientProfileDetailSerializer(patient).data)
         
         
+class WeightCreateView(ApiErrorsMixin, APIView):
+
+    def post(self,request):
+        pateint_pk =  self.request.query_params.get("patient_id")
+        serializer = WeightSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        weight = ProfileService.create_weight(pateint_pk, **serializer.validated_data)
+        return Response(status=status.HTTP_200_OK, data=WeightSerializer(weight).data)
     
+class WeightGetListView(ApiErrorsMixin, APIView):
+    
+    def get(self,request):
+        pateint_pk =  self.request.query_params.get("patient_id")
+        weights = ProfileService.get_weight_list(pateint_pk)
+        return Response(status=status.HTTP_200_OK, data=WeightSerializer(weights, many=True).data)
+        
+        
+class BloodPressureCreateView(ApiErrorsMixin, APIView):
+    def post(self,request):
+        pateint_pk =  self.request.query_params.get("patient_id")
+        serializer = BloodPressureSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        blood_pressure = ProfileService.create_blood_pressure(pateint_pk, **serializer.validated_data)
+        return Response(status=status.HTTP_200_OK, data=BloodPressureSerializer(blood_pressure).data)
+    
+class BloodPressureGetListView(ApiErrorsMixin, APIView):
+    def get(self,request):
+        pateint_pk =  self.request.query_params.get("patient_id")
+        bp_readings = ProfileService.get_bp_readings(pateint_pk)
+        return Response(status=status.HTTP_200_OK, data=BloodPressureSerializer(bp_readings, many=True).data)
+        

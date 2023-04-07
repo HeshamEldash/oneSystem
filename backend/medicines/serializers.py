@@ -18,6 +18,14 @@ class PrescribedMedicationSerializer(serializers.ModelSerializer):
             return None
 
 
+class RepeatMedicationSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = RepeatMedication
+        fields = "__all__"
+
+ 
+    
+
 class PrescriptionSerializer(serializers.ModelSerializer):
     medications = PrescribedMedicationSerializer(many=True)
     prescriber_name = serializers.CharField(source="prescriber")

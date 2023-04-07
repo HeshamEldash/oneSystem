@@ -4,7 +4,12 @@ from rest_framework import generics
 from rest_framework import mixins
 from .models import *
 from rest_framework.permissions import AllowAny, IsAuthenticated
+from rest_framework.views import   APIView
+from rest_framework.response import Response
+from rest_framework import status
 
+
+from .services import patient_add_medication, get_patient_mediations
 
 # Create your views here.
 
@@ -64,3 +69,34 @@ class UserMedicationPresetView(generics.GenericAPIView, mixins.ListModelMixin, m
     def post(self, request, *args, **kwargs):
         return self.create(request, *args, **kwargs) 
 
+
+
+
+class PatientAddRegularMedicationView(APIView):
+    
+    permission_classes = [AllowAny]
+    class InputSerializer(serializers.Serializer):
+        name = serializers.CharField()
+        dose = serializers.CharField()
+        
+    
+    def post(self, request, *args, **kwargs):
+        patient_pk =  self.request.query_params.get('patient_id', None)
+        
+        serializer = self.InputSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        
+        newMedication = patient_add_medication(patient_pk, **serializer.validated_data)
+        return Response(status=status.HTTP_200_OK, data=PrescribedMedicationSerializer(newMedication).data)
+
+
+class GetPatientAddedMedicationView(APIView):
+    permission_classes = [AllowAny]
+    
+    def get(self,request): 
+        patient_pk =  self.request.query_params.get('patient_id', None)
+        repeat_medications = get_patient_mediations(patient_pk)
+        print(repeat_medications)
+        return Response(status=status.HTTP_200_OK, data=RepeatMedicationSerializer(repeat_medications, many=True).data)
+        
+        
