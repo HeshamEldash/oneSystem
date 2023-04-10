@@ -39,6 +39,8 @@ import ProviderNotAuthPage from "./pages/provider/ProviderNotAuthPage.jsx";
 import Home from "./frontApp/views/home.jsx";
 
 
+
+
 console.log(import.meta.env.PROD)
 
 function App() {
@@ -50,6 +52,7 @@ function App() {
 
       {pathname != "/" &&  <Header/>}
 
+    
         <Routes>
           <Route element={<Home />} exact path="/" />
 

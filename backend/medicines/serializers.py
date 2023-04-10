@@ -28,8 +28,8 @@ class RepeatMedicationSerializer(serializers.ModelSerializer):
 
 class PrescriptionSerializer(serializers.ModelSerializer):
     medications = PrescribedMedicationSerializer(many=True)
-    prescriber_name = serializers.CharField(source="prescriber")
-    provider_name = serializers.CharField(source="provider")
+    prescriber_name = serializers.CharField(source="prescriber", read_only=True)
+    provider_name = serializers.CharField(source="provider", read_only=True)
     
     class Meta:
         model = Prescription
