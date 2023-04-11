@@ -40,7 +40,7 @@ function RecordsClinicalTree({setShowPrescriptions}) {
         {t("main_record")}
       </div>
       <div
-        className="clnical_tree__component"
+        className="clnical_tree__component twelevth-medications"
         onClick={() => {handleClick("medications",setShowMedicationSubTree )
         // setShowPrescriptions(false)
         }}
@@ -62,7 +62,7 @@ function RecordsClinicalTree({setShowPrescriptions}) {
         {t("vaccines")}
       </div>
       <div
-        className="clnical_tree__component"
+        className="clnical_tree__component eighteenth-past-history"
         onClick={() => handleClick("past-history")}
       >
         <img src={history} alt="history Logo" />
@@ -81,7 +81,7 @@ function RecordsClinicalTree({setShowPrescriptions}) {
       </div>
 
       <div
-        className="clnical_tree__component"
+        className="clnical_tree__component nighnteenth-documents"
         onClick={() =>handleClick("files")}
       >
         <img src={document} alt="document Logo" />

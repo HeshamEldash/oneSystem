@@ -44,7 +44,7 @@ function ResultsBox(props) {
       }));
   
   return (
-    <div className="results-bosx inner-page-box">
+    <div className="results-bosx inner-page-box ">
     <TableContainer  sx={{ maxHeight: 440 }}>
       <Table size={props.tableSize} stickyHeader={props.stickyHeader}>
         <TableHead>

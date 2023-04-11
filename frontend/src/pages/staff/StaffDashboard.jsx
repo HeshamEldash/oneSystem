@@ -24,10 +24,10 @@ function StaffDashboard() {
   return (
       <>
       <div className="main_page_under_nav">
-      <div className="page_header_container">
+      <div className="page_header_container ">
         <h1 className="page_header">{t("My Dashboard")}</h1>
       </div>
-        <div className="primary--page-box">
+        <div className="primary--page-box ">
           <h2 className="margin_bottom_small"> {t("profile_information_personal")}</h2>
           <h4 className="subtitle">{t("Name")}:</h4>
           {staffProfile?.staff_profile?.first_name}{" "}
@@ -66,7 +66,7 @@ function StaffDashboard() {
         </div>
 
         {!!ownedProvider ? (
-          <div className="primary--page-box">
+          <div className="primary--page-box first-owned-clinic  third-provider-button">
             <h2 className="margin_bottom_small"> {t("your_clinic")}</h2>
 
             <StaffProfileItem
@@ -76,7 +76,7 @@ function StaffDashboard() {
             />
           </div>
         ) : (
-          <div className="primary--page-box">
+          <div className="primary--page-box first-owned-clinic ">
             <span className="call-to-action__header">
               {t("would you like to register a clinic to your account?")}
             </span>
@@ -92,7 +92,7 @@ function StaffDashboard() {
           </div>
         )}
 
-        <div className="primary--page-box">
+        <div className="primary--page-box second-employments">
           <h2 className="margin_bottom_small"> {t("your_profiles")}</h2>
 
           <StaffProfiles 

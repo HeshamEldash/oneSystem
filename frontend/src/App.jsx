@@ -37,11 +37,11 @@ import StaffWrapper from "./pages/staff/StaffWrapper.jsx";
 import NotFound from "./pages/NotFound.jsx";
 import ProviderNotAuthPage from "./pages/provider/ProviderNotAuthPage.jsx";
 import Home from "./frontApp/views/home.jsx";
+import Tour from "./components/Tour.jsx";
 
 
 
 
-console.log(import.meta.env.PROD)
 
 function App() {
 
@@ -52,7 +52,9 @@ function App() {
 
       {pathname != "/" &&  <Header/>}
 
-    
+        <Tour
+          path={pathname}
+        />
         <Routes>
           <Route element={<Home />} exact path="/" />
 

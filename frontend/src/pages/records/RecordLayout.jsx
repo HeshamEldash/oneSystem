@@ -77,7 +77,7 @@ export default function RecordLayout() {
 
               {path === "medications" && (
                 <div
-                  className="action_bar__element"
+                  className="action_bar__element thighrteenth-medication-prescribe"
                   onClick={() => setShowMedicationPanel((prev) => !prev)}
                 >
                   <Tooltip title="Prescribe">

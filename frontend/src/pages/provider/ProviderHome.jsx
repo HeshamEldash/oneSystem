@@ -16,10 +16,11 @@ function ProviderHome() {
 
   return (
     <div className="provider-home-mhain">
+  
       <div className="primary--page-box">
         <h1>{profile?.name}</h1>
       </div>
-      <div className="primary--page-box">
+      <div className="primary--page-box fourth-appointments">
         <h2>{t("Appointments Today")}</h2>
         <div className="flex-row inner-page-box--flex-row flex-ai-center flex-jc-space-between">
           <Circle>{todayAppts?.length}</Circle>
@@ -31,7 +32,7 @@ function ProviderHome() {
           />
         </div>
       </div>
-      <div className="primary--page-box">
+      <div className="primary--page-box fifth-branches">
         <h2>bracnhes</h2>
         {branches?.map((branch) => {
           return <BranchDisplayBox key={branch.id} branch={branch} />;

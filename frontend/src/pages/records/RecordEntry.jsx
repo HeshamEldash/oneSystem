@@ -62,7 +62,7 @@ function RecordEntry(props) {
 
   return (
     <div
-      className="record_entry"
+      className="record_entry eleventh-consultation"
       style={{ display: props.showConsultationBox ? "flex" : "none" }}
     >
       <div className="record_entry__segment">

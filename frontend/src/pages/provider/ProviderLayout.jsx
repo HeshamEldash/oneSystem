@@ -62,7 +62,7 @@ function ProviderLayout() {
             {t("opened patient")}
           </NavLink>
         )}
-
+        <div className="eighth-patients"></div>
         <NavMenu
           buttonName={t("patients")}
           menuItems={[
@@ -90,7 +90,10 @@ function ProviderLayout() {
         ></NavMenu>
 
           {user_perms.isManager || user_perms.isOwner ?
+            <>
+            <div className="sixth-settings"></div>
             <NavMenu
+
             buttonName={t("Settings")}
             menuItems={[
               {
@@ -107,11 +110,11 @@ function ProviderLayout() {
                 },
               },
             ]}
-          ></NavMenu> :
+          ></NavMenu></> :
           null
           }
         
-
+        <div className="seventh-appointments"></div>
         <NavMenu
           buttonName={t("appointments")}
           menuItems={[

@@ -298,6 +298,8 @@ function MedicationPrescribePanel({showMedicationPanel, setParent}) {
 
   return (
     <div className="medication_px_panel " style={{display:showMedicationPanel ?"block":"none" }}>
+
+      <div className="fourteenth-mediaction-panel">
       free Text
       <Switch
         checked={apiPx}
@@ -306,12 +308,13 @@ function MedicationPrescribePanel({showMedicationPanel, setParent}) {
         }}
       />
       Computer prescription
+      </div>  
       <br />
       <br />
       {apiPx ? (
         <div>
           <div className="search_box">
-            <form className="search_box__form" onSubmit={handleSubmit}>
+            <form className="search_box__form fifteenth-medication-database-try" onSubmit={handleSubmit}>
               <Autocomplete
                 value={value}
                 inputValue={inputValue}
@@ -523,9 +526,8 @@ function MedicationPrescribePanel({showMedicationPanel, setParent}) {
         </div>
 
         <button
-          className="record_entry__button border_radius_5 shallow_shadow"
+          className="record_entry__button border_radius_5 shallow_shadow sixteenth-medication-prescribe"
           onClick={() => handlePresciption()}
-          // disabled={!selectedMedicine & !freeTextMedicineRef.current?.value === "" }
         >
           Prescribe
         </button>

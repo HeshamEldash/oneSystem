@@ -80,7 +80,7 @@ export function ProviderPatientSearch({ exportPt }) {
       <h1>search a patient</h1>
 
       <form
-        className="search-form primary--page-bdox"
+        className="search-form primary--page-bdox nighth-first-name-search"
         type="submit"
         onSubmit={handleSubmit}
       >
@@ -216,6 +216,7 @@ export function ProviderPatientSearch({ exportPt }) {
         </div>
       </form>
 
+      <div className="tenth-search-results">
       <ResultsBox
         headerElements={[
           "first name",
@@ -265,6 +266,7 @@ export function ProviderPatientSearch({ exportPt }) {
           );
         })}
       </ResultsBox>
+      </div>
     </>
   );
 }
