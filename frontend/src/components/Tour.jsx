@@ -1,4 +1,5 @@
-import React, { useEffect, useReducer } from "react";
+import { Button } from "antd";
+import React, { useEffect, useReducer, useState } from "react";
 import JoyRide, { ACTIONS, EVENTS, STATUS } from "react-joyride";
 
 const TOUR_STEPS = [
@@ -105,7 +106,7 @@ const APPOINTMENT_STEPS = [
 ];
 
 const INITIAL_STATE = {
-  run: true,
+  run: false,
   continuous: true,
   loading: false,
   stepIndex: 0, // Make the component controlled
@@ -118,24 +119,32 @@ const reducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
     // start the tour
     case "START":
-      return { ...state, run: true };
+      return { ...state, run: true, status: "test" };
     // Reset to 0th step
     case "RESET":
-      return { ...state, stepIndex: 0 };
+      return { ...state, stepIndex: 0, status: "test" };
     // Stop the tour
     case "STOP":
-      return { ...state, run: false };
+      return { ...state, run: false, status: "test" };
     // Update the steps for next / back button click
     case "NEXT_OR_PREV":
-      return { ...state, ...action.payload };
+      return { ...state, status: "test", ...action.payload };
     // Restart the tour - reset go to 1st step, restart create new tour
     case "RESTART":
       return {
-        ...state,
-        stepIndex: 0,
-        run: true,
+        run: false,
+        continuous: true,
         loading: false,
+        stepIndex: 0, // Make the component controlled
+        steps: TOUR_STEPS,
+        debug: true,
         key: new Date(),
+      };
+    case "KILL":
+      return {
+        run: false,
+        steps: TOUR_STEPS,
+        debug: true,
       };
     default:
       return state;
@@ -143,26 +152,76 @@ const reducer = (state = INITIAL_STATE, action) => {
 };
 
 const Tour = ({ pathname }) => {
+  const [tourState, dispatch] = useReducer(reducer, INITIAL_STATE);
+  const [tourData, setTourData] = useState({});
+  const [tourKilled, setTourKilled] = useState(false);
+
+  useEffect(() => {
+    // if (!localStorage.getItem("tour")) {
+    // }
+    !tourKilled && dispatch({ type: "START" });
+  }, [pathname]);
+
   const callback = (data) => {
     const { action, index, type, status } = data;
-
-    if (type === EVENTS.STEP_AFTER || type === EVENTS.TARGET_NOT_FOUND) {
-      console.log(action, index, type, status);
-      
+    setTourData(data);
+    if (type === EVENTS.TARGET_NOT_FOUND) {
+      dispatch({ type: "STOP", payload: { stepIndex: index } });
+    } else if (
+      action === ACTIONS.CLOSE ||
+      (status === STATUS.SKIPPED && tourState.run) ||
+      status === STATUS.FINISHED
+    ) {
+      dispatch({ type: "STOP" });
+    } else if (type === EVENTS.STEP_AFTER) {
+      dispatch({
+        type: "NEXT_OR_PREV",
+        payload: { stepIndex: index + (action === ACTIONS.PREV ? -1 : 1) },
+      });
     }
+  };
 
-
+  const handleButtonClick = () => {
+    if (
+      tourData.status === "paused" ||
+      tourData.status === "stopped" ||
+      tourData.status === "skipped"
+    ) {
+      dispatch({ type: "START" });
+    } else {
+      dispatch({ type: "KILL" });
+      setTourKilled(true);
+    }
   };
 
   return (
     <>
+      <Button
+        onClick={handleButtonClick}
+        style={{
+          position: "fixed",
+          zIndex: "1000000",
+          top: "10",
+          bottom: "10px",
+          right: "10px",
+          height: "40px",
+          textDecoration: "none",
+        }}
+        disabled={tourKilled}
+      >
+        {(tourData.status === "paused" ||
+          tourData.status === "stopped" ||
+          tourData.status === "skipped") &&
+          "Restart Tour"}
+
+        {tourData.status === "running" && !tourKilled && "Kill Tour"}
+      </Button>
+
       <JoyRide
+        {...tourState}
         callback={callback}
         debug={true}
-        steps={TOUR_STEPS}
-        continuous={true}
         showSkipButton={true}
-        key={new Date()}
         styles={{
           tooltipContainer: {
             textAlign: "left",

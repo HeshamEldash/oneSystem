@@ -53,7 +53,7 @@ function App() {
       {pathname != "/" &&  <Header/>}
 
         <Tour
-          path={pathname}
+          pathname={pathname}
         />
         <Routes>
           <Route element={<Home />} exact path="/" />
